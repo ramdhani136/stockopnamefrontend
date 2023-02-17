@@ -1,6 +1,7 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { LoginPage, HomePage, SchedulePage } from "./pages";
 
+
 const App: React.FC = () => {
   return (
     <BrowserRouter>
