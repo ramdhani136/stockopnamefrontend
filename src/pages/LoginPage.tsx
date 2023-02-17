@@ -35,16 +35,30 @@ const LoginPage: React.FC = () => {
     usernameRef.current?.focus();
   }, []);
 
+  const coba = async () => {
+    const uri = `http://localhost:5000/users/token`;
+    const data = await axios.get(uri, {
+      withCredentials: true,
+    });
+    console.log(data);
+  };
+
   const handleLogin = async (event: any) => {
     setIsloading(true);
-    const uri = `${process.env.REACT_APP_PUBLIC_URI}users/login`;
+    const uri = `http://localhost:5000/users/login`;
     event.preventDefault();
     try {
-      const login: any = await axios.post(uri, {
-        username: value.username,
-        password: value.password,
-      });
-      //   LocalStorage.saveData(LocalStorageType.TOKEN,login.data.accessToken);
+      const login: any = await axios.post(
+        uri,
+        {
+          username: value.username,
+          password: value.password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      // LocalStorage.saveData(LocalStorageType.TOKEN,login.data.accessToken);
       await Swal.fire({
         position: "center",
         icon: "success",
@@ -76,7 +90,10 @@ const LoginPage: React.FC = () => {
               <div className="flex justify-center mt-5 animate-bounce">
                 <img className="w-1/4" src={logo} />
               </div>
-              <h2 className="text-xl p-4 font-bold text-[1.5em] lg:text-lg  -mt-14 ">
+              <h2
+                onClick={coba}
+                className="text-xl p-4 font-bold text-[1.5em] lg:text-lg  -mt-14 "
+              >
                 Login
               </h2>
               <form
