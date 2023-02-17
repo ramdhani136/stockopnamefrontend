@@ -48,6 +48,7 @@ class RequestData implements IData {
       return Promise.reject(error);
     }
   };
+  
   // FINDONE = async (id: string | number): Promise<any> => {
   //   try {
   //     const result = await FeatchApi({

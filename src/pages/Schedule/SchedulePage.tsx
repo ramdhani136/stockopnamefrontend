@@ -14,7 +14,6 @@ export const SchedulePage: React.FC = () => {
         page: 1,
         fields: ["name", "user.name"],
       });
-      console.log(result.data);
       setSchedule(result.data);
     } catch (error: any) {
       if (error.status === 401) {
