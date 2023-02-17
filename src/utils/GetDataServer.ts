@@ -7,7 +7,7 @@ interface IPut {
 
 interface IData {
   data: string;
-  FIND: (options: IOption) => Promise<object>;
+  FIND: (options: IFindOption) => Promise<object>;
   FINDONE?: (doc: string | number) => Promise<any>;
   CREATE?: (doc: object) => Promise<IResponse>;
   UPDATE?: (doc: IPut) => Promise<IResponse>;
@@ -19,7 +19,7 @@ interface IResponse {
   data: any;
 }
 
-interface IOption {
+interface IFindOption {
   limit?: number;
   page?: number;
   fields?: any[];
@@ -35,7 +35,7 @@ class RequestData implements IData {
     this.data = requestData;
   }
 
-  FIND = async (options: IOption): Promise<object> => {
+  FIND = async (options: IFindOption): Promise<object> => {
     let fields: String = ``;
     try {
       if (options.fields) {
