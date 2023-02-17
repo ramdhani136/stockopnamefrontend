@@ -23,7 +23,11 @@ FetchApi.interceptors.request.use(
         } catch (error: any) {
           if (error.response.status == 401) {
             LocalStorage.removeData(LocalStorageType.TOKEN);
-            return Promise.reject({ msg: `Error, ${error.response.data.msg}` });
+
+            return Promise.reject({
+              status: 401,
+              msg: `Error, ${error.response.data.msg}`,
+            });
           }
           return Promise.reject(error);
         }
@@ -32,7 +36,7 @@ FetchApi.interceptors.request.use(
         return config;
       }
     }
-    return Promise.reject({ msg: "Your not login!" });
+    return Promise.reject({ status: 401, msg: "Your not login!" });
   },
   (error) => {
     return Promise.reject(error);

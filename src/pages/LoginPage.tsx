@@ -8,7 +8,6 @@ import logo from "../assets/images/icon.png";
 import { useNavigate } from "react-router-dom";
 import { LocalStorage, LocalStorageType, Meta } from "../utils";
 import { LoadingComponent } from "../components/moleculs";
-import jwt_decode from "jwt-decode";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
