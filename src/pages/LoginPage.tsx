@@ -35,15 +35,7 @@ const LoginPage: React.FC = () => {
     usernameRef.current?.focus();
   }, []);
 
-  const coba = async () => {
-    const uri = `http://localhost:5000/users/token`;
-    const result = await axios.get(uri, {
-      withCredentials: true,
-    });
 
-    const decoded = jwt_decode(result.data.token);
-    console.log(decoded);
-  };
 
   const handleLogin = async (event: any) => {
     setIsloading(true);
@@ -93,7 +85,6 @@ const LoginPage: React.FC = () => {
                 <img className="w-1/4" src={logo} />
               </div>
               <h2
-                onClick={coba}
                 className="text-xl p-4 font-bold text-[1.5em] lg:text-lg  -mt-14 "
               >
                 Login
