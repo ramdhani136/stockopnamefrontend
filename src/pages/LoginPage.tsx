@@ -6,9 +6,9 @@ import Swal from "sweetalert2";
 import logo from "../assets/images/icon.png";
 
 import { useNavigate } from "react-router-dom";
-// import LocalStorage, { LocalStorageType } from "../utills/LocalStorage";
-import { Meta } from "../utils";
+import { LocalStorage, LocalStorageType, Meta } from "../utils";
 import { LoadingComponent } from "../components/moleculs";
+import jwt_decode from "jwt-decode";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -29,18 +29,20 @@ const LoginPage: React.FC = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // if (LocalStorage.loadData(LocalStorageType.TOKEN)) {
-    //   navigate("/");
-    // }
+    if (LocalStorage.loadData(LocalStorageType.TOKEN)) {
+      navigate("/");
+    }
     usernameRef.current?.focus();
   }, []);
 
   const coba = async () => {
     const uri = `http://localhost:5000/users/token`;
-    const data = await axios.get(uri, {
+    const result = await axios.get(uri, {
       withCredentials: true,
     });
-    console.log(data);
+
+    const decoded = jwt_decode(result.data.token);
+    console.log(decoded);
   };
 
   const handleLogin = async (event: any) => {
@@ -58,7 +60,7 @@ const LoginPage: React.FC = () => {
           withCredentials: true,
         }
       );
-      // LocalStorage.saveData(LocalStorageType.TOKEN,login.data.accessToken);
+      LocalStorage.saveData(LocalStorageType.TOKEN, login.data.token);
       await Swal.fire({
         position: "center",
         icon: "success",
