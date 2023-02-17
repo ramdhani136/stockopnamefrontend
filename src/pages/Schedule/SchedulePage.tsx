@@ -16,7 +16,7 @@ export const SchedulePage: React.FC = () => {
       if (error.status == 401) {
         navigate("/login");
       }
-      //   console.log(error.msg);
+      alert(error.msg ?? "Get data error!");
     }
   };
 
