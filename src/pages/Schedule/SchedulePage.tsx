@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LayoutComponent } from "../../components/organisme";
-import { FetchApi } from "../../utils";
+import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 
 export const SchedulePage: React.FC = () => {
   const [schedules, setSchedule] = useState<any[]>([]);
 
   const navigate = useNavigate();
   const getSchedule = async (): Promise<any> => {
-    const uri = `http://localhost:5000/schedule`;
     try {
-      const result: any = await FetchApi.get(uri);
-      setSchedule(result.data.data);
+      const result: any = await GetDataServer(DataAPI.SCHEDULE).FIND();
+      setSchedule(result.data);
     } catch (error: any) {
-      if (error.status == 401) {
+      if (error.status === 401) {
         navigate("/login");
       }
-      alert(error.msg ?? "Get data error!");
+      alert(error.msg);
     }
   };
 
@@ -27,9 +26,8 @@ export const SchedulePage: React.FC = () => {
   return (
     <>
       <LayoutComponent />
-      {schedules.map((item, key) => (
-        <div key={key}>{item.name}</div>
-      ))}
+      {schedules &&
+        schedules.map((item, key) => <div key={key}>{item.name}</div>)}
     </>
   );
 };
