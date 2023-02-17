@@ -7,7 +7,7 @@ interface IPut {
 
 interface IData {
   data: string;
-  FIND: () => Promise<object>;
+  FIND: (options: IOption) => Promise<object>;
   FINDONE?: (doc: string | number) => Promise<any>;
   CREATE?: (doc: object) => Promise<IResponse>;
   UPDATE?: (doc: IPut) => Promise<IResponse>;
@@ -17,6 +17,11 @@ interface IData {
 interface IResponse {
   status: boolean;
   data: any;
+}
+
+interface IOption {
+  limit?: number;
+  page?: number;
 }
 
 export enum DataAPI {
@@ -29,9 +34,9 @@ class RequestData implements IData {
     this.data = requestData;
   }
 
-  FIND = async (): Promise<object> => {
+  FIND = async (options: IOption): Promise<object> => {
     try {
-      const uri = `http://localhost:5000/${this.data}`;
+      const uri = `http://localhost:5000/${this.data}?limit=${options.limit}&page=${options.page}`;
       const result: any = await FetchApi.get(uri);
       return result.data;
     } catch (error: any) {

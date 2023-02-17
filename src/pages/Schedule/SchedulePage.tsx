@@ -9,7 +9,10 @@ export const SchedulePage: React.FC = () => {
   const navigate = useNavigate();
   const getSchedule = async (): Promise<any> => {
     try {
-      const result: any = await GetDataServer(DataAPI.SCHEDULE).FIND();
+      const result: any = await GetDataServer(DataAPI.SCHEDULE).FIND({
+        limit: 20,
+        page:1,
+      });
       setSchedule(result.data);
     } catch (error: any) {
       if (error.status === 401) {
