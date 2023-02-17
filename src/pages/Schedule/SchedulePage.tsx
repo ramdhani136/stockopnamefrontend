@@ -16,7 +16,7 @@ export const SchedulePage: React.FC = () => {
       if (error.status == 401) {
         navigate("/login");
       }
-      console.log(error.msg);
+      //   console.log(error.msg);
     }
   };
 
@@ -27,7 +27,6 @@ export const SchedulePage: React.FC = () => {
   return (
     <>
       <LayoutComponent />
-      {console.log(schedules)}
       {schedules.map((item, key) => (
         <div key={key}>{item.name}</div>
       ))}
