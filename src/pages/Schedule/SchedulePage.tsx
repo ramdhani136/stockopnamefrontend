@@ -13,6 +13,11 @@ export const SchedulePage: React.FC = () => {
         limit: 20,
         page: 1,
         fields: ["name", "user.name"],
+        filters: [
+          ["name", "=", "SCH202302005"],
+          ["name", "=", "SCH202302004"],
+        ],
+        orderBy: { name: 1 },
       });
       setSchedule(result.data);
     } catch (error: any) {

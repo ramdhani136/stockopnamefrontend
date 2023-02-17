@@ -22,7 +22,9 @@ interface IResponse {
 interface IFindOption {
   limit?: number;
   page?: number;
-  fields?: any[];
+  fields?: String[];
+  filters?: [String, String, String][];
+  orderBy?: { [key: string]: number };
 }
 
 export enum DataAPI {
@@ -37,18 +39,26 @@ class RequestData implements IData {
 
   FIND = async (options: IFindOption): Promise<object> => {
     let fields: String = ``;
+    let filters: String = ``;
+    let orderBy: String = "";
     try {
       if (options.fields) {
         fields = `&&fields=${JSON.stringify(options.fields)}`;
       }
-      const uri = `http://localhost:5000/${this.data}?limit=${options.limit}&page=${options.page}${fields}`;
+      if (options.filters) {
+        filters = `&&filters=${JSON.stringify(options.filters)}`;
+      }
+      if (options.orderBy) {
+        orderBy = `&&order_by=${JSON.stringify(options.orderBy)}`;
+      }
+      const uri = `http://localhost:5000/${this.data}?limit=${options.limit}&page=${options.page}${fields}${filters}${orderBy}`;
       const result: any = await FetchApi.get(uri);
       return result.data;
     } catch (error: any) {
       return Promise.reject(error);
     }
   };
-  
+
   // FINDONE = async (id: string | number): Promise<any> => {
   //   try {
   //     const result = await FeatchApi({
