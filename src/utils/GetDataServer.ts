@@ -22,6 +22,7 @@ interface IResponse {
 interface IOption {
   limit?: number;
   page?: number;
+  fields?: any[];
 }
 
 export enum DataAPI {
@@ -35,8 +36,12 @@ class RequestData implements IData {
   }
 
   FIND = async (options: IOption): Promise<object> => {
+    let fields: String = ``;
     try {
-      const uri = `http://localhost:5000/${this.data}?limit=${options.limit}&page=${options.page}`;
+      if (options.fields) {
+        fields = `&&fields=${JSON.stringify(options.fields)}`;
+      }
+      const uri = `http://localhost:5000/${this.data}?limit=${options.limit}&page=${options.page}${fields}`;
       const result: any = await FetchApi.get(uri);
       return result.data;
     } catch (error: any) {

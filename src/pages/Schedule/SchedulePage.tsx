@@ -11,8 +11,10 @@ export const SchedulePage: React.FC = () => {
     try {
       const result: any = await GetDataServer(DataAPI.SCHEDULE).FIND({
         limit: 20,
-        page:1,
+        page: 1,
+        fields: ["name", "user.name"],
       });
+      console.log(result.data);
       setSchedule(result.data);
     } catch (error: any) {
       if (error.status === 401) {
