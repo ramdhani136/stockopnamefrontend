@@ -38,15 +38,15 @@ const SidebarComponent: React.FC = () => {
             style={{ fontSize: 21 }}
           />
         </div>
-        <nav
+        {/* <nav
           className={`${
             !open && "hidden duration-500"
           } h-8 border-b border-[#393a3b] text-[#48494b]`}
         >
           Search
-        </nav>
+        </nav> */}
         <div className="mt-4 flex flex-col  gap-2 relative">
-          <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2">MENU</h4>
+          <h4 className="text-[#515254] text-[0.65em] font-bold ml-2">MENU</h4>
           {menus.map((menu, id) => (
             <Link
               to={menu.link}
@@ -75,7 +75,7 @@ const SidebarComponent: React.FC = () => {
           ))}
         </div>
         <div className={` w-full flex-1 flex  justify-end flex-col mb-7`}>
-          <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2">
+          <h4 className="text-[#515254] text-[0.65em] font-bold ml-2">
             PROFILE
           </h4>
           <div className="flex justify-between items-center">
