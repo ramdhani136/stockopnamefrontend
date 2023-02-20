@@ -38,13 +38,6 @@ const SidebarComponent: React.FC = () => {
             style={{ fontSize: 21 }}
           />
         </div>
-        {/* <nav
-          className={`${
-            !open && "hidden duration-500"
-          } h-8 border-b border-[#393a3b] text-[#48494b]`}
-        >
-          Search
-        </nav> */}
         <div className="mt-4 flex flex-col  gap-2 relative">
           <h4 className="text-[#515254] text-[0.65em] font-bold ml-2">MENU</h4>
           {menus.map((menu, id) => (
