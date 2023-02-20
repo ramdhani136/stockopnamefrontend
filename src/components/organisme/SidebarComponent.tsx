@@ -5,32 +5,36 @@ import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import { Link } from "react-router-dom";
 import HeaderComponent from "./HeaderComponent";
+import { Avatar } from "@mui/material";
 
 const SidebarComponent: React.FC = () => {
   const menus = [
     { name: "dashboard", link: "/", icon: DashboardOutlinedIcon },
-    { name: "schedule", link: "/schedule", icon: AssignmentOutlinedIcon },
-    { name: "report", link: "/report", icon: AssessmentOutlinedIcon },
+    { name: "schedules", link: "/schedule", icon: AssignmentOutlinedIcon },
+    { name: "reports", link: "/report", icon: AssessmentOutlinedIcon },
   ];
 
   const [open, setOpen] = useState<boolean>(true);
 
   return (
-    <section className="flex ">
+    <section className="flex">
       <div
         className={`bg-[#1b1c1e] min-h-screen ${
           open ? "w-72" : "w-16"
-        } text-gray-100 duration-500 px-3`}
+        } text-gray-100 duration-500 px-3 flex flex-col justify-around`}
       >
         <div
           className="py-3 flex  justify-between items-center"
           onClick={() => setOpen(!open)}
         >
-          <h1 className={`${!open && "hidden duration-500"} ml-2 text-2xl`}>
+          <h1 className={`${!open && "hidden duration-500"} ml-1 text-2xl`}>
             SOSystem
           </h1>
 
-          <SegmentIcon className="cursor-pointer ml-1" style={{fontSize:21}} />
+          <SegmentIcon
+            className="cursor-pointer ml-1"
+            style={{ fontSize: 21 }}
+          />
         </div>
         <nav
           className={`${
@@ -40,13 +44,14 @@ const SidebarComponent: React.FC = () => {
           Search
         </nav>
         <div className="mt-4 flex flex-col  gap-2 relative">
+          <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2 ">MENU</h4>
           {menus.map((menu, id) => (
             <Link
               to={menu.link}
               key={id}
               className="group flex items-center text-medium gap-3.5 p-2 hover:bg-[#323335] rounded-md"
             >
-              <menu.icon style={{fontSize:20}}/>
+              <menu.icon style={{ fontSize: 20 }} />
               <h2
                 style={{
                   transitionDelay: `${id + 3}00ms`,
@@ -66,6 +71,18 @@ const SidebarComponent: React.FC = () => {
               </h2>
             </Link>
           ))}
+        </div>
+        <div className="w-full flex-1 flex  justify-end flex-col mb-5">
+          <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2">
+            PROFILE
+          </h4>
+          <div className="flex">
+            <Avatar
+              alt="Ilham Ramdhani"
+              src="https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jpg"
+              sx={{ width: 35, height: 35 }}
+            />
+          </div>
         </div>
       </div>
       <div className="w-full text-xl text-gray-900 font-semibold h-full">
