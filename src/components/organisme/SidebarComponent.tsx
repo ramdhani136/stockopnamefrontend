@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import HeaderComponent from "./HeaderComponent";
 import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const SidebarComponent: React.FC = () => {
   const menus = [
@@ -102,7 +103,10 @@ const SidebarComponent: React.FC = () => {
               className="cursor-pointer"
             />
           </div>
-          <a className=" bg-[#323335] rounded-md p-2 ml-[2.5%] w-[95%] mt-3 ">Logout</a>
+          <a className="flex items-center bg-[#323335] rounded-md p-2 ml-[2.5%] px-4 w-[95%] mt-3 opacity-70 hover:opacity-100 cursor-pointer">
+            <LogoutIcon style={{ fontSize: 18 }} />
+            <h6 className="ml-5 text-[0.85em] font-semibold">Log Out</h6>
+          </a>
         </div>
       </div>
       <div className="w-full text-xl text-gray-900 font-semibold h-full">
