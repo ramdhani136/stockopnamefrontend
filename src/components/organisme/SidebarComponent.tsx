@@ -46,9 +46,7 @@ const SidebarComponent: React.FC = () => {
           Search
         </nav>
         <div className="mt-4 flex flex-col  gap-2 relative">
-        <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2">
-            HOME
-          </h4>
+          <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2">HOME</h4>
           {menus.map((menu, id) => (
             <Link
               to={menu.link}
@@ -99,7 +97,7 @@ const SidebarComponent: React.FC = () => {
               className="cursor-pointer"
             />
           </div>
-          <a className="flex items-center bg-[#323335] rounded-md p-2 ml-[2.5%] px-4 w-[95%] mt-3 opacity-70 hover:opacity-100 cursor-pointer">
+          <a className="flex items-center bg-[#323335] rounded-md p-2 ml-[2.5%] px-4 w-[95%] mt-3 opacity-80 hover:opacity-100 cursor-pointer">
             <LogoutIcon style={{ fontSize: 18 }} />
             <h6 className="ml-5 text-[0.85em] font-semibold">Log Out</h6>
           </a>
