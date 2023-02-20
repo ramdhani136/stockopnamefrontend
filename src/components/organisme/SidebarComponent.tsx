@@ -6,6 +6,7 @@ import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import { Link } from "react-router-dom";
 import HeaderComponent from "./HeaderComponent";
 import { Avatar } from "@mui/material";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const SidebarComponent: React.FC = () => {
   const menus = [
@@ -44,7 +45,13 @@ const SidebarComponent: React.FC = () => {
           Search
         </nav>
         <div className="mt-4 flex flex-col  gap-2 relative">
-          <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2 ">MENU</h4>
+          <h4
+            className={`${
+              !open && "hidden duration-500"
+            }text-[#3c3d3f] text-[0.7em] font-bold ml-2 `}
+          >
+            MENU
+          </h4>
           {menus.map((menu, id) => (
             <Link
               to={menu.link}
@@ -72,22 +79,25 @@ const SidebarComponent: React.FC = () => {
             </Link>
           ))}
         </div>
-        <div className="w-full flex-1 flex  justify-end flex-col mb-5">
+        <div className={` w-full flex-1 flex  justify-end flex-col mb-5`}>
           <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2">
             PROFILE
           </h4>
-          <div className="flex m-2">
-            <Avatar
-              alt="Ilham Ramdhani"
-              src="https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jpg"
-              sx={{ width: 35, height: 35 }}
-            />
-            <div className="flex flex-col justify-center ml-2">
-              <h4 className="text-[0.8em]">Ilham Ramdhani</h4>
-              <h5 className="text-[0.7em] text-[#6d6e70] font-semibold">
-                @ramdhaniit
-              </h5>
+          <div className="flex justify-between items-center">
+            <div className="flex m-2">
+              <Avatar
+                alt="Ilham Ramdhani"
+                src="https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jpg"
+                sx={{ width: 35, height: 35 }}
+              />
+              <div className="flex flex-col justify-center ml-2">
+                <h4 className="text-[0.8em]">Ilham Ramdhani</h4>
+                <h5 className="text-[0.7em] text-[#6d6e70] font-semibold">
+                  @ramdhaniit
+                </h5>
+              </div>
             </div>
+            <MoreHorizIcon style={{ fontSize: 15 }} className="cursor-pointer" />
           </div>
         </div>
       </div>
