@@ -76,12 +76,18 @@ const SidebarComponent: React.FC = () => {
           <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2">
             PROFILE
           </h4>
-          <div className="flex">
+          <div className="flex m-2">
             <Avatar
               alt="Ilham Ramdhani"
               src="https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jpg"
               sx={{ width: 35, height: 35 }}
             />
+            <div className="flex flex-col justify-center ml-2">
+              <h4 className="text-[0.8em]">Ilham Ramdhani</h4>
+              <h5 className="text-[0.7em] text-[#6d6e70] font-semibold">
+                @ramdhaniit
+              </h5>
+            </div>
           </div>
         </div>
       </div>
