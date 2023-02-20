@@ -1,5 +1,5 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { LoginPage, HomePage, SchedulePage, NotFoundPage } from "./pages";
+import { LoginPage, HomePage, SchedulePage, NotFoundPage, FormSchedulePage } from "./pages";
 
 const App: React.FC = () => {
   return (
@@ -8,6 +8,7 @@ const App: React.FC = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/schedule" element={<SchedulePage />} />
+        <Route path="/schedule/:id" element={<FormSchedulePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
