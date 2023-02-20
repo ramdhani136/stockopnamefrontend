@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { LocalStorage, LocalStorageType } from "../../utils";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import HeaderComponent from "./HeaderComponent";
+import SidebarComponent from "./SidebarComponent";
 
 const LayoutComponent: React.FC = () => {
   const [user, setUser] = useState<String>("");
@@ -16,7 +18,12 @@ const LayoutComponent: React.FC = () => {
       navigate("/login");
     }
   }, []);
-  return <div>Halo, {user}</div>;
+  return (
+    <>
+      {/* <HeaderComponent /> */}
+      {<SidebarComponent/>}
+    </>
+  );
 };
 
 export default LayoutComponent;

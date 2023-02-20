@@ -1,12 +1,16 @@
-import { useEffect } from "react";
 import { LayoutComponent } from "../components/organisme";
+import { Meta } from "../utils";
 
 const HomePage: React.FC = () => {
+  const metaData = {
+    title: "Home -  Stock Opname App Ekatunggal",
+    description: "Halaman utama stock opname web system",
+  };
   return (
-    <div>
+    <>
+      {Meta(metaData)}
       <LayoutComponent />
-      HomePage
-    </div>
+    </>
   );
 };
 
