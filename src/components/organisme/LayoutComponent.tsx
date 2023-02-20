@@ -19,10 +19,10 @@ const LayoutComponent: React.FC = () => {
     }
   }, []);
   return (
-    <>
+    <div className="bg-gray-100">
       {/* <HeaderComponent /> */}
       {<SidebarComponent/>}
-    </>
+    </div>
   );
 };
 

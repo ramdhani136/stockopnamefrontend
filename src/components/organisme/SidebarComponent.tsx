@@ -4,6 +4,7 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import { Link } from "react-router-dom";
+import HeaderComponent from "./HeaderComponent";
 
 const SidebarComponent: React.FC = () => {
   const menus = [
@@ -15,7 +16,7 @@ const SidebarComponent: React.FC = () => {
   const [open, setOpen] = useState<boolean>(true);
 
   return (
-    <section className="flex gap-6">
+    <section className="flex ">
       <div
         className={`bg-[#0e0e0e] min-h-screen ${
           open ? "w-72" : "w-16"
@@ -55,8 +56,9 @@ const SidebarComponent: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className="m-3 text-xl text-gray-900 font-semibold">
-        React Tailwind
+      <div className="w-full text-xl text-gray-900 font-semibold h-full">
+        <HeaderComponent/>
+        
       </div>
     </section>
   );
