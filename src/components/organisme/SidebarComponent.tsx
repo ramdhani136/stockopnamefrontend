@@ -6,7 +6,7 @@ import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import { Link } from "react-router-dom";
 import HeaderComponent from "./HeaderComponent";
 import { Avatar } from "@mui/material";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const SidebarComponent: React.FC = () => {
   const menus = [
@@ -97,8 +97,12 @@ const SidebarComponent: React.FC = () => {
                 </h5>
               </div>
             </div>
-            <MoreHorizIcon style={{ fontSize: 15 }} className="cursor-pointer" />
+            <MoreHorizIcon
+              style={{ fontSize: 15 }}
+              className="cursor-pointer"
+            />
           </div>
+          <a className=" bg-[#323335] rounded-md p-2 ml-[2.5%] w-[95%] mt-3 ">Logout</a>
         </div>
       </div>
       <div className="w-full text-xl text-gray-900 font-semibold h-full">
