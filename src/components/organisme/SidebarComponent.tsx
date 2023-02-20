@@ -18,23 +18,35 @@ const SidebarComponent: React.FC = () => {
   return (
     <section className="flex ">
       <div
-        className={`bg-[#0e0e0e] min-h-screen ${
+        className={`bg-[#1b1c1e] min-h-screen ${
           open ? "w-72" : "w-16"
-        } text-gray-100 duration-500 px-4`}
+        } text-gray-100 duration-500 px-3`}
       >
-        <div className="py-3 flex justify-end" onClick={() => setOpen(!open)}>
-          <SegmentIcon className="cursor-pointer" />
+        <div
+          className="py-3 flex  justify-between items-center"
+          onClick={() => setOpen(!open)}
+        >
+          <h1 className={`${!open && "hidden duration-500"} ml-2 text-2xl`}>
+            SOSystem
+          </h1>
+
+          <SegmentIcon className="cursor-pointer ml-1" style={{fontSize:21}} />
         </div>
-        <div className="mt-4 flex flex-col gap-4 relative">
+        <nav
+          className={`${
+            !open && "hidden duration-500"
+          } h-8 border-b border-[#393a3b] text-[#48494b]`}
+        >
+          Search
+        </nav>
+        <div className="mt-4 flex flex-col  gap-2 relative">
           {menus.map((menu, id) => (
             <Link
               to={menu.link}
               key={id}
-              className="group flex items-center text-medium gap-3.5 p-2 hover:bg-gray-800 rounded-md"
+              className="group flex items-center text-medium gap-3.5 p-2 hover:bg-[#323335] rounded-md"
             >
-              <div>
-                {React.createElement(menu.icon, { className: "text-sm" })}
-              </div>
+              <menu.icon style={{fontSize:20}}/>
               <h2
                 style={{
                   transitionDelay: `${id + 3}00ms`,
@@ -57,8 +69,7 @@ const SidebarComponent: React.FC = () => {
         </div>
       </div>
       <div className="w-full text-xl text-gray-900 font-semibold h-full">
-        <HeaderComponent/>
-        
+        <HeaderComponent />
       </div>
     </section>
   );
