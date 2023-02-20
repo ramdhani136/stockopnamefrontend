@@ -46,12 +46,12 @@ const SidebarComponent: React.FC = () => {
           Search
         </nav>
         <div className="mt-4 flex flex-col  gap-2 relative">
-          <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2">HOME</h4>
+          <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2">MENU</h4>
           {menus.map((menu, id) => (
             <Link
               to={menu.link}
               key={id}
-              className="group flex items-center text-medium gap-3.5 p-2 hover:bg-[#323335] rounded-md"
+              className="group flex items-center text-medium gap-3.5 p-2 hover:bg-[#323335] text-[#b2b3b6]  rounded-md"
             >
               <menu.icon style={{ fontSize: 20 }} />
               <h2
