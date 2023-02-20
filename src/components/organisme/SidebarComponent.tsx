@@ -21,7 +21,7 @@ const SidebarComponent: React.FC = () => {
   return (
     <section className="flex">
       <div
-        className={`bg-[#1b1c1e] min-h-screen ${
+        className={`bg-[#1b1c1e] max-h-screen h-screen ${
           open ? "w-72" : "w-16"
         } text-gray-100 duration-500 px-3 flex flex-col justify-around`}
       >
@@ -48,7 +48,7 @@ const SidebarComponent: React.FC = () => {
             <Link
               to={menu.link}
               key={id}
-              className="group flex items-center text-medium gap-3.5 p-2 hover:bg-[#323335] text-[#b2b3b6]  rounded-md"
+              className="group flex items-center text-medium gap-3 p-2 hover:bg-[#323335] text-[#b2b3b6]  rounded-md"
             >
               <menu.icon style={{ fontSize: 20 }} />
               <h2
