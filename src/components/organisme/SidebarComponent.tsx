@@ -46,12 +46,8 @@ const SidebarComponent: React.FC = () => {
           Search
         </nav>
         <div className="mt-4 flex flex-col  gap-2 relative">
-          <h4
-            className={`${
-              !open && "hidden duration-500"
-            }text-[#3c3d3f] text-[0.7em] font-bold ml-2 `}
-          >
-            MENU
+        <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2">
+            HOME
           </h4>
           {menus.map((menu, id) => (
             <Link
@@ -80,7 +76,7 @@ const SidebarComponent: React.FC = () => {
             </Link>
           ))}
         </div>
-        <div className={` w-full flex-1 flex  justify-end flex-col mb-5`}>
+        <div className={` w-full flex-1 flex  justify-end flex-col mb-7`}>
           <h4 className="text-[#3c3d3f] text-[0.7em] font-bold ml-2">
             PROFILE
           </h4>
