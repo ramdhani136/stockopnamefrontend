@@ -1,5 +1,5 @@
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import MarkChatUnreadOutlinedIcon from "@mui/icons-material/MarkChatUnreadOutlined";
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import { SeacrhHeaderComponent } from "../moleculs";
 
 const HeaderComponent: React.FC = () => {
@@ -14,14 +14,14 @@ const HeaderComponent: React.FC = () => {
             style={{ fontSize: 20 }}
             className=" text-gray-500 ml-2 cursor-pointer"
           />
-          <div className="w-2 h-2  rounded-full bg-red-500 absolute top-0 -right-0 border border-red-600 "></div>
+          <div className="w-[5px] h-[5px]  rounded-full bg-red-400 absolute top-1 right-0 border border-red-500 "></div>
         </div>
         <div className="relative">
-          <MarkChatUnreadOutlinedIcon
-            style={{ fontSize: 18 }}
+          <ChatBubbleOutlineOutlinedIcon
+            style={{ fontSize: 17.5 }}
             className=" text-gray-500 ml-3 cursor-pointer"
           />
-          <div className="w-2 h-2  rounded-full bg-red-500 absolute top-0 -right-1 border border-red-600 "></div>
+          <div className="w-[5px] h-[5px]  rounded-full bg-red-400 absolute top-1 -right-1 border border-red-500 "></div>
         </div>
       </div>
     </div>
