@@ -81,7 +81,7 @@ const SeacrhHeaderComponent: React.FC = () => {
         onMouseEnter={() => setOnsearch(true)}
         className={`${
           !active && "hidden"
-        } p-2 px-1 duration-500 w-full border  max-h-80 overflow-y-auto absolute z-10 top-9 bg-white rounded-b-md drop-shadow-sm text-[0.95em] text-gray-600`}
+        } p-2 px-1 duration-500 w-full border  max-h-80 overflow-y-auto absolute  top-9 bg-white rounded-b-md drop-shadow-sm text-[0.95em] text-gray-600`}
       >
         {filterMenu(sort(menus)).map((menu, id) => (
           <li
