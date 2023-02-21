@@ -23,7 +23,7 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
     }
   }, []);
   return (
-    <div className="flex">
+    <div className="flex h-screen">
       {<SidebarComponent user={user} />}
       <div className="bg-gray-100 flex-1">
         <HeaderComponent />
