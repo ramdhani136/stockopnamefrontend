@@ -1,6 +1,6 @@
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import ShortcutOutlinedIcon from "@mui/icons-material/ShortcutOutlined";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 const SeacrhHeaderComponent: React.FC = () => {
   const [active, setActive] = useState<boolean>(false);
