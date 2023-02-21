@@ -1,3 +1,4 @@
 import LoadingComponent from "./LoadingComponent";
+import SeacrhHeaderComponent from "./SeacrhHeaderComponent";
 
-export { LoadingComponent };
+export { LoadingComponent, SeacrhHeaderComponent };
