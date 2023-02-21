@@ -19,10 +19,15 @@ const LayoutComponent: React.FC = () => {
     }
   }, []);
   return (
-    <div className="bg-gray-100">
+    <div>
       {<SidebarComponent user={user} />}
-      <div>
+      <div className="bg-gray-100">
         <HeaderComponent />
+        <section className="border w-full h-[1000px]">
+          <div className="w-full flex border">
+            <div className="w-1/3 h-36 bg-white border-gray-200 border m-3 ml-1"></div>
+          </div>
+        </section>
       </div>
     </div>
   );
