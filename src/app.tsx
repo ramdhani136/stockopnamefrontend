@@ -14,7 +14,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<LayoutComponent Child={HomePage} />} />
-        <Route path="/schedule" element={<SchedulePage />} />
+        <Route path="/schedule" element={<LayoutComponent Child={SchedulePage}/>} />
         <Route path="/schedule/:id" element={<FormSchedulePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
