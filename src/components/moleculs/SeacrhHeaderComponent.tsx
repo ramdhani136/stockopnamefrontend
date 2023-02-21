@@ -46,11 +46,25 @@ const SeacrhHeaderComponent: React.FC = () => {
         onMouseLeave={() => setOnsearch(false)}
         onMouseEnter={() => setOnsearch(true)}
         className={`${
-          !active && "hidden duration-500 "
-        } w-full border h-52 absolute z-10 top-8 bg-white rounded-b-md drop-shadow-sm `}
+          !active && "hidden"
+        } p-2 px-1 duration-500 w-full border  max-h-80 overflow-y-scroll absolute z-10 top-8 bg-white rounded-b-md drop-shadow-sm text-[0.95em] text-gray-600`}
       >
-        <li className="" onClick={() => alert("halow")}>
-          Form schedule
+        {/* <li
+          className="p-2 hover:bg-gray-100 rounded-md cursor-pointer"
+          onClick={() => alert("halow")}
+        >
+          Form Schedule
+        </li>
+        <li
+          className="p-2 hover:bg-gray-100 rounded-md cursor-pointer"
+          onClick={() => alert("halow")}
+        >
+          Schedule List
+        </li> */}
+        <li
+          className="p-2 py-5 rounded-md cursor-pointer text-center text-gray-400 font-normal"
+        >
+          Search not found
         </li>
       </ul>
     </div>
