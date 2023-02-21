@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const IconMenuHeader: React.FC<IProps> = ({ Icon }) => {
-  const [active, setActive] = useState<boolean>(true);
+  const [active, setActive] = useState<boolean>(false);
 
   return (
     <div className="relative group" onMouseLeave={() => setActive(false)}>
@@ -19,7 +19,7 @@ const IconMenuHeader: React.FC<IProps> = ({ Icon }) => {
       <ul
         className={`${
           !active && `hidden`
-        } border w-80 absolute right-0 top-6 h-80 overflow-y-auto bg-white drop-shadow-sm overflow-hidden p-2`}
+        } border w-80 absolute right-0 top-6 h-auto overflow-y-auto bg-white drop-shadow-sm overflow-hidden p-2`}
       >
         <li className="w-full  h-16 rounded-md flex items-center px-2 cursor-pointer bg-blue-50 hover:bg-gray-100 mb-2">
           <Avatar
