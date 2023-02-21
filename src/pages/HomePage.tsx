@@ -9,7 +9,9 @@ const HomePage: React.FC = () => {
   return (
     <>
       {Meta(metaData)}
-      <div className="w-[92%] bg-white  border border-gray-200 h-9 ml-20 mt-3">fddd</div>
+      <div className="w-full h-full overflow-y-auto">
+        <div className="h-[1000px] bg-white"></div>
+      </div>
     </>
   );
 };

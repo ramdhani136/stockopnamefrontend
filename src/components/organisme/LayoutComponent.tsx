@@ -23,11 +23,11 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
     }
   }, []);
   return (
-    <div>
+    <div className="flex">
       {<SidebarComponent user={user} />}
-      <div className="bg-gray-100">
+      <div className="bg-gray-100 flex-1">
         <HeaderComponent />
-        <section className=" w-full h-[1000px]">
+        <section className=" w-full h-[88vh]">
           <Child/>
         </section>
       </div>
