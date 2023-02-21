@@ -10,7 +10,11 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import LogoutIcon from "@mui/icons-material/Logout";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 
-const SidebarComponent: React.FC = () => {
+interface IProps {
+  user: any;
+}
+
+const SidebarComponent: React.FC<IProps> = ({ user }) => {
   const menus = [
     { name: "Dashboard", link: "/", icon: DashboardOutlinedIcon },
     { name: "Schedules", link: "/schedule", icon: AssignmentOutlinedIcon },
@@ -83,7 +87,7 @@ const SidebarComponent: React.FC = () => {
             <div className="flex m-2 group">
               <Avatar
                 alt="Ilham Ramdhani"
-                src="https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jpg"
+                src="https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jp"
                 sx={{ width: 35, height: 35 }}
                 className={`${!open && "-ml-1"}`}
               />
@@ -92,9 +96,9 @@ const SidebarComponent: React.FC = () => {
                   !open && "hidden"
                 } flex flex-col justify-center ml-2`}
               >
-                <h4 className="text-[0.8em]">Ilham Ramdhani</h4>
+                <h4 className="text-[0.8em]">{user.name}</h4>
                 <h5 className="text-[0.7em] text-[#6d6e70] font-semibold">
-                  @ramdhaniit
+                  {user.username}
                 </h5>
               </div>
               <div
