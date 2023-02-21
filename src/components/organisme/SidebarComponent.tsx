@@ -28,7 +28,7 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
     <section className="flex">
       <div
         className={`fixed bg-[#1b1c1e] max-h-screen h-screen ${
-          open ? "w-80 md:w-[17rem]" : "w-16"
+          open ? "w-80 md:w-[16rem]" : "w-16"
         } text-gray-100 duration-500 px-3 flex flex-col justify-around z-40`}
       >
         <div
@@ -134,16 +134,6 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
             </div>
           </a>
         </div>
-      </div>
-      <div className="w-full text-xl text-gray-900 font-semibold h-full">
-        {/* <HeaderComponent sidebarActive={open} />
-        <div
-          className={`${open ? "border w-[76%]" : "border w-[92%]"} h-screen ${
-            open ? "ml-[18rem]" : "ml-[5rem] duration-500"
-          }`}
-        >
-          d
-        </div> */}
       </div>
     </section>
   );
