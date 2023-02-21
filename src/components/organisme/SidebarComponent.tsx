@@ -8,12 +8,14 @@ import HeaderComponent from "./HeaderComponent";
 import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import LogoutIcon from "@mui/icons-material/Logout";
+import QrCode2Icon from "@mui/icons-material/QrCode2";
 
 const SidebarComponent: React.FC = () => {
   const menus = [
-    { name: "dashboard", link: "/", icon: DashboardOutlinedIcon },
-    { name: "schedules", link: "/schedule", icon: AssignmentOutlinedIcon },
-    { name: "reports", link: "/report", icon: AssessmentOutlinedIcon },
+    { name: "Dashboard", link: "/", icon: DashboardOutlinedIcon },
+    { name: "Schedules", link: "/schedule", icon: AssignmentOutlinedIcon },
+    { name: "Packing ID", link: "/packingid", icon: QrCode2Icon },
+    { name: "Reports", link: "/report", icon: AssessmentOutlinedIcon },
   ];
 
   const [open, setOpen] = useState<boolean>(true);
