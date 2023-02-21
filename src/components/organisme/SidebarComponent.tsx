@@ -54,7 +54,7 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
             <Link
               to={menu.link}
               key={id}
-              className="group flex items-center text-medium gap-3 p-2 hover:bg-[#323335] text-[#b2b3b6]  rounded-md"
+              className="group flex items-center text-sm gap-3 p-2 hover:bg-[#323335] text-[#b2b3b6]  rounded-md"
             >
               <menu.icon style={{ fontSize: 20 }} />
               <h2

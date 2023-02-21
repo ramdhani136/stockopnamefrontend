@@ -1,11 +1,14 @@
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import ShortcutOutlinedIcon from "@mui/icons-material/ShortcutOutlined";
 import { useState, useRef } from "react";
+import _ from "lodash";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 const SeacrhHeaderComponent: React.FC = () => {
   const [active, setActive] = useState<boolean>(false);
   const [onSearch, setOnsearch] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState<any>("");
 
   const menus = [
     { name: "Form Schedule", link: "/schedule/new" },
@@ -19,6 +22,21 @@ const SeacrhHeaderComponent: React.FC = () => {
     active ? inputRef.current?.blur() : inputRef.current?.focus();
   };
 
+  const filterMenu = (data: any[]) => {
+    return _.filter(data, function (query: any) {
+      var name = value
+        ? query.name.toLowerCase().includes(value.toLowerCase())
+        : true;
+      return name;
+    });
+  };
+
+  const sort = (data: any[]): any[] => {
+    return data.sort((a: any, b: any) => {
+      return a["name"] > b["name"] ? 1 : -1;
+    });
+  };
+
   return (
     <div className="w-[19rem] relative">
       <div
@@ -30,6 +48,8 @@ const SeacrhHeaderComponent: React.FC = () => {
           className="text-gray-400 ml-2 mt-1"
         />
         <input
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
           onBlur={() => {
             if (active && !onSearch) {
               setActive(false);
@@ -40,6 +60,13 @@ const SeacrhHeaderComponent: React.FC = () => {
           placeholder="Search a menu"
           className="bg-gray-100 text-[0.95m]  font-normal px-1 flex-1 mr-2 outline-none"
         />
+        {value && (
+          <CloseOutlinedIcon
+            onClick={() => setValue("")}
+            style={{ fontSize: 18 }}
+            className={`text-gray-300 cursor-pointer`}
+          />
+        )}
         <div className="w-[54px] h-[28px] border bg-white rounded-md ml-1 mr-1 flex items-center justify-center text-gray-700">
           <ShortcutOutlinedIcon style={{ fontSize: 13 }} />
           <h6 className="text-[0.8em] font-medium">Enter</h6>
@@ -56,7 +83,7 @@ const SeacrhHeaderComponent: React.FC = () => {
           !active && "hidden"
         } p-2 px-1 duration-500 w-full border  max-h-80 overflow-y-auto absolute z-10 top-9 bg-white rounded-b-md drop-shadow-sm text-[0.95em] text-gray-600`}
       >
-        {menus.map((menu, id) => (
+        {filterMenu(sort(menus)).map((menu, id) => (
           <li
             key={id}
             className="p-2 py-3 hover:bg-gray-100 rounded-md cursor-pointer"
@@ -66,9 +93,11 @@ const SeacrhHeaderComponent: React.FC = () => {
           </li>
         ))}
 
-        {/* <li className="p-2 py-5 rounded-md cursor-pointer text-center text-gray-400 font-normal">
-          Search not found
-        </li> */}
+        {filterMenu(menus).length < 1 && (
+          <li className="p-2 py-5 rounded-md cursor-pointer text-center text-gray-400 font-normal">
+            Search not found
+          </li>
+        )}
       </ul>
     </div>
   );
