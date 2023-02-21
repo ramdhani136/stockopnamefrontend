@@ -27,7 +27,7 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
   return (
     <section className="flex">
       <div
-        className={`bg-[#1b1c1e] max-h-screen h-screen ${
+        className={`hidden md:block bg-[#1b1c1e] max-h-screen h-screen ${
           open ? "w-72" : "w-16"
         } text-gray-100 duration-500 px-3 flex flex-col justify-around`}
       >
