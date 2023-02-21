@@ -5,7 +5,11 @@ import { useNavigate } from "react-router-dom";
 import SidebarComponent from "./SidebarComponent";
 import HeaderComponent from "./HeaderComponent";
 
-const LayoutComponent: React.FC = () => {
+interface IProps {
+  Child: React.FC;
+}
+
+const LayoutComponent: React.FC<IProps> = ({ Child }) => {
   const [user, setUser] = useState<any>({});
 
   const navigate = useNavigate();
@@ -23,10 +27,8 @@ const LayoutComponent: React.FC = () => {
       {<SidebarComponent user={user} />}
       <div className="bg-gray-100">
         <HeaderComponent />
-        <section className="border w-full h-[1000px] border-red-900">
-          <div className="w-full flex">
-            <div className="w-1/3 h-36 bg-white border-gray-200 border m-3 ml-1"></div>
-          </div>
+        <section className=" w-full h-[1000px]">
+          <Child/>
         </section>
       </div>
     </div>

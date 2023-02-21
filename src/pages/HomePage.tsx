@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
   return (
     <>
       {Meta(metaData)}
-      <LayoutComponent />
+      <div className="w-[92%] bg-white  border border-gray-200 h-9 ml-20 mt-3">fddd</div>
     </>
   );
 };

@@ -34,7 +34,6 @@ export const SchedulePage: React.FC = () => {
 
   return (
     <>
-      <LayoutComponent />
       {schedules &&
         schedules.map((item, key) => <div key={key}>{item.name}</div>)}
     </>
