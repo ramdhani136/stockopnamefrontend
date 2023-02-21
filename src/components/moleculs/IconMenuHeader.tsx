@@ -21,7 +21,7 @@ const IconMenuHeader: React.FC<IProps> = ({ Icon }) => {
           !active && `hidden`
         } border w-80 absolute right-0 top-6 h-80 overflow-y-auto bg-white drop-shadow-sm overflow-hidden p-2`}
       >
-        <li className="w-full  h-16 rounded-md flex items-center px-2 cursor-pointer hover:bg-gray-100 mb-2">
+        <li className="w-full  h-16 rounded-md flex items-center px-2 cursor-pointer bg-blue-50 hover:bg-gray-100 mb-2">
           <Avatar
             alt="Ilham Ramdhani"
             src="https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jpg"
