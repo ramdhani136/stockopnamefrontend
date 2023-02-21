@@ -3,6 +3,7 @@ import { LocalStorage, LocalStorageType } from "../../utils";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import SidebarComponent from "./SidebarComponent";
+import HeaderComponent from "./HeaderComponent";
 
 const LayoutComponent: React.FC = () => {
   const [user, setUser] = useState<any>({});
@@ -19,7 +20,10 @@ const LayoutComponent: React.FC = () => {
   }, []);
   return (
     <div className="bg-gray-100">
-      {<SidebarComponent user={user}/>}
+      {<SidebarComponent user={user} />}
+      <div>
+        <HeaderComponent />
+      </div>
     </div>
   );
 };

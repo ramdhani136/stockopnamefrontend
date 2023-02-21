@@ -22,14 +22,14 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
     { name: "Reports", link: "/report", icon: AssessmentOutlinedIcon },
   ];
 
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <section className="flex">
       <div
-        className={`hidden md:block bg-[#1b1c1e] max-h-screen h-screen ${
-          open ? "w-72" : "w-16"
-        } text-gray-100 duration-500 px-3 flex flex-col justify-around`}
+        className={`fixed bg-[#1b1c1e] max-h-screen h-screen ${
+          open ? "w-80 md:w-[17rem]" : "w-16"
+        } text-gray-100 duration-500 px-3 flex flex-col justify-around z-40`}
       >
         <div
           className="py-3 flex  justify-between items-center"
@@ -136,7 +136,14 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
         </div>
       </div>
       <div className="w-full text-xl text-gray-900 font-semibold h-full">
-        <HeaderComponent />
+        {/* <HeaderComponent sidebarActive={open} />
+        <div
+          className={`${open ? "border w-[76%]" : "border w-[92%]"} h-screen ${
+            open ? "ml-[18rem]" : "ml-[5rem] duration-500"
+          }`}
+        >
+          d
+        </div> */}
       </div>
     </section>
   );

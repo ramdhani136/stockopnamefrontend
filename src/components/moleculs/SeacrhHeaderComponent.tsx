@@ -38,7 +38,7 @@ const SeacrhHeaderComponent: React.FC = () => {
   };
 
   return (
-    <div className="md:w-[23rem] lg:w-[19rem] relative">
+    <div className=" md:w-[23rem] lg:w-[19rem] relative">
       <div
         className="border w-full  h-10 rounded-md bg-gray-100 border-gray-200 flex items-center"
         onClick={click}
