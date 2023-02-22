@@ -14,22 +14,20 @@ const useKey = (key: String, cb: any, comb?: IComb) => {
 
   useEffect(() => {
     const handle = (event: any) => {
-      if (comb?.ctrl && !comb.alt) {
-        if ((event.ctrlKey || event.metaKey) && event.key === key) {
+      if (comb?.ctrl && !comb?.alt) {
+        if (event.ctrlKey && !event.altKey && event.key === key) {
           callbackRef.current(event);
         }
-      } else if (comb?.ctrl && comb.alt) {
-        if (
-          (event.ctrlKey || event.metaKey) &&
-          event.altKey &&
-          event.key === key
-        ) {
+      }
+
+      if (comb?.ctrl && comb?.alt) {
+        if (event.ctrlKey && event.altKey && event.key === key) {
           callbackRef.current(event);
         }
-      } else {
-        if (event.key === key) {
-          callbackRef.current(event);
-        }
+      }
+
+      if (!comb?.ctrl && !comb?.alt && event.key === key) {
+        callbackRef.current(event);
       }
     };
 
