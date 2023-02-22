@@ -1,4 +1,3 @@
-import { LayoutComponent } from "../components/organisme";
 import { Meta } from "../utils";
 
 const HomePage: React.FC = () => {

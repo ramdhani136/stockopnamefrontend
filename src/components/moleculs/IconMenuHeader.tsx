@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Avatar } from "@mui/material";
 
 interface IProps {
@@ -7,9 +7,23 @@ interface IProps {
 
 const IconMenuHeader: React.FC<IProps> = ({ Icon }) => {
   const [active, setActive] = useState<boolean>(false);
+  const componentRef = useRef<any>();
+
+  useEffect(() => {
+    let handler = (e: any) => {
+      if (!componentRef.current.contains(e.target)) {
+        setActive(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  }, []);
 
   return (
-    <div className="relative group" onMouseLeave={() => setActive(false)}>
+    <div className="relative group">
       <Icon
         onClick={() => setActive(!active)}
         style={{ fontSize: 20 }}
@@ -19,9 +33,16 @@ const IconMenuHeader: React.FC<IProps> = ({ Icon }) => {
       <ul
         className={`${
           !active && `hidden`
-        } border w-80 absolute right-0 top-6 h-auto overflow-y-auto bg-white drop-shadow-sm overflow-hidden p-2`}
+        } border w-80 absolute right-0 top-6 h-auto overflow-y-auto bg-white drop-shadow-sm overflow-hidden p-2 duration-500`}
       >
-        <li className="w-full  h-16 rounded-md flex items-center px-2 cursor-pointer bg-blue-50 hover:bg-gray-100 mb-2">
+        <li
+          ref={componentRef}
+          className="w-full  h-16 rounded-md flex items-center px-2 cursor-pointer bg-blue-50 hover:bg-gray-100 mb-2"
+          onClick={() => {
+            alert("dd");
+            setActive(false);
+          }}
+        >
           <Avatar
             alt="Ilham Ramdhani"
             src="https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jpg"
