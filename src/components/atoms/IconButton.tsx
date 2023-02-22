@@ -1,26 +1,39 @@
 import { useState, useEffect, useRef } from "react";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 
-interface IProps {
-  Icon: any;
-  Callback(e?: any): void | Promise<void>;
-  name?: String;
-  list?: any[];
+interface IList {
+  name: String;
+  onClick(e?: any): void | Promise<void>;
 }
 
-const IconButton: React.FC<IProps> = ({ Icon, Callback, list }) => {
+interface IProps {
+  Icon?: any;
+  callback?(e?: any): void | Promise<void>;
+  name?: String;
+  list?: IList[];
+  primary?: boolean;
+  iconSize?: number;
+}
+
+const IconButton: React.FC<IProps> = ({
+  Icon,
+  callback,
+  list,
+  name,
+  primary,
+  iconSize,
+}) => {
   const [open, setOpen] = useState<boolean>(false);
   const modalRef = useRef<any>();
   const eventClick = () => {
     if (list) {
       setOpen(!open);
     } else {
-      Callback();
+      callback!();
     }
   };
 
   useEffect(() => {
-    console.log(modalRef);
     let handler = (e: any) => {
       if (list) {
         if (!modalRef.current.contains(e.target)) {
@@ -37,31 +50,50 @@ const IconButton: React.FC<IProps> = ({ Icon, Callback, list }) => {
 
   return (
     <div
-      className=" border-[1.5px] border-gray-200 p-[4px] px-2 bg-white rounded-md relative cursor-pointer"
+      className={`${
+        !primary ? "border-[#1d85e0] bg-[#2491f0] " : "border-gray-200 bg-white"
+      } border-[1.5px]  p-[3px] px-1 rounded-md relative cursor-pointer`}
       onClick={eventClick}
     >
       <div className="flex items-center">
-        <Icon className="text-gray-700 " style={{ fontSize: 13 }} />
-        <h5 className="text-sm ml-1 font-normal text-gray-800">Add Schedule</h5>
+        {Icon && (
+          <Icon
+            className={`${!primary ? "text-white" : "text-gray-800"} `}
+            style={{ fontSize: iconSize ?? 12 }}
+          />
+        )}
+        {name && (
+          <h5
+            className={`text-[0.86em]  font-normal ${
+              !primary ? "text-white" : "text-gray-800"
+            } ${!Icon && "ml-1"} ${!list && "mr-1"}`}
+          >
+            {name}
+          </h5>
+        )}
         {list && (
           <UnfoldMoreIcon
-            className="text-gray-800 ml-2"
-            style={{ fontSize: 15 }}
+            className={`${!primary ? "text-white" : "text-gray-800"} ${
+              list && "ml-1"
+            } `}
+            style={{ fontSize: 12 }}
           />
         )}
       </div>
       {list && open && (
         <div ref={modalRef}>
-          <ul className="  border-[1.5px] border-gray-200 w-[230px] rounded-md bg-white max-h-72 overflow-y-auto absolute top-8 right-0 drop-shadow-md p-1 py-3 ">
-            <li
-              className="w-full  p-2 px-3 rounded-md hover:bg-gray-100 cursor-pointer text-sm text-gray-800 "
-              onClick={() => alert("d")}
-            >
-              Import
-            </li>
-            <li className="w-full  p-2 px-3 rounded-md hover:bg-gray-100 cursor-pointer text-sm text-gray-800 ">
-              User Permission
-            </li>
+          <ul className="  border-[1.5px] border-gray-200 w-[230px] rounded-md bg-white max-h-72 overflow-y-auto absolute top-8 right-0 drop-shadow-md p-1 ">
+            {list.map((item, index) => (
+              <li
+                key={index}
+                className={`w-full  p-3 rounded-md hover:bg-gray-100 cursor-pointer text-[0.86em] text-gray-800 ${
+                  index + 1 !== list.length && "border-b border-gray-100"
+                } `}
+                onClick={item.onClick}
+              >
+                {item.name}
+              </li>
+            ))}
           </ul>
         </div>
       )}

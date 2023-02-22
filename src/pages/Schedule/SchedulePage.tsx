@@ -44,6 +44,11 @@ export const SchedulePage: React.FC = () => {
     alert("tes");
   };
 
+  const list = [
+    { name: "Request SPV", onClick: () => alert("dd") },
+    { name: "Reject", onClick: () => alert("reject") },
+  ];
+
   return (
     <>
       {Meta(metaData)}
@@ -53,7 +58,13 @@ export const SchedulePage: React.FC = () => {
             Schedule List
           </h1>
           <div className="flex-1  flex items-center justify-end mr-4">
-            <IconButton Icon={AddIcon} Callback={refresh} list={[]} />
+            <IconButton
+              // Icon={AddIcon}
+              callback={refresh}
+              name="Actions"
+              list={list}
+              // iconSize={20}
+            />
           </div>
         </div>
       </div>
