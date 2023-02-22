@@ -39,7 +39,7 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
     <section className="flex">
       <div
         className={` bg-[#1b1c1e] max-h-screen h-screen ${
-          open ? "w-80 md:w-[16rem]" : "w-16"
+          open ? "w-80 md:w-[15rem]" : "w-16"
         } text-gray-100 duration-500 px-3 flex flex-col justify-around z-40`}
       >
         <div
