@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LayoutComponent } from "../../components/organisme";
+import { IconButton } from "../../components/atoms";
 import { Meta } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import AddIcon from "@mui/icons-material/Add";
 
 export const SchedulePage: React.FC = () => {
   const [schedules, setSchedule] = useState<any[]>([]);
@@ -38,6 +40,10 @@ export const SchedulePage: React.FC = () => {
     getSchedule();
   }, []);
 
+  const refresh = () => {
+    alert("tes");
+  };
+
   return (
     <>
       {Meta(metaData)}
@@ -46,7 +52,9 @@ export const SchedulePage: React.FC = () => {
           <h1 className="font-bold ml-5 text-[1.1em] mr-2 text-gray-700 ">
             Schedule List
           </h1>
-          <div className="flex-1  flex items-center justify-end"></div>
+          <div className="flex-1  flex items-center justify-end mr-4">
+            <IconButton Icon={AddIcon} Callback={refresh} list={[]} />
+          </div>
         </div>
       </div>
     </>
