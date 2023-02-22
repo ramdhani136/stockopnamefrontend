@@ -11,14 +11,10 @@ const SeacrhHeaderComponent: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState<any>("");
 
-  useKey(
-    "b",
-    () => {
-      inputRef.current?.focus();
-      setActive(true);
-    },
-    { ctrl: true }
-  );
+  useKey("Enter", () => {
+    inputRef.current?.focus();
+    setActive(true);
+  });
 
   useKey("Escape", () => {
     inputRef.current?.blur();
@@ -84,8 +80,8 @@ const SeacrhHeaderComponent: React.FC = () => {
           />
         )}
         <div className="w-[60px] h-[28px] border bg-white rounded-md ml-1 mr-1 flex items-center justify-center text-gray-700">
-          {/* <ShortcutOutlinedIcon style={{ fontSize: 13 }} /> */}
-          <h6 className="text-[0.8em] font-medium">Ctrl + B</h6>
+          <ShortcutOutlinedIcon style={{ fontSize: 13 }} />
+          <h6 className="text-[0.8em] ml-1 font-medium">Enter</h6>
         </div>
       </div>
       <ul

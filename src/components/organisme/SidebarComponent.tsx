@@ -9,6 +9,7 @@ import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import LogoutIcon from "@mui/icons-material/Logout";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
+import { useKey } from "../../utils";
 
 interface IProps {
   user: any;
@@ -23,6 +24,16 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
   ];
 
   const [open, setOpen] = useState<boolean>(false);
+
+  useKey(
+    "b",
+    () => {
+      setOpen(!open);
+    },
+    {
+      ctrl: true,
+    }
+  );
 
   return (
     <section className="flex">
