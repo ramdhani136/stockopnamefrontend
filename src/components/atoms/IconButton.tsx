@@ -13,6 +13,7 @@ interface IProps {
   list?: IList[];
   primary?: boolean;
   iconSize?: number;
+  iconListDisabled?: Boolean;
 }
 
 const IconButton: React.FC<IProps> = ({
@@ -22,6 +23,7 @@ const IconButton: React.FC<IProps> = ({
   name,
   primary,
   iconSize,
+  iconListDisabled,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const modalRef = useRef<any>();
@@ -66,12 +68,12 @@ const IconButton: React.FC<IProps> = ({
           <h5
             className={`text-[0.86em]  font-normal ${
               !primary ? "text-white" : "text-gray-800"
-            } ${!Icon && "ml-1"} ${!list && "mr-1"}`}
+            } ${!Icon && "ml-1"} ${(!list || iconListDisabled) && "mr-1"}`}
           >
             {name}
           </h5>
         )}
-        {list && (
+        {list && !iconListDisabled && (
           <UnfoldMoreIcon
             className={`${!primary ? "text-white" : "text-gray-800"} ${
               list && "ml-1"

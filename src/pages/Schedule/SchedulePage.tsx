@@ -63,6 +63,7 @@ export const SchedulePage: React.FC = () => {
               callback={refresh}
               name="Actions"
               list={list}
+              // iconListDisabled
               // iconSize={20}
             />
           </div>
