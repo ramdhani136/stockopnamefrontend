@@ -82,7 +82,7 @@ export const SchedulePage: React.FC = () => {
         </div>
         <div className="w-[97%] border flex-1 bg-white ml-[1.5%]  mb-5 rounded-md drop-shadow-md overflow-y-auto ">
           <div className="h-[1000px]">
-            <div className="w-full p-3 flex items-center justify-end py-5 border-b">
+            <div className="w-full p-3 sticky top-0 flex items-center justify-end py-5 border-b">
               <IconButton
                 Icon={FilterListIcon}
                 callback={refresh}
