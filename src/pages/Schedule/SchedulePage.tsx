@@ -106,7 +106,7 @@ export const SchedulePage: React.FC = () => {
               <IconButton
                 callback={refresh}
                 name="Create On"
-                // list={list}
+                list={list}
                 // iconListDisabled
                 className="py-[4.8px] px-2 border-l-0 rounded-l-none"
                 iconSize={17}
