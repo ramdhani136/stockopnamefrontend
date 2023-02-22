@@ -6,7 +6,7 @@ import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import AddIcon from "@mui/icons-material/Add";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
+import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 
 export const SchedulePage: React.FC = () => {
   const [schedules, setSchedule] = useState<any[]>([]);
@@ -80,9 +80,9 @@ export const SchedulePage: React.FC = () => {
             />
           </div>
         </div>
-        <div className="w-[97%] border flex-1 bg-white ml-[1.5%]  mb-5 rounded-md drop-shadow-md overflow-y-auto ">
-          <div className="h-[1000px]">
-            <div className="w-full p-3 sticky top-0 flex items-center justify-end py-5 border-b">
+        <div className="w-[97.5%] border flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-y-auto ">
+          <div className="h-auto">
+            <div className="w-full p-3 sticky top-0 flex items-center justify-end py-5 border-b bg-white">
               <IconButton
                 Icon={FilterListIcon}
                 callback={refresh}
@@ -113,6 +113,54 @@ export const SchedulePage: React.FC = () => {
                 primary
               />
             </div>
+            <section className="w-95% p-4 h-auto">
+              <table className="w-full">
+                <thead>
+                  <tr>
+                    <th className="font-normal text-gray-600 text-[0.95em] text-left pb-3">
+                      No
+                    </th>
+                    <th className="font-normal text-gray-600 text-[0.95em] text-left pb-3">
+                      Title
+                    </th>
+                    <th className="font-normal text-gray-600 text-[0.95em] text-left pb-3">
+                      Status
+                    </th>
+                    <th className="font-normal text-gray-600 text-[0.95em] text-left pb-3">
+                      Catatan
+                    </th>
+                    <th className="font-normal text-gray-600 text-[0.95em] text-left pb-3">
+                      Grand Total
+                    </th>
+                    <th className="font-normal text-gray-600 text-[0.95em] text-left pb-3">
+                      Name
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="text-[0.9em] border-b">
+                    <td className="py-3">1</td>
+                    <td>
+                      <b className="font-medium ">PT. KARYA ABADI UTAMA</b>
+                    </td>
+                    <td>Submitted</td>
+                    <td>PO.No:PO-2023-03-0001</td>
+                    <td>Rp.1.783.000</td>
+                    <td>DN-2024-03-00002</td>
+                  </tr>
+                  <tr className="text-[0.9em] border-b">
+                    <td className="py-3">2</td>
+                    <td>
+                      <b className="font-medium ">PT. Cahaya Baru Utama</b>
+                    </td>
+                    <td>Submitted</td>
+                    <td>PO.No:PO-2023-03-0001</td>
+                    <td>Rp.1.783.000</td>
+                    <td>DN-2024-03-00002</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
           </div>
         </div>
       </div>

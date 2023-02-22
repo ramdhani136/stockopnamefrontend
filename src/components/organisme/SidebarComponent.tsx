@@ -3,8 +3,8 @@ import SegmentIcon from "@mui/icons-material/Segment";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Link } from "react-router-dom";
-import HeaderComponent from "./HeaderComponent";
 import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -50,10 +50,17 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
             SOSystem
           </h1>
 
-          <SegmentIcon
-            className="cursor-pointer ml-1"
-            style={{ fontSize: 21 }}
-          />
+          {!open ? (
+            <SegmentIcon
+              className="cursor-pointer ml-[5px]"
+              style={{ fontSize: 21 }}
+            />
+          ) : (
+            <CloseOutlinedIcon
+              className="cursor-pointer ml-[5px]"
+              style={{ fontSize: 21 }}
+            />
+          )}
         </div>
         <div className="mt-4 flex flex-col  gap-2 relative">
           {open && (
