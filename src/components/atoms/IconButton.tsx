@@ -14,6 +14,8 @@ interface IProps {
   primary?: boolean;
   iconSize?: number;
   iconListDisabled?: Boolean;
+  className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
+  classIcon?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
 }
 
 const IconButton: React.FC<IProps> = ({
@@ -24,6 +26,8 @@ const IconButton: React.FC<IProps> = ({
   primary,
   iconSize,
   iconListDisabled,
+  className,
+  classIcon,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const modalRef = useRef<any>();
@@ -54,13 +58,15 @@ const IconButton: React.FC<IProps> = ({
     <div
       className={`${
         !primary ? "border-[#1d85e0] bg-[#2491f0] " : "border-gray-200 bg-white"
-      } border-[1.5px]  p-[3px] px-1 rounded-md relative cursor-pointer`}
+      } border-[1.5px]  p-[3px] px-1 rounded-md relative cursor-pointer ${className}`}
       onClick={eventClick}
     >
       <div className="flex items-center">
         {Icon && (
           <Icon
-            className={`${!primary ? "text-white" : "text-gray-800"} `}
+            className={`${
+              !primary ? "text-white" : "text-gray-800"
+            } ${classIcon}`}
             style={{ fontSize: iconSize ?? 12 }}
           />
         )}
