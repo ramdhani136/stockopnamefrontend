@@ -44,7 +44,7 @@ const IconMenuHeader: React.FC<IProps> = ({ Icon, title }) => {
       <ul
         className={`${
           !active && `hidden`
-        } border w-80 absolute right-0 top-6 h-auto overflow-y-auto bg-white drop-shadow-sm overflow-hidden p-2 duration-500`}
+        } border w-80 absolute right-0 top-6 h-auto overflow-y-auto bg-white drop-shadow-sm overflow-hidden p-2 duration-500 rounded-md rounded-tr-none`}
       >
         <li
           ref={componentRef}

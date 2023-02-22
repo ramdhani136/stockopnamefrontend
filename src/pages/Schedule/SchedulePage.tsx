@@ -113,7 +113,7 @@ export const SchedulePage: React.FC = () => {
                 primary
               />
             </div>
-            <section className="w-95% p-4 h-auto">
+            <section className="w-95% p-4 h-auto overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr>
