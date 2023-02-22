@@ -17,7 +17,7 @@ const SeacrhHeaderComponent: React.FC = () => {
       inputRef.current?.focus();
       setActive(true);
     },
-    true
+    { ctrl: true }
   );
 
   useKey("Escape", () => {

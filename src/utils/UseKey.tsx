@@ -1,6 +1,11 @@
 import { useRef, useEffect } from "react";
 
-const useKey = (key: String, cb: any, ctrl?: boolean) => {
+interface IComb {
+  ctrl?: boolean;
+  alt?: boolean;
+}
+
+const useKey = (key: String, cb: any, comb?: IComb) => {
   const callbackRef = useRef(cb);
 
   useEffect(() => {
@@ -9,8 +14,16 @@ const useKey = (key: String, cb: any, ctrl?: boolean) => {
 
   useEffect(() => {
     const handle = (event: any) => {
-      if (ctrl) {
+      if (comb?.ctrl && !comb.alt) {
         if ((event.ctrlKey || event.metaKey) && event.key === key) {
+          callbackRef.current(event);
+        }
+      } else if (comb?.ctrl && comb.alt) {
+        if (
+          (event.ctrlKey || event.metaKey) &&
+          event.altKey &&
+          event.key === key
+        ) {
           callbackRef.current(event);
         }
       } else {

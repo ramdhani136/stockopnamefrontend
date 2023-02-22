@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Avatar } from "@mui/material";
+import { useKey } from "../../utils";
 
 interface IProps {
   Icon: any;
+  title?: String;
 }
 
-const IconMenuHeader: React.FC<IProps> = ({ Icon }) => {
+const IconMenuHeader: React.FC<IProps> = ({ Icon, title }) => {
   const [active, setActive] = useState<boolean>(false);
   const componentRef = useRef<any>();
 
@@ -21,6 +23,15 @@ const IconMenuHeader: React.FC<IProps> = ({ Icon }) => {
       document.removeEventListener("mousedown", handler);
     };
   }, []);
+
+  if (title === "notif") {
+    useKey("n", () => setActive(true), {
+      alt: true,
+      ctrl: true,
+    });
+  }
+
+  useKey("Escape", () => setActive(false));
 
   return (
     <div className="relative group">
