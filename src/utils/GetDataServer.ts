@@ -16,7 +16,7 @@ interface IData {
 
 interface IFindOption {
   limit?: number;
-  page?: number;
+  page?: number|String;
   fields?: String[];
   filters?: [String, String, String][];
   orderBy?: { [key: string]: number };

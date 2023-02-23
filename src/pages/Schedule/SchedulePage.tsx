@@ -16,6 +16,8 @@ import moment from "moment";
 export const SchedulePage: React.FC = (): any => {
   const [data, setData] = useState<IDataTables[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [hasMore, setHasMore] = useState<boolean>(false);
+  const [page, setPage] = useState<String>("1");
 
   const metaData = {
     title: "Schedule -  Stock Opname App Ekatunggal",
@@ -40,7 +42,7 @@ export const SchedulePage: React.FC = (): any => {
     try {
       const result: any = await GetDataServer(DataAPI.SCHEDULE).FIND({
         limit: 20,
-        page: 1,
+        page: page,
         // fields: ["name", "user.name"],
         // filters: [
         //   ["name", "=", "SCH202302005"],
@@ -63,6 +65,9 @@ export const SchedulePage: React.FC = (): any => {
             ),
           };
         });
+
+        setHasMore(result.hasMore);
+        setPage(result.nextPage);
         setData([...data, ...generateData]);
       }
       setLoading(false);
@@ -115,7 +120,12 @@ export const SchedulePage: React.FC = (): any => {
                 />
               </div>
             </div>
-            <TableComponent columns={columns} data={data} />
+            <TableComponent
+              hasMore={hasMore}
+              fetchMore={getData}
+              columns={columns}
+              data={data}
+            />
           </>
         ) : (
           <LoadingComponent />
