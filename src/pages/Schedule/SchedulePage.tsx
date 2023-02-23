@@ -43,7 +43,7 @@ export const SchedulePage: React.FC = (): any => {
     try {
       const result: any = await GetDataServer(DataAPI.SCHEDULE).FIND({
         limit: 20,
-        page: refresh ? 1 : page,
+        page: page,
         // fields: ["name", "user.name"],
         // filters: [
         //   ["name", "=", "SCH202302005"],
