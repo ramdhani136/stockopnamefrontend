@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 
-interface IList {
+export interface IListIconButton {
   name: String;
   onClick(e?: any): void | Promise<void>;
 }
@@ -10,7 +10,7 @@ interface IProps {
   Icon?: any;
   callback?(e?: any): void | Promise<void>;
   name?: String;
-  list?: IList[];
+  list?: IListIconButton[];
   primary?: boolean;
   iconSize?: number;
   iconListDisabled?: Boolean;

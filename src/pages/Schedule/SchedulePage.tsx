@@ -20,6 +20,8 @@ export const SchedulePage: React.FC = (): any => {
   const [totalData, setTotalData] = useState<number>(0);
   const [page, setPage] = useState<String>("1");
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [sort, setSort] = useState<any[]>([]);
+  const [isSort, setIsort] = useState<string>("name");
 
   const metaData = {
     title: "Schedule -  Stock Opname App Ekatunggal",
@@ -42,6 +44,9 @@ export const SchedulePage: React.FC = (): any => {
 
   const getData = async (): Promise<any> => {
     try {
+      console.log(isSort);
+      console.log("dueDate");
+      const a = 'dueDate';
       const result: any = await GetDataServer(DataAPI.SCHEDULE).FIND({
         limit: 20,
         page: page,
@@ -50,8 +55,10 @@ export const SchedulePage: React.FC = (): any => {
         //   ["name", "=", "SCH202302005"],
         //   ["name", "=", "SCH202302004"],
         // ],
-        orderBy: { name: -1 },
+        orderBy: { a: -1 },
       });
+      
+
       if (result.data.length > 0) {
         const generateData = result.data.map((item: any): IDataTables => {
           return {
@@ -68,6 +75,18 @@ export const SchedulePage: React.FC = (): any => {
             warehouse: item.warehouse,
           };
         });
+
+        const genSort: any[] = result.filters.map((st: any): any => {
+          return {
+            name: st.name,
+            onClick: () => {
+              setIsort(st.name);
+              setRefresh(true);
+            },
+          };
+        });
+
+        setSort(genSort);
         setTotalData(result.total);
         setHasMore(result.hasMore);
         setPage(result.nextPage);
@@ -139,6 +158,8 @@ export const SchedulePage: React.FC = (): any => {
               columns={columns}
               data={data}
               total={totalData}
+              sort={sort}
+              isSort={isSort}
             />
           </>
         ) : (

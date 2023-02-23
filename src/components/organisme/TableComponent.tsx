@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
 import { IconButton } from "../atoms";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { ClipLoader } from "react-spinners";
 import SyncLoader from "react-spinners/SyncLoader";
+import { IListIconButton } from "../atoms/IconButton";
 
 export interface IColumns {
   header: String;
@@ -26,6 +25,8 @@ interface Iprops {
   fetchMore(): Promise<any>;
   hasMore: boolean;
   total: number;
+  sort: IListIconButton[];
+  isSort: String;
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -34,12 +35,9 @@ const TableComponent: React.FC<Iprops> = ({
   fetchMore,
   hasMore,
   total,
+  sort,
+  isSort,
 }) => {
-  const list = [
-    { name: "Request SPV", onClick: () => alert("dd") },
-    { name: "Reject", onClick: () => alert("reject") },
-  ];
-
   return (
     <div
       className="w-[97.5%] border flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-y-auto "
@@ -72,10 +70,8 @@ const TableComponent: React.FC<Iprops> = ({
               primary
             />
             <IconButton
-              //   callback={refresh}
-              name="Create On"
-              list={list}
-              // iconListDisabled
+              name={isSort}
+              list={sort}
               className="py-[4.8px] px-2 border-l-0 rounded-l-none hover:bg-gray-100 duration-200"
               iconSize={17}
               primary

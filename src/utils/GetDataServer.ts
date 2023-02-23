@@ -35,7 +35,8 @@ class RequestData implements IData {
   FIND = async (options: IFindOption): Promise<object> => {
     let fields: String = ``;
     let filters: String = ``;
-    let orderBy: String = "";
+    let orderBy: String =  ``;
+    console.log(options.orderBy)
     try {
       if (options.fields) {
         fields = `&&fields=${JSON.stringify(options.fields)}`;
