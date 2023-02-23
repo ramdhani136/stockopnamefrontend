@@ -21,7 +21,7 @@ export const SchedulePage: React.FC = (): any => {
   const [page, setPage] = useState<String>("1");
   const [refresh, setRefresh] = useState<boolean>(false);
   const [sort, setSort] = useState<any[]>([]);
-  const [isSort, setIsort] = useState<string>("name");
+  const [isSort, setIsort] = useState<string>("createdAt");
 
   const metaData = {
     title: "Schedule -  Stock Opname App Ekatunggal",
@@ -55,7 +55,7 @@ export const SchedulePage: React.FC = (): any => {
         //   ["name", "=", "SCH202302005"],
         //   ["name", "=", "SCH202302004"],
         // ],
-        orderBy: { a: -1 },
+        orderBy: { createdAt: -1 },
       });
       
 
