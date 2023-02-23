@@ -57,13 +57,13 @@ export const SchedulePage: React.FC = (): any => {
             dueDate: moment(item.dueDate).format("LL"),
             workflowState: (
               <ButtonStatusComponent
-                variant={item.status}
+                status={item.status}
                 name={item.workflowState}
               />
             ),
           };
         });
-        setData(generateData);
+        setData([...data, ...generateData]);
       }
       setLoading(false);
     } catch (error: any) {
