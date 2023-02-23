@@ -11,6 +11,7 @@ import {
   IDataTables,
 } from "../../components/organisme/TableComponent";
 import { LoadingComponent } from "../../components/moleculs";
+import moment from "moment";
 
 export const SchedulePage: React.FC = (): any => {
   const [data, setData] = useState<IDataTables[]>([]);
@@ -29,7 +30,7 @@ export const SchedulePage: React.FC = (): any => {
       { header: "Workflow State", accessor: "workflowState" },
       { header: "User", accessor: "user" },
       { header: "Start Date", accessor: "startDate" },
-      { header: "Closing Date", accessor: "dueDate" },
+      { header: "Due Date", accessor: "dueDate" },
       // { header: "Warehouse", accessor: "warehouse" },
     ],
     []
@@ -45,15 +46,15 @@ export const SchedulePage: React.FC = (): any => {
         //   ["name", "=", "SCH202302005"],
         //   ["name", "=", "SCH202302004"],
         // ],
-        orderBy: { name: 1 },
+        orderBy: { name: -1 },
       });
       if (result.data.length > 0) {
         const generateData = result.data.map((item: any): IDataTables => {
           return {
             name: <b className="font-medium">{item.name}</b>,
             user: <div>{item.user.name}</div>,
-            startDate: <div>{item.startDate}</div>,
-            dueDate: <div>{item.dueDate}</div>,
+            startDate: moment(item.startDate).format("LL"),
+            dueDate: moment(item.dueDate).format("LL"),
             workflowState: <div>{item.workflowState}</div>,
           };
         });
