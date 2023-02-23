@@ -118,7 +118,10 @@ export const SchedulePage: React.FC = () => {
                 <thead>
                   <tr>
                     <th className="font-normal text-gray-600 text-[0.95em] text-left pb-3">
-                      No
+                      <input
+                        className="w-[11px] accent-slate-600"
+                        type="checkbox"
+                      />
                     </th>
                     <th className="font-normal text-gray-600 text-[0.95em] text-left pb-3">
                       Title
@@ -139,7 +142,12 @@ export const SchedulePage: React.FC = () => {
                 </thead>
                 <tbody>
                   <tr className="text-[0.9em] border-b">
-                    <td className="py-3">1</td>
+                    <td className="py-3">
+                      <input
+                        className="w-[11px] accent-slate-600"
+                        type="checkbox"
+                      />
+                    </td>
                     <td>
                       <b className="font-medium ">PT. KARYA ABADI UTAMA</b>
                     </td>
@@ -149,7 +157,12 @@ export const SchedulePage: React.FC = () => {
                     <td>DN-2024-03-00002</td>
                   </tr>
                   <tr className="text-[0.9em] border-b">
-                    <td className="py-3">2</td>
+                    <td className="py-3">
+                      <input
+                        className="w-[11px] accent-slate-600"
+                        type="checkbox"
+                      />
+                    </td>
                     <td>
                       <b className="font-medium ">PT. Cahaya Baru Utama</b>
                     </td>
