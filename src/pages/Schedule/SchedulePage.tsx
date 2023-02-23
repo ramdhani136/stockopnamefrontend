@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { IconButton } from "../../components/atoms";
+import { ButtonStatusComponent, IconButton } from "../../components/atoms";
 import { Meta } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -55,7 +55,12 @@ export const SchedulePage: React.FC = (): any => {
             user: <div>{item.user.name}</div>,
             startDate: moment(item.startDate).format("LL"),
             dueDate: moment(item.dueDate).format("LL"),
-            workflowState: <div>{item.workflowState}</div>,
+            workflowState: (
+              <ButtonStatusComponent
+                variant={item.status}
+                name={item.workflowState}
+              />
+            ),
           };
         });
         setData(generateData);

@@ -84,15 +84,15 @@ const TableComponent: React.FC<Iprops> = ({ columns, data }) => {
             </thead>
             <tbody>
               {data.map((item: any, index) => (
-                <tr key={index} className="text-[0.9em] border-b">
-                  <td className="py-3 px-4">
+                <tr key={index} className="text-[0.9em] border-b border-[#f4f6f5] ">
+                  <td className="py-[15px] px-4">
                     <input
                       className="w-[14px] accent-slate-600"
                       type="checkbox"
                     />
                   </td>
-                  {columns.map((col: IColumns) => (
-                    <td>{item[`${col.accessor}`]}</td>
+                  {columns.map((col: IColumns,id) => (
+                    <td key={id}>{item[`${col.accessor}`]}</td>
                   ))}
                 </tr>
               ))}
