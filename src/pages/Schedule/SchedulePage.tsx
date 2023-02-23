@@ -19,6 +19,7 @@ export const SchedulePage: React.FC = (): any => {
   const [hasMore, setHasMore] = useState<boolean>(false);
   const [totalData, setTotalData] = useState<number>(0);
   const [page, setPage] = useState<String>("1");
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   const metaData = {
     title: "Schedule -  Stock Opname App Ekatunggal",
@@ -70,6 +71,7 @@ export const SchedulePage: React.FC = (): any => {
         setHasMore(result.hasMore);
         setPage(result.nextPage);
         setData([...data, ...generateData]);
+        setRefresh(false);
       }
       setLoading(false);
     } catch (error: any) {
@@ -81,10 +83,22 @@ export const SchedulePage: React.FC = (): any => {
     }
   };
 
+  const onRefresh = () => {
+    setData([]);
+    setPage("1"), setHasMore(false);
+    setRefresh(true);
+    setLoading(true);
+  };
+
   useEffect(() => {
     getData();
   }, []);
 
+  useEffect(() => {
+    if (refresh) {
+      getData();
+    }
+  }, [refresh]);
 
   return (
     <>
@@ -100,7 +114,7 @@ export const SchedulePage: React.FC = (): any => {
               <div className="flex-1  flex items-center justify-end mr-4">
                 <IconButton
                   Icon={RefreshIcon}
-                  // callback={}
+                  callback={onRefresh}
                   // name="Actions"
                   // list={list}
                   // iconListDisabled
