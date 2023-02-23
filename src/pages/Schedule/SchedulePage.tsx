@@ -17,6 +17,7 @@ export const SchedulePage: React.FC = (): any => {
   const [data, setData] = useState<IDataTables[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(false);
+  const [totalData, setTotalData] = useState<number>(0);
   const [page, setPage] = useState<String>("1");
 
   const metaData = {
@@ -42,7 +43,7 @@ export const SchedulePage: React.FC = (): any => {
     try {
       const result: any = await GetDataServer(DataAPI.SCHEDULE).FIND({
         limit: 20,
-        page: page,
+        page: refresh ? 1 : page,
         // fields: ["name", "user.name"],
         // filters: [
         //   ["name", "=", "SCH202302005"],
@@ -65,7 +66,7 @@ export const SchedulePage: React.FC = (): any => {
             ),
           };
         });
-
+        setTotalData(result.total);
         setHasMore(result.hasMore);
         setPage(result.nextPage);
         setData([...data, ...generateData]);
@@ -75,7 +76,7 @@ export const SchedulePage: React.FC = (): any => {
       if (error.status === 401) {
         navigate("/login");
       }
-      alert(error.msg);
+      alert(error);
       setLoading(false);
     }
   };
@@ -84,9 +85,6 @@ export const SchedulePage: React.FC = (): any => {
     getData();
   }, []);
 
-  const refresh = () => {
-    alert("tes");
-  };
 
   return (
     <>
@@ -102,7 +100,7 @@ export const SchedulePage: React.FC = (): any => {
               <div className="flex-1  flex items-center justify-end mr-4">
                 <IconButton
                   Icon={RefreshIcon}
-                  callback={refresh}
+                  // callback={}
                   // name="Actions"
                   // list={list}
                   // iconListDisabled
@@ -112,7 +110,6 @@ export const SchedulePage: React.FC = (): any => {
                 />
                 <IconButton
                   Icon={AddIcon}
-                  callback={refresh}
                   name="Add Schedule"
                   // list={list}
                   // iconListDisabled
@@ -125,6 +122,7 @@ export const SchedulePage: React.FC = (): any => {
               fetchMore={getData}
               columns={columns}
               data={data}
+              total={totalData}
             />
           </>
         ) : (

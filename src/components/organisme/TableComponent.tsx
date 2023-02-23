@@ -25,6 +25,7 @@ interface Iprops {
   data: IDataTables[];
   fetchMore(): Promise<any>;
   hasMore: boolean;
+  total: number;
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -32,6 +33,7 @@ const TableComponent: React.FC<Iprops> = ({
   data,
   fetchMore,
   hasMore,
+  total,
 }) => {
   const list = [
     { name: "Request SPV", onClick: () => alert("dd") },
@@ -44,36 +46,41 @@ const TableComponent: React.FC<Iprops> = ({
       id="scrollableDiv"
     >
       <div className="h-auto">
-        <div className="w-full p-3 sticky top-0 flex items-center justify-end py-5 border-b bg-white">
-          <IconButton
-            Icon={FilterListIcon}
-            //   callback={refresh}
-            name="Filter"
-            // list={list}
-            // iconListDisabled
-            className="py-1 px-2 mr-2"
-            iconSize={17}
-            primary
-          />
-          <IconButton
-            Icon={SortByAlphaIcon}
-            //   callback={refresh}
-            // name="Filter"
-            // list={list}
-            // iconListDisabled
-            className="py-1 px-2 rounded-r-none"
-            iconSize={22}
-            primary
-          />
-          <IconButton
-            //   callback={refresh}
-            name="Create On"
-            list={list}
-            // iconListDisabled
-            className="py-[4.8px] px-2 border-l-0 rounded-l-none"
-            iconSize={17}
-            primary
-          />
+        <div className="w-full p-3 sticky top-0 flex items-center justify-between py-5 border-b bg-white">
+          <h5 className="text-[0.9em] ml-4 text-gray-600 font-semibold">
+            ({data.length} Of {total})
+          </h5>
+          <div className="flex">
+            <IconButton
+              Icon={FilterListIcon}
+              //   callback={refresh}
+              name="Filter"
+              // list={list}
+              // iconListDisabled
+              className="py-1 px-2 mr-2"
+              iconSize={17}
+              primary
+            />
+            <IconButton
+              Icon={SortByAlphaIcon}
+              //   callback={refresh}
+              // name="Filter"
+              // list={list}
+              // iconListDisabled
+              className="py-1 px-2 rounded-r-none"
+              iconSize={22}
+              primary
+            />
+            <IconButton
+              //   callback={refresh}
+              name="Create On"
+              list={list}
+              // iconListDisabled
+              className="py-[4.8px] px-2 border-l-0 rounded-l-none"
+              iconSize={17}
+              primary
+            />
+          </div>
         </div>
         <InfiniteScroll
           dataLength={data.length}
