@@ -121,12 +121,12 @@ export const SchedulePage: React.FC = (): any => {
                   // iconListDisabled
                   primary
                   iconSize={20}
-                  className="mr-2 cursor-pointer py-[4.5px] opacity-70 hover:opacity-100 duration-300 "
+                  className="mr-2 cursor-pointer py-[4.5px] opacity-70 hover:opacity-100 duration-100 "
                 />
                 <IconButton
                   Icon={AddIcon}
                   name="Add Schedule"
-                  className="opacity-80 hover:opacity-100 duration-300"
+                  className="opacity-80 hover:opacity-100 duration-100"
                   // list={list}
                   // iconListDisabled
                   // iconSize={20}

@@ -57,7 +57,7 @@ const TableComponent: React.FC<Iprops> = ({
               name="Filter"
               // list={list}
               // iconListDisabled
-              className="py-1 px-2 mr-2"
+              className="py-1 px-2 mr-2 hover:bg-gray-100 duration-100"
               iconSize={17}
               primary
             />
@@ -67,7 +67,7 @@ const TableComponent: React.FC<Iprops> = ({
               // name="Filter"
               // list={list}
               // iconListDisabled
-              className="py-1 px-2 rounded-r-none"
+              className="py-1 px-2 rounded-r-none hover:bg-gray-100 duration-100"
               iconSize={22}
               primary
             />
@@ -76,7 +76,7 @@ const TableComponent: React.FC<Iprops> = ({
               name="Create On"
               list={list}
               // iconListDisabled
-              className="py-[4.8px] px-2 border-l-0 rounded-l-none"
+              className="py-[4.8px] px-2 border-l-0 rounded-l-none hover:bg-gray-100 duration-200"
               iconSize={17}
               primary
             />
