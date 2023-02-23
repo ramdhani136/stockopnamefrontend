@@ -35,7 +35,7 @@ export const SchedulePage: React.FC = (): any => {
       { header: "User", accessor: "user" },
       { header: "Start Date", accessor: "startDate" },
       { header: "Due Date", accessor: "dueDate" },
-      // { header: "Warehouse", accessor: "warehouse" },
+      { header: "Warehouse", accessor: "warehouse" },
     ],
     []
   );
@@ -65,6 +65,7 @@ export const SchedulePage: React.FC = (): any => {
                 name={item.workflowState}
               />
             ),
+            warehouse: item.warehouse,
           };
         });
         setTotalData(result.total);
@@ -120,11 +121,12 @@ export const SchedulePage: React.FC = (): any => {
                   // iconListDisabled
                   primary
                   iconSize={20}
-                  className="mr-2 cursor-pointer py-[4.5px] "
+                  className="mr-2 cursor-pointer py-[4.5px] opacity-70 hover:opacity-100 duration-300 "
                 />
                 <IconButton
                   Icon={AddIcon}
                   name="Add Schedule"
+                  className="opacity-80 hover:opacity-100 duration-300"
                   // list={list}
                   // iconListDisabled
                   // iconSize={20}
