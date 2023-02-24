@@ -44,9 +44,6 @@ export const SchedulePage: React.FC = (): any => {
 
   const getData = async (): Promise<any> => {
     try {
-      console.log(isSort);
-      console.log("dueDate");
-      const a = 'dueDate';
       const result: any = await GetDataServer(DataAPI.SCHEDULE).FIND({
         limit: 20,
         page: page,
@@ -55,9 +52,8 @@ export const SchedulePage: React.FC = (): any => {
         //   ["name", "=", "SCH202302005"],
         //   ["name", "=", "SCH202302004"],
         // ],
-        orderBy: { createdAt: -1 },
+        orderBy: { sort: -1, state: isSort },
       });
-      
 
       if (result.data.length > 0) {
         const generateData = result.data.map((item: any): IDataTables => {
@@ -80,6 +76,9 @@ export const SchedulePage: React.FC = (): any => {
           return {
             name: st.name,
             onClick: () => {
+              setData([]);
+              setHasMore(false);
+              setPage("1");
               setIsort(st.name);
               setRefresh(true);
             },

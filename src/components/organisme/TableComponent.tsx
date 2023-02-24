@@ -95,6 +95,9 @@ const TableComponent: React.FC<Iprops> = ({
             </div>
           }
           scrollableTarget="scrollableDiv"
+          endMessage={
+            <div className="w-auto  left-1/2 inline py-1 px-2 text-center relative bottom-2  text-sm text-gray-300 r">No more data</div>
+          }
         >
           <section className="w-95% p-4 h-auto overflow-x-auto">
             {data.length > 0 ? (

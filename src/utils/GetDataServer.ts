@@ -16,10 +16,10 @@ interface IData {
 
 interface IFindOption {
   limit?: number;
-  page?: number|String;
+  page?: number | String;
   fields?: String[];
   filters?: [String, String, String][];
-  orderBy?: { [key: string]: number };
+  orderBy?: { state: String; sort: Number };
 }
 
 export enum DataAPI {
@@ -35,8 +35,8 @@ class RequestData implements IData {
   FIND = async (options: IFindOption): Promise<object> => {
     let fields: String = ``;
     let filters: String = ``;
-    let orderBy: String =  ``;
-    console.log(options.orderBy)
+    let orderBy: String = ``;
+
     try {
       if (options.fields) {
         fields = `&&fields=${JSON.stringify(options.fields)}`;
@@ -44,8 +44,10 @@ class RequestData implements IData {
       if (options.filters) {
         filters = `&&filters=${JSON.stringify(options.filters)}`;
       }
+
       if (options.orderBy) {
-        orderBy = `&&order_by=${JSON.stringify(options.orderBy)}`;
+        orderBy = `&&order_by={"${options.orderBy.state}":${options.orderBy.sort}}`;
+        console.log(orderBy);
       }
       const uri = `http://localhost:5000/${this.data}?limit=${options.limit}&page=${options.page}${fields}${filters}${orderBy}`;
       const result: any = await FetchApi.get(uri);
