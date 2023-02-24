@@ -1,9 +1,11 @@
 import { IconButton } from "../atoms";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
+
 import InfiniteScroll from "react-infinite-scroll-component";
 import SyncLoader from "react-spinners/SyncLoader";
 import { IListIconButton } from "../atoms/IconButton";
+import SouthIcon from "@mui/icons-material/South";
+import NorthIcon from "@mui/icons-material/North";
 
 export interface IColumns {
   header: String;
@@ -27,6 +29,8 @@ interface Iprops {
   total: number;
   sort: IListIconButton[];
   isSort: String;
+  isOrderBy: number;
+  setOrderBy(): void | Promise<void>;
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -37,6 +41,8 @@ const TableComponent: React.FC<Iprops> = ({
   total,
   sort,
   isSort,
+  isOrderBy,
+  setOrderBy
 }) => {
   return (
     <div
@@ -60,13 +66,10 @@ const TableComponent: React.FC<Iprops> = ({
               primary
             />
             <IconButton
-              Icon={SortByAlphaIcon}
-              //   callback={refresh}
-              // name="Filter"
-              // list={list}
-              // iconListDisabled
-              className="py-1 px-2 rounded-r-none hover:bg-gray-100 duration-100"
-              iconSize={22}
+            callback={setOrderBy}
+              Icon={isOrderBy===1?NorthIcon:SouthIcon}
+              className=" flex py-1 px-2 rounded-r-none  hover:bg-gray-100 duration-100"
+              iconSize={13}
               primary
             />
             <IconButton
@@ -96,7 +99,9 @@ const TableComponent: React.FC<Iprops> = ({
           }
           scrollableTarget="scrollableDiv"
           endMessage={
-            <div className="w-auto  left-1/2 inline py-1 px-2 text-center relative bottom-2  text-sm text-gray-300 r">No more data</div>
+            <div className="w-auto  left-1/2 inline py-1 px-2 text-center relative bottom-2  text-sm text-gray-300 r">
+              No more data
+            </div>
           }
         >
           <section className="w-95% p-4 h-auto overflow-x-auto">

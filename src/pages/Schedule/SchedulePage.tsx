@@ -22,6 +22,7 @@ export const SchedulePage: React.FC = (): any => {
   const [refresh, setRefresh] = useState<boolean>(false);
   const [sort, setSort] = useState<any[]>([]);
   const [isSort, setIsort] = useState<string>("createdAt");
+  const [isOrderBy, setOrderBy] = useState<number>(-1);
 
   const metaData = {
     title: "Schedule -  Stock Opname App Ekatunggal",
@@ -52,7 +53,7 @@ export const SchedulePage: React.FC = (): any => {
         //   ["name", "=", "SCH202302005"],
         //   ["name", "=", "SCH202302004"],
         // ],
-        orderBy: { sort: -1, state: isSort },
+        orderBy: { sort: isOrderBy, state: isSort },
       });
 
       if (result.data.length > 0) {
@@ -159,6 +160,15 @@ export const SchedulePage: React.FC = (): any => {
               total={totalData}
               sort={sort}
               isSort={isSort}
+              isOrderBy={isOrderBy}
+              setOrderBy={() => {
+                setData([]);
+                setHasMore(false);
+                setPage("1");
+                let getOrder = isOrderBy === 1 ? -1 : 1;
+                setOrderBy(getOrder);
+                setRefresh(true);
+              }}
             />
           </>
         ) : (
