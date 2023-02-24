@@ -39,6 +39,7 @@ export const SchedulePage: React.FC = (): any => {
       { header: "Start Date", accessor: "startDate" },
       { header: "Due Date", accessor: "dueDate" },
       { header: "Warehouse", accessor: "warehouse" },
+      { header: "", accessor: "updatedAt" },
     ],
     []
   );
@@ -70,6 +71,14 @@ export const SchedulePage: React.FC = (): any => {
               />
             ),
             warehouse: item.warehouse,
+            updatedAt: (
+              <div className="inline text-gray-500 text-[0.95em]">
+                <h5 className="mr-2 inline">-</h5>
+                <h5 className="inline">
+                  {moment(`${item.updatedAt}`).endOf("day").fromNow()}
+                </h5>
+              </div>
+            ),
           };
         });
 

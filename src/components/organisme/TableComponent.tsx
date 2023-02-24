@@ -42,7 +42,7 @@ const TableComponent: React.FC<Iprops> = ({
   sort,
   isSort,
   isOrderBy,
-  setOrderBy
+  setOrderBy,
 }) => {
   return (
     <div
@@ -66,8 +66,8 @@ const TableComponent: React.FC<Iprops> = ({
               primary
             />
             <IconButton
-            callback={setOrderBy}
-              Icon={isOrderBy===1?NorthIcon:SouthIcon}
+              callback={setOrderBy}
+              Icon={isOrderBy === 1 ? NorthIcon : SouthIcon}
               className=" flex py-1 px-2 rounded-r-none  hover:bg-gray-100 duration-100"
               iconSize={13}
               primary
