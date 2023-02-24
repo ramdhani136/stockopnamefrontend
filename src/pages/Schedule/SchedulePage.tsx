@@ -34,7 +34,7 @@ export const SchedulePage: React.FC = (): any => {
   const columns: IColumns[] = useMemo(
     () => [
       { header: "Name", accessor: "name" },
-      { header: "Workflow State", accessor: "workflowState" },
+      { header: "Status", accessor: "workflowState" },
       { header: "User", accessor: "user" },
       { header: "Start Date", accessor: "startDate" },
       { header: "Due Date", accessor: "dueDate" },
@@ -72,7 +72,7 @@ export const SchedulePage: React.FC = (): any => {
             ),
             warehouse: item.warehouse,
             updatedAt: (
-              <div className="inline text-gray-500 text-[0.93em]">
+              <div className="inline text-gray-600 text-[0.93em]">
                 <h5 className="mr-2 inline">-</h5>
                 <h5 className="inline">
                   {moment(`${item.updatedAt}`).endOf("day").fromNow()}
