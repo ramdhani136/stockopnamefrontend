@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonStatusComponent, IconButton } from "../../components/atoms";
-import { Meta } from "../../utils";
+import { Meta, useKey } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import AddIcon from "@mui/icons-material/Add";
@@ -72,7 +72,7 @@ export const SchedulePage: React.FC = (): any => {
             ),
             warehouse: item.warehouse,
             updatedAt: (
-              <div className="inline text-gray-500 text-[0.95em]">
+              <div className="inline text-gray-500 text-[0.93em]">
                 <h5 className="mr-2 inline">-</h5>
                 <h5 className="inline">
                   {moment(`${item.updatedAt}`).endOf("day").fromNow()}
@@ -128,6 +128,11 @@ export const SchedulePage: React.FC = (): any => {
       getData();
     }
   }, [refresh]);
+
+  useKey("n", () => alert("Create new Schedule"), {
+    ctrl: true,
+    alt: true,
+  });
 
   return (
     <>
