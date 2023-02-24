@@ -47,7 +47,6 @@ class RequestData implements IData {
 
       if (options.orderBy) {
         orderBy = `&&order_by={"${options.orderBy.state}":${options.orderBy.sort}}`;
-        console.log(orderBy);
       }
       const uri = `http://localhost:5000/${this.data}?limit=${options.limit}&page=${options.page}${fields}${filters}${orderBy}`;
       const result: any = await FetchApi.get(uri);
