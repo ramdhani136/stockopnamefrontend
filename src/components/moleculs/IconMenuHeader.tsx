@@ -25,7 +25,7 @@ const IconMenuHeader: React.FC<IProps> = ({ Icon, title }) => {
   }, []);
 
   if (title === "notif") {
-    useKey("m", () => setActive(true), {
+    useKey("m", () => setActive(!active), {
       ctrl: true,
     });
   }

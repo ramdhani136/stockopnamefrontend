@@ -14,6 +14,13 @@ const useKey = (key: String, cb: any, comb?: IComb) => {
 
   useEffect(() => {
     const handle = (event: any) => {
+      // Disabled default shortcut
+
+      if (event.ctrlKey && (event.which == 83 || event.which == 71)) {
+        event.preventDefault();
+      }
+      //End
+
       if (comb?.ctrl && !comb?.alt) {
         if (event.ctrlKey && !event.altKey && event.key === key) {
           callbackRef.current(event);
