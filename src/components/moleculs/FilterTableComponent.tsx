@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import AddIcon from "@mui/icons-material/Add";
+import { InputComponent } from "../atoms";
 
 const FilterTableComponent: React.FC = () => {
   const [open, setOpen] = useState<boolean>(true);
@@ -33,12 +34,16 @@ const FilterTableComponent: React.FC = () => {
           ref={modalRef}
           className="bg-white  border-[1.5px] border-gray-200 w-[550px] h-auto max-h-[300px] absolute top-[38px]  left-0 rounded-md drop-shadow- flex flex-col px-6 py-2"
         >
-          <h4 className="w-full border-b-[1.5px] border-[#f1eeee] flex-1 text-center py-6 text-gray-300 font-normal">
+          {/* <h4 className="w-full border-b-[1.5px] border-[#f1eeee] flex-1 text-center py-6 text-gray-300 font-normal">
             No Filter
-          </h4>
-          {/* <ul className="h-full border overflow-y-auto scrollbar-none">
-            <li></li>
-          </ul> */}
+          </h4> */}
+          <ul className="h-full overflow-y-auto scrollbar-none py-6 border-b">
+            <li className="flex">
+              <InputComponent className="mr-3" />
+              <InputComponent className="mr-3 w-[200px] text-center" />
+              <InputComponent className="w-[700px]" />
+            </li>
+          </ul>
           <div className="w-full  flex py-5 text-sm  ">
             <div className="flex-1 font-normal flex items-center ">
               <AddIcon style={{ fontSize: 12 }} className="mt-[1px]" />
