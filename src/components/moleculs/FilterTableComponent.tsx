@@ -54,13 +54,13 @@ const FilterTableComponent: React.FC = () => {
             <div className="font-normal">
               <a
                 href="#"
-                className="border py-[3px] px-2 rounded-md bg-gray-50"
+                className="border py-[3px] px-2 rounded-md bg-gray-50 opacity-80 hover:opacity-100 duration-200"
               >
                 Clear Filter
               </a>
               <a
                 href="#"
-                className="ml-2 border py-[3px] px-2 bg-[#1976d3] border-[#166abd] text-white rounded-md"
+                className="ml-2 border py-[3px] px-2 bg-[#1976d3] border-[#166abd] text-white rounded-md  opacity-80 hover:opacity-100 duration-200"
               >
                 Aplly Filter
               </a>
