@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 
 const FilterTableComponent: React.FC = () => {
   const [open, setOpen] = useState<boolean>(true);
@@ -31,21 +31,32 @@ const FilterTableComponent: React.FC = () => {
       {open && (
         <div
           ref={modalRef}
-          className="bg-white  border-[1.5px] border-gray-200 w-[550px] h-auto max-h-[300px] absolute top-[38px] scrollbar-none left-0 rounded-md drop-shadow- flex flex-col px-6"
+          className="bg-white  border-[1.5px] border-gray-200 w-[550px] h-auto max-h-[300px] absolute top-[38px]  left-0 rounded-md drop-shadow- flex flex-col px-6 py-2"
         >
-          <h4 className="w-full border-b-[1.5px] border-[#f1eeee] flex-1 text-center py-6 text-gray-300 font-normal">No Filter</h4>
-          <div className="w-full  flex items-center py-7 text-sm">
-            <div className="flex-1 font-normal flex items-center">
-                <AddIcon style={{fontSize:12}} className="mt-[1px]"/>
+          <h4 className="w-full border-b-[1.5px] border-[#f1eeee] flex-1 text-center py-6 text-gray-300 font-normal">
+            No Filter
+          </h4>
+          {/* <ul className="h-full border overflow-y-auto scrollbar-none">
+            <li></li>
+          </ul> */}
+          <div className="w-full  flex py-5 text-sm  ">
+            <div className="flex-1 font-normal flex items-center ">
+              <AddIcon style={{ fontSize: 12 }} className="mt-[1px]" />
               <a href="#" className="">
                 Add Filter
               </a>
             </div>
-            <div className="flex-1 flex justify-end font-normal">
-              <a href="#" className="border p-1 px-2 rounded-md bg-gray-50">
+            <div className="font-normal">
+              <a
+                href="#"
+                className="border py-[3px] px-2 rounded-md bg-gray-50"
+              >
                 Clear Filter
               </a>
-              <a href="#" className="ml-2 border p-1 px-2 rounded-md">
+              <a
+                href="#"
+                className="ml-2 border py-[3px] px-2 bg-[#1976d3] border-[#166abd] text-white rounded-md"
+              >
                 Aplly Filter
               </a>
             </div>
