@@ -1,5 +1,4 @@
 import { IconButton } from "../atoms";
-import FilterListIcon from "@mui/icons-material/FilterList";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 import SyncLoader from "react-spinners/SyncLoader";
@@ -7,6 +6,7 @@ import { IListIconButton } from "../atoms/IconButton";
 import SouthIcon from "@mui/icons-material/South";
 import NorthIcon from "@mui/icons-material/North";
 import CloseIcon from "@mui/icons-material/Close";
+import { FilterTableComponent } from "../moleculs";
 
 export interface IColumns {
   header: String;
@@ -66,16 +66,7 @@ const TableComponent: React.FC<Iprops> = ({
                 style={{ fontSize: 18 }}
               />
             </div>
-            <IconButton
-              callback={getAllData}
-              name="Filter"
-              // list={list}
-              Icon={FilterListIcon}
-              // iconListDisabled
-              className="py-[7.5px]  ml-1 px-2 rounded-sm hover:bg-gray-100 duration-100"
-              iconSize={16}
-              primary
-            />
+            <FilterTableComponent />
           </h5>
           <div className="flex">
             <IconButton
