@@ -23,6 +23,7 @@ export const SchedulePage: React.FC = (): any => {
   const [sort, setSort] = useState<any[]>([]);
   const [isSort, setIsort] = useState<string>("createdAt");
   const [isOrderBy, setOrderBy] = useState<number>(-1);
+  const [limit, setLimit] = useState<number>(20);
 
   const metaData = {
     title: "Schedule -  Stock Opname App Ekatunggal",
@@ -47,7 +48,7 @@ export const SchedulePage: React.FC = (): any => {
   const getData = async (): Promise<any> => {
     try {
       const result: any = await GetDataServer(DataAPI.SCHEDULE).FIND({
-        limit: 20,
+        limit: limit,
         page: page,
         // fields: ["name", "user.name"],
         // filters: [
@@ -134,7 +135,13 @@ export const SchedulePage: React.FC = (): any => {
     alt: true,
   });
 
-
+  const getAllData = () => {
+    setData([]);
+    setHasMore(false);
+    setPage("1");
+    setLimit(0);
+    setRefresh(true);
+  };
 
   return (
     <>
@@ -185,6 +192,7 @@ export const SchedulePage: React.FC = (): any => {
                 setOrderBy(getOrder);
                 setRefresh(true);
               }}
+              getAllData={getAllData}
             />
           </>
         ) : (

@@ -6,6 +6,8 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { IListIconButton } from "../atoms/IconButton";
 import SouthIcon from "@mui/icons-material/South";
 import NorthIcon from "@mui/icons-material/North";
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+
 
 export interface IColumns {
   header: String;
@@ -31,6 +33,7 @@ interface Iprops {
   isSort: String;
   isOrderBy: number;
   setOrderBy(): void | Promise<void>;
+  getAllData(): void | Promise<void>;
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -43,6 +46,7 @@ const TableComponent: React.FC<Iprops> = ({
   isSort,
   isOrderBy,
   setOrderBy,
+  getAllData
 }) => {
   return (
     <div
@@ -56,9 +60,8 @@ const TableComponent: React.FC<Iprops> = ({
           </h5>
           <div className="flex">
             <IconButton
-              Icon={FilterListIcon}
-              //   callback={refresh}
-              name="Filter"
+                callback={getAllData}
+              name="All Data"
               // list={list}
               // iconListDisabled
               className="py-1 px-2 mr-2 hover:bg-gray-100 duration-100"
