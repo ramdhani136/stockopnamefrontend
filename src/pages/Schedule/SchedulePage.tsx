@@ -24,6 +24,7 @@ export const SchedulePage: React.FC = (): any => {
   const [isSort, setIsort] = useState<string>("createdAt");
   const [isOrderBy, setOrderBy] = useState<number>(-1);
   const [limit, setLimit] = useState<number>(20);
+  const [search, setSeacrh] = useState<String>("");
 
   const metaData = {
     title: "Schedule -  Stock Opname App Ekatunggal",

@@ -49,7 +49,7 @@ const TableComponent: React.FC<Iprops> = ({
 }) => {
   return (
     <div
-      className="w-[97.5%] border flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-y-auto  scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
+      className="w-[97.5%] border flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-y-auto  scrollbar-thin scrollbar-thumb-[#ddd] scrollbar-track-gray-100"
       id="scrollableDiv"
     >
       <div className="h-auto">
