@@ -6,8 +6,7 @@ import SyncLoader from "react-spinners/SyncLoader";
 import { IListIconButton } from "../atoms/IconButton";
 import SouthIcon from "@mui/icons-material/South";
 import NorthIcon from "@mui/icons-material/North";
-import DoneAllIcon from '@mui/icons-material/DoneAll';
-
+import CloseIcon from "@mui/icons-material/Close";
 
 export interface IColumns {
   header: String;
@@ -46,7 +45,7 @@ const TableComponent: React.FC<Iprops> = ({
   isSort,
   isOrderBy,
   setOrderBy,
-  getAllData
+  getAllData,
 }) => {
   return (
     <div
@@ -55,12 +54,32 @@ const TableComponent: React.FC<Iprops> = ({
     >
       <div className="h-auto">
         <div className="w-full p-3 sticky top-0 flex items-center justify-between py-5 border-b bg-white">
-          <h5 className="text-[0.9em] ml-4 text-gray-600 font-semibold">
+          <h5 className="text-[0.9em] ml-4 text-gray-600 font-semibold flex items-center">
             ({data.length} Of {total})
+            <div className="w-64 border h-9 rounded-sm  ml-4 bg-gray-50 flex items-center relative">
+              <input
+                className=" flex-1  px-3 pr-8 h-full bg-gray-50 placeholder:text-gray-300 placeholder:font-normal"
+                placeholder="Search"
+              />
+              <CloseIcon
+                className="mr-[5px] text-gray-200 cursor-pointer absolute right-0"
+                style={{ fontSize: 18 }}
+              />
+            </div>
+            <IconButton
+              callback={getAllData}
+              name="Filter"
+              // list={list}
+              Icon={FilterListIcon}
+              // iconListDisabled
+              className="py-[7.5px]  ml-1 px-2 rounded-sm hover:bg-gray-100 duration-100"
+              iconSize={16}
+              primary
+            />
           </h5>
           <div className="flex">
             <IconButton
-                callback={getAllData}
+              callback={getAllData}
               name="All Data"
               // list={list}
               // iconListDisabled
