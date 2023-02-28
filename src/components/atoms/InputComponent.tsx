@@ -73,7 +73,7 @@ const InputComponent: React.FC<IProps> = ({
 
   return (
     <div
-      className={`w-full rounded-md bg-gray-100  relative  ${
+      className={`w-full rounded-md bg-gray-50  relative  ${
         mandatoy && !value.valueData && "border-red-500 border"
       } ${className}`}
     >
@@ -86,7 +86,7 @@ const InputComponent: React.FC<IProps> = ({
         value={`${value.valueInput}`}
         className={`${
           label && "mt-1"
-        } w-full font-normal border h-7 z-10 rounded-md bg-gray-100  px-3 ${inputStyle}`}
+        } w-full font-normal border h-7 z-10 rounded-md bg-gray-50  px-3 ${inputStyle}`}
       />
       {value.valueInput && onReset && (
         <CloseIcon

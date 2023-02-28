@@ -115,13 +115,7 @@ const FilterTableComponent: React.FC = () => {
                   }}
                   onChange={setValue}
                   className="mr-3 w-[100px]"
-                  // list={[
-                  //   { name: "Equals", value: "=" },
-                  //   { name: "Not Equals", value: "!=" },
-                  //   { name: "Like", value: "like" },
-                  //   { name: "not Like", value: "nl" },
-                  //   { name: ">", value: ">" },
-                  // ]}
+                  list={[]}
                   disabled={!item.name}
                   // onSelected={(e) => {
                   //   item.operator = e.value;
