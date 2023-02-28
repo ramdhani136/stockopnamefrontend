@@ -88,15 +88,15 @@ const InputComponent: React.FC<IProps> = ({
           label && "mt-1"
         } w-full font-normal border h-7 z-10 rounded-md bg-gray-50  px-3 ${inputStyle}`}
       />
-      {value.valueInput && (
+      {value.valueInput && onReset && (
         <CloseIcon
           onClick={() => {
             if (onReset) {
               onReset();
             }
           }}
-          className="absolute right-1 top-[6px] text-gray-300"
-          style={{ fontSize: 16 }}
+          className="absolute right-1 top-[8px] text-gray-300"
+          style={{ fontSize: 14 }}
         />
       )}
       {open && list && (

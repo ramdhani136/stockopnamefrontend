@@ -5,17 +5,46 @@ import { InputComponent } from "../atoms";
 import { IValue } from "../atoms/InputComponent";
 import CloseIcon from "@mui/icons-material/Close";
 
-export interface ISelectFilter {
+export interface IListFilter {
   name: String;
   oprator: String;
   typeof: String;
   listData?: any[];
-  value: any;
+  value: {
+    valueData: any;
+    valueInput: String;
+  };
+}
+
+interface IFilter {
+  name: String;
+  operator: String;
+  value: {
+    valueData: any;
+    valueInput: String;
+  };
 }
 
 const FilterTableComponent: React.FC = () => {
   const [open, setOpen] = useState<boolean>(true);
   const [value, setValue] = useState<IValue>({ valueData: "", valueInput: "" });
+  const [filter, setFilter] = useState<IFilter[]>([
+    {
+      name: "workflowState",
+      operator: "=",
+      value: { valueData: "Submitted", valueInput: "Submitted" },
+    },
+    {
+      name: "name",
+      operator: "like",
+      value: { valueData: "Submitted", valueInput: "Submitted" },
+    },
+    {
+      name: "createdAt",
+      operator: ">",
+      value: { valueData: "2023-02-02", valueInput: "2023-02-02" },
+    },
+  ]);
 
   const modalRef = useRef<any>();
 
@@ -42,8 +71,8 @@ const FilterTableComponent: React.FC = () => {
         className="flex z-30 items-center  px-2 py-[7.1px] "
         onClick={() => setOpen(!open)}
       >
-        <FilterListIcon style={{ fontSize: 18 }} />
-        <h6>Filter</h6>
+        <FilterListIcon style={{ fontSize: 17 }} />
+        <h6 className="font-normal">Filter</h6>
       </div>
       {open && (
         <div
@@ -54,54 +83,61 @@ const FilterTableComponent: React.FC = () => {
             No Filter
           </h4> */}
           <ul className={`max-h-[200px] h-auto px-6 scrollbar-none my-6 `}>
-            <li className="flex mb-3 relative items-center">
-              <InputComponent
-                value={value}
-                onChange={(e) => {
-                  setValue({ valueData: null, valueInput: e });
-                }}
-                className="mr-3"
-                list={[
-                  { name: "Equals", value: "=" },
-                  { name: "Not Equals", value: "!=" },
-                  { name: "Like", value: "like" },
-                  { name: "not Like", value: "nl" },
-                  { name: ">", value: ">" },
-                ]}
-                onSelected={onSelect}
-                onReset={(e) => setValue({ valueData: null, valueInput: "" })}
-                mandatoy
-                placeholder="Select Doc"
-                inputStyle="text-[0.9em]"
-              />
-              <InputComponent
-                value={value}
-                onChange={setValue}
-                className="mr-3"
-                list={[
-                  { name: "Equals", value: "=" },
-                  { name: "Not Equals", value: "!=" },
-                  { name: "Like", value: "like" },
-                  { name: "not Like", value: "nl" },
-                  { name: ">", value: ">" },
-                ]}
-                mandatoy
-              />
-              <InputComponent
-                value={value}
-                onChange={setValue}
-                className="mr-3"
-                list={[
-                  { name: "Equals", value: "=" },
-                  { name: "Not Equals", value: "!=" },
-                  { name: "Like", value: "like" },
-                  { name: "not Like", value: "nl" },
-                  { name: ">", value: ">" },
-                ]}
-                mandatoy
-              />
-              <CloseIcon style={{ fontSize: 18 }} className="text-gray-300" />
-            </li>
+            {filter.map((item, index) => (
+              <li className="flex mb-3 relative items-center">
+                <InputComponent
+                  value={{ valueData: item.name, valueInput: item.name }}
+                  onChange={(e) => {
+                    setValue({ valueData: null, valueInput: e });
+                  }}
+                  className="mr-3"
+                  list={[
+                    { name: "Equals", value: "=" },
+                    { name: "Not Equals", value: "!=" },
+                    { name: "Like", value: "like" },
+                    { name: "not Like", value: "nl" },
+                    { name: ">", value: ">" },
+                  ]}
+                  onSelected={onSelect}
+                  onReset={(e) => setValue({ valueData: null, valueInput: "" })}
+                  mandatoy
+                  placeholder="Select Doc"
+                  inputStyle="text-[0.93em]"
+                />
+                <InputComponent
+                  value={{
+                    valueData: item.operator,
+                    valueInput: item.operator,
+                  }}
+                  onChange={setValue}
+                  className="mr-3 w-[100px]"
+                  // list={[
+                  //   { name: "Equals", value: "=" },
+                  //   { name: "Not Equals", value: "!=" },
+                  //   { name: "Like", value: "like" },
+                  //   { name: "not Like", value: "nl" },
+                  //   { name: ">", value: ">" },
+                  // ]}
+                  // mandatoy
+                  inputStyle="text-center w-[100px]"
+                />
+
+                <InputComponent
+                  value={item.value}
+                  onChange={setValue}
+                  className="mr-3"
+                  // list={[
+                  //   { name: "Equals", value: "=" },
+                  //   { name: "Not Equals", value: "!=" },
+                  //   { name: "Like", value: "like" },
+                  //   { name: "not Like", value: "nl" },
+                  //   { name: ">", value: ">" },
+                  // ]}
+                  mandatoy
+                />
+                <CloseIcon style={{ fontSize: 18 }} className="text-gray-300" />
+              </li>
+            ))}
           </ul>
           <div className="w-[90%] ml-[5%]  flex py-5 text-sm  sticky bottom-0 border-t bg-white px-5 ">
             <div className="flex-1 font-normal flex items-center ">
