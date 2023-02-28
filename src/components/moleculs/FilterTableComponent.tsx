@@ -61,8 +61,8 @@ const FilterTableComponent: React.FC = () => {
     };
   }, []);
 
-  const onSelect = (e: any): void => {
-    setValue({ valueData: e.name, valueInput: e.name });
+  const applyFilter = () => {
+    console.log(filter);
   };
 
   return (
@@ -122,7 +122,15 @@ const FilterTableComponent: React.FC = () => {
                   //   { name: "not Like", value: "nl" },
                   //   { name: ">", value: ">" },
                   // ]}
-                  // mandatoy
+                  disabled={!item.name}
+                  // onSelected={(e) => {
+                  //   item.operator = e.value;
+                  //   setFilter([...filter]);
+                  // }}
+                  onReset={() => {
+                    item.operator = "";
+                    setFilter([...filter]);
+                  }}
                   inputStyle="text-center w-[100px]"
                 />
 
@@ -151,18 +159,15 @@ const FilterTableComponent: React.FC = () => {
               </a>
             </div>
             <div className="font-normal">
-              <a
-                href="#"
-                className="border py-[3px] px-2 rounded-md bg-gray-50 opacity-80 hover:opacity-100 duration-200"
-              >
+              <h5 className="border py-[3px] px-2 rounded-md inline bg-gray-50 opacity-80 hover:opacity-100 duration-200">
                 Clear Filter
-              </a>
-              <a
-                href="#"
-                className="ml-2 border py-[3px] px-2 bg-[#1976d3] border-[#166abd] text-white rounded-md  opacity-80 hover:opacity-100 duration-200"
+              </h5>
+              <h5
+                onClick={applyFilter}
+                className="ml-2 border inline py-[3px] px-2 bg-[#1976d3] border-[#166abd] text-white rounded-md  opacity-80 hover:opacity-100 duration-200"
               >
                 Aplly Filter
-              </a>
+              </h5>
             </div>
           </div>
         </div>
