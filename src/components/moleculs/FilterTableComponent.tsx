@@ -32,6 +32,10 @@ const FilterTableComponent: React.FC = () => {
     };
   }, []);
 
+  const onSelect = (e: any): void => {
+    setValue({ valueData: e.name, valueInput: e.name });
+  };
+
   return (
     <div className="relative  border-[1.5px] rounded-md ml-2 cursor-pointer hover:bg-gray-50 duration-200">
       <div
@@ -53,7 +57,9 @@ const FilterTableComponent: React.FC = () => {
             <li className="flex mb-3 relative items-center">
               <InputComponent
                 value={value}
-                onChange={setValue}
+                onChange={(e) => {
+                  setValue({ valueData: null, valueInput: e });
+                }}
                 className="mr-3"
                 list={[
                   { name: "Equals", value: "=" },
@@ -62,6 +68,11 @@ const FilterTableComponent: React.FC = () => {
                   { name: "not Like", value: "nl" },
                   { name: ">", value: ">" },
                 ]}
+                onSelected={onSelect}
+                onReset={(e) => setValue({ valueData: null, valueInput: "" })}
+                mandatoy
+                placeholder="Select Doc"
+                inputStyle="text-[0.9em]"
               />
               <InputComponent
                 value={value}
@@ -74,6 +85,7 @@ const FilterTableComponent: React.FC = () => {
                   { name: "not Like", value: "nl" },
                   { name: ">", value: ">" },
                 ]}
+                mandatoy
               />
               <InputComponent
                 value={value}
@@ -86,11 +98,12 @@ const FilterTableComponent: React.FC = () => {
                   { name: "not Like", value: "nl" },
                   { name: ">", value: ">" },
                 ]}
+                mandatoy
               />
               <CloseIcon style={{ fontSize: 18 }} className="text-gray-300" />
             </li>
           </ul>
-          <div className="w-full  flex py-5 text-sm  sticky bottom-0 bg-white px-5 ">
+          <div className="w-[90%] ml-[5%]  flex py-5 text-sm  sticky bottom-0 border-t bg-white px-5 ">
             <div className="flex-1 font-normal flex items-center ">
               <AddIcon style={{ fontSize: 12 }} className="mt-[1px]" />
               <a href="#" className="">

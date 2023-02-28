@@ -1,4 +1,6 @@
+import _ from "lodash";
 import { useEffect, useRef, useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface IListInput {
   name: String;
@@ -12,26 +14,35 @@ export interface IValue {
 
 interface IProps {
   className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
+  inputStyle?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
+  modalStyle?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
+  itemModalStyle?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
   mandatoy?: boolean;
   disabled?: boolean;
   label?: String;
   value: IValue;
-  onChange: any;
-  onSelect?: any;
+  onChange: (e?: any) => Promise<any> | void;
+  onSelected?: (e?: any) => Promise<any> | void;
+  onReset?: (e?: any) => Promise<any> | void;
   list?: IListInput[];
+  placeholder?: any;
 }
 
 const InputComponent: React.FC<IProps> = ({
   className,
+  inputStyle,
   mandatoy,
   disabled,
   label,
   value,
   onChange,
   list,
-  onSelect,
+  onSelected,
+  onReset,
+  placeholder,
+  modalStyle,
+  itemModalStyle,
 }) => {
-  const inputRef = useRef();
   const modalRef = useRef<any>();
   const [open, setOpen] = useState<boolean>(false);
 
@@ -50,32 +61,68 @@ const InputComponent: React.FC<IProps> = ({
     };
   }, []);
 
+  const filterData = (a: any[]) => {
+    return _.filter(a, function (query) {
+      var name = value
+        ? query.name.toLowerCase().includes(value.valueInput.toLowerCase())
+        : true;
+
+      return name;
+    });
+  };
+
   return (
-    <div className={`w-full rounded-md bg-gray-50 ${className} relative `}>
+    <div
+      className={`w-full rounded-md bg-gray-50  relative  ${
+        mandatoy && !value.valueData && "border-red-500 border"
+      } ${className}`}
+    >
       {label && <label>{label}</label>}
       <input
+        placeholder={placeholder}
+        disabled={disabled}
         onClick={() => setOpen(!open)}
-        onChange={(e) =>
-          onChange({ valueData: null, valueInput: e.target.value })
-        }
+        onChange={(e) => onChange(e.target.value)}
         value={`${value.valueInput}`}
         className={`${
           label && "mt-1"
-        } w-full font-normal border h-7 z-10 rounded-md bg-gray-50  px-3`}
+        } w-full font-normal border h-7 z-10 rounded-md bg-gray-50  px-3 ${inputStyle}`}
       />
-      {open && (
+      {value.valueInput && (
+        <CloseIcon
+          onClick={() => {
+            if (onReset) {
+              onReset();
+            }
+          }}
+          className="absolute right-1 top-[6px] text-gray-300"
+          style={{ fontSize: 16 }}
+        />
+      )}
+      {open && list && (
         <div
           ref={modalRef}
-          className="w-full max-h-[200px] h-auto  p-1 font-normal text-sm border  scrollbar-none z-20 overflow-y-auto absolute top-7 bg-white rounded-md"
+          className={`w-full max-h-[200px] h-auto  p-1 font-normal text-sm border  scrollbar-none z-20 overflow-y-auto absolute top-7 bg-white rounded-md ${modalStyle}`}
         >
-          {list?.map((item, id) => (
+          {filterData(list)?.map((item, id) => (
             <h4
+              onClick={() => {
+                if (onSelected) {
+                  onSelected(item);
+                  setOpen(false);
+                }
+              }}
               key={id}
-              className="w-full hover:bg-gray-100 rounded-md border-[#ececec] px-3 py-2"
+              className={`w-full hover:bg-gray-100 rounded-md border-[#ececec] px-3 py-2 ${itemModalStyle}`}
             >
               {item.name}
             </h4>
           ))}
+          {filterData(list).length < 1 && (
+            <h6 className="text-gray-300 text-center text-sm py-3">
+              No result
+            </h6>
+          )}
         </div>
       )}
     </div>
