@@ -44,12 +44,12 @@ const FilterTableComponent: React.FC = () => {
       {open && (
         <div
           ref={modalRef}
-          className="bg-white  border-[1.5px] border-gray-200 w-[550px] h-auto max-h-[300px] absolute top-[38px]  left-0 rounded-md drop-shadow-  py-6"
+          className="bg-white  border-[1.5px] border-gray-200 w-[550px] h-auto max-h-[300px] absolute top-[38px]  left-0 rounded-md drop-shadow-md"
         >
           {/* <h4 className="w-full border-b-[1.5px] border-[#f1eeee] flex-1 text-center py-6 text-gray-300 font-normal">
             No Filter
           </h4> */}
-          <ul className="max-h-[250px] h-auto px-6 scrollbar-none">
+          <ul className={`max-h-[200px] h-auto px-6 scrollbar-none my-6 `}>
             <li className="flex mb-3 relative items-center">
               <InputComponent
                 value={value}
@@ -87,7 +87,7 @@ const FilterTableComponent: React.FC = () => {
                   { name: ">", value: ">" },
                 ]}
               />
-              <CloseIcon style={{ fontSize: 18 }} className="text-gray-400" />
+              <CloseIcon style={{ fontSize: 18 }} className="text-gray-300" />
             </li>
           </ul>
           <div className="w-full  flex py-5 text-sm  sticky bottom-0 bg-white px-5 ">

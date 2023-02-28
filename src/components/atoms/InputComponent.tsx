@@ -51,7 +51,7 @@ const InputComponent: React.FC<IProps> = ({
   }, []);
 
   return (
-    <div className={`w-full rounded-md bg-gray-50 ${className} relative`}>
+    <div className={`w-full rounded-md bg-gray-50 ${className} relative `}>
       {label && <label>{label}</label>}
       <input
         onClick={() => setOpen(!open)}
