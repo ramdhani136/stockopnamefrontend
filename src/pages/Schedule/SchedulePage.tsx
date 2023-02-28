@@ -12,7 +12,7 @@ import {
 } from "../../components/organisme/TableComponent";
 import { LoadingComponent } from "../../components/moleculs";
 import moment from "moment";
-import { IListFilter } from "../../components/moleculs/FilterTableComponent";
+import { IDataFilter } from "../../components/moleculs/FilterTableComponent";
 
 export const SchedulePage: React.FC = (): any => {
   const [data, setData] = useState<IDataTables[]>([]);
@@ -25,7 +25,7 @@ export const SchedulePage: React.FC = (): any => {
   const [isSort, setIsort] = useState<string>("createdAt");
   const [isOrderBy, setOrderBy] = useState<number>(-1);
   const [limit, setLimit] = useState<number>(20);
-  const [listFilter, setListFilter] = useState<IListFilter[]>([]);
+  const [listFilter, setListFilter] = useState<IDataFilter[]>([]);
   const [search, setSeacrh] = useState<String>("");
 
   const metaData = {

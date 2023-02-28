@@ -5,7 +5,7 @@ import { InputComponent } from "../atoms";
 import { IValue } from "../atoms/InputComponent";
 import CloseIcon from "@mui/icons-material/Close";
 
-export interface IListFilter {
+export interface IDataFilter {
   name: String;
   oprator: String;
   typeof: String;
@@ -25,9 +25,10 @@ interface IFilter {
   };
 }
 
-const FilterTableComponent: React.FC = () => {
+interface IProps {}
+
+const FilterTableComponent: React.FC<IProps> = ({}) => {
   const [open, setOpen] = useState<boolean>(true);
-  const [value, setValue] = useState<IValue>({ valueData: "", valueInput: "" });
   const [filter, setFilter] = useState<IFilter[]>([
     {
       name: "workflowState",
@@ -72,6 +73,11 @@ const FilterTableComponent: React.FC = () => {
         onClick={() => setOpen(!open)}
       >
         <FilterListIcon style={{ fontSize: 17 }} />
+        {filter.length > 0 && (
+          <h6 className=" rounded-full inline px-[5px]  text-[0.8em] mx-1 font-normal bg-red-200 text-red-600">
+            {filter.length}
+          </h6>
+        )}
         <h6 className="font-normal">Filter</h6>
       </div>
       {open && (
@@ -106,7 +112,7 @@ const FilterTableComponent: React.FC = () => {
                   }}
                   mandatoy
                   placeholder="Select Doc"
-                  inputStyle="text-[0.93em]"
+                  inputStyle="text-[0.95em]"
                 />
                 <InputComponent
                   value={{
@@ -128,12 +134,11 @@ const FilterTableComponent: React.FC = () => {
                     item.operator = "";
                     setFilter([...filter]);
                   }}
-                  inputStyle="text-center w-[100px]"
+                  inputStyle="text-center text-[0.95em] w-[100px]"
                 />
 
                 <InputComponent
                   value={item.value}
-                  onChange={setValue}
                   className="mr-3"
                   // list={[
                   //   { name: "Equals", value: "=" },
@@ -142,6 +147,7 @@ const FilterTableComponent: React.FC = () => {
                   //   { name: "not Like", value: "nl" },
                   //   { name: ">", value: ">" },
                   // ]}
+                  inputStyle="text-[0.95em]"
                   mandatoy
                 />
                 <CloseIcon style={{ fontSize: 18 }} className="text-gray-300" />

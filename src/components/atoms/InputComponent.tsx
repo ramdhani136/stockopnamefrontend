@@ -21,7 +21,7 @@ interface IProps {
   disabled?: boolean;
   label?: String;
   value: IValue;
-  onChange: (e?: any) => Promise<any> | void;
+  onChange?: (e?: any) => Promise<any> | void;
   onSelected?: (e?: any) => Promise<any> | void;
   onReset?: (e?: any) => Promise<any> | void;
   list?: IListInput[];
@@ -82,7 +82,11 @@ const InputComponent: React.FC<IProps> = ({
         placeholder={placeholder}
         disabled={disabled}
         onClick={() => setOpen(!open)}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          if (onChange) {
+            onChange(e.target.value);
+          }
+        }}
         value={`${value.valueInput}`}
         className={`${
           label && "mt-1"

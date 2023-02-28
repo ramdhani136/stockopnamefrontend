@@ -101,7 +101,7 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
               PROFILE
             </h4>
           )}
-          <div className="flex justify-between items-center">
+          {/* <div className="flex justify-between items-center">
             <div className="flex m-2 group">
               <Avatar
                 alt="Ilham Ramdhani"
@@ -134,7 +134,7 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
                 className="cursor-pointer"
               />
             )}
-          </div>
+          </div> */}
           <a className="flex group items-center bg-[#323335] rounded-md p-2 ml-[2.5%] px-4 w-[95%] mt-3 opacity-80 hover:opacity-100 cursor-pointer">
             <LogoutIcon
               style={{ fontSize: 18 }}
