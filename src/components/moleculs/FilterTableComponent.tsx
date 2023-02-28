@@ -151,7 +151,7 @@ const FilterTableComponent: React.FC = () => {
               </li>
             ))}
           </ul>
-          <div className="w-[90%] ml-[5%]  flex py-5 text-sm  sticky bottom-0 border-t bg-white px-5 ">
+          <div className="w-[90%] ml-[5%]  flex py-5 text-sm  sticky bottom-0 border-t bg-white ">
             <div className="flex-1 font-normal flex items-center ">
               <AddIcon style={{ fontSize: 12 }} className="mt-[1px]" />
               <a href="#" className="">
