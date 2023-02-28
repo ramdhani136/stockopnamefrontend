@@ -116,7 +116,7 @@ const FilterTableComponent: React.FC<IProps> = ({}) => {
                   }}
                   mandatoy
                   placeholder="Select Doc"
-                  inputStyle="text-[0.95em]"
+                  inputStyle="text-[0.96em]"
                 />
                 <InputComponent
                   value={{
@@ -138,7 +138,7 @@ const FilterTableComponent: React.FC<IProps> = ({}) => {
                     item.operator = "";
                     setFilter([...filter]);
                   }}
-                  inputStyle="text-center text-[0.95em] w-[100px]"
+                  inputStyle="text-center text-[0.96em] w-[100px]"
                 />
 
                 <InputComponent
@@ -151,7 +151,7 @@ const FilterTableComponent: React.FC<IProps> = ({}) => {
                   //   { name: "not Like", value: "nl" },
                   //   { name: ">", value: ">" },
                   // ]}
-                  inputStyle="text-[0.95em]"
+                  inputStyle="text-[0.96em]"
                   mandatoy
                 />
                 <CloseIcon style={{ fontSize: 18 }} className="text-gray-300" />
