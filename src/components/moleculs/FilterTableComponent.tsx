@@ -84,22 +84,26 @@ const FilterTableComponent: React.FC = () => {
           </h4> */}
           <ul className={`max-h-[200px] h-auto px-6 scrollbar-none my-6 `}>
             {filter.map((item, index) => (
-              <li className="flex mb-3 relative items-center">
+              <li key={index} className="flex mb-3 relative items-center">
                 <InputComponent
                   value={{ valueData: item.name, valueInput: item.name }}
                   onChange={(e) => {
-                    setValue({ valueData: null, valueInput: e });
+                    item.name = e;
+                    setFilter([...filter]);
                   }}
                   className="mr-3"
                   list={[
-                    { name: "Equals", value: "=" },
-                    { name: "Not Equals", value: "!=" },
-                    { name: "Like", value: "like" },
-                    { name: "not Like", value: "nl" },
-                    { name: ">", value: ">" },
+                    { name: "workflowState", value: "workflowState" },
+                    { name: "name", value: "name" },
                   ]}
-                  onSelected={onSelect}
-                  onReset={(e) => setValue({ valueData: null, valueInput: "" })}
+                  onSelected={(e) => {
+                    item.name = e.value;
+                    setFilter([...filter]);
+                  }}
+                  onReset={() => {
+                    item.name = "";
+                    setFilter([...filter]);
+                  }}
                   mandatoy
                   placeholder="Select Doc"
                   inputStyle="text-[0.93em]"
