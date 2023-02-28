@@ -74,7 +74,7 @@ const FilterTableComponent: React.FC<IProps> = ({}) => {
       >
         <FilterListIcon style={{ fontSize: 17 }} />
         {filter.length > 0 && (
-          <h6 className=" rounded-full inline px-[5px]  text-[0.8em] mx-1 font-normal bg-red-200 text-red-600">
+          <h6 className=" rounded-full inline px-[5px]  text-[0.8em] mx-1 font-normal bg-red-200 text-red-500">
             {filter.length}
           </h6>
         )}
@@ -88,7 +88,11 @@ const FilterTableComponent: React.FC<IProps> = ({}) => {
           {/* <h4 className="w-full border-b-[1.5px] border-[#f1eeee] flex-1 text-center py-6 text-gray-300 font-normal">
             No Filter
           </h4> */}
-          <ul className={`max-h-[200px] h-auto px-6 scrollbar-none my-6 `}>
+          <ul
+            className={`max-h-[200px] h-auto px-6 scrollbar-none my-6 ${
+              filter.length > 2 && "overflow-y-auto my-4"
+            }`}
+          >
             {filter.map((item, index) => (
               <li key={index} className="flex mb-3 relative items-center">
                 <InputComponent
@@ -157,9 +161,21 @@ const FilterTableComponent: React.FC<IProps> = ({}) => {
           <div className="w-[90%] ml-[5%]  flex py-5 text-sm  sticky bottom-0 border-t bg-white ">
             <div className="flex-1 font-normal flex items-center ">
               <AddIcon style={{ fontSize: 12 }} className="mt-[1px]" />
-              <a href="#" className="">
+              <h5
+                className=""
+                onClick={() => {
+                  setFilter([
+                    ...filter,
+                    {
+                      name: "",
+                      operator: "",
+                      value: { valueData: "", valueInput: "" },
+                    },
+                  ]);
+                }}
+              >
                 Add Filter
-              </a>
+              </h5>
             </div>
             <div className="font-normal">
               <h5 className="border py-[3px] px-2 rounded-md inline bg-gray-50 opacity-80 hover:opacity-100 duration-200">
