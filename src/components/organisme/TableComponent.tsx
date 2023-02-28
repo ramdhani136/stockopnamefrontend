@@ -7,6 +7,7 @@ import SouthIcon from "@mui/icons-material/South";
 import NorthIcon from "@mui/icons-material/North";
 import CloseIcon from "@mui/icons-material/Close";
 import { FilterTableComponent } from "../moleculs";
+import { ISelectFilter } from "../moleculs/FilterTableComponent";
 
 export interface IColumns {
   header: String;
@@ -33,6 +34,7 @@ interface Iprops {
   isOrderBy: number;
   setOrderBy(): void | Promise<void>;
   getAllData(): void | Promise<void>;
+  selectFilter: ISelectFilter[];
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -46,6 +48,7 @@ const TableComponent: React.FC<Iprops> = ({
   isOrderBy,
   setOrderBy,
   getAllData,
+  selectFilter,
 }) => {
   return (
     <div
