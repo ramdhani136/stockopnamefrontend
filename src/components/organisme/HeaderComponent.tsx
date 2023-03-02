@@ -34,7 +34,7 @@ const HeaderComponent: React.FC = () => {
         </div>
         <SettingsIcon
           className="ml-3 cursor-pointer"
-          style={{ fontSize: 18 }}
+          style={{ fontSize: 15 }}
         />
       </div>
     </div>
