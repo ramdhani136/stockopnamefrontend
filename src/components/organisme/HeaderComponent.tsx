@@ -20,7 +20,7 @@ const HeaderComponent: React.FC = () => {
       <div className="flex items-center">
         <Avatar
           alt="Ilham Ramdhani"
-          src="https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jpg"
+          src="https://img.freepik.com/premium-photo/profile-side-photo-positive-cheerful-programmer-guy-use-computer_274222-19547.jpg"
           sx={{ width: 35, height: 35 }}
           className={`mx-3 cursor-pointer`}
         />

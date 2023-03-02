@@ -53,7 +53,7 @@ const TableComponent: React.FC<Iprops> = ({
   console.log(listFilter);
   return (
     <div
-      className="w-[97.5%] border flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-y-auto  scrollbar-thin scrollbar-thumb-[#ddd] scrollbar-track-gray-100"
+      className="w-[97.5%] border border-[#e6e7e9] flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-y-auto  scrollbar-thin scrollbar-thumb-[#ddd] scrollbar-track-gray-100"
       id="scrollableDiv"
     >
       <div className="h-auto">
@@ -146,7 +146,7 @@ const TableComponent: React.FC<Iprops> = ({
                   {data.map((item: any, index) => (
                     <tr
                       key={index}
-                      className="text-[0.9em] border-b border-[#f4f6f5] hover:bg-gray-100 cursor-pointer "
+                      className="text-[0.9em] border-b border-[#f4f6f5] hover:bg-gray-50 cursor-pointer "
                     >
                       <td className="py-[15px] px-4">
                         <input
