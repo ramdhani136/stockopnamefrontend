@@ -5,9 +5,16 @@ import { useKey } from "../../utils";
 interface IProps {
   Icon: any;
   title?: String;
+  iconSize?: number;
+  className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
 }
 
-const IconMenuHeader: React.FC<IProps> = ({ Icon, title }) => {
+const IconMenuHeader: React.FC<IProps> = ({
+  Icon,
+  title,
+  iconSize,
+  className,
+}) => {
   const [active, setActive] = useState<boolean>(false);
   const componentRef = useRef<any>();
 
@@ -33,10 +40,10 @@ const IconMenuHeader: React.FC<IProps> = ({ Icon, title }) => {
   useKey("Escape", () => setActive(false));
 
   return (
-    <div className="relative group">
+    <div className={`relative group ${className}`}>
       <Icon
         onClick={() => setActive(!active)}
-        style={{ fontSize: 20 }}
+        style={{ fontSize: iconSize ? iconSize : 20 }}
         className=" text-gray-500 ml-2 cursor-pointer"
       />
       <div className="w-[5px] h-[5px]  rounded-full bg-red-400 absolute top-1 right-0 border border-red-500 "></div>

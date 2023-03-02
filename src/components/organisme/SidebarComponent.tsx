@@ -4,12 +4,12 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import LogoutIcon from "@mui/icons-material/Logout";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
-import { useKey } from "../../utils";
+import { LocalStorage, LocalStorageType, useKey } from "../../utils";
 
 interface IProps {
   user: any;
@@ -24,6 +24,7 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
   ];
 
   const [open, setOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   useKey(
     "b",
@@ -34,6 +35,11 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
       ctrl: true,
     }
   );
+
+  const onLogout = () => {
+    LocalStorage.removeData(LocalStorageType.TOKEN);
+    navigate("/login");
+  };
 
   return (
     <section className="flex">
@@ -135,7 +141,7 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
               />
             )}
           </div> */}
-          <a className="flex group items-center bg-[#323335] rounded-md p-2 ml-[2.5%] px-4 w-[95%] mt-3 opacity-80 hover:opacity-100 cursor-pointer">
+          <a onClick={onLogout} className="flex group items-center bg-[#323335] rounded-md p-2 ml-[2.5%] px-4 w-[95%] mt-3 opacity-80 hover:opacity-100 cursor-pointer">
             <LogoutIcon
               style={{ fontSize: 18 }}
               className={`${!open && "-ml-1"}`}
