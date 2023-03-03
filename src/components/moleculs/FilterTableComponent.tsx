@@ -15,8 +15,6 @@ export interface IDataFilter {
   };
 }
 
-console.log('dd')
-
 export interface IFilter {
   name: {
     valueData: any;
@@ -73,6 +71,23 @@ const FilterTableComponent: React.FC<IProps> = ({
     return data;
   };
 
+  const getFilter = () => {
+    let filternya = filter.map((a): IFilter => {
+      return {
+        name: { valueData: a[0], valueInput: a[0] },
+        operator: { valueData: a[1], valueInput: a[1] },
+        value: { valueData: a[2], valueInput: a[2] },
+      };
+    });
+    setTableFilter(filternya);
+  };
+
+  useEffect(() => {
+    if (filter) {
+      getFilter();
+    }
+  }, []);
+
   const getOperator = (doc: string) => {
     const docByFilter = listFilter.filter((item) => item.name === doc);
     if (docByFilter.length > 0) {
@@ -126,7 +141,7 @@ const FilterTableComponent: React.FC<IProps> = ({
     });
 
     setTableFilter(validFilter);
-    // setOpen(false);
+    setOpen(false);
 
     if (validFilter.length > 0) {
       let isFilter: any = [];
@@ -138,12 +153,15 @@ const FilterTableComponent: React.FC<IProps> = ({
         ];
       });
       setFilter(isFilter);
+    } else {
+      setFilter([]);
     }
   };
 
   useEffect(() => {
     let handler = (e: any) => {
       if (!modalRef.current?.contains(e.target)) {
+        getFilter();
         setOpen(false);
       }
     };
@@ -275,7 +293,9 @@ const FilterTableComponent: React.FC<IProps> = ({
             <div className="font-normal">
               <h5
                 className="border py-[3px] px-2 rounded-md inline bg-gray-50 opacity-80 hover:opacity-100 duration-200"
-                onClick={() => setTableFilter([])}
+                onClick={() => {
+                  setTableFilter([]);
+                }}
               >
                 Clear Filter
               </h5>
