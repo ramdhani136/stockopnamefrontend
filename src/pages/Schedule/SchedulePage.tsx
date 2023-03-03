@@ -50,7 +50,6 @@ export const SchedulePage: React.FC = (): any => {
   );
 
   const getData = async (): Promise<any> => {
-
     try {
       const result: any = await GetDataServer(DataAPI.SCHEDULE).FIND({
         limit: limit,
@@ -103,9 +102,9 @@ export const SchedulePage: React.FC = (): any => {
         setHasMore(result.hasMore);
         setPage(result.nextPage);
         setData([...data, ...generateData]);
+        setRefresh(false);
       }
       setLoading(false);
-      setRefresh(false);
     } catch (error: any) {
       if (error.status === 401) {
         navigate("/login");
