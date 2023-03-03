@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import AddIcon from "@mui/icons-material/Add";
 import { InputComponent } from "../atoms";
-import { IValue } from "../atoms/InputComponent";
 import CloseIcon from "@mui/icons-material/Close";
 
 export interface IDataFilter {
@@ -25,33 +24,66 @@ interface IFilter {
   };
 }
 
-interface IProps {}
+interface IProps {
+  listFilter: IDataFilter[];
+}
 
-const FilterTableComponent: React.FC<IProps> = ({}) => {
+const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
   const [open, setOpen] = useState<boolean>(true);
   const [filter, setFilter] = useState<IFilter[]>([
-    {
-      name: "workflowState",
-      operator: "=",
-      value: { valueData: "Submitted", valueInput: "Submitted" },
-    },
-    {
-      name: "name",
-      operator: "like",
-      value: { valueData: "Submitted", valueInput: "Submitted" },
-    },
-    {
-      name: "createdAt",
-      operator: ">",
-      value: { valueData: "2023-02-02", valueInput: "2023-02-02" },
-    },
+    // {
+    //   name: "workflowState",
+    //   operator: "=",
+    //   value: { valueData: "Submitted", valueInput: "Submitted" },
+    // },
+    // {
+    //   name: "name",
+    //   operator: "like",
+    //   value: { valueData: "Submitted", valueInput: "Submitted" },
+    // },
+    // {
+    //   name: "createdAt",
+    //   operator: ">",
+    //   value: { valueData: "2023-02-02", valueInput: "2023-02-02" },
+    // },
   ]);
+
+  const listDoc = () => {
+    const data = listFilter.map((item) => {
+      return {
+        name: item.name,
+        value: item.name,
+      };
+    });
+
+    return data;
+  };
+
+  const getOperator = (doc: string) => {
+    const docByFilter = listFilter.filter((item) => item.name === doc);
+    if (docByFilter.length > 0) {
+      const data = docByFilter.map((item: any) => {
+        if (item.operator.length > 0) {
+          const isOperator = item.operator.map((op: any) => {
+            return { name: op, value: op };
+          });
+          return isOperator;
+        }
+
+        return [];
+      });
+
+      return data[0];
+    } else {
+      return [];
+    }
+  };
 
   const modalRef = useRef<any>();
 
   useEffect(() => {
     let handler = (e: any) => {
-      if (!modalRef.current.contains(e.target)) {
+      if (!modalRef.current?.contains(e.target)) {
         setOpen(false);
       }
     };
@@ -85,9 +117,11 @@ const FilterTableComponent: React.FC<IProps> = ({}) => {
           ref={modalRef}
           className="bg-white  border-[1.5px] border-gray-200 w-[550px] h-auto max-h-[300px] absolute top-[38px]  left-0 rounded-md drop-shadow-md"
         >
-          {/* <h4 className="w-full border-b-[1.5px] border-[#f1eeee] flex-1 text-center py-6 text-gray-300 font-normal">
-            No Filter
-          </h4> */}
+          {filter.length === 0 && (
+            <h4 className="w-full border-b-[1.5px] border-[#f1eeee] flex-1 text-center py-6 text-gray-300 font-normal">
+              No Filter
+            </h4>
+          )}
           <ul
             className={`max-h-[200px] h-auto px-6 scrollbar-none my-6 ${
               filter.length > 2 && "overflow-y-auto my-4"
@@ -102,10 +136,7 @@ const FilterTableComponent: React.FC<IProps> = ({}) => {
                     setFilter([...filter]);
                   }}
                   className="mr-3"
-                  list={[
-                    { name: "workflowState", value: "workflowState" },
-                    { name: "name", value: "name" },
-                  ]}
+                  list={listDoc()}
                   onSelected={(e) => {
                     item.name = e.value;
                     setFilter([...filter]);
@@ -124,12 +155,12 @@ const FilterTableComponent: React.FC<IProps> = ({}) => {
                     valueInput: item.operator,
                   }}
                   className="mr-3 w-[100px]"
-                  list={[]}
+                  list={getOperator(`${item.name}`)}
                   disabled={!item.name}
-                  // onSelected={(e) => {
-                  //   item.operator = e.value;
-                  //   setFilter([...filter]);
-                  // }}
+                  onSelected={(e) => {
+                    item.operator = e.value;
+                    setFilter([...filter]);
+                  }}
                   onChange={(e) => {
                     item.operator = e;
                     setFilter([...filter]);
@@ -158,7 +189,11 @@ const FilterTableComponent: React.FC<IProps> = ({}) => {
               </li>
             ))}
           </ul>
-          <div className="w-[90%] ml-[5%]  flex py-5 text-sm  sticky bottom-0 border-t bg-white ">
+          <div
+            className={` w-[90%] ml-[5%]  flex py-5 text-sm  sticky bottom-0 ${
+              filter.length > 0 && "border-t"
+            } bg-white `}
+          >
             <div className="flex-1 font-normal flex items-center ">
               <AddIcon style={{ fontSize: 12 }} className="mt-[1px]" />
               <h5

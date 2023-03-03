@@ -49,7 +49,7 @@ const InputComponent: React.FC<IProps> = ({
   useEffect(() => {
     let handler = (e: any) => {
       if (list) {
-        if (!modalRef.current.contains(e.target)) {
+        if (!modalRef.current?.contains(e.target)) {
           setOpen(false);
         }
       }

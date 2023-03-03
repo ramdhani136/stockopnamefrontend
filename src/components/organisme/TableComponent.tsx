@@ -50,7 +50,6 @@ const TableComponent: React.FC<Iprops> = ({
   getAllData,
   listFilter,
 }) => {
-  console.log(listFilter);
   return (
     <div
       className="w-[97.5%] border border-[#e6e7e9] flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-y-auto  scrollbar-thin scrollbar-thumb-[#ddd] scrollbar-track-gray-100"
@@ -70,7 +69,7 @@ const TableComponent: React.FC<Iprops> = ({
                 style={{ fontSize: 18 }}
               />
             </div>
-            <FilterTableComponent />
+            <FilterTableComponent listFilter={listFilter}/>
           </h5>
           <div className="flex">
             <IconButton
