@@ -62,6 +62,7 @@ export const SchedulePage: React.FC = (): any => {
       if (result.data.length > 0) {
         const generateData = result.data.map((item: any): IDataTables => {
           return {
+            id: item._id,
             name: <b className="font-medium">{item.name}</b>,
             user: <div>{item.user.name}</div>,
             startDate: moment(item.startDate).format("LL"),

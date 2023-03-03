@@ -1,5 +1,5 @@
 import { IconButton } from "../atoms";
-
+import {useState,useEffect} from 'react'
 import InfiniteScroll from "react-infinite-scroll-component";
 import SyncLoader from "react-spinners/SyncLoader";
 import { IListIconButton } from "../atoms/IconButton";
@@ -57,6 +57,8 @@ const TableComponent: React.FC<Iprops> = ({
   setFilter,
   localStorage,
 }) => {
+  const [tableData, setTableData] = useState<any[]>();
+
   return (
     <div
       className="w-[97.5%] border border-[#e6e7e9] flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-y-auto  scrollbar-thin scrollbar-thumb-[#ddd] scrollbar-track-gray-100"
