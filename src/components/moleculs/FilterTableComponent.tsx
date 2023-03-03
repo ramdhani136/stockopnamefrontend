@@ -170,6 +170,7 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
                     setFilter([...filter]);
                   }}
                   inputStyle="text-center text-[0.96em] w-[100px]"
+                  mandatoy
                 />
 
                 <InputComponent
@@ -183,6 +184,7 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
                   //   { name: ">", value: ">" },
                   // ]}
                   inputStyle="text-[0.96em]"
+                  disabled={!item.operator}
                   mandatoy
                 />
                 <CloseIcon style={{ fontSize: 18 }} className="text-gray-300" />
