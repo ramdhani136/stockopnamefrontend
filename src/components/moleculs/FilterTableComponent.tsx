@@ -16,8 +16,14 @@ export interface IDataFilter {
 }
 
 interface IFilter {
-  name: String;
-  operator: String;
+  name: {
+    valueData: any;
+    valueInput: String;
+  };
+  operator: {
+    valueData: any;
+    valueInput: String;
+  };
   value: {
     valueData: any;
     valueInput: String;
@@ -81,6 +87,39 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
 
   const modalRef = useRef<any>();
 
+  const addFilter = () => {
+    const notValidFilter = filter.filter((item) => {
+      return (
+        item.name.valueData == "" ||
+        item.operator.valueData == "" ||
+        item.value.valueData == ""
+      );
+    });
+
+    if (notValidFilter.length === 0) {
+      setFilter([
+        ...filter,
+        {
+          name: { valueData: "", valueInput: "" },
+          operator: { valueData: "", valueInput: "" },
+          value: { valueData: "", valueInput: "" },
+        },
+      ]);
+    }
+  };
+
+  const applyFilter = () => {
+    const validFilter = filter.filter((item) => {
+      return (
+        item.name.valueData !== "" &&
+        item.operator.valueData !== "" &&
+        item.value.valueData !== ""
+      );
+    });
+    setFilter(validFilter);
+    setOpen(false);
+  };
+
   useEffect(() => {
     let handler = (e: any) => {
       if (!modalRef.current?.contains(e.target)) {
@@ -93,10 +132,6 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
       document.removeEventListener("mousedown", handler);
     };
   }, []);
-
-  const applyFilter = () => {
-    console.log(filter);
-  };
 
   return (
     <div className="relative  border-[1.5px] rounded-md ml-2 cursor-pointer hover:bg-gray-50 duration-200">
@@ -130,19 +165,24 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
             {filter.map((item, index) => (
               <li key={index} className="flex mb-3 relative items-center">
                 <InputComponent
-                  value={{ valueData: item.name, valueInput: item.name }}
+                  value={{
+                    valueData: item.name.valueData,
+                    valueInput: item.name.valueInput,
+                  }}
                   onChange={(e) => {
-                    item.name = e;
+                    item.name.valueInput = e;
                     setFilter([...filter]);
                   }}
                   className="mr-3"
                   list={listDoc()}
                   onSelected={(e) => {
-                    item.name = e.value;
+                    item.name.valueData = e.value;
+                    item.name.valueInput = e.value;
                     setFilter([...filter]);
                   }}
                   onReset={() => {
-                    item.name = "";
+                    item.name.valueData = "";
+                    item.name.valueInput = "";
                     setFilter([...filter]);
                   }}
                   mandatoy
@@ -151,22 +191,24 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
                 />
                 <InputComponent
                   value={{
-                    valueData: item.operator,
-                    valueInput: item.operator,
+                    valueData: item.operator.valueData,
+                    valueInput: item.operator.valueInput,
                   }}
                   className="mr-3 w-[100px]"
-                  list={getOperator(`${item.name}`)}
-                  disabled={!item.name}
+                  list={getOperator(`${item.name.valueData}`)}
+                  disabled={!item.name.valueData}
                   onSelected={(e) => {
-                    item.operator = e.value;
+                    item.operator.valueData = e.value;
+                    item.operator.valueInput = e.value;
                     setFilter([...filter]);
                   }}
                   onChange={(e) => {
-                    item.operator = e;
+                    item.operator.valueInput = e;
                     setFilter([...filter]);
                   }}
                   onReset={() => {
-                    item.operator = "";
+                    item.operator.valueData = "";
+                    item.operator.valueInput = "";
                     setFilter([...filter]);
                   }}
                   inputStyle="text-center text-[0.96em] w-[100px]"
@@ -176,15 +218,24 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
                 <InputComponent
                   value={item.value}
                   className="mr-3"
-                  // list={[
-                  //   { name: "Equals", value: "=" },
-                  //   { name: "Not Equals", value: "!=" },
-                  //   { name: "Like", value: "like" },
-                  //   { name: "not Like", value: "nl" },
-                  //   { name: ">", value: ">" },
-                  // ]}
+                  list={[]}
+                  onSelected={(e) => {
+                    item.value.valueData = e.value;
+                    item.value.valueInput = e.value;
+                    setFilter([...filter]);
+                  }}
+                  onChange={(e) => {
+                    item.value.valueInput = e;
+                    item.value.valueData = e;
+                    setFilter([...filter]);
+                  }}
+                  onReset={() => {
+                    item.value.valueData = "";
+                    item.value.valueInput = "";
+                    setFilter([...filter]);
+                  }}
                   inputStyle="text-[0.96em]"
-                  disabled={!item.operator}
+                  disabled={!item.operator.valueData}
                   mandatoy
                 />
                 <CloseIcon style={{ fontSize: 18 }} className="text-gray-300" />
@@ -198,19 +249,7 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
           >
             <div className="flex-1 font-normal flex items-center ">
               <AddIcon style={{ fontSize: 12 }} className="mt-[1px]" />
-              <h5
-                className=""
-                onClick={() => {
-                  setFilter([
-                    ...filter,
-                    {
-                      name: "",
-                      operator: "",
-                      value: { valueData: "", valueInput: "" },
-                    },
-                  ]);
-                }}
-              >
+              <h5 className="" onClick={addFilter}>
                 Add Filter
               </h5>
             </div>
