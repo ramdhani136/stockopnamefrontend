@@ -15,7 +15,9 @@ export interface IDataFilter {
   };
 }
 
-interface IFilter {
+console.log('dd')
+
+export interface IFilter {
   name: {
     valueData: any;
     valueInput: String;
@@ -32,26 +34,32 @@ interface IFilter {
 
 interface IProps {
   listFilter: IDataFilter[];
+  filter: any[];
+  setFilter: any;
 }
 
-const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
+const FilterTableComponent: React.FC<IProps> = ({
+  listFilter,
+  filter,
+  setFilter,
+}) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [filter, setFilter] = useState<IFilter[]>([
-    // {
-    //   name: "workflowState",
-    //   operator: "=",
-    //   value: { valueData: "Submitted", valueInput: "Submitted" },
-    // },
-    // {
-    //   name: "name",
-    //   operator: "like",
-    //   value: { valueData: "Submitted", valueInput: "Submitted" },
-    // },
-    // {
-    //   name: "createdAt",
-    //   operator: ">",
-    //   value: { valueData: "2023-02-02", valueInput: "2023-02-02" },
-    // },
+  const [tableFilter, setTableFilter] = useState<IFilter[]>([
+    //   // {
+    //   //   name: "workflowState",
+    //   //   operator: "=",
+    //   //   value: { valueData: "Submitted", valueInput: "Submitted" },
+    //   // },
+    //   // {
+    //   //   name: "name",
+    //   //   operator: "like",
+    //   //   value: { valueData: "Submitted", valueInput: "Submitted" },
+    //   // },
+    //   // {
+    //   //   name: "createdAt",
+    //   //   operator: ">",
+    //   //   value: { valueData: "2023-02-02", valueInput: "2023-02-02" },
+    //   // },
   ]);
 
   const listDoc = () => {
@@ -88,7 +96,7 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
   const modalRef = useRef<any>();
 
   const addFilter = () => {
-    const notValidFilter = filter.filter((item) => {
+    const notValidFilter = tableFilter.filter((item) => {
       return (
         item.name.valueData == "" ||
         item.operator.valueData == "" ||
@@ -97,8 +105,8 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
     });
 
     if (notValidFilter.length === 0) {
-      setFilter([
-        ...filter,
+      setTableFilter([
+        ...tableFilter,
         {
           name: { valueData: "", valueInput: "" },
           operator: { valueData: "", valueInput: "" },
@@ -109,7 +117,7 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
   };
 
   const applyFilter = () => {
-    const validFilter = filter.filter((item) => {
+    const validFilter = tableFilter.filter((item) => {
       return (
         item.name.valueData !== "" &&
         item.operator.valueData !== "" &&
@@ -117,7 +125,7 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
       );
     });
 
-    setFilter(validFilter);
+    setTableFilter(validFilter);
     // setOpen(false);
 
     if (validFilter.length > 0) {
@@ -129,8 +137,7 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
           item.value.valueData,
         ];
       });
-
-      console.log(isFilter);
+      setFilter(isFilter);
     }
   };
 
@@ -154,9 +161,9 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
         onClick={() => setOpen(!open)}
       >
         <FilterListIcon style={{ fontSize: 17 }} />
-        {filter.length > 0 && (
+        {tableFilter.length > 0 && (
           <h6 className=" rounded-full inline px-[5px]  text-[0.8em] mx-1 font-normal bg-red-200 text-red-500">
-            {filter.length}
+            {tableFilter.length}
           </h6>
         )}
         <h6 className="font-normal">Filter</h6>
@@ -166,17 +173,17 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
           ref={modalRef}
           className="bg-white  border-[1.5px] border-gray-200 w-[550px] h-auto max-h-[300px] absolute top-[38px]  left-0 rounded-md drop-shadow-md"
         >
-          {filter.length === 0 && (
+          {tableFilter.length === 0 && (
             <h4 className="w-full border-b-[1.5px] border-[#f1eeee] flex-1 text-center py-6 text-gray-300 font-normal">
               No Filter
             </h4>
           )}
           <ul
             className={`max-h-[200px] h-auto px-6 scrollbar-none my-6 ${
-              filter.length > 4 && "overflow-y-auto my-4"
+              tableFilter.length > 4 && "overflow-y-auto my-4"
             }`}
           >
-            {filter.map((item, index) => (
+            {tableFilter.map((item, index) => (
               <li key={index} className="flex mb-3 relative items-center">
                 <InputComponent
                   value={{
@@ -185,19 +192,19 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
                   }}
                   onChange={(e) => {
                     item.name.valueInput = e;
-                    setFilter([...filter]);
+                    setTableFilter([...tableFilter]);
                   }}
                   className="mr-3"
                   list={listDoc()}
                   onSelected={(e) => {
                     item.name.valueData = e.value;
                     item.name.valueInput = e.value;
-                    setFilter([...filter]);
+                    setTableFilter([...tableFilter]);
                   }}
                   onReset={() => {
                     item.name.valueData = "";
                     item.name.valueInput = "";
-                    setFilter([...filter]);
+                    setTableFilter([...tableFilter]);
                   }}
                   mandatoy
                   placeholder="Select Doc"
@@ -214,16 +221,16 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
                   onSelected={(e) => {
                     item.operator.valueData = e.value;
                     item.operator.valueInput = e.value;
-                    setFilter([...filter]);
+                    setTableFilter([...tableFilter]);
                   }}
                   onChange={(e) => {
                     item.operator.valueInput = e;
-                    setFilter([...filter]);
+                    setTableFilter([...tableFilter]);
                   }}
                   onReset={() => {
                     item.operator.valueData = "";
                     item.operator.valueInput = "";
-                    setFilter([...filter]);
+                    setTableFilter([...tableFilter]);
                   }}
                   inputStyle="text-center text-[0.96em] w-[100px]"
                   mandatoy
@@ -236,17 +243,17 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
                   onSelected={(e) => {
                     item.value.valueData = e.value;
                     item.value.valueInput = e.value;
-                    setFilter([...filter]);
+                    setTableFilter([...tableFilter]);
                   }}
                   onChange={(e) => {
                     item.value.valueInput = e;
                     item.value.valueData = e;
-                    setFilter([...filter]);
+                    setTableFilter([...tableFilter]);
                   }}
                   onReset={() => {
                     item.value.valueData = "";
                     item.value.valueInput = "";
-                    setFilter([...filter]);
+                    setTableFilter([...tableFilter]);
                   }}
                   inputStyle="text-[0.96em]"
                   disabled={!item.operator.valueData}
@@ -258,7 +265,7 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
           </ul>
           <div
             className={` w-[90%] ml-[5%]  flex py-5 text-sm  sticky bottom-0 ${
-              filter.length > 0 && "border-t"
+              tableFilter.length > 0 && "border-t"
             } bg-white `}
           >
             <div className="flex-1 font-normal flex items-center text-gray-700 opacity-70 hover:opacity-100 duration-200 ">
@@ -268,7 +275,7 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
             <div className="font-normal">
               <h5
                 className="border py-[3px] px-2 rounded-md inline bg-gray-50 opacity-80 hover:opacity-100 duration-200"
-                onClick={() => setFilter([])}
+                onClick={() => setTableFilter([])}
               >
                 Clear Filter
               </h5>

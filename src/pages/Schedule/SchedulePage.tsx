@@ -27,6 +27,7 @@ export const SchedulePage: React.FC = (): any => {
   const [limit, setLimit] = useState<number>(20);
   const [listFilter, setListFilter] = useState<IDataFilter[]>([]);
   const [search, setSeacrh] = useState<String>("");
+  const [filter, setFilter] = useState<any[]>([]);
 
   const metaData = {
     title: "Schedule -  Stock Opname App Ekatunggal",
@@ -54,10 +55,7 @@ export const SchedulePage: React.FC = (): any => {
         limit: limit,
         page: page,
         // fields: ["name", "user.name"],
-        // filters: [
-        //   ["name", "=", "SCH202302005"],
-        //   ["name", "=", "SCH202302004"],
-        // ],
+        filters: filter,
         orderBy: { sort: isOrderBy, state: isSort },
       });
 
@@ -124,14 +122,14 @@ export const SchedulePage: React.FC = (): any => {
   };
 
   useEffect(() => {
-    getData();
-  }, []);
-
-  useEffect(() => {
     if (refresh) {
       getData();
     }
   }, [refresh]);
+
+  useEffect(() => {
+    onRefresh();
+  }, [filter]);
 
   useKey("n", () => alert("Create new Schedule"), {
     ctrl: true,
@@ -197,6 +195,8 @@ export const SchedulePage: React.FC = (): any => {
                 setRefresh(true);
               }}
               getAllData={getAllData}
+              filter={filter}
+              setFilter={setFilter}
             />
           </>
         ) : (

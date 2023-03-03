@@ -106,7 +106,7 @@ const InputComponent: React.FC<IProps> = ({
       {open && list && (
         <div
           ref={modalRef}
-          className={`w-full max-h-[200px] h-auto  p-1 font-normal text-sm border  scrollbar-none z-20 overflow-y-auto absolute top-7 bg-white rounded-md ${modalStyle}`}
+          className={`w-full  max-h-[200px] h-auto  p-1 font-normal text-sm border  scrollbar-none z-50 overflow-y-auto absolute top-7 bg-white rounded-md ${modalStyle}`}
         >
           {filterData(list)?.map((item, id) => (
             <h4

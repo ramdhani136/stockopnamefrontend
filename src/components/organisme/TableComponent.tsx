@@ -7,7 +7,7 @@ import SouthIcon from "@mui/icons-material/South";
 import NorthIcon from "@mui/icons-material/North";
 import CloseIcon from "@mui/icons-material/Close";
 import { FilterTableComponent } from "../moleculs";
-import { IDataFilter } from "../moleculs/FilterTableComponent";
+import { IDataFilter, IFilter } from "../moleculs/FilterTableComponent";
 
 export interface IColumns {
   header: String;
@@ -35,6 +35,8 @@ interface Iprops {
   setOrderBy(): void | Promise<void>;
   getAllData(): void | Promise<void>;
   listFilter: IDataFilter[];
+  filter: any[];
+  setFilter: any;
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -49,6 +51,8 @@ const TableComponent: React.FC<Iprops> = ({
   setOrderBy,
   getAllData,
   listFilter,
+  filter,
+  setFilter,
 }) => {
   return (
     <div
@@ -69,7 +73,11 @@ const TableComponent: React.FC<Iprops> = ({
                 style={{ fontSize: 18 }}
               />
             </div>
-            <FilterTableComponent listFilter={listFilter}/>
+            <FilterTableComponent
+              filter={filter}
+              setFilter={setFilter}
+              listFilter={listFilter}
+            />
           </h5>
           <div className="flex">
             <IconButton
@@ -114,11 +122,11 @@ const TableComponent: React.FC<Iprops> = ({
             </div>
           }
           scrollableTarget="scrollableDiv"
-          endMessage={
-            <div className="w-auto  left-1/2 inline py-1 px-2 text-center relative bottom-2  text-sm text-gray-300 r">
-              No more data
-            </div>
-          }
+          // endMessage={
+          //   <div className="w-auto z-20  left-1/2 inline py-1 px-2 text-center relative bottom-2  text-sm text-gray-300 r">
+          //     No more data
+          //   </div>
+          // }
         >
           <section className="w-95% p-4 h-auto overflow-x-auto">
             {data.length > 0 ? (
