@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonStatusComponent, IconButton } from "../../components/atoms";
-import { Meta, useKey } from "../../utils";
+import { LocalStorage, LocalStorageType, Meta, useKey } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import AddIcon from "@mui/icons-material/Add";
@@ -122,6 +122,16 @@ export const SchedulePage: React.FC = (): any => {
   };
 
   useEffect(() => {
+    const storageFilter: string | null | undefined = LocalStorage.loadData(
+      LocalStorageType.FILTERSCHEDULE
+    );
+    if (storageFilter) {
+      const prevFilter: any = JSON.parse(storageFilter);
+      setFilter(prevFilter);
+    }
+  }, []);
+
+  useEffect(() => {
     if (refresh) {
       getData();
     }
@@ -197,6 +207,7 @@ export const SchedulePage: React.FC = (): any => {
               getAllData={getAllData}
               filter={filter}
               setFilter={setFilter}
+              localStorage={LocalStorageType.FILTERSCHEDULE}
             />
           </>
         ) : (

@@ -7,7 +7,8 @@ import SouthIcon from "@mui/icons-material/South";
 import NorthIcon from "@mui/icons-material/North";
 import CloseIcon from "@mui/icons-material/Close";
 import { FilterTableComponent } from "../moleculs";
-import { IDataFilter, IFilter } from "../moleculs/FilterTableComponent";
+import { IDataFilter } from "../moleculs/FilterTableComponent";
+import { LocalStorageType } from "../../utils";
 
 export interface IColumns {
   header: String;
@@ -37,6 +38,7 @@ interface Iprops {
   listFilter: IDataFilter[];
   filter: any[];
   setFilter: any;
+  localStorage?: LocalStorageType;
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -53,6 +55,7 @@ const TableComponent: React.FC<Iprops> = ({
   listFilter,
   filter,
   setFilter,
+  localStorage,
 }) => {
   return (
     <div
@@ -77,6 +80,7 @@ const TableComponent: React.FC<Iprops> = ({
               filter={filter}
               setFilter={setFilter}
               listFilter={listFilter}
+              localStorage={localStorage}
             />
           </h5>
           <div className="flex">

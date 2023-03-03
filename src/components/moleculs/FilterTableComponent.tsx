@@ -3,6 +3,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import AddIcon from "@mui/icons-material/Add";
 import { InputComponent } from "../atoms";
 import CloseIcon from "@mui/icons-material/Close";
+import { LocalStorage, LocalStorageType } from "../../utils";
 
 export interface IDataFilter {
   name: String;
@@ -34,31 +35,17 @@ interface IProps {
   listFilter: IDataFilter[];
   filter: any[];
   setFilter: any;
+  localStorage?: LocalStorageType;
 }
 
 const FilterTableComponent: React.FC<IProps> = ({
   listFilter,
   filter,
   setFilter,
+  localStorage,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [tableFilter, setTableFilter] = useState<IFilter[]>([
-    //   // {
-    //   //   name: "workflowState",
-    //   //   operator: "=",
-    //   //   value: { valueData: "Submitted", valueInput: "Submitted" },
-    //   // },
-    //   // {
-    //   //   name: "name",
-    //   //   operator: "like",
-    //   //   value: { valueData: "Submitted", valueInput: "Submitted" },
-    //   // },
-    //   // {
-    //   //   name: "createdAt",
-    //   //   operator: ">",
-    //   //   value: { valueData: "2023-02-02", valueInput: "2023-02-02" },
-    //   // },
-  ]);
+  const [tableFilter, setTableFilter] = useState<IFilter[]>([]);
 
   const listDoc = () => {
     const data = listFilter.map((item) => {
@@ -153,8 +140,14 @@ const FilterTableComponent: React.FC<IProps> = ({
         ];
       });
       setFilter(isFilter);
+      if (localStorage) {
+        LocalStorage.saveData(localStorage, JSON.stringify(isFilter));
+      }
     } else {
       setFilter([]);
+      if (localStorage) {
+        LocalStorage.removeData(localStorage);
+      }
     }
   };
 
@@ -277,7 +270,14 @@ const FilterTableComponent: React.FC<IProps> = ({
                   disabled={!item.operator.valueData}
                   mandatoy
                 />
-                <CloseIcon style={{ fontSize: 18 }} className="text-gray-300" />
+                <CloseIcon
+                  onClick={() => {
+                    tableFilter.splice(index, 1);
+                    setTableFilter([...tableFilter]);
+                  }}
+                  style={{ fontSize: 18 }}
+                  className="text-gray-300"
+                />
               </li>
             ))}
           </ul>
