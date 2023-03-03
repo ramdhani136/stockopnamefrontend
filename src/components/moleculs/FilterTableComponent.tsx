@@ -35,7 +35,7 @@ interface IProps {
 }
 
 const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
   const [filter, setFilter] = useState<IFilter[]>([
     // {
     //   name: "workflowState",
@@ -116,8 +116,22 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
         item.value.valueData !== ""
       );
     });
+
     setFilter(validFilter);
-    setOpen(false);
+    // setOpen(false);
+
+    if (validFilter.length > 0) {
+      let isFilter: any = [];
+      validFilter.map((item, index) => {
+        isFilter[index] = [
+          item.name.valueData,
+          item.operator.valueData,
+          item.value.valueData,
+        ];
+      });
+
+      console.log(isFilter);
+    }
   };
 
   useEffect(() => {
@@ -159,7 +173,7 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
           )}
           <ul
             className={`max-h-[200px] h-auto px-6 scrollbar-none my-6 ${
-              filter.length > 2 && "overflow-y-auto my-4"
+              filter.length > 4 && "overflow-y-auto my-4"
             }`}
           >
             {filter.map((item, index) => (
@@ -187,14 +201,14 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
                   }}
                   mandatoy
                   placeholder="Select Doc"
-                  inputStyle="text-[0.96em]"
+                  inputStyle="text-[0.95em]"
                 />
                 <InputComponent
                   value={{
                     valueData: item.operator.valueData,
                     valueInput: item.operator.valueInput,
                   }}
-                  className="mr-3 w-[100px]"
+                  className="mr-3 w-[250px]"
                   list={getOperator(`${item.name.valueData}`)}
                   disabled={!item.name.valueData}
                   onSelected={(e) => {
@@ -247,11 +261,9 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
               filter.length > 0 && "border-t"
             } bg-white `}
           >
-            <div className="flex-1 font-normal flex items-center ">
+            <div className="flex-1 font-normal flex items-center text-gray-700 opacity-70 hover:opacity-100 duration-200 ">
               <AddIcon style={{ fontSize: 12 }} className="mt-[1px]" />
-              <h5 className="" onClick={addFilter}>
-                Add Filter
-              </h5>
+              <h5 onClick={addFilter}>Add Filter</h5>
             </div>
             <div className="font-normal">
               <h5 className="border py-[3px] px-2 rounded-md inline bg-gray-50 opacity-80 hover:opacity-100 duration-200">
