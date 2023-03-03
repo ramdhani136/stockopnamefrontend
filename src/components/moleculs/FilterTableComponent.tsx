@@ -266,7 +266,10 @@ const FilterTableComponent: React.FC<IProps> = ({ listFilter }) => {
               <h5 onClick={addFilter}>Add Filter</h5>
             </div>
             <div className="font-normal">
-              <h5 className="border py-[3px] px-2 rounded-md inline bg-gray-50 opacity-80 hover:opacity-100 duration-200">
+              <h5
+                className="border py-[3px] px-2 rounded-md inline bg-gray-50 opacity-80 hover:opacity-100 duration-200"
+                onClick={() => setFilter([])}
+              >
                 Clear Filter
               </h5>
               <h5
