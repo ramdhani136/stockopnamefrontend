@@ -1,5 +1,7 @@
 import React from "react";
 import ReactLoading from "react-loading";
+import BounceLoader from "react-spinners/BounceLoader";
+import RiseLoader from "react-spinners/RiseLoader";
 
 interface ILoading {
   progressInfo?: boolean;
@@ -19,12 +21,20 @@ const LoadingComponent: React.FC<ILoading> = ({
   return (
     <div className="flex items-center justify-center flex-col   w-full h-[calc(100vh-150px)] ">
       <div className="w-full   flex justify-center items-center relative">
-        <ReactLoading type="spin" color="#e5e7ef" />
+        <RiseLoader
+          color="#36d7b6"
+          loading={true}
+          // cssOverride={override}
+          size={15}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+        {/* <ReactLoading type="spin" color="#e5e7ef" />
         {progressInfo && (
           <h4 className="absolute text-[0.64em] italic text-gray-300">
             {currentPercent?.toFixed(2)}%
           </h4>
-        )}
+        )} */}
       </div>
       {progressInfo && (
         <>
