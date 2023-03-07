@@ -40,12 +40,13 @@ interface IProps {
 
 const FilterTableComponent: React.FC<IProps> = ({
   listFilter,
-  filter,
+  // filter,
   setFilter,
   localStorage,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [tableFilter, setTableFilter] = useState<IFilter[]>([]);
+  const [resultFilter, setResultFilter] = useState<any[]>([]);
 
   const listDoc = () => {
     const data = listFilter.map((item) => {
@@ -59,7 +60,7 @@ const FilterTableComponent: React.FC<IProps> = ({
   };
 
   const getFilter = () => {
-    let filternya = filter.map((a): IFilter => {
+    let filternya = resultFilter.map((a): IFilter => {
       return {
         name: { valueData: a[0], valueInput: a[0] },
         operator: { valueData: a[1], valueInput: a[1] },
@@ -69,11 +70,27 @@ const FilterTableComponent: React.FC<IProps> = ({
     setTableFilter(filternya);
   };
 
+
   useEffect(() => {
-    if (filter) {
-      getFilter();
+    if (localStorage) {
+      const storageFilter: string | null | undefined =
+        LocalStorage.loadData(localStorage);
+      if (storageFilter) {
+        const prevFilter: any = JSON.parse(storageFilter);
+        // setFilter(prevFilter);
+        setResultFilter(prevFilter);
+      }
     }
   }, []);
+
+  useEffect(() => {
+    // setFilter(resultFilter);
+    if (resultFilter) {
+      getFilter();
+    }
+  }, [resultFilter]);
+
+
 
   const getOperator = (doc: string) => {
     const docByFilter = listFilter.filter((item) => item.name === doc);
@@ -139,12 +156,12 @@ const FilterTableComponent: React.FC<IProps> = ({
           item.value.valueData,
         ];
       });
-      setFilter(isFilter);
+      setResultFilter(isFilter);
       if (localStorage) {
         LocalStorage.saveData(localStorage, JSON.stringify(isFilter));
       }
     } else {
-      setFilter([]);
+      setResultFilter([]);
       if (localStorage) {
         LocalStorage.removeData(localStorage);
       }
@@ -164,6 +181,8 @@ const FilterTableComponent: React.FC<IProps> = ({
       document.removeEventListener("mousedown", handler);
     };
   }, []);
+
+
 
   return (
     <div className="relative  border-[1.5px] rounded-md ml-2 cursor-pointer hover:bg-gray-50 duration-200">

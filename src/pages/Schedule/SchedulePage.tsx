@@ -122,18 +122,17 @@ export const SchedulePage: React.FC = (): any => {
     setData([]);
     setPage("1"), setHasMore(false);
     setRefresh(true);
-    // setLoading(true);
   };
 
-  useEffect(() => {
-    const storageFilter: string | null | undefined = LocalStorage.loadData(
-      LocalStorageType.FILTERSCHEDULE
-    );
-    if (storageFilter) {
-      const prevFilter: any = JSON.parse(storageFilter);
-      setFilter(prevFilter);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storageFilter: string | null | undefined = LocalStorage.loadData(
+  //     LocalStorageType.FILTERSCHEDULE
+  //   );
+  //   if (storageFilter) {
+  //     const prevFilter: any = JSON.parse(storageFilter);
+  //     setFilter(prevFilter);
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (refresh) {
@@ -142,8 +141,12 @@ export const SchedulePage: React.FC = (): any => {
   }, [refresh]);
 
   useEffect(() => {
+    if(!search){
+      setLoading(true);
+    }
     onRefresh();
   }, [filter, search]);
+
 
   useKey("n", () => alert("Create new Schedule"), {
     ctrl: true,
