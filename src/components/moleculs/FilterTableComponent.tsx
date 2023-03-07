@@ -169,8 +169,10 @@ const FilterTableComponent: React.FC<IProps> = ({
   useEffect(() => {
     let handler = (e: any) => {
       if (!modalRef.current?.contains(e.target)) {
-        // getStorage();
-        // getFilter();
+        if (open) {
+          getStorage();
+          // getFilter();
+        }
         setOpen(false);
       }
     };
@@ -179,12 +181,6 @@ const FilterTableComponent: React.FC<IProps> = ({
     return () => {
       document.removeEventListener("mousedown", handler);
     };
-  }, []);
-
-  useEffect(() => {
-    if (open) {
-      getStorage();
-    }
   }, [open]);
 
   return (
@@ -192,7 +188,6 @@ const FilterTableComponent: React.FC<IProps> = ({
       <div
         className="flex z-30 items-center  px-2 py-[7.1px] "
         onClick={() => {
-          // getStorage();
           setOpen(!open);
         }}
       >
