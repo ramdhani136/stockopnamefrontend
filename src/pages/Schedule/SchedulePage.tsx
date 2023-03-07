@@ -57,6 +57,7 @@ export const SchedulePage: React.FC = (): any => {
         // fields: ["name", "user.name"],
         filters: filter,
         orderBy: { sort: isOrderBy, state: isSort },
+        search: search,
       });
 
       if (result.data.length > 0) {

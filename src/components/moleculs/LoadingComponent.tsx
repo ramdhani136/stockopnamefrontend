@@ -25,7 +25,7 @@ const LoadingComponent: React.FC<ILoading> = ({
           color="#36d7b6"
           loading={true}
           // cssOverride={override}
-          size={13}
+          size={12}
           aria-label="Loading Spinner"
           data-testid="loader"
         />

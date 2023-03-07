@@ -20,6 +20,7 @@ interface IFindOption {
   fields?: String[];
   filters?: [String, String, String][];
   orderBy?: { state: String; sort: Number };
+  search?: String;
 }
 
 export enum DataAPI {
@@ -36,6 +37,7 @@ class RequestData implements IData {
     let fields: String = ``;
     let filters: String = ``;
     let orderBy: String = ``;
+    let search: String = ``;
 
     try {
       if (options.fields) {
@@ -44,11 +46,15 @@ class RequestData implements IData {
       if (options.filters) {
         filters = `&&filters=${JSON.stringify(options.filters)}`;
       }
+      if (options.search) {
+       
+        search = `&&search=${options.search}`;
+      }
 
       if (options.orderBy) {
         orderBy = `&&order_by={"${options.orderBy.state}":${options.orderBy.sort}}`;
       }
-      const uri = `http://localhost:5000/${this.data}?limit=${options.limit}&page=${options.page}${fields}${filters}${orderBy}`;
+      const uri = `http://localhost:5000/${this.data}?limit=${options.limit}&page=${options.page}${fields}${filters}${orderBy}${search}`;
       const result: any = await FetchApi.get(uri);
       return result.data;
     } catch (error: any) {
