@@ -124,15 +124,6 @@ export const SchedulePage: React.FC = (): any => {
     setRefresh(true);
   };
 
-  // useEffect(() => {
-  //   const storageFilter: string | null | undefined = LocalStorage.loadData(
-  //     LocalStorageType.FILTERSCHEDULE
-  //   );
-  //   if (storageFilter) {
-  //     const prevFilter: any = JSON.parse(storageFilter);
-  //     setFilter(prevFilter);
-  //   }
-  // }, []);
 
   useEffect(() => {
     if (refresh) {
