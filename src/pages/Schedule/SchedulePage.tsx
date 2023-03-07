@@ -63,6 +63,7 @@ export const SchedulePage: React.FC = (): any => {
         const generateData = result.data.map((item: any): IDataTables => {
           return {
             id: item._id,
+            checked: false,
             name: <b className="font-medium">{item.name}</b>,
             user: <div>{item.user.name}</div>,
             startDate: moment(item.startDate).format("LL"),
@@ -188,6 +189,7 @@ export const SchedulePage: React.FC = (): any => {
               </div>
             </div>
             <TableComponent
+              setData={setData}
               listFilter={listFilter}
               hasMore={hasMore}
               fetchMore={getData}

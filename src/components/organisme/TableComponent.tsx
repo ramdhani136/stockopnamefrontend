@@ -1,5 +1,5 @@
 import { IconButton } from "../atoms";
-import {useState,useEffect} from 'react'
+import { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SyncLoader from "react-spinners/SyncLoader";
 import { IListIconButton } from "../atoms/IconButton";
@@ -16,7 +16,7 @@ export interface IColumns {
 }
 
 export interface IDataTables {
-  [key: string]: JSX.Element | String | number;
+  [key: string]: JSX.Element | String | number | boolean;
 }
 
 export interface IColumns {
@@ -27,6 +27,7 @@ export interface IColumns {
 interface Iprops {
   columns: IColumns[];
   data: IDataTables[];
+  setData: any;
   fetchMore(): Promise<any>;
   hasMore: boolean;
   total: number;
@@ -56,8 +57,26 @@ const TableComponent: React.FC<Iprops> = ({
   filter,
   setFilter,
   localStorage,
+  setData,
 }) => {
-  const [tableData, setTableData] = useState<any[]>();
+  const handleAllChecked = (event: any) => {
+    const isData = data.map((item) => {
+      return { ...item, checked: event.target.checked };
+    });
+    setData(isData);
+  };
+
+  const handleChange = (id: any) => {
+    const index = data.findIndex((item) => item.id === id);
+    const newData = [...data];
+    newData[index].checked = !newData[index].checked;
+    setData(newData);
+  };
+
+  const getSelected = () => {
+    const isSelect = data.filter((item) => item.checked === true);
+    return isSelect;
+  };
 
   return (
     <div
@@ -66,7 +85,7 @@ const TableComponent: React.FC<Iprops> = ({
     >
       <div className="h-auto">
         <div className="w-full p-3 sticky top-0 flex items-center justify-between py-5 border-b bg-white">
-          <h5 className="text-[0.9em] ml-4 text-gray-600 font-semibold flex items-center">
+          <div className="text-[0.9em] ml-4 text-gray-600 font-semibold flex items-center">
             ({data.length} Of {total})
             <div className="w-64 border h-9 rounded-sm  ml-4 bg-gray-50 flex items-center relative">
               <input
@@ -84,7 +103,12 @@ const TableComponent: React.FC<Iprops> = ({
               listFilter={listFilter}
               localStorage={localStorage}
             />
-          </h5>
+            {getSelected().length > 0 && (
+              <h4 className="ml-3 text-[#6f7477] text-[0.95em] font-normal">
+                {getSelected().length} Items Selected
+              </h4>
+            )}
+          </div>
           <div className="flex">
             <IconButton
               callback={getAllData}
@@ -143,6 +167,7 @@ const TableComponent: React.FC<Iprops> = ({
                       <input
                         className="w-[14px] accent-slate-600"
                         type="checkbox"
+                        onChange={(e) => handleAllChecked(e)}
                       />
                     </th>
                     {columns.map((col, index) => (
@@ -159,12 +184,16 @@ const TableComponent: React.FC<Iprops> = ({
                   {data.map((item: any, index) => (
                     <tr
                       key={index}
-                      className="text-[0.9em] border-b border-[#f4f6f5] hover:bg-gray-50 cursor-pointer "
+                      className={`text-[0.9em] border-b border-[#f4f6f5] hover:bg-gray-50 cursor-pointer ${
+                        item.checked && "bg-gray-200 border-gray-300 border"
+                      }`}
                     >
                       <td className="py-[15px] px-4">
                         <input
                           className="w-[14px] accent-slate-600"
                           type="checkbox"
+                          checked={item.checked}
+                          onChange={() => handleChange(item.id)}
                         />
                       </td>
                       {columns.map((col: IColumns, id) => (
