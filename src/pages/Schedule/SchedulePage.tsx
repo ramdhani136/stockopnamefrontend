@@ -141,9 +141,6 @@ export const SchedulePage: React.FC = (): any => {
   }, [refresh]);
 
   useEffect(() => {
-    if(!search){
-      setLoading(true);
-    }
     onRefresh();
   }, [filter, search]);
 

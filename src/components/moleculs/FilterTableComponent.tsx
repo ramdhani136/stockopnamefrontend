@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { InputComponent } from "../atoms";
 import CloseIcon from "@mui/icons-material/Close";
 import { LocalStorage, LocalStorageType } from "../../utils";
+import { filter } from "lodash";
 
 export interface IDataFilter {
   name: String;
@@ -40,13 +41,12 @@ interface IProps {
 
 const FilterTableComponent: React.FC<IProps> = ({
   listFilter,
-  // filter,
+  filter,
   setFilter,
   localStorage,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [tableFilter, setTableFilter] = useState<IFilter[]>([]);
-  const [resultFilter, setResultFilter] = useState<any[]>([]);
 
   const listDoc = () => {
     const data = listFilter.map((item) => {
@@ -60,37 +60,35 @@ const FilterTableComponent: React.FC<IProps> = ({
   };
 
   const getFilter = () => {
-    let filternya = resultFilter.map((a): IFilter => {
+    let filternya = filter.map((a): IFilter => {
       return {
         name: { valueData: a[0], valueInput: a[0] },
         operator: { valueData: a[1], valueInput: a[1] },
         value: { valueData: a[2], valueInput: a[2] },
       };
     });
+
     setTableFilter(filternya);
   };
 
-
-  useEffect(() => {
+  const getStorage = () => {
     if (localStorage) {
       const storageFilter: string | null | undefined =
         LocalStorage.loadData(localStorage);
       if (storageFilter) {
         const prevFilter: any = JSON.parse(storageFilter);
-        // setFilter(prevFilter);
-        setResultFilter(prevFilter);
+        setFilter(prevFilter);
       }
     }
+  };
+
+  useEffect(() => {
+    getStorage();
   }, []);
 
   useEffect(() => {
-    // setFilter(resultFilter);
-    if (resultFilter) {
-      getFilter();
-    }
-  }, [resultFilter]);
-
-
+    getFilter();
+  }, [filter]);
 
   const getOperator = (doc: string) => {
     const docByFilter = listFilter.filter((item) => item.name === doc);
@@ -156,12 +154,12 @@ const FilterTableComponent: React.FC<IProps> = ({
           item.value.valueData,
         ];
       });
-      setResultFilter(isFilter);
+      setFilter(isFilter);
       if (localStorage) {
         LocalStorage.saveData(localStorage, JSON.stringify(isFilter));
       }
     } else {
-      setResultFilter([]);
+      setFilter([]);
       if (localStorage) {
         LocalStorage.removeData(localStorage);
       }
@@ -171,7 +169,8 @@ const FilterTableComponent: React.FC<IProps> = ({
   useEffect(() => {
     let handler = (e: any) => {
       if (!modalRef.current?.contains(e.target)) {
-        getFilter();
+        // getStorage();
+        // getFilter();
         setOpen(false);
       }
     };
@@ -182,13 +181,20 @@ const FilterTableComponent: React.FC<IProps> = ({
     };
   }, []);
 
-
+  useEffect(() => {
+    if (open) {
+      getStorage();
+    }
+  }, [open]);
 
   return (
     <div className="relative  border-[1.5px] rounded-md ml-2 cursor-pointer hover:bg-gray-50 duration-200">
       <div
         className="flex z-30 items-center  px-2 py-[7.1px] "
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          // getStorage();
+          setOpen(!open);
+        }}
       >
         <FilterListIcon style={{ fontSize: 17 }} />
         {tableFilter.length > 0 && (
