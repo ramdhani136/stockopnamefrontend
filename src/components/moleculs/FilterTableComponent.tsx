@@ -170,7 +170,7 @@ const FilterTableComponent: React.FC<IProps> = ({
     let handler = (e: any) => {
       if (!modalRef.current?.contains(e.target)) {
         if (open) {
-          getStorage();
+          getFilter();
         }
         setOpen(false);
       }
