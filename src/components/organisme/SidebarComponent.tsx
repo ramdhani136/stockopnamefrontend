@@ -102,46 +102,10 @@ const SidebarComponent: React.FC<IProps> = ({ user }) => {
           ))}
         </div>
         <div className={` w-full flex-1 flex  justify-end flex-col mb-7`}>
-          {open && (
-            <h4 className="text-[#515254] text-[0.65em] font-bold ml-2">
-              PROFILE
-            </h4>
-          )}
-          {/* <div className="flex justify-between items-center">
-            <div className="flex m-2 group">
-              <Avatar
-                alt="Ilham Ramdhani"
-                src="https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jp"
-                sx={{ width: 35, height: 35 }}
-                className={`${!open && "-ml-1"}`}
-              />
-              <div
-                className={`${
-                  !open && "hidden"
-                } flex flex-col justify-center ml-2`}
-              >
-                <h4 className="text-[0.8em]">{user.name}</h4>
-                <h5 className="text-[0.7em] text-[#6d6e70] font-semibold">
-                  {user.username}
-                </h5>
-              </div>
-              <div
-                className={`${
-                  open && `hidden`
-                } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:mt-1 group-hover:px-2 group-hover:py-1 group-hover:left-[70px] group-hover:duration-300 group-hover:w-fit`}
-              >
-                Setting Profile
-              </div>
-            </div>
-
-            {open && (
-              <MoreHorizIcon
-                style={{ fontSize: 15 }}
-                className="cursor-pointer"
-              />
-            )}
-          </div> */}
-          <a onClick={onLogout} className="flex group items-center bg-[#323335] rounded-md p-2 ml-[2.5%] px-4 w-[95%] mt-3 opacity-80 hover:opacity-100 cursor-pointer">
+          <a
+            onClick={onLogout}
+            className="flex group items-center bg-[#323335] rounded-md p-2 ml-[2.5%] px-4 w-[95%] mt-3 opacity-80 hover:opacity-100 cursor-pointer"
+          >
             <LogoutIcon
               style={{ fontSize: 18 }}
               className={`${!open && "-ml-1"}`}
