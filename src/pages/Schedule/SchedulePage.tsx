@@ -120,7 +120,7 @@ export const SchedulePage: React.FC = (): any => {
     setData([]);
     setPage("1"), setHasMore(false);
     setRefresh(true);
-    setLoading(true);
+    // setLoading(true);
   };
 
   useEffect(() => {
@@ -141,7 +141,7 @@ export const SchedulePage: React.FC = (): any => {
 
   useEffect(() => {
     onRefresh();
-  }, [filter]);
+  }, [filter, search]);
 
   useKey("n", () => alert("Create new Schedule"), {
     ctrl: true,
@@ -189,6 +189,7 @@ export const SchedulePage: React.FC = (): any => {
               </div>
             </div>
             <TableComponent
+              setSearch={setSeacrh}
               setData={setData}
               listFilter={listFilter}
               hasMore={hasMore}

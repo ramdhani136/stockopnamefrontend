@@ -40,6 +40,7 @@ interface Iprops {
   filter: any[];
   setFilter: any;
   localStorage?: LocalStorageType;
+  setSearch: any;
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -58,9 +59,9 @@ const TableComponent: React.FC<Iprops> = ({
   setFilter,
   localStorage,
   setData,
+  setSearch,
 }) => {
   const [value, setValue] = useState<any>("");
-  const [valueQuery, setValueQuery] = useState<String>("");
 
   const handleAllChecked = (event: any) => {
     const isData = data.map((item) => {
@@ -83,7 +84,7 @@ const TableComponent: React.FC<Iprops> = ({
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setValueQuery(value);
+      setSearch(value);
     }, 500);
 
     return () => {
@@ -99,7 +100,7 @@ const TableComponent: React.FC<Iprops> = ({
       <div className="h-auto">
         <div className="w-full p-3 sticky top-0 flex items-center justify-between py-5 border-b bg-white">
           <div className="text-[0.9em] ml-4 text-gray-600 font-semibold flex items-center">
-            ({data.length} Of {valueQuery} {total})
+            ({data.length} Of {total})
             <div className="w-64 border h-9 rounded-sm  ml-4 bg-gray-50 flex items-center relative">
               <input
                 className=" flex-1  px-3 pr-8 h-full bg-gray-50 placeholder:text-gray-300 placeholder:font-normal"
