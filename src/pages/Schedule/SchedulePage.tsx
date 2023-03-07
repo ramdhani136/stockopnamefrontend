@@ -112,6 +112,7 @@ export const SchedulePage: React.FC = (): any => {
       if (error.status === 401) {
         navigate("/login");
       }
+      setTotalData(0);
       setLoading(false);
       setRefresh(false);
     }
