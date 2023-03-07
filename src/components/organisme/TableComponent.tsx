@@ -59,6 +59,9 @@ const TableComponent: React.FC<Iprops> = ({
   localStorage,
   setData,
 }) => {
+  const [value, setValue] = useState<any>("");
+  const [valueQuery, setValueQuery] = useState<String>("");
+
   const handleAllChecked = (event: any) => {
     const isData = data.map((item) => {
       return { ...item, checked: event.target.checked };
@@ -78,6 +81,16 @@ const TableComponent: React.FC<Iprops> = ({
     return isSelect;
   };
 
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setValueQuery(value);
+    }, 500);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [value]);
+
   return (
     <div
       className="w-[97.5%] border border-[#e6e7e9] flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-y-auto  scrollbar-thin scrollbar-thumb-[#ddd] scrollbar-track-gray-100"
@@ -86,15 +99,18 @@ const TableComponent: React.FC<Iprops> = ({
       <div className="h-auto">
         <div className="w-full p-3 sticky top-0 flex items-center justify-between py-5 border-b bg-white">
           <div className="text-[0.9em] ml-4 text-gray-600 font-semibold flex items-center">
-            ({data.length} Of {total})
+            ({data.length} Of {valueQuery} {total})
             <div className="w-64 border h-9 rounded-sm  ml-4 bg-gray-50 flex items-center relative">
               <input
                 className=" flex-1  px-3 pr-8 h-full bg-gray-50 placeholder:text-gray-300 placeholder:font-normal"
                 placeholder="Search"
+                onChange={(e) => setValue(e.target.value)}
+                value={value}
               />
               <CloseIcon
                 className="mr-[5px] text-gray-200 cursor-pointer absolute right-0"
                 style={{ fontSize: 18 }}
+                onClick={() => setValue("")}
               />
             </div>
             <FilterTableComponent
