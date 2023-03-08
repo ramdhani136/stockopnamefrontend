@@ -62,12 +62,14 @@ const TableComponent: React.FC<Iprops> = ({
   setSearch,
 }) => {
   const [value, setValue] = useState<any>("");
+  const [selectAll, setSelectAll] = useState<boolean>(false);
 
   const handleAllChecked = (event: any) => {
     const isData = data.map((item) => {
       return { ...item, checked: event.target.checked };
     });
     setData(isData);
+    setSelectAll(event.target.checked);
   };
 
   const handleChange = (id: any) => {
@@ -91,6 +93,13 @@ const TableComponent: React.FC<Iprops> = ({
       clearTimeout(timeoutId);
     };
   }, [value]);
+
+  useEffect(() => {
+    const notSelect = data.find((item) => !item.checked);
+    if (notSelect) {
+      setSelectAll(false);
+    }
+  }, [data]);
 
   return (
     <div
@@ -185,6 +194,7 @@ const TableComponent: React.FC<Iprops> = ({
                         className="w-[14px] accent-slate-600"
                         type="checkbox"
                         onChange={(e) => handleAllChecked(e)}
+                        checked={selectAll}
                       />
                     </th>
                     {columns.map((col, index) => (
