@@ -124,7 +124,6 @@ export const SchedulePage: React.FC = (): any => {
     setRefresh(true);
   };
 
-
   useEffect(() => {
     if (refresh) {
       getData();
@@ -134,7 +133,6 @@ export const SchedulePage: React.FC = (): any => {
   useEffect(() => {
     onRefresh();
   }, [filter, search]);
-
 
   useKey("n", () => alert("Create new Schedule"), {
     ctrl: true,
@@ -147,6 +145,11 @@ export const SchedulePage: React.FC = (): any => {
     setPage("1");
     setLimit(0);
     setRefresh(true);
+  };
+
+  const onDelete = () => {
+    const listDelete = data.filter((item) => item.checked);
+    console.log(listDelete);
   };
 
   return (
@@ -171,12 +174,19 @@ export const SchedulePage: React.FC = (): any => {
                   iconSize={20}
                   className="mr-2 cursor-pointer py-[4.5px] opacity-70 hover:opacity-100 duration-100 "
                 />
-                <IconButton
+                {/* <IconButton
                   Icon={AddIcon}
                   name="Add Schedule"
                   className="opacity-80 hover:opacity-100 duration-100"
                   // list={list}
                   // iconListDisabled
+                  // iconSize={20}
+                /> */}
+                <IconButton
+                  // Icon={AddIcon}
+                  name="Action"
+                  className="duration-100 z-50"
+                  list={[{ name: "Delete", onClick: onDelete }]}
                   // iconSize={20}
                 />
               </div>
