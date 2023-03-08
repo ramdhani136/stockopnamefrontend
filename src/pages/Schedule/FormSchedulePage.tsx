@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import {
@@ -15,7 +15,9 @@ import { AlertModal } from "../../utils";
 const FormSchedulePage: React.FC = () => {
   const navigate = useNavigate();
   let { id } = useParams();
+
   const [data, setData] = useState<any>({});
+  const [scroll, setScroll] = useState<number>(0);
   const [worflow, setWorkflow] = useState<any[]>([]);
   const [history, setHistory] = useState<any[]>([]);
   const [name, setName] = useState<IValue>({
@@ -116,11 +118,15 @@ const FormSchedulePage: React.FC = () => {
     setLoading(false);
   }, []);
 
-  console.log(worflow);
-  console.log(history);
+  // console.log(worflow);
+  // console.log(history);
+  console.log(scroll);
 
   return (
-    <div className="  max-h-[calc(100vh-80px)] overflow-y-auto">
+    <div
+      className="  max-h-[calc(100vh-70px)] overflow-y-auto scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-gray-300"
+      onScroll={(e: any) => setScroll(e.target.scrollTop)}
+    >
       {!loading ? (
         <>
           <div
