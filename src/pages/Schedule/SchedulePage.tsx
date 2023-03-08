@@ -147,9 +147,13 @@ export const SchedulePage: React.FC = (): any => {
     setRefresh(true);
   };
 
-  const onDelete = () => {
+  const getSelected = () => {
     const listDelete = data.filter((item) => item.checked);
-    console.log(listDelete);
+    return listDelete;
+  };
+
+  const onDelete = () => {
+    // console.log(getSelected());
   };
 
   return (
@@ -174,20 +178,21 @@ export const SchedulePage: React.FC = (): any => {
                   iconSize={20}
                   className="mr-2 cursor-pointer py-[4.5px] opacity-70 hover:opacity-100 duration-100 "
                 />
-                {/* <IconButton
+
+                <IconButton
                   Icon={AddIcon}
                   name="Add Schedule"
-                  className="opacity-80 hover:opacity-100 duration-100"
-                  // list={list}
-                  // iconListDisabled
-                  // iconSize={20}
-                /> */}
+                  className={`opacity-80 hover:opacity-100 duration-100 ${
+                    getSelected().length > 0 && "hidden"
+                  } `}
+                />
+
                 <IconButton
-                  // Icon={AddIcon}
                   name="Action"
-                  className="duration-100 z-50"
+                  className={`duration-100 ${
+                    getSelected().length === 0 && "hidden"
+                  }`}
                   list={[{ name: "Delete", onClick: onDelete }]}
-                  // iconSize={20}
                 />
               </div>
             </div>

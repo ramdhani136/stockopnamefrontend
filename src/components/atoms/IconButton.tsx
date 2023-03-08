@@ -56,8 +56,10 @@ const IconButton: React.FC<IProps> = ({
 
   return (
     <div
-      className={`${
-        !primary ? "border-[#166abd] bg-[#1976d3] " : "border-gray-200 bg-white"
+      className={` z-50 ${
+        !primary
+          ? " border-[#166abd] bg-[#1976d3] "
+          : "border-gray-200 bg-white"
       } border-[1.5px]  p-[3px] px-1 rounded-md relative cursor-pointer ${className}`}
       onClick={eventClick}
     >
