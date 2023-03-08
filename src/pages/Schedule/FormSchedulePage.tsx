@@ -16,6 +16,8 @@ const FormSchedulePage: React.FC = () => {
   const navigate = useNavigate();
   let { id } = useParams();
   const [data, setData] = useState<any>({});
+  const [worflow, setWorkflow] = useState<any[]>([]);
+  const [history, setHistory] = useState<any[]>([]);
   const [name, setName] = useState<IValue>({
     valueData: "",
     valueInput: "",
@@ -45,6 +47,8 @@ const FormSchedulePage: React.FC = () => {
   const getData = async (): Promise<void> => {
     try {
       const result = await GetDataServer(DataAPI.SCHEDULE).FINDONE(`${id}`);
+      setHistory(result.history);
+      setWorkflow(result.workflow);
       setData(result.data);
       setName({ valueData: result.data.name, valueInput: result.data.name });
       setWarehouse({
@@ -112,11 +116,16 @@ const FormSchedulePage: React.FC = () => {
     setLoading(false);
   }, []);
 
+  console.log(worflow);
+  console.log(history);
+
   return (
-    <div className=" px-5  flex flex-col">
+    <div className="  max-h-[calc(100vh-80px)] overflow-y-auto">
       {!loading ? (
         <>
-          <div className="flex mt-4 justify-between">
+          <div
+            className={`w-full flex mt-4 justify-between px-5 bg-gray-100 py-5 sticky top-0 z-[51] duration-200`}
+          >
             <div className="flex  items-center">
               <h4
                 onClick={() => navigate("/schedule")}
@@ -154,87 +163,90 @@ const FormSchedulePage: React.FC = () => {
               />
             </div>
           </div>
-          <div className="border w-full flex-1 mt-3 bg-white rounded-md overflow-y-scroll scrollbar-none">
-            <div className="w-full h-auto  float-left rounded-md p-3 py-5">
-              <div className=" w-1/2 px-4 float-left ">
-                <InputComponent
-                  label="Name"
-                  value={name}
-                  className="h-[38px] text-[0.93em] mb-3"
-                  onChange={(e) =>
-                    setName({
-                      valueData: e,
-                      valueInput: e,
-                    })
-                  }
-                />
-                <InputComponent
-                  label="Warehouse"
-                  value={warehouse}
-                  className="h-[38px]   text-[0.93em] mb-3"
-                  onChange={(e) =>
-                    setWarehouse({
-                      valueData: e,
-                      valueInput: e,
-                    })
-                  }
-                  mandatoy
-                />
-                <InputComponent
-                  label="User"
-                  value={user}
-                  className="h-[38px]   text-[0.93em] mb-3"
-                  onChange={(e) =>
-                    setUser({
-                      valueData: e,
-                      valueInput: e,
-                    })
-                  }
-                  disabled
-                />
-              </div>
-              <div className=" w-1/2 px-4 float-left  mb-3">
-                <InputComponent
-                  label="Date"
-                  value={createdAt}
-                  className="h-[38px]  text-[0.93em] mb-3"
-                  type="date"
-                  onChange={(e) =>
-                    setCreatedAt({
-                      valueData: e,
-                      valueInput: e,
-                    })
-                  }
-                  disabled
-                />
-                <InputComponent
-                  label="startDate"
-                  value={startDate}
-                  className="h-[38px]  text-[0.93em] mb-3"
-                  type="date"
-                  onChange={(e) =>
-                    setStartDate({
-                      valueData: e,
-                      valueInput: e,
-                    })
-                  }
-                  mandatoy
-                />
-                <InputComponent
-                  label="dueDate"
-                  value={dueDate}
-                  className="h-[38px]  text-[0.93em] mb-3"
-                  type="date"
-                  onChange={(e) =>
-                    setDueDate({
-                      valueData: e,
-                      valueInput: e,
-                    })
-                  }
-                  mandatoy
-                />
+          <div className=" px-5 flex flex-col ">
+            <div className="border w-full flex-1  bg-white rounded-md overflow-y-scroll scrollbar-none">
+              <div className="w-full h-auto  float-left rounded-md p-3 py-5">
+                <div className=" w-1/2 px-4 float-left ">
+                  <InputComponent
+                    label="Name"
+                    value={name}
+                    className="h-[38px] text-[0.93em] mb-3"
+                    onChange={(e) =>
+                      setName({
+                        valueData: e,
+                        valueInput: e,
+                      })
+                    }
+                  />
+                  <InputComponent
+                    label="Warehouse"
+                    value={warehouse}
+                    className="h-[38px]   text-[0.93em] mb-3"
+                    onChange={(e) =>
+                      setWarehouse({
+                        valueData: e,
+                        valueInput: e,
+                      })
+                    }
+                    mandatoy
+                  />
+                  <InputComponent
+                    label="User"
+                    value={user}
+                    className="h-[38px]   text-[0.93em] mb-3"
+                    onChange={(e) =>
+                      setUser({
+                        valueData: e,
+                        valueInput: e,
+                      })
+                    }
+                    disabled
+                  />
+                </div>
+                <div className=" w-1/2 px-4 float-left  mb-3">
+                  <InputComponent
+                    label="Date"
+                    value={createdAt}
+                    className="h-[38px]  text-[0.93em] mb-3"
+                    type="date"
+                    onChange={(e) =>
+                      setCreatedAt({
+                        valueData: e,
+                        valueInput: e,
+                      })
+                    }
+                    disabled
+                  />
+                  <InputComponent
+                    label="startDate"
+                    value={startDate}
+                    className="h-[38px]  text-[0.93em] mb-3"
+                    type="date"
+                    onChange={(e) =>
+                      setStartDate({
+                        valueData: e,
+                        valueInput: e,
+                      })
+                    }
+                    mandatoy
+                  />
+                  <InputComponent
+                    label="dueDate"
+                    value={dueDate}
+                    className="h-[38px]  text-[0.93em] mb-3"
+                    type="date"
+                    onChange={(e) =>
+                      setDueDate({
+                        valueData: e,
+                        valueInput: e,
+                      })
+                    }
+                    mandatoy
+                  />
+                </div>
               </div>
             </div>
+            <div className=" h-[1000px]"></div>
           </div>
         </>
       ) : (
