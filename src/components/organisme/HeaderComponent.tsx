@@ -3,18 +3,18 @@ import { Avatar } from "@mui/material";
 // import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import { IconMenuHeader, SeacrhHeaderComponent } from "../moleculs";
 import SettingsIcon from "@mui/icons-material/Settings";
-import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
+import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 
 const HeaderComponent: React.FC = () => {
   return (
     <div className="bg-white w-full h-auto py-3 pl-1 border-b flex flex-row sticky top-0 z-[58]  justify-end lg:justify-between  px-6 items-center  drop-shadow-sm">
-      {/* <h1 className={`hidden lg:block text-xl ml-3 font-semibold`}>
-        Welcome, Ilham Ramdhani
-      </h1> */}
-
       <div className="text-sm flex items-center ml-3">
         <SeacrhHeaderComponent />
-        <IconMenuHeader className="ml-1" Icon={TextsmsOutlinedIcon} iconSize={17}/>
+        <IconMenuHeader
+          className="ml-1"
+          Icon={TextsmsOutlinedIcon}
+          iconSize={17}
+        />
         <IconMenuHeader Icon={NotificationsNoneIcon} title="notif" />
       </div>
       <div className="flex items-center">
