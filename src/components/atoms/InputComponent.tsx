@@ -77,7 +77,7 @@ const InputComponent: React.FC<IProps> = ({
         mandatoy && !value.valueData && "border-red-500 border"
       } ${className}`}
     >
-      {label && <label>{label}</label>}
+      {label && <label className="text-sm text-gray-800">{label}</label>}
       <input
         placeholder={placeholder}
         disabled={disabled}
