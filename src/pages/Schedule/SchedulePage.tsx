@@ -13,8 +13,6 @@ import {
 import { LoadingComponent } from "../../components/moleculs";
 import moment from "moment";
 import { IDataFilter } from "../../components/moleculs/FilterTableComponent";
-import Swal from "sweetalert2";
-
 export const SchedulePage: React.FC = (): any => {
   const [data, setData] = useState<IDataTables[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -189,6 +187,7 @@ export const SchedulePage: React.FC = (): any => {
                   className={`opacity-80 hover:opacity-100 duration-100 ${
                     getSelected().length > 0 && "hidden"
                   } `}
+                  callback={() => navigate("/schedule/new")}
                 />
 
                 <IconButton

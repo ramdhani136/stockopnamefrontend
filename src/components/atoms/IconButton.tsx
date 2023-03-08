@@ -15,6 +15,7 @@ interface IProps {
   iconSize?: number;
   iconListDisabled?: Boolean;
   className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
+  classModal?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
   classIcon?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
 }
 
@@ -28,6 +29,7 @@ const IconButton: React.FC<IProps> = ({
   iconListDisabled,
   className,
   classIcon,
+  classModal,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
   const modalRef = useRef<any>();
@@ -92,7 +94,9 @@ const IconButton: React.FC<IProps> = ({
       </div>
       {list && open && (
         <div ref={modalRef}>
-          <ul className=" bg-white border-[1.5px] border-gray-200 w-[230px] rounded-md  max-h-72 overflow-y-auto  scrollbar-thin scrollbar-none absolute top-8 right-0 drop-shadow-md p-1 ">
+          <ul
+            className={`  bg-white border-[1.5px] border-gray-200 w-[230px] rounded-md  max-h-72 overflow-y-auto  scrollbar-thin scrollbar-none absolute top-8 right-0 drop-shadow-md p-1  ${classModal}`}
+          >
             {list.map((item, index) => (
               <li
                 key={index}
