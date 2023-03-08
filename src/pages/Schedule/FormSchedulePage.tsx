@@ -127,6 +127,7 @@ const FormSchedulePage: React.FC = () => {
                       valueInput: e,
                     })
                   }
+                  mandatoy
                 />
                 <InputComponent
                   label="User"
@@ -138,6 +139,7 @@ const FormSchedulePage: React.FC = () => {
                       valueInput: e,
                     })
                   }
+                  disabled
                 />
               </div>
               <div className=" w-1/2 px-4 float-left  mb-3">
@@ -146,13 +148,13 @@ const FormSchedulePage: React.FC = () => {
                   value={createdAt}
                   className="h-[38px]  text-[0.93em] mb-3"
                   type="date"
-                  onChange={
-                    (e) => console.log(e)
-                    // setCreatedAt({
-                    //   valueData: e,
-                    //   valueInput: e,
-                    // })
+                  onChange={(e) =>
+                    setCreatedAt({
+                      valueData: e,
+                      valueInput: e,
+                    })
                   }
+                  disabled
                 />
                 <InputComponent
                   label="startDate"
@@ -165,6 +167,7 @@ const FormSchedulePage: React.FC = () => {
                       valueInput: e,
                     })
                   }
+                  mandatoy
                 />
                 <InputComponent
                   label="dueDate"
@@ -177,6 +180,7 @@ const FormSchedulePage: React.FC = () => {
                       valueInput: e,
                     })
                   }
+                  mandatoy
                 />
               </div>
             </div>

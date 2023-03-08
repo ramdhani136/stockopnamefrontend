@@ -93,9 +93,7 @@ const InputComponent: React.FC<IProps> = ({
             }
           }}
           value={`${value.valueInput}`}
-          className={`${
-            label && "mt-1"
-          } w-full font-normal border h-full z-10 rounded-md bg-gray-50  px-3 ${inputStyle}`}
+          className={` w-full font-normal border h-full z-10 rounded-md bg-gray-50  px-3 ${inputStyle}`}
         />
         {value.valueInput && onReset && (
           <CloseIcon
