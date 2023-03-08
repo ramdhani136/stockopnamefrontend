@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonStatusComponent, IconButton } from "../../components/atoms";
-import { LocalStorage, LocalStorageType, Meta, useKey } from "../../utils";
+import { AlertModal, LocalStorageType, Meta, useKey } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import AddIcon from "@mui/icons-material/Add";
@@ -13,6 +13,7 @@ import {
 import { LoadingComponent } from "../../components/moleculs";
 import moment from "moment";
 import { IDataFilter } from "../../components/moleculs/FilterTableComponent";
+import Swal from "sweetalert2";
 
 export const SchedulePage: React.FC = (): any => {
   const [data, setData] = useState<IDataTables[]>([]);
@@ -154,6 +155,9 @@ export const SchedulePage: React.FC = (): any => {
 
   const onDelete = () => {
     // console.log(getSelected());
+    AlertModal.confirmation({
+      onConfirm: () => {},
+    });
   };
 
   return (
