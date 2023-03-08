@@ -64,7 +64,14 @@ export const SchedulePage: React.FC = (): any => {
           return {
             id: item._id,
             checked: false,
-            name: <b className="font-medium">{item.name}</b>,
+            name: (
+              <b
+                onClick={() => navigate(`/schedule/${item.name}`)}
+                className="font-medium"
+              >
+                {item.name}
+              </b>
+            ),
             user: <div>{item.user.name}</div>,
             startDate: moment(item.startDate).format("LL"),
             dueDate: moment(item.dueDate).format("LL"),

@@ -10,7 +10,7 @@ import {
 import { IValue } from "../../components/atoms/InputComponent";
 import { LoadingComponent } from "../../components/moleculs";
 import moment from "moment";
-import { Console } from "console";
+import { AlertModal } from "../../utils";
 
 const FormSchedulePage: React.FC = () => {
   const navigate = useNavigate();
@@ -41,13 +41,63 @@ const FormSchedulePage: React.FC = () => {
     valueInput: moment(Number(new Date())).format("YYYY-MM-DD"),
   });
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const getData = async (): Promise<void> => {
     try {
       const result = await GetDataServer(DataAPI.SCHEDULE).FINDONE(`${id}`);
       setData(result.data);
+      setName({ valueData: result.data.name, valueInput: result.data.name });
+      setWarehouse({
+        valueData: result.data.warehouse,
+        valueInput: result.data.warehouse,
+      });
+      setUser({
+        valueData: result.data.user._id,
+        valueInput: result.data.user.name,
+      });
+      setCreatedAt({
+        valueData: moment(
+          Number(
+            new Date(moment(Number(new Date())).format(result.data.createdAt))
+          )
+        ).format("YYYY-MM-DD"),
+        valueInput: moment(
+          Number(
+            new Date(moment(Number(new Date())).format(result.data.createdAt))
+          )
+        ).format("YYYY-MM-DD"),
+      });
+      setStartDate({
+        valueData: moment(
+          Number(
+            new Date(moment(Number(new Date())).format(result.data.startdate))
+          )
+        ).format("YYYY-MM-DD"),
+        valueInput: moment(
+          Number(
+            new Date(moment(Number(new Date())).format(result.data.startdate))
+          )
+        ).format("YYYY-MM-DD"),
+      });
+      setDueDate({
+        valueData: moment(
+          Number(
+            new Date(moment(Number(new Date())).format(result.data.dueDate))
+          )
+        ).format("YYYY-MM-DD"),
+        valueInput: moment(
+          Number(
+            new Date(moment(Number(new Date())).format(result.data.dueDate))
+          )
+        ).format("YYYY-MM-DD"),
+      });
     } catch (error: any) {
-      console.log(error);
+      AlertModal.Default({
+        icon: "error",
+        title: "Error",
+        text: "Data not found!",
+      });
+      navigate("/schedule");
     }
   };
 
@@ -59,10 +109,11 @@ const FormSchedulePage: React.FC = () => {
     if (id) {
       getData();
     }
+    setLoading(false);
   }, []);
 
   return (
-    <div className=" px-5 h-full flex flex-col">
+    <div className=" px-5  flex flex-col">
       {!loading ? (
         <>
           <div className="flex mt-4 justify-between">
@@ -76,8 +127,8 @@ const FormSchedulePage: React.FC = () => {
               <div className="text-[0.9em]">
                 <ButtonStatusComponent
                   // className="text-[0.7em]"
-                  status="0"
-                  name={`Not Save`}
+                  status={data.status ?? "0"}
+                  name={data.workflowState ?? "Not Save"}
                 />
               </div>
             </div>
