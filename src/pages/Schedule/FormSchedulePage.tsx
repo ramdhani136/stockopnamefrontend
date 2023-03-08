@@ -130,7 +130,11 @@ const FormSchedulePage: React.FC = () => {
       {!loading ? (
         <>
           <div
-            className={`w-full flex  justify-between px-5 ${scroll>0?'bg-white border-b border-gray-100 drop-shadow-sm':'bg-gray-100'} py-6 sticky top-0 z-[51] duration-150 `}
+            className={`w-full flex  justify-between px-5 ${
+              scroll > 0
+                ? "bg-white border-b border-gray-100 drop-shadow-sm"
+                : "bg-gray-100"
+            } py-6 sticky top-0 z-[51] duration-100 `}
           >
             <div className="flex  items-center">
               <h4
@@ -252,7 +256,6 @@ const FormSchedulePage: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className=" h-[1000px]"></div>
           </div>
         </>
       ) : (

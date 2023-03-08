@@ -40,7 +40,7 @@ const IconMenuHeader: React.FC<IProps> = ({
   useKey("Escape", () => setActive(false));
 
   return (
-    <div className={`relative group ${className}`}>
+    <div className={`relative group z-[52] ${className}`}>
       <Icon
         onClick={() => setActive(!active)}
         style={{ fontSize: iconSize ? iconSize : 20 }}
