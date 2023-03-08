@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -9,8 +9,11 @@ import {
 } from "../../components/atoms";
 import { IValue } from "../../components/atoms/InputComponent";
 import { LoadingComponent } from "../../components/moleculs";
+import moment from "moment";
+import { Console } from "console";
 
 const FormSchedulePage: React.FC = () => {
+  const navigate = useNavigate();
   let { id } = useParams();
   const [data, setData] = useState<any>({});
   const [name, setName] = useState<IValue>({
@@ -22,20 +25,20 @@ const FormSchedulePage: React.FC = () => {
     valueInput: "",
   });
   const [startDate, setStartDate] = useState<IValue>({
-    valueData: "",
-    valueInput: "",
+    valueData: moment(Number(new Date())).format("YYYY-MM-DD"),
+    valueInput: moment(Number(new Date())).format("YYYY-MM-DD"),
   });
   const [dueDate, setDueDate] = useState<IValue>({
-    valueData: "",
-    valueInput: "",
+    valueData: moment(Number(new Date())).format("YYYY-MM-DD"),
+    valueInput: moment(Number(new Date())).format("YYYY-MM-DD"),
   });
   const [warehouse, setWarehouse] = useState<IValue>({
     valueData: "",
     valueInput: "",
   });
   const [createdAt, setCreatedAt] = useState<IValue>({
-    valueData: "",
-    valueInput: "",
+    valueData: moment(Number(new Date())).format("YYYY-MM-DD"),
+    valueInput: moment(Number(new Date())).format("YYYY-MM-DD"),
   });
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -64,7 +67,12 @@ const FormSchedulePage: React.FC = () => {
         <>
           <div className="flex mt-4 justify-between">
             <div className="flex  items-center">
-              <h4 className="font-bold text-lg mr-2">New Schedule</h4>
+              <h4
+                onClick={() => navigate("/schedule")}
+                className="font-bold text-lg mr-2 cursor-pointer"
+              >
+                New Schedule
+              </h4>
               <div className="text-[0.9em]">
                 <ButtonStatusComponent
                   // className="text-[0.7em]"
@@ -138,11 +146,12 @@ const FormSchedulePage: React.FC = () => {
                   value={createdAt}
                   className="h-[38px]  text-[0.93em] mb-3"
                   type="date"
-                  onChange={(e) =>
-                    setCreatedAt({
-                      valueData: e,
-                      valueInput: e,
-                    })
+                  onChange={
+                    (e) => console.log(e)
+                    // setCreatedAt({
+                    //   valueData: e,
+                    //   valueInput: e,
+                    // })
                   }
                 />
                 <InputComponent
