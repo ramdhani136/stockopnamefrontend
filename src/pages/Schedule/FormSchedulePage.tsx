@@ -258,7 +258,7 @@ const FormSchedulePage: React.FC = () => {
                 </div>
               </div>
               <ul className="mt-10 mb-8 text-sm ml-12">
-                <li className=" pl-5 pb-6   border-l border-[#e4e6e5] relative float-left w-[60%] text-start">
+                <li className=" pl-5 pb-6   border-l border-[#e4e6e5] relative float-left w-[70%] text-start">
                   <div className="-mt-[7px] w-[15px] h-[15px] border border-gray-300 absolute rounded-full bg-white -left-[7px]">
                     <div className="w-[6px] h-[6px] border absolute rounded-full bg-gray-600 top-[4.1px] left-[3.8px]"></div>
                   </div>
@@ -269,7 +269,7 @@ const FormSchedulePage: React.FC = () => {
                     247 in row #2 - 4 hours ago
                   </h6>
                 </li>
-                <li className="mt-1 pl-5 pb-6   border-l   border-[#e4e6e5] relative float-left w-[60%] text-start">
+                <li className="mt-1 pl-5 pb-6   border-l   border-[#e4e6e5] relative float-left w-[70%] text-start">
                   <div className="-mt-[7px] w-[15px] h-[15px] border border-gray-300 absolute rounded-full bg-white -left-[7px]">
                     <div className="w-[6px] h-[6px] border absolute rounded-full bg-gray-600 top-[4.1px] left-[3.8px]"></div>
                   </div>
@@ -278,7 +278,7 @@ const FormSchedulePage: React.FC = () => {
                     Confirmation Doc - 6 hours ago
                   </h6>
                 </li>
-                <li className="mt-1 pl-5 pb-6   border-[#e4e6e5] relative float-left w-[60%] text-start">
+                <li className="mt-1 pl-5 pb-6   border-[#e4e6e5] relative float-left w-[70%] text-start">
                   <div className="-mt-[7px] w-[15px] h-[15px] border border-gray-300 absolute rounded-full bg-white -left-[7px]">
                     <div className="w-[6px] h-[6px] border absolute rounded-full bg-gray-600 top-[4.1px] left-[3.8px]"></div>
                   </div>
