@@ -69,7 +69,7 @@ export const SchedulePage: React.FC = (): any => {
                 onClick={() => navigate(`/schedule/${item.name}`)}
                 className="font-medium"
               >
-                {item.name}
+                <a href={`/schedule/${item.name}`}>{item.name}</a>
               </b>
             ),
             user: <div>{item.user.name}</div>,
