@@ -41,6 +41,7 @@ interface Iprops {
   setFilter: any;
   localStorage?: LocalStorageType;
   setSearch: any;
+  className?:React.HTMLAttributes<HTMLDivElement> | string | undefined;
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -60,6 +61,7 @@ const TableComponent: React.FC<Iprops> = ({
   localStorage,
   setData,
   setSearch,
+  className
 }) => {
   const [value, setValue] = useState<any>("");
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -103,7 +105,7 @@ const TableComponent: React.FC<Iprops> = ({
 
   return (
     <div
-      className="w-[97.5%] border border-[#e6e7e9] flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-auto  scrollbar-thin scrollbar-thumb-[#ddd] scrollbar-track-gray-100"
+      className={`w-[97.5%] border border-[#e6e7e9] flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-auto  scrollbar-thin scrollbar-thumb-[#ddd] scrollbar-track-gray-100 ${className}`}
       id="scrollableDiv"
     >
       <div className="h-auto">
