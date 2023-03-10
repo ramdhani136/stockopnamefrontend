@@ -11,9 +11,15 @@ import {
 import { IValue } from "../../components/atoms/InputComponent";
 import { LoadingComponent } from "../../components/moleculs";
 import moment from "moment";
-import { AlertModal } from "../../utils";
+import { AlertModal, Meta } from "../../utils";
 
 const FormSchedulePage: React.FC = () => {
+
+  const metaData = {
+    title: "New Schedule - Stock App Ekatunggal",
+    description: "Halaman form schedule stock opname web system",
+  };
+
   const navigate = useNavigate();
   let { id } = useParams();
 
@@ -120,10 +126,10 @@ const FormSchedulePage: React.FC = () => {
   }, []);
 
   // console.log(worflow);
-  console.log(history);
 
   return (
     <>
+    {Meta(metaData)}
       <div
         className="  max-h-[calc(100vh-70px)] overflow-y-auto scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-gray-300"
         onScroll={(e: any) => setScroll(e.target.scrollTop)}
@@ -257,7 +263,7 @@ const FormSchedulePage: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <TimeLineVertical />
+              <TimeLineVertical data={history} />
             </div>
           </>
         ) : (
