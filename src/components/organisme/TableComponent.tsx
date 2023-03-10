@@ -104,7 +104,7 @@ const TableComponent: React.FC<Iprops> = ({
 
   return (
     <div
-      className={`w-[97.5%] border border-[#e6e7e9] flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-auto  scrollbar-thin scrollbar-thumb-[#ddd] scrollbar-track-gray-100 ${className}`}
+      className={`w-[97.5%] border border-[#e6e7e9] flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-auto  scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-gray-300 ${className}`}
       id="scrollableDiv"
     >
       <div className="h-auto">
@@ -155,7 +155,7 @@ const TableComponent: React.FC<Iprops> = ({
               classIcon="mt-1"
               primary
               iconSize={18}
-              className="mr-[7px] cursor-pointer py-[4.5px] opacity-70 hover:opacity-100 duration-100 "
+              className="mr-[7px] cursor-pointer py-[4.5px] opacity-70 px-[7px] hover:opacity-100 duration-100 "
             />
 
             <IconButton
