@@ -1,7 +1,6 @@
 import moment from "moment";
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { ButtonStatusComponent } from "../../components/atoms";
 import { IDataFilter } from "../../components/moleculs/FilterTableComponent";
 import TableComponent, {
   IColumns,
@@ -48,6 +47,11 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
     try {
       const result: any = await GetDataServer(DataAPI.SCHEDULEITEM).FIND({
         filters: [["schedule.name", "=", `${id}`]],
+        limit: limit,
+        page: page,
+        // filters: filter,
+        orderBy: { sort: isOrderBy, state: isSort },
+        search: search,
       });
       if (result.data.length > 0) {
         const generateData = result.data.map((item: any): IDataTables => {
@@ -57,7 +61,7 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
             item_code: <div>{item.item_code}</div>,
             item_name: (
               <a href={`/schedule/${item.item_name}`}>{item.item_name}</a>
-            ),
+            ),  
             stocker: <div className="text-center">{item.stocker}</div>,
             uom: <div className="text-center">{item.stock_uom}</div>,
             actual_qty: (
@@ -112,9 +116,9 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
     getData();
   }, []);
 
-  console.log(data);
+ 
   return (
-    <div>
+    <div className="h-[400px] flex">
       <TableComponent
         setSearch={setSeacrh}
         setData={setData}
@@ -138,6 +142,7 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
         getAllData={() => alert("d")}
         filter={filter}
         setFilter={setFilter}
+        
       />
     </div>
   );
