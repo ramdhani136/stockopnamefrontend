@@ -14,7 +14,6 @@ import moment from "moment";
 import { AlertModal, Meta } from "../../utils";
 
 const FormSchedulePage: React.FC = () => {
-
   const metaData = {
     title: "New Schedule - Stock App Ekatunggal",
     description: "Halaman form schedule stock opname web system",
@@ -129,7 +128,7 @@ const FormSchedulePage: React.FC = () => {
 
   return (
     <>
-    {Meta(metaData)}
+      {Meta(metaData)}
       <div
         className="  max-h-[calc(100vh-70px)] overflow-y-auto scrollbar-thin scrollbar-track-gray-200 scrollbar-thumb-gray-300"
         onScroll={(e: any) => setScroll(e.target.scrollTop)}
@@ -148,7 +147,7 @@ const FormSchedulePage: React.FC = () => {
                   onClick={() => navigate("/schedule")}
                   className="font-bold text-lg mr-2 cursor-pointer"
                 >
-                  New Schedule
+                  {!id ? "New Schedule" : data.name}
                 </h4>
                 <div className="text-[0.9em]">
                   <ButtonStatusComponent
@@ -185,17 +184,6 @@ const FormSchedulePage: React.FC = () => {
                 <div className="w-full h-auto  float-left rounded-md p-3 py-5">
                   <div className=" w-1/2 px-4 float-left ">
                     <InputComponent
-                      label="Name"
-                      value={name}
-                      className="h-[38px] text-[0.93em] mb-3"
-                      onChange={(e) =>
-                        setName({
-                          valueData: e,
-                          valueInput: e,
-                        })
-                      }
-                    />
-                    <InputComponent
                       label="Warehouse"
                       value={warehouse}
                       className="h-[38px]   text-[0.93em] mb-3"
@@ -219,8 +207,6 @@ const FormSchedulePage: React.FC = () => {
                       }
                       disabled
                     />
-                  </div>
-                  <div className=" w-1/2 px-4 float-left  mb-3">
                     <InputComponent
                       label="Date"
                       value={createdAt}
@@ -234,6 +220,8 @@ const FormSchedulePage: React.FC = () => {
                       }
                       disabled
                     />
+                  </div>
+                  <div className=" w-1/2 px-4 float-left  mb-3">
                     <InputComponent
                       label="startDate"
                       value={startDate}
