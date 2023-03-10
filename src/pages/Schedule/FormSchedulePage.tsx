@@ -55,7 +55,15 @@ const FormSchedulePage: React.FC = () => {
   });
 
   const getListData = async (): Promise<any> => {
-    const result = await GetDataServer(DataAPI.LISTSCHEDULE).FIND({});
+    try {
+      const result = await GetDataServer(DataAPI.SCHEDULEITEM).FIND({
+        filters: [["schedule.name", "=", `${id}`]],
+      });
+      console.log(result);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -111,7 +119,7 @@ const FormSchedulePage: React.FC = () => {
           )
         ).format("YYYY-MM-DD"),
       });
-      setLoading(false);
+      getListData();
     } catch (error: any) {
       setLoading(false);
       AlertModal.Default({

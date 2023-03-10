@@ -25,7 +25,7 @@ interface IFindOption {
 
 export enum DataAPI {
   SCHEDULE = "schedule",
-  LISTSCHEDULE = "listschedule",
+  SCHEDULEITEM = "scheduleitem",
 }
 
 class RequestData implements IData {
@@ -55,7 +55,7 @@ class RequestData implements IData {
       if (options.orderBy) {
         orderBy = `&&order_by={"${options.orderBy.state}":${options.orderBy.sort}}`;
       }
-      const uri = `http://localhost:5000/${this.data}?limit=${options.limit}&page=${options.page}${fields}${filters}${orderBy}${search}`;
+      const uri = `http://localhost:5000/${this.data}?limit=${options.limit??'0'}&page=${options.page??'0'}${fields}${filters}${orderBy}${search}`;
       const result: any = await FetchApi.get(uri);
       return result.data;
     } catch (error: any) {
