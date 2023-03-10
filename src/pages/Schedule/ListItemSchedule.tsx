@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IDataFilter } from "../../components/moleculs/FilterTableComponent";
 import { IDataTables } from "../../components/organisme/TableComponent";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
+
 
 interface IProps {
   id: string;
 }
 
 const ListItemSchedule: React.FC<IProps> = ({ id }) => {
+    console.log("refresh");
   const [data, setData] = useState<IDataTables[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(false);
@@ -35,8 +37,8 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
     getListData();
   }, []);
 
-//   console.log(data);
+  //   console.log(data);
   return <div>ListItemSchedule</div>;
 };
 
-export default ListItemSchedule;
+export default React.memo(ListItemSchedule);

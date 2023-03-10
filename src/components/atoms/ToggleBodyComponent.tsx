@@ -1,6 +1,6 @@
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { ReactElement, useState } from "react";
+import React , { ReactElement, useState,useMemo } from "react";
 
 interface IProps {
   className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
@@ -9,6 +9,7 @@ interface IProps {
 
 const ToggleBodyComponent: React.FC<IProps> = ({ className,child }) => {
   const [open, setOpen] = useState<boolean>(true);
+  console.log('refresh')
 
   return (
     <div className={`${className} border bg-white rounded-md py-4 px-6`}>
@@ -30,4 +31,4 @@ const ToggleBodyComponent: React.FC<IProps> = ({ className,child }) => {
   );
 };
 
-export default ToggleBodyComponent;
+export default React.memo(ToggleBodyComponent);
