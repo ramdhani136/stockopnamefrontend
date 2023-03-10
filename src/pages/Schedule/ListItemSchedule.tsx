@@ -17,7 +17,6 @@ interface IProps {
 }
 
 const ListItemSchedule: React.FC<IProps> = ({ id }) => {
-  console.log("refresh");
   const [data, setData] = useState<IDataTables[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(false);
