@@ -17,7 +17,7 @@ export interface IDataTables {
 export interface IColumns {
   header: String;
   accessor: String;
-  width?: string;
+  className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
 }
 
 interface Iprops {
@@ -223,7 +223,7 @@ const TableComponent: React.FC<Iprops> = ({
                       </td>
                       {columns.map((col: IColumns, id) => (
                         <td
-                          className={`${col.width && `w-[${col.width}]`}`}
+                          className={`${col.className}`}
                           key={id}
                         >
                           {item[`${col.accessor}`]}
