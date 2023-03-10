@@ -55,13 +55,11 @@ const FormSchedulePage: React.FC = () => {
   });
 
   const getListData = async (): Promise<any> => {
-    const result = await GetDataServer(DataAPI.LISTSCHEDULE).FIND({
-      
-    });
+    const result = await GetDataServer(DataAPI.LISTSCHEDULE).FIND({});
   };
 
   const [loading, setLoading] = useState<boolean>(true);
-  
+
   const getData = async (): Promise<void> => {
     try {
       const result = await GetDataServer(DataAPI.SCHEDULE).FINDONE(`${id}`);
@@ -113,12 +111,15 @@ const FormSchedulePage: React.FC = () => {
           )
         ).format("YYYY-MM-DD"),
       });
+      setLoading(false);
     } catch (error: any) {
+      setLoading(false);
       AlertModal.Default({
         icon: "error",
         title: "Error",
         text: "Data not found!",
       });
+
       navigate("/schedule");
     }
   };
@@ -130,8 +131,9 @@ const FormSchedulePage: React.FC = () => {
   useEffect(() => {
     if (id) {
       getData();
+    } else {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   // console.log(worflow);

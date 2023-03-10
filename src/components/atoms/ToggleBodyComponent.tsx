@@ -16,7 +16,7 @@ const ToggleBodyComponent: React.FC<IProps> = ({ className,child }) => {
         className="flex items-center cursor-pointer"
         onClick={() => setOpen(!open)}
       >
-        <h4 className="font-medium">Item List</h4>
+        <h4 className="font-semibold">Item List</h4>
         {open ? (
           <ExpandLessIcon style={{ fontSize: 20 }} className={`ml-2 mt-1`} />
         ) : (
