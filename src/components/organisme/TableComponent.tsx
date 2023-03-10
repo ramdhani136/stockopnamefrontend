@@ -103,7 +103,7 @@ const TableComponent: React.FC<Iprops> = ({
 
   return (
     <div
-      className="w-[97.5%] border border-[#e6e7e9] flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-y-auto  scrollbar-thin scrollbar-thumb-[#ddd] scrollbar-track-gray-100"
+      className="w-[97.5%] border border-[#e6e7e9] flex-1 bg-white ml-[1.25%]  mb-3 rounded-md drop-shadow-md overflow-auto  scrollbar-thin scrollbar-thumb-[#ddd] scrollbar-track-gray-100"
       id="scrollableDiv"
     >
       <div className="h-auto">
@@ -171,7 +171,7 @@ const TableComponent: React.FC<Iprops> = ({
                 color="#36d7b6"
                 loading={true}
                 // cssOverride={override}
-                size={10}
+                size={8}
                 aria-label="Loading Spinner"
                 data-testid="loader"
               />
