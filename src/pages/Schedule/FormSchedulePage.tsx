@@ -255,7 +255,7 @@ const FormSchedulePage: React.FC = () => {
                 </div>
               </div>
               <ToggleBodyComponent
-                className="mt-3"
+                className="mt-5"
                 child={<ListItemSchedule id={`${id}`} />}
               />
               <TimeLineVertical data={history} />

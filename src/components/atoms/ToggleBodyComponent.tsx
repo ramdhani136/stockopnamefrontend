@@ -11,7 +11,7 @@ const ToggleBodyComponent: React.FC<IProps> = ({ className, child }) => {
   const [open, setOpen] = useState<boolean>(true);
 
   return (
-    <div className={`${className} border bg-white rounded-md py-4 px-6`}>
+    <div className={`${className} border bg-white rounded-md py-5 px-6`}>
       <div
         className="flex items-center cursor-pointer"
         onClick={() => setOpen(!open)}

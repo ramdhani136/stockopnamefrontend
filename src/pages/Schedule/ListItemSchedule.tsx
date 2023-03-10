@@ -178,7 +178,7 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
           getAllData={getAllData}
           filter={filter}
           setFilter={setFilter}
-          className="ml-[2px]"
+          className="ml-[3px]"
         />
       )}
     </div>
