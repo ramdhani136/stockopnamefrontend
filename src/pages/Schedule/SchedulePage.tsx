@@ -177,7 +177,7 @@ export const SchedulePage: React.FC = (): any => {
                 Schedule List
               </h1>
               <div className="flex-1  flex items-center justify-end mr-4">
-                <IconButton
+                {/* <IconButton
                   Icon={RefreshIcon}
                   callback={onRefresh}
                   // name="Actions"
@@ -186,7 +186,7 @@ export const SchedulePage: React.FC = (): any => {
                   primary
                   iconSize={20}
                   className="mr-2 cursor-pointer py-[4.5px] opacity-70 hover:opacity-100 duration-100 "
-                />
+                /> */}
 
                 <IconButton
                   Icon={AddIcon}
@@ -230,6 +230,7 @@ export const SchedulePage: React.FC = (): any => {
               filter={filter}
               setFilter={setFilter}
               localStorage={LocalStorageType.FILTERSCHEDULE}
+              onRefresh={onRefresh}
             />
           </>
         ) : (

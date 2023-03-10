@@ -9,6 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { FilterTableComponent } from "../moleculs";
 import { IDataFilter } from "../moleculs/FilterTableComponent";
 import { LocalStorageType } from "../../utils";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 export interface IDataTables {
   [key: string]: JSX.Element | String | number | boolean;
@@ -32,6 +33,7 @@ interface Iprops {
   isOrderBy: number;
   setOrderBy(): void | Promise<void>;
   getAllData(): void | Promise<void>;
+  onRefresh(): void | Promise<void>;
   listFilter: IDataFilter[];
   filter: any[];
   setFilter: any;
@@ -58,6 +60,7 @@ const TableComponent: React.FC<Iprops> = ({
   setData,
   setSearch,
   className,
+  onRefresh,
 }) => {
   const [value, setValue] = useState<any>("");
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -139,10 +142,22 @@ const TableComponent: React.FC<Iprops> = ({
               name="All Data"
               // list={list}
               // iconListDisabled
-              className="py-1 px-2 mr-2 hover:bg-gray-100 duration-100"
+              className="py-1 px-2 mr-[7px] hover:bg-gray-100 duration-100"
               iconSize={17}
               primary
             />
+            <IconButton
+              Icon={RefreshIcon}
+              callback={onRefresh}
+              // name="Actions"
+              // list={list}
+              // iconListDisabled
+              classIcon="mt-1"
+              primary
+              iconSize={18}
+              className="mr-[7px] cursor-pointer py-[4.5px] opacity-70 hover:opacity-100 duration-100 "
+            />
+
             <IconButton
               callback={setOrderBy}
               Icon={isOrderBy === 1 ? NorthIcon : SouthIcon}
@@ -222,10 +237,7 @@ const TableComponent: React.FC<Iprops> = ({
                         />
                       </td>
                       {columns.map((col: IColumns, id) => (
-                        <td
-                          className={`${col.className}`}
-                          key={id}
-                        >
+                        <td className={`${col.className}`} key={id}>
                           {item[`${col.accessor}`]}
                         </td>
                       ))}

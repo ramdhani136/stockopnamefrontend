@@ -179,6 +179,12 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
           filter={filter}
           setFilter={setFilter}
           className="ml-[3px]"
+          onRefresh={() => {
+            setData([]);
+            setPage(1), setHasMore(false);
+            setLoading(true);
+            setRefresh(true);
+          }}
         />
       )}
     </div>
