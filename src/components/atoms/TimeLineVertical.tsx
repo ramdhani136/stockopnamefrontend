@@ -5,12 +5,16 @@ interface IProps {
 }
 
 const TimeLineVertical: React.FC<IProps> = ({ data }) => {
-  console.log(data)
   return (
     <ul className="mt-10 mb-8 text-sm ml-12">
       {data.length > 0 &&
         data.map((item, key) => (
-          <li key={key} className=" pl-5 pb-6   border-l border-[#d4d4d4] relative float-left w-[70%] text-start">
+          <li
+            key={key}
+            className={` pl-5 pb-6  ${
+              key+1 !== data.length && "border-l"
+            } border-[#d4d4d4] relative float-left w-[70%] text-start`}
+          >
             <div className="-mt-[7px] w-[15px] h-[15px] border border-gray-300 absolute rounded-full bg-white -left-[7px]">
               <div className="w-[6px] h-[6px] border absolute rounded-full bg-gray-600 top-[4px] left-[3.8px]"></div>
             </div>
