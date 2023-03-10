@@ -7,11 +7,13 @@ import {
   IconButton,
   InputComponent,
   TimeLineVertical,
+  ToggleBodyComponent,
 } from "../../components/atoms";
 import { IValue } from "../../components/atoms/InputComponent";
 import { LoadingComponent } from "../../components/moleculs";
 import moment from "moment";
 import { AlertModal, Meta } from "../../utils";
+import ListItemSchedule from "./ListItemSchedule";
 
 const FormSchedulePage: React.FC = () => {
   const metaData = {
@@ -251,6 +253,7 @@ const FormSchedulePage: React.FC = () => {
                   </div>
                 </div>
               </div>
+              <ToggleBodyComponent className="mt-3" child={ListItemSchedule} />
               <TimeLineVertical data={history} />
             </div>
           </>
