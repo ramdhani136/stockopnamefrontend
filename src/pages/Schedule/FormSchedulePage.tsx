@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, } from "react";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import {
@@ -25,14 +25,9 @@ const FormSchedulePage: React.FC = () => {
   let { id } = useParams();
 
   const [data, setData] = useState<any>({});
-  const [listData, setLitsData] = useState<any[]>([]);
   const [scroll, setScroll] = useState<number>(0);
   const [workflow, setWorkflow] = useState<any[]>([]);
   const [history, setHistory] = useState<any[]>([]);
-  const [name, setName] = useState<IValue>({
-    valueData: "",
-    valueInput: "",
-  });
   const [user, setUser] = useState<IValue>({
     valueData: "",
     valueInput: "",
@@ -54,18 +49,6 @@ const FormSchedulePage: React.FC = () => {
     valueInput: moment(Number(new Date())).format("YYYY-MM-DD"),
   });
 
-  const getListData = async (): Promise<any> => {
-    try {
-      const result = await GetDataServer(DataAPI.SCHEDULEITEM).FIND({
-        filters: [["schedule.name", "=", `${id}`]],
-      });
-      console.log(result);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
-  };
-
   const [loading, setLoading] = useState<boolean>(true);
 
   const getData = async (): Promise<void> => {
@@ -74,7 +57,7 @@ const FormSchedulePage: React.FC = () => {
       setHistory(result.history);
       setWorkflow(result.workflow);
       setData(result.data);
-      setName({ valueData: result.data.name, valueInput: result.data.name });
+
       setWarehouse({
         valueData: result.data.warehouse,
         valueInput: result.data.warehouse,
@@ -119,7 +102,7 @@ const FormSchedulePage: React.FC = () => {
           )
         ).format("YYYY-MM-DD"),
       });
-      getListData();
+      setLoading(false);
     } catch (error: any) {
       setLoading(false);
       AlertModal.Default({
@@ -273,7 +256,7 @@ const FormSchedulePage: React.FC = () => {
               </div>
               <ToggleBodyComponent
                 className="mt-3"
-                child={<ListItemSchedule data={[]} />}
+                child={<ListItemSchedule id={`${id}`} />}
               />
               <TimeLineVertical data={history} />
             </div>
