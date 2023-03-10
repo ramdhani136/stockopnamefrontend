@@ -10,11 +10,6 @@ import { FilterTableComponent } from "../moleculs";
 import { IDataFilter } from "../moleculs/FilterTableComponent";
 import { LocalStorageType } from "../../utils";
 
-export interface IColumns {
-  header: String;
-  accessor: String;
-}
-
 export interface IDataTables {
   [key: string]: JSX.Element | String | number | boolean;
 }
@@ -22,6 +17,7 @@ export interface IDataTables {
 export interface IColumns {
   header: String;
   accessor: String;
+  width?: string;
 }
 
 interface Iprops {
@@ -41,7 +37,7 @@ interface Iprops {
   setFilter: any;
   localStorage?: LocalStorageType;
   setSearch: any;
-  className?:React.HTMLAttributes<HTMLDivElement> | string | undefined;
+  className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -61,7 +57,7 @@ const TableComponent: React.FC<Iprops> = ({
   localStorage,
   setData,
   setSearch,
-  className
+  className,
 }) => {
   const [value, setValue] = useState<any>("");
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -226,7 +222,12 @@ const TableComponent: React.FC<Iprops> = ({
                         />
                       </td>
                       {columns.map((col: IColumns, id) => (
-                        <td key={id}>{item[`${col.accessor}`]}</td>
+                        <td
+                          className={`${col.width && `w-[${col.width}]`}`}
+                          key={id}
+                        >
+                          {item[`${col.accessor}`]}
+                        </td>
                       ))}
                     </tr>
                   ))}

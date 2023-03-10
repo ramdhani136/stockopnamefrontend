@@ -1,10 +1,7 @@
 import moment from "moment";
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { PuffLoader } from "react-spinners";
 import HashLoader from "react-spinners/HashLoader";
-import PacmanLoader from "react-spinners/PacmanLoader";
-import PropagateLoader from "react-spinners/PropagateLoader";
 import { IDataFilter } from "../../components/moleculs/FilterTableComponent";
 import TableComponent, {
   IColumns,
@@ -30,7 +27,6 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
   const [listFilter, setListFilter] = useState<IDataFilter[]>([]);
   const [search, setSeacrh] = useState<String>("");
   const [filter, setFilter] = useState<any[]>([]);
-
   const navigate = useNavigate();
 
   const columns: IColumns[] = useMemo(
@@ -38,7 +34,7 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
       { header: "Item Code", accessor: "item_code" },
       { header: "Item Name", accessor: "item_name" },
       { header: "Stocker", accessor: "stocker" },
-      { header: "Uom", accessor: "uom" },
+      { header: "Uom", accessor: "uom"},
       { header: "Actual Qty", accessor: "actual_qty" },
       { header: "Real Qty", accessor: "real_qty" },
       { header: "", accessor: "updatedAt" },
@@ -146,9 +142,9 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
   }, [filter, search]);
 
   return (
-    <div className="h-[400px] flex">
+    <div className="min-h-[300px] max-h-[400px] flex">
       {loading ? (
-        <div className="w-full  border flex items-center justify-center">
+        <div className="w-full  flex items-center justify-center">
           <HashLoader
             color="#36d7b6"
             loading={true}
@@ -182,7 +178,7 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
           getAllData={getAllData}
           filter={filter}
           setFilter={setFilter}
-          className='ml-[2px]'
+          className="ml-[2px]"
         />
       )}
     </div>
