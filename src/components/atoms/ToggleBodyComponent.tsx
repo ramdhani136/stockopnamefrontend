@@ -1,14 +1,13 @@
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
 interface IProps {
   className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
-  child: React.FC;
+  child: ReactElement<any, any>;
 }
 
 const ToggleBodyComponent: React.FC<IProps> = ({ className,child }) => {
-  const Child: React.FC = child;
   const [open, setOpen] = useState<boolean>(true);
 
   return (
@@ -25,7 +24,7 @@ const ToggleBodyComponent: React.FC<IProps> = ({ className,child }) => {
         )}
       </div>
       {open && <div className={`w-full mt-4 mb-3  duration-700`}>
-        <Child/>
+       {child}
         </div>}
     </div>
   );

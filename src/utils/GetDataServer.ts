@@ -25,6 +25,7 @@ interface IFindOption {
 
 export enum DataAPI {
   SCHEDULE = "schedule",
+  LISTSCHEDULE = "listschedule",
 }
 
 class RequestData implements IData {

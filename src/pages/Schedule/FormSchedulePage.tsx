@@ -25,8 +25,9 @@ const FormSchedulePage: React.FC = () => {
   let { id } = useParams();
 
   const [data, setData] = useState<any>({});
+  const [listData, setLitsData] = useState<any[]>([]);
   const [scroll, setScroll] = useState<number>(0);
-  const [worflow, setWorkflow] = useState<any[]>([]);
+  const [workflow, setWorkflow] = useState<any[]>([]);
   const [history, setHistory] = useState<any[]>([]);
   const [name, setName] = useState<IValue>({
     valueData: "",
@@ -53,7 +54,14 @@ const FormSchedulePage: React.FC = () => {
     valueInput: moment(Number(new Date())).format("YYYY-MM-DD"),
   });
 
+  const getListData = async (): Promise<any> => {
+    const result = await GetDataServer(DataAPI.LISTSCHEDULE).FIND({
+      
+    });
+  };
+
   const [loading, setLoading] = useState<boolean>(true);
+  
   const getData = async (): Promise<void> => {
     try {
       const result = await GetDataServer(DataAPI.SCHEDULE).FINDONE(`${id}`);
@@ -253,7 +261,10 @@ const FormSchedulePage: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <ToggleBodyComponent className="mt-3" child={ListItemSchedule} />
+              <ToggleBodyComponent
+                className="mt-3"
+                child={<ListItemSchedule data={[]} />}
+              />
               <TimeLineVertical data={history} />
             </div>
           </>
