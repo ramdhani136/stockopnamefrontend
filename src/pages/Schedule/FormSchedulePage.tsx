@@ -9,11 +9,12 @@ import {
   TimeLineVertical,
   ToggleBodyComponent,
 } from "../../components/atoms";
-import { IValue } from "../../components/atoms/InputComponent";
+import { IListInput, IValue } from "../../components/atoms/InputComponent";
 import { LoadingComponent } from "../../components/moleculs";
 import moment from "moment";
 import { AlertModal, Meta } from "../../utils";
 import ListItemSchedule from "./ListItemSchedule";
+import axios from "axios";
 
 const FormSchedulePage: React.FC = () => {
   const metaData = {
@@ -44,12 +45,15 @@ const FormSchedulePage: React.FC = () => {
     valueData: "",
     valueInput: "",
   });
+
   const [createdAt, setCreatedAt] = useState<IValue>({
     valueData: moment(Number(new Date())).format("YYYY-MM-DD"),
     valueInput: moment(Number(new Date())).format("YYYY-MM-DD"),
   });
 
   const [loading, setLoading] = useState<boolean>(true);
+
+  const [listWarehouse, setListWarehouse] = useState<IListInput[]>([]);
 
   const getData = async (): Promise<void> => {
     try {
@@ -113,6 +117,21 @@ const FormSchedulePage: React.FC = () => {
 
       navigate("/schedule");
     }
+  };
+
+  const getWarehouse = async (): Promise<void> => {
+    try {
+      const result: any = await GetDataServer(DataAPI.WAREHOUSE).FIND({});
+      if (result.data.length > 0) {
+        let listInput: IListInput[] = result.data.map((item: IListInput) => {
+          return {
+            name: item.name,
+            value: item.name,
+          };
+        });
+        setListWarehouse(listInput);
+      }
+    } catch (error) {}
   };
 
   const onSave = async (): Promise<any> => {
@@ -191,12 +210,19 @@ const FormSchedulePage: React.FC = () => {
                       value={warehouse}
                       className="h-[38px]   text-[0.93em] mb-3"
                       onChange={(e) =>
-                        setWarehouse({
-                          valueData: e,
-                          valueInput: e,
-                        })
+                        setWarehouse({ ...warehouse, valueInput: e })
                       }
+                      onSelected={(e) =>
+                        setWarehouse({ valueData: e.value, valueInput: e.value })
+                      }
+                      onCLick={getWarehouse}
+                      list={listWarehouse}
                       mandatoy
+                      modalStyle="top-9 max-h-[160px]"
+                      onReset={() =>
+                        setWarehouse({ valueData: null, valueInput: "" })
+                      }
+                      closeIconClass="top-[12px]"
                     />
                     <InputComponent
                       label="User"

@@ -26,6 +26,7 @@ interface IFindOption {
 export enum DataAPI {
   SCHEDULE = "schedule",
   SCHEDULEITEM = "scheduleitem",
+  WAREHOUSE = "warehouse",
 }
 
 class RequestData implements IData {
@@ -55,7 +56,7 @@ class RequestData implements IData {
       if (options.orderBy) {
         orderBy = `&&order_by={"${options.orderBy.state}":${options.orderBy.sort}}`;
       }
-      const uri = `http://localhost:5000/${this.data}?limit=${options.limit??'0'}&page=${options.page??'0'}${fields}${filters}${orderBy}${search}`;
+      const uri = `${import.meta.env.VITE_PUBLIC_URI}/${this.data}?limit=${options.limit??'0'}&page=${options.page??'0'}${fields}${filters}${orderBy}${search}`;
       const result: any = await FetchApi.get(uri);
       return result.data;
     } catch (error: any) {
@@ -65,7 +66,7 @@ class RequestData implements IData {
 
   FINDONE = async (id: String): Promise<any> => {
     try {
-      const uri = `http://localhost:5000/${this.data}/${id}`;
+      const uri = `${import.meta.env.VITE_PUBLIC_URI}/${this.data}/${id}`;
       const result: any = await FetchApi.get(uri);
       return result.data;
     } catch (error) {
@@ -75,7 +76,7 @@ class RequestData implements IData {
 
   CREATE = async (data: object): Promise<any> => {
     try {
-      const uri = `http://localhost:5000/${this.data}`;
+      const uri = `${import.meta.env.VITE_PUBLIC_URI}/${this.data}`;
       const result = await FetchApi.post(uri, data);
       return result;
     } catch (error) {
@@ -85,7 +86,7 @@ class RequestData implements IData {
 
   UPDATE = async (data: IPut): Promise<any> => {
     try {
-      const uri = `http://localhost:5000/${this.data}/${data.id}`;
+      const uri = `${import.meta.env.VITE_PUBLIC_URI}/${this.data}/${data.id}`;
       const result = await FetchApi.put(uri, data.data);
       return result;
     } catch (error) {
@@ -95,7 +96,7 @@ class RequestData implements IData {
 
   DELETE = async (id: String | number): Promise<any> => {
     try {
-      const uri = `http://localhost:5000/${this.data}/${id}`;
+      const uri = `${import.meta.env.VITE_PUBLIC_URI}/${this.data}/${id}`;
       const result = await FetchApi.delete(uri);
       return result;
     } catch (error) {

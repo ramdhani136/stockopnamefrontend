@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { type } from "os";
 
-interface IListInput {
+export interface IListInput {
   name: String;
   value: any;
 }
@@ -18,6 +18,7 @@ interface IProps {
   inputStyle?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
   modalStyle?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
   itemModalStyle?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
+  closeIconClass?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
   mandatoy?: boolean;
   disabled?: boolean;
   label?: String;
@@ -25,6 +26,7 @@ interface IProps {
   onChange?: (e?: any) => Promise<any> | void;
   onSelected?: (e?: any) => Promise<any> | void;
   onReset?: (e?: any) => Promise<any> | void;
+  onCLick?: (e?: any) => Promise<any> | void;
   list?: IListInput[];
   placeholder?: any;
   type?: React.HTMLInputTypeAttribute | undefined;
@@ -44,7 +46,9 @@ const InputComponent: React.FC<IProps> = ({
   placeholder,
   modalStyle,
   itemModalStyle,
+  onCLick,
   type,
+  closeIconClass,
 }) => {
   const modalRef = useRef<any>();
   const [open, setOpen] = useState<boolean>(false);
@@ -78,7 +82,8 @@ const InputComponent: React.FC<IProps> = ({
     <>
       {label && <label className="text-sm text-gray-800">{label}</label>}
       <div
-        className={`w-full rounded-md h-8 bg-gray-50  relative  ${
+        onClick={onCLick}
+        className={`w-full rounded-md h-8 bg-gray-50  relative ${
           mandatoy && !value.valueData && "border-red-500 border"
         } ${className}`}
       >
@@ -93,7 +98,7 @@ const InputComponent: React.FC<IProps> = ({
             }
           }}
           value={`${value.valueInput}`}
-          className={` w-full font-normal border h-full z-10 rounded-md bg-gray-50  px-3 ${inputStyle}`}
+          className={`w-full  font-normal border h-full z-10 rounded-md bg-gray-50  px-3 ${inputStyle}`}
         />
         {value.valueInput && onReset && (
           <CloseIcon
@@ -102,7 +107,7 @@ const InputComponent: React.FC<IProps> = ({
                 onReset();
               }
             }}
-            className="absolute right-1 top-[8px] text-gray-300"
+            className={` right-1 top-[8px] absolute text-gray-300 ${closeIconClass} `}
             style={{ fontSize: 14 }}
           />
         )}
