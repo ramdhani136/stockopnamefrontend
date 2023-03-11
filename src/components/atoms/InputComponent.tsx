@@ -1,7 +1,6 @@
 import _ from "lodash";
-import { useEffect, useRef, useState } from "react";
+import React, { InputHTMLAttributes, useEffect, useRef, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import { type } from "os";
 
 export interface IListInput {
   name: String;
@@ -51,6 +50,7 @@ const InputComponent: React.FC<IProps> = ({
   closeIconClass,
 }) => {
   const modalRef = useRef<any>();
+  const inputRef = useRef<any>();
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -88,6 +88,7 @@ const InputComponent: React.FC<IProps> = ({
         } ${className}`}
       >
         <input
+          ref={inputRef}
           type={type ?? "text"}
           placeholder={placeholder}
           disabled={disabled}
@@ -104,6 +105,9 @@ const InputComponent: React.FC<IProps> = ({
           <CloseIcon
             onClick={() => {
               if (onReset) {
+                onCLick && onCLick();
+                inputRef.current?.focus();
+                setOpen(true);
                 onReset();
               }
             }}
