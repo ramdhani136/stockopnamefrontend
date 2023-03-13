@@ -276,6 +276,7 @@ const FormSchedulePage: React.FC = () => {
                           valueInput: e,
                         });
                       }}
+                      min={moment(Number(new Date())).format("YYYY-MM-DD")}
                       mandatoy
                     />
                     {startDate.valueData && (
