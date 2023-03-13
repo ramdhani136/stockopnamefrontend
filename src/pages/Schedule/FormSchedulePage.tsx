@@ -14,7 +14,6 @@ import { LoadingComponent } from "../../components/moleculs";
 import moment from "moment";
 import { AlertModal, Meta } from "../../utils";
 import ListItemSchedule from "./ListItemSchedule";
-import axios from "axios";
 
 const FormSchedulePage: React.FC = () => {
   const metaData = {
@@ -146,7 +145,9 @@ const FormSchedulePage: React.FC = () => {
     }
   }, []);
 
-  // console.log(worflow);
+
+
+  console.log(workflow)
 
   return (
     <>
