@@ -213,7 +213,10 @@ const FormSchedulePage: React.FC = () => {
                         setWarehouse({ ...warehouse, valueInput: e })
                       }
                       onSelected={(e) =>
-                        setWarehouse({ valueData: e.value, valueInput: e.value })
+                        setWarehouse({
+                          valueData: e.value,
+                          valueInput: e.value,
+                        })
                       }
                       onCLick={getWarehouse}
                       list={listWarehouse}
@@ -224,18 +227,20 @@ const FormSchedulePage: React.FC = () => {
                       }
                       closeIconClass="top-[13.5px]"
                     />
-                    <InputComponent
-                      label="User"
-                      value={user}
-                      className="h-[38px]   text-[0.93em] mb-3"
-                      onChange={(e) =>
-                        setUser({
-                          valueData: e,
-                          valueInput: e,
-                        })
-                      }
-                      disabled
-                    />
+                    {id && (
+                      <InputComponent
+                        label="User"
+                        value={user}
+                        className="h-[38px]   text-[0.93em] mb-3"
+                        onChange={(e) =>
+                          setUser({
+                            valueData: e,
+                            valueInput: e,
+                          })
+                        }
+                        disabled
+                      />
+                    )}
                     <InputComponent
                       label="Date"
                       value={createdAt}
@@ -280,10 +285,12 @@ const FormSchedulePage: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <ToggleBodyComponent
-                className="mt-5"
-                child={<ListItemSchedule id={`${id}`} />}
-              />
+              {id && (
+                <ToggleBodyComponent
+                  className="mt-5"
+                  child={<ListItemSchedule id={`${id}`} />}
+                />
+              )}
               <TimeLineVertical data={history} />
             </div>
           </>
