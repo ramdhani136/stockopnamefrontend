@@ -45,10 +45,9 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
   const getData = async (): Promise<any> => {
     try {
       const result: any = await GetDataServer(DataAPI.SCHEDULEITEM).FIND({
-        filters: [["schedule.name", "=", `${id}`]],
+        filters: [...filter, ["schedule.name", "=", `${id}`]],
         limit: limit,
         page: page,
-        // filters: filter,
         orderBy: { sort: isOrderBy, state: isSort },
         search: search,
       });

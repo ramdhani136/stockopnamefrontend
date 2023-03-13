@@ -218,11 +218,11 @@ const FormSchedulePage: React.FC = () => {
                       onCLick={getWarehouse}
                       list={listWarehouse}
                       mandatoy
-                      modalStyle="top-9 max-h-[160px]"
+                      modalStyle="top-12 max-h-[160px]"
                       onReset={() =>
                         setWarehouse({ valueData: null, valueInput: "" })
                       }
-                      closeIconClass="top-[12px]"
+                      closeIconClass="top-[13.5px]"
                     />
                     <InputComponent
                       label="User"
