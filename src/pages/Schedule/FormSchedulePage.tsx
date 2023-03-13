@@ -134,7 +134,13 @@ const FormSchedulePage: React.FC = () => {
   };
 
   const onSave = async (): Promise<any> => {
-    alert("d");
+    console.log({
+      startDate: startDate.valueData,
+      dueDate: dueDate.valueData,
+      workflowState: "Draft",
+      status: "0",
+      warehouse: warehouse.valueData,
+    });
   };
 
   useEffect(() => {
@@ -144,8 +150,6 @@ const FormSchedulePage: React.FC = () => {
       setLoading(false);
     }
   }, []);
-
-  console.log(workflow);
 
   return (
     <>
@@ -193,17 +197,17 @@ const FormSchedulePage: React.FC = () => {
                   iconListDisabled
                   className={` duration-100 mr-2 px-2 `}
                 />
-                <IconButton
+                {/* <IconButton
                   name="Actions"
                   list={[{ name: "Request SPV", onClick: () => alert("dd") }]}
                   callback={onSave}
                   className={`opacity-80 hover:opacity-100 duration-100  `}
-                />
-                {/* <IconButton
+                /> */}
+                <IconButton
                   name={id ? "Update" : "Save"}
                   callback={onSave}
                   className={`opacity-80 hover:opacity-100 duration-100  `}
-                /> */}
+                />
               </div>
             </div>
             <div className=" px-5 flex flex-col ">
@@ -274,19 +278,22 @@ const FormSchedulePage: React.FC = () => {
                       }
                       mandatoy
                     />
-                    <InputComponent
-                      label="dueDate"
-                      value={dueDate}
-                      className="h-[38px]  text-[0.93em] mb-3"
-                      type="date"
-                      onChange={(e) =>
-                        setDueDate({
-                          valueData: e,
-                          valueInput: e,
-                        })
-                      }
-                      mandatoy
-                    />
+                    {startDate.valueData && (
+                      <InputComponent
+                        label="dueDate"
+                        value={dueDate}
+                        className="h-[38px]  text-[0.93em] mb-3"
+                        type="date"
+                        onChange={(e) =>
+                          setDueDate({
+                            valueData: e,
+                            valueInput: e,
+                          })
+                        }
+                        mandatoy
+                        min={startDate.valueData}
+                      />
+                    )}
                   </div>
                 </div>
               </div>

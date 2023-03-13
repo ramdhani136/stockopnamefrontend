@@ -29,6 +29,7 @@ interface IProps {
   list?: IListInput[];
   placeholder?: any;
   type?: React.HTMLInputTypeAttribute | undefined;
+  min?: String;
 }
 
 const InputComponent: React.FC<IProps> = ({
@@ -48,6 +49,7 @@ const InputComponent: React.FC<IProps> = ({
   onCLick,
   type,
   closeIconClass,
+  min,
 }) => {
   const modalRef = useRef<any>();
   const inputRef = useRef<any>();
@@ -88,6 +90,7 @@ const InputComponent: React.FC<IProps> = ({
         } ${className}`}
       >
         <input
+          min={min}
           ref={inputRef}
           type={type ?? "text"}
           placeholder={placeholder}
