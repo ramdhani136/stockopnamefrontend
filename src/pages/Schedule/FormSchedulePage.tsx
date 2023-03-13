@@ -270,12 +270,12 @@ const FormSchedulePage: React.FC = () => {
                       value={startDate}
                       className="h-[38px]  text-[0.93em] mb-3"
                       type="date"
-                      onChange={(e) =>
+                      onChange={(e) => {
                         setStartDate({
                           valueData: e,
                           valueInput: e,
-                        })
-                      }
+                        });
+                      }}
                       mandatoy
                     />
                     {startDate.valueData && (

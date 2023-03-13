@@ -29,7 +29,7 @@ interface IProps {
   list?: IListInput[];
   placeholder?: any;
   type?: React.HTMLInputTypeAttribute | undefined;
-  min?: String;
+  min?: any;
 }
 
 const InputComponent: React.FC<IProps> = ({
