@@ -145,9 +145,7 @@ const FormSchedulePage: React.FC = () => {
     }
   }, []);
 
-
-
-  console.log(workflow)
+  console.log(workflow);
 
   return (
     <>
@@ -196,10 +194,16 @@ const FormSchedulePage: React.FC = () => {
                   className={` duration-100 mr-2 px-2 `}
                 />
                 <IconButton
-                  name={id ? "Update" : "Save"}
+                  name="Actions"
+                  list={[{ name: "Request SPV", onClick: () => alert("dd") }]}
                   callback={onSave}
                   className={`opacity-80 hover:opacity-100 duration-100  `}
                 />
+                {/* <IconButton
+                  name={id ? "Update" : "Save"}
+                  callback={onSave}
+                  className={`opacity-80 hover:opacity-100 duration-100  `}
+                /> */}
               </div>
             </div>
             <div className=" px-5 flex flex-col ">
