@@ -1,6 +1,8 @@
 import _ from "lodash";
-import React, { InputHTMLAttributes, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+
+import HashLoader from "react-spinners/HashLoader";
 
 export interface IListInput {
   name: String;
@@ -30,6 +32,7 @@ interface IProps {
   placeholder?: any;
   type?: React.HTMLInputTypeAttribute | undefined;
   min?: any;
+  loading?: boolean;
 }
 
 const InputComponent: React.FC<IProps> = ({
@@ -50,6 +53,7 @@ const InputComponent: React.FC<IProps> = ({
   type,
   closeIconClass,
   min,
+  loading,
 }) => {
   const modalRef = useRef<any>();
   const inputRef = useRef<any>();
@@ -104,7 +108,7 @@ const InputComponent: React.FC<IProps> = ({
           value={`${value.valueInput}`}
           className={`w-full  font-normal border h-full z-10 rounded-md bg-gray-50  px-3 ${inputStyle}`}
         />
-        {value.valueInput && onReset && (
+        {value.valueInput && onReset && !disabled && (
           <CloseIcon
             onClick={() => {
               if (onReset) {
@@ -114,7 +118,7 @@ const InputComponent: React.FC<IProps> = ({
                 onReset();
               }
             }}
-            className={` right-1 top-[8px] absolute text-gray-300 ${closeIconClass} `}
+            className={` right-1 top-[12px] absolute text-gray-300 ${closeIconClass} `}
             style={{ fontSize: 14 }}
           />
         )}
@@ -123,24 +127,36 @@ const InputComponent: React.FC<IProps> = ({
             ref={modalRef}
             className={`w-full  max-h-[200px] h-auto cursor-pointer  p-1 font-normal text-sm border  scrollbar-none z-50 overflow-y-auto absolute top-7 bg-white rounded-md ${modalStyle}`}
           >
-            {filterData(list)?.map((item, id) => (
-              <h4
-                onClick={() => {
-                  if (onSelected) {
-                    onSelected(item);
-                    setOpen(false);
-                  }
-                }}
-                key={id}
-                className={`w-full hover:bg-gray-100 rounded-md border-[#ececec] px-3 py-2 ${itemModalStyle}`}
-              >
-                {item.name}
-              </h4>
-            ))}
-            {filterData(list).length < 1 && (
+            {!loading &&
+              filterData(list)?.map((item, id) => (
+                <h4
+                  onClick={() => {
+                    if (onSelected) {
+                      onSelected(item);
+                      setOpen(false);
+                    }
+                  }}
+                  key={id}
+                  className={`w-full hover:bg-gray-100 rounded-md border-[#ececec] px-3 py-2 ${itemModalStyle}`}
+                >
+                  {item.name}
+                </h4>
+              ))}
+            {!loading && filterData(list).length < 1 && (
               <h6 className="text-gray-300 text-center text-sm py-3">
                 No result
               </h6>
+            )}
+            {loading && (
+              <div className="flex items-center justify-center h-14">
+                <HashLoader
+                  color="#36d7b6"
+                  loading={true}
+                  size={22}
+                  aria-label="Loading Spinner"
+                  data-testid="loader"
+                />
+              </div>
             )}
           </div>
         )}

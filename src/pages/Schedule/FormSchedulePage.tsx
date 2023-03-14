@@ -51,6 +51,7 @@ const FormSchedulePage: React.FC = () => {
   });
 
   const [loading, setLoading] = useState<boolean>(true);
+  const [loadingWarehouse, setLoadingWarehouse] = useState<boolean>(true);
 
   const [listWarehouse, setListWarehouse] = useState<IListInput[]>([]);
 
@@ -70,40 +71,16 @@ const FormSchedulePage: React.FC = () => {
         valueInput: result.data.user.name,
       });
       setCreatedAt({
-        valueData: moment(
-          Number(
-            new Date(moment(Number(new Date())).format(result.data.createdAt))
-          )
-        ).format("YYYY-MM-DD"),
-        valueInput: moment(
-          Number(
-            new Date(moment(Number(new Date())).format(result.data.createdAt))
-          )
-        ).format("YYYY-MM-DD"),
+        valueData: moment(result.data.createdAt).format("YYYY-MM-DD"),
+        valueInput: moment(result.data.createdAt).format("YYYY-MM-DD"),
       });
       setStartDate({
-        valueData: moment(
-          Number(
-            new Date(moment(Number(new Date())).format(result.data.startdate))
-          )
-        ).format("YYYY-MM-DD"),
-        valueInput: moment(
-          Number(
-            new Date(moment(Number(new Date())).format(result.data.startdate))
-          )
-        ).format("YYYY-MM-DD"),
+        valueData: moment(result.data.startDate).format("YYYY-MM-DD"),
+        valueInput: moment(result.data.startDate).format("YYYY-MM-DD"),
       });
       setDueDate({
-        valueData: moment(
-          Number(
-            new Date(moment(Number(new Date())).format(result.data.dueDate))
-          )
-        ).format("YYYY-MM-DD"),
-        valueInput: moment(
-          Number(
-            new Date(moment(Number(new Date())).format(result.data.dueDate))
-          )
-        ).format("YYYY-MM-DD"),
+        valueData: moment(result.data.dueDate).format("YYYY-MM-DD"),
+        valueInput: moment(result.data.dueDate).format("YYYY-MM-DD"),
       });
       setLoading(false);
     } catch (error: any) {
@@ -130,22 +107,38 @@ const FormSchedulePage: React.FC = () => {
         });
         setListWarehouse(listInput);
       }
-    } catch (error) {}
+      setLoadingWarehouse(false);
+    } catch (error) {
+      setLoadingWarehouse(false);
+    }
   };
 
   const onSave = async (): Promise<any> => {
     const progress = async (): Promise<void> => {
       try {
         setLoading(true);
-        const result = await GetDataServer(DataAPI.SCHEDULE).CREATE({
-          startDate: startDate.valueData,
-          dueDate: dueDate.valueData,
-          workflowState: "Draft",
-          status: "0",
-          warehouse: warehouse.valueData,
-        });
-        navigate(`/schedule/${result.data.data.name}`);
-        navigate(0);
+        let result: any;
+
+        if (!id) {
+          result = await GetDataServer(DataAPI.SCHEDULE).CREATE({
+            startDate: startDate.valueData,
+            dueDate: dueDate.valueData,
+            workflowState: "Draft",
+            status: "0",
+            warehouse: warehouse.valueData,
+          });
+          navigate(`/schedule/${result.data.data.name}`);
+          navigate(0);
+        } else {
+          result = await GetDataServer(DataAPI.SCHEDULE).UPDATE({
+            id: id,
+            data: {
+              startDate: startDate.valueData,
+              dueDate: dueDate.valueData,
+            },
+          });
+          getData();
+        }
       } catch (error: any) {
         AlertModal.Default({
           icon: "error",
@@ -234,6 +227,7 @@ const FormSchedulePage: React.FC = () => {
                 <div className="w-full h-auto  float-left rounded-md p-3 py-5">
                   <div className=" w-1/2 px-4 float-left ">
                     <InputComponent
+                      loading={loadingWarehouse}
                       label="Warehouse"
                       value={warehouse}
                       className="h-[38px]   text-[0.93em] mb-3"
@@ -253,6 +247,7 @@ const FormSchedulePage: React.FC = () => {
                       onReset={() =>
                         setWarehouse({ valueData: null, valueInput: "" })
                       }
+                      disabled={!id ? false : true}
                       closeIconClass="top-[13.5px]"
                     />
                     {id && (

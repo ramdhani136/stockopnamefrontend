@@ -64,12 +64,12 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
             uom: <div className="text-center">{item.stock_uom}</div>,
             actual_qty: (
               <div className="text-center font-medium text-[0.96em]">
-                {item.actual_qty}
+                {item.actual_qty.toLocaleString()}
               </div>
             ),
             real_qty: (
               <div className="text-center font-medium text-[0.96em]">
-                {item.real_qty}
+                {item.real_qty.toLocaleString()}
               </div>
             ),
             updatedAt: (
