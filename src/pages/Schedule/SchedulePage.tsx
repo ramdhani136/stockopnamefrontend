@@ -26,6 +26,10 @@ export const SchedulePage: React.FC = (): any => {
   const [listFilter, setListFilter] = useState<IDataFilter[]>([]);
   const [search, setSeacrh] = useState<String>("");
   const [filter, setFilter] = useState<any[]>([]);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [totalIndex, setTotalIndex] = useState<number>(0);
+  const [onDeleteProgress, setOnDeleteProgress] = useState<String>("");
+  const [currentPercent, setCurrentPercent] = useState<number>(0);
 
   const metaData = {
     title: "Schedule -  Stock Opname App Ekatunggal",

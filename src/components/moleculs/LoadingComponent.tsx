@@ -9,7 +9,7 @@ interface ILoading {
 interface IProgressInfo {
   currentIndex: number;
   totalIndex: number;
-  InfoProgress: String;
+  onProgress: String;
   currentPercent: number;
 }
 
