@@ -214,7 +214,6 @@ const FormSchedulePage: React.FC = () => {
   }, [startDate, dueDate]);
   // End
 
-  console.log(workflow);
   return (
     <>
       {Meta(metaData)}
@@ -335,6 +334,7 @@ const FormSchedulePage: React.FC = () => {
                   </div>
                   <div className=" w-1/2 px-4 float-left  mb-3">
                     <InputComponent
+                      disabled={data.status != 0}
                       label="startDate"
                       value={startDate}
                       className="h-[38px]  text-[0.93em] mb-3"
@@ -361,6 +361,7 @@ const FormSchedulePage: React.FC = () => {
                     />
                     {startDate.valueData && (
                       <InputComponent
+                        disabled={data.status != 0}
                         label="dueDate"
                         value={dueDate}
                         className="h-[38px]  text-[0.93em] mb-3"
