@@ -134,20 +134,33 @@ const FormSchedulePage: React.FC = () => {
   };
 
   const onSave = async (): Promise<any> => {
-    setLoading(true);
-    try {
-      const result = await GetDataServer(DataAPI.SCHEDULE).CREATE({
-        startDate: startDate.valueData,
-        dueDate: dueDate.valueData,
-        workflowState: "Draft",
-        status: "0",
-        warehouse: warehouse.valueData,
-      });
-      navigate(`/schedule/${result.data.data.name}`);
-      navigate(0);
-    } catch (error) {
-      console.log(error);
-    }
+    const progress = async (): Promise<void> => {
+      try {
+        setLoading(true);
+        const result = await GetDataServer(DataAPI.SCHEDULE).CREATE({
+          startDate: startDate.valueData,
+          dueDate: dueDate.valueData,
+          workflowState: "Draft",
+          status: "0",
+          warehouse: warehouse.valueData,
+        });
+        navigate(`/schedule/${result.data.data.name}`);
+        navigate(0);
+      } catch (error: any) {
+        console.log(error.response.data.msg);
+        AlertModal.Default({
+          icon: "error",
+          title: "Error",
+          text: error.response.data.msg ?? "Error Network",
+        });
+        setLoading(false);
+      }
+    };
+    AlertModal.confirmation({
+      onConfirm: progress,
+      text: "You want to save this data!",
+      confirmButtonText: "Yes, Save it",
+    });
   };
 
   useEffect(() => {
@@ -282,6 +295,17 @@ const FormSchedulePage: React.FC = () => {
                           valueData: e,
                           valueInput: e,
                         });
+                        if (
+                          moment(Number(new Date(e))).format("YYYY-MM-DD") >
+                          moment(Number(new Date(dueDate.valueData))).format(
+                            "YYYY-MM-DD"
+                          )
+                        ) {
+                          setDueDate({
+                            valueData: e,
+                            valueInput: e,
+                          });
+                        }
                       }}
                       min={moment(Number(new Date())).format("YYYY-MM-DD")}
                       mandatoy
