@@ -164,21 +164,27 @@ export const SchedulePage: React.FC = (): any => {
 
   const onDelete = () => {
     AlertModal.confirmation({
-      onConfirm: () => {
+      onConfirm: async (): Promise<void> => {
         const data: any[] = getSelected();
-
         setLoading(true);
         try {
-          setTotalData(data.length);
           for (const item of data) {
+            await GetDataServer(DataAPI.SCHEDULE).DELETE(item.doc);
             const index = data.indexOf(item);
             let percent = (100 / data.length) * (index + 1);
             setCurrentIndex(index);
             setOnDeleteProgress(item.doc);
             setCurrentPercent(percent);
+            setTotalIndex(data.length);
           }
-        } catch (error) {
-          console.log(error);
+          navigate(0);
+        } catch (error: any) {
+          AlertModal.Default({
+            icon: "error",
+            title: "Error",
+            text: error.response.data.msg ?? "Error Network",
+          });
+          setLoading(false);
         }
       },
     });

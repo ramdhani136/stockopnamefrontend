@@ -119,6 +119,21 @@ const FormSchedulePage: React.FC = () => {
     }
   };
 
+  const onDelete = (): void => {
+    if (id) {
+      const progress = async (): Promise<void> => {
+        try {
+          await GetDataServer(DataAPI.SCHEDULE).DELETE(`${id}`);
+          navigate("/schedule");
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      AlertModal.confirmation({ onConfirm: progress });
+    }
+  };
+
   const onSave = async (): Promise<any> => {
     const progress = async (): Promise<void> => {
       try {
@@ -221,10 +236,7 @@ const FormSchedulePage: React.FC = () => {
                   Icon={MoreHorizIcon}
                   iconSize={15}
                   classIcon="mt-1"
-                  list={[
-                    { name: "Print", onClick: () => {} },
-                    { name: "Export PDF", onClick: () => {} },
-                  ]}
+                  list={[{ name: "Delete", onClick: onDelete }]}
                   iconListDisabled
                   className={` duration-100 mr-2 px-2 `}
                 />
