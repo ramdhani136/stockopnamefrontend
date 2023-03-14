@@ -147,7 +147,6 @@ const FormSchedulePage: React.FC = () => {
         navigate(`/schedule/${result.data.data.name}`);
         navigate(0);
       } catch (error: any) {
-        console.log(error.response.data.msg);
         AlertModal.Default({
           icon: "error",
           title: "Error",
