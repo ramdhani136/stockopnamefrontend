@@ -134,13 +134,20 @@ const FormSchedulePage: React.FC = () => {
   };
 
   const onSave = async (): Promise<any> => {
-    console.log({
-      startDate: startDate.valueData,
-      dueDate: dueDate.valueData,
-      workflowState: "Draft",
-      status: "0",
-      warehouse: warehouse.valueData,
-    });
+    setLoading(true);
+    try {
+      const result = await GetDataServer(DataAPI.SCHEDULE).CREATE({
+        startDate: startDate.valueData,
+        dueDate: dueDate.valueData,
+        workflowState: "Draft",
+        status: "0",
+        warehouse: warehouse.valueData,
+      });
+      navigate(`/schedule/${result.data.data.name}`);
+      navigate(0);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
