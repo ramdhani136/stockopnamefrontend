@@ -67,6 +67,7 @@ export const SchedulePage: React.FC = (): any => {
           return {
             id: item._id,
             checked: false,
+            doc: item.name,
             name: (
               <b
                 onClick={() => navigate(`/schedule/${item.name}`)}
@@ -165,10 +166,16 @@ export const SchedulePage: React.FC = (): any => {
     AlertModal.confirmation({
       onConfirm: () => {
         const data: any[] = getSelected();
+
         setLoading(true);
         try {
+          setTotalData(data.length);
           for (const item of data) {
-            console.log(item.id);
+            const index = data.indexOf(item);
+            let percent = (100 / data.length) * (index + 1);
+            setCurrentIndex(index);
+            setOnDeleteProgress(item.doc);
+            setCurrentPercent(percent);
           }
         } catch (error) {
           console.log(error);
@@ -245,7 +252,14 @@ export const SchedulePage: React.FC = (): any => {
             />
           </>
         ) : (
-          <LoadingComponent />
+          <LoadingComponent
+            showProgress={{
+              currentIndex: currentIndex,
+              currentPercent: currentPercent,
+              onProgress: onDeleteProgress,
+              totalIndex: totalIndex,
+            }}
+          />
         )}
       </div>
     </>

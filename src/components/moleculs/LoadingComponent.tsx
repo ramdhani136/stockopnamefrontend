@@ -19,7 +19,7 @@ const LoadingComponent: React.FC<ILoading> = ({ showProgress }) => {
       {showProgress && (
         <LoadingBar
           color="red"
-          progress={20}
+          progress={showProgress.currentPercent}
           // onLoaderFinished={() => alert}
         />
       )}
@@ -36,10 +36,12 @@ const LoadingComponent: React.FC<ILoading> = ({ showProgress }) => {
           {showProgress && (
             <>
               <h5 className="mt-4 text-[0.89em] font-normal  text-gray-500">
-                progress 1 Of 230 (50%)
+                progress {showProgress.currentIndex} Of{" "}
+                {showProgress.totalIndex} (
+                {showProgress.currentPercent.toFixed(2)}%)
               </h5>
               <h5 className="mt-1 text-[0.9em] font-medium  text-gray-500">
-                SCH202303017
+                {showProgress.onProgress}
               </h5>
             </>
           )}
