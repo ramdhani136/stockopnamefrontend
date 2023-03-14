@@ -203,7 +203,6 @@ const FormSchedulePage: React.FC = () => {
                   classIcon="mt-1"
                   list={[
                     { name: "Print", onClick: () => {} },
-                    { name: "Duplicate", onClick: () => {} },
                     { name: "Export PDF", onClick: () => {} },
                   ]}
                   iconListDisabled
