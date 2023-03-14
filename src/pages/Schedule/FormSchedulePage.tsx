@@ -124,6 +124,7 @@ const FormSchedulePage: React.FC = () => {
   const onDelete = (): void => {
     if (id) {
       const progress = async (): Promise<void> => {
+        setLoading(true);
         try {
           await GetDataServer(DataAPI.SCHEDULE).DELETE(`${id}`);
           navigate("/schedule");
