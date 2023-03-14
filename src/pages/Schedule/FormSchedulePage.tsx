@@ -29,6 +29,7 @@ const FormSchedulePage: React.FC = () => {
   const [workflow, setWorkflow] = useState<any[]>([]);
   const [history, setHistory] = useState<any[]>([]);
   const [isChangeData, setChangeData] = useState<boolean>(false);
+  const [prevData, setPrevData] = useState<any>({});
   const [user, setUser] = useState<IValue>({
     valueData: "",
     valueInput: "",
@@ -82,6 +83,10 @@ const FormSchedulePage: React.FC = () => {
       setDueDate({
         valueData: moment(result.data.dueDate).format("YYYY-MM-DD"),
         valueInput: moment(result.data.dueDate).format("YYYY-MM-DD"),
+      });
+      setPrevData({
+        startDate: moment(result.data.startDate).format("YYYY-MM-DD"),
+        dueDate: moment(result.data.dueDate).format("YYYY-MM-DD"),
       });
       setLoading(false);
     } catch (error: any) {
@@ -164,6 +169,20 @@ const FormSchedulePage: React.FC = () => {
     }
   }, []);
 
+  // Cek perubahan
+  useEffect(() => {
+    const actualData = {
+      startDate: startDate.valueData,
+      dueDate: dueDate.valueData,
+    };
+    if (JSON.stringify(actualData) !== JSON.stringify(prevData)) {
+      setChangeData(true);
+    } else {
+      setChangeData(false);
+    }
+  }, [startDate, dueDate]);
+  // End
+
   return (
     <>
       {Meta(metaData)}
@@ -210,14 +229,13 @@ const FormSchedulePage: React.FC = () => {
                   className={` duration-100 mr-2 px-2 `}
                 />
 
-                {isChangeData ||
-                  (!id && (
-                    <IconButton
-                      name={id ? "Update" : "Save"}
-                      callback={onSave}
-                      className={`opacity-80 hover:opacity-100 duration-100  `}
-                    />
-                  ))}
+                {isChangeData && (
+                  <IconButton
+                    name={id ? "Update" : "Save"}
+                    callback={onSave}
+                    className={`opacity-80 hover:opacity-100 duration-100  `}
+                  />
+                )}
                 {!isChangeData && id && (
                   <IconButton
                     name="Actions"
