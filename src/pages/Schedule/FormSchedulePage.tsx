@@ -14,6 +14,7 @@ import { LoadingComponent } from "../../components/moleculs";
 import moment from "moment";
 import { AlertModal, Meta } from "../../utils";
 import ListItemSchedule from "./ListItemSchedule";
+import { IListIconButton } from "../../components/atoms/IconButton";
 
 const FormSchedulePage: React.FC = () => {
   const metaData = {
@@ -56,6 +57,7 @@ const FormSchedulePage: React.FC = () => {
   const [loadingWarehouse, setLoadingWarehouse] = useState<boolean>(true);
 
   const [listWarehouse, setListWarehouse] = useState<IListInput[]>([]);
+  const [listMoreAction, setListMoreAction] = useState<IListIconButton[]>([]);
 
   const getData = async (): Promise<void> => {
     try {
@@ -179,8 +181,10 @@ const FormSchedulePage: React.FC = () => {
   useEffect(() => {
     if (id) {
       getData();
+      setListMoreAction([{ name: "Delete", onClick: onDelete }]);
     } else {
       setLoading(false);
+      setListMoreAction([]);
     }
   }, []);
 
@@ -230,16 +234,18 @@ const FormSchedulePage: React.FC = () => {
                 </div>
               </div>
               <div className="flex">
-                <IconButton
-                  classModal="top-[28px]"
-                  primary
-                  Icon={MoreHorizIcon}
-                  iconSize={15}
-                  classIcon="mt-1"
-                  list={[{ name: "Delete", onClick: onDelete }]}
-                  iconListDisabled
-                  className={` duration-100 mr-2 px-2 `}
-                />
+                {listMoreAction.length > 0 && (
+                  <IconButton
+                    classModal="top-[28px]"
+                    primary
+                    Icon={MoreHorizIcon}
+                    iconSize={15}
+                    classIcon="mt-1"
+                    list={listMoreAction}
+                    iconListDisabled
+                    className={` duration-100 mr-2 px-2 `}
+                  />
+                )}
 
                 {isChangeData && (
                   <IconButton
