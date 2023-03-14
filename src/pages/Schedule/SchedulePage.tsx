@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { ButtonStatusComponent, IconButton } from "../../components/atoms";
 import { AlertModal, LocalStorageType, Meta, useKey } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
-import RefreshIcon from "@mui/icons-material/Refresh";
 import AddIcon from "@mui/icons-material/Add";
 import { TableComponent } from "../../components/organisme";
 import {
@@ -159,16 +158,24 @@ export const SchedulePage: React.FC = (): any => {
   };
 
   const onDelete = () => {
-    // console.log(getSelected());
     AlertModal.confirmation({
-      onConfirm: () => {},
+      onConfirm: () => {
+        const data: any[] = getSelected();
+        setLoading(true);
+        try {
+          for (const item of data) {
+            console.log(item.id);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
     });
   };
 
   return (
     <>
       {Meta(metaData)}
-
       <div className="w-full h-full overflow-y-auto flex flex-col">
         {!loading ? (
           <>

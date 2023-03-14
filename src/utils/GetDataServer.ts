@@ -1,5 +1,6 @@
 import { FetchApi } from "./FetchApi";
 
+
 interface IPut {
   data: object;
   id: string | number;

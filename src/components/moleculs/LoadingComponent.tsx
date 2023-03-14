@@ -1,52 +1,57 @@
 import React from "react";
-import ReactLoading from "react-loading";
-import BounceLoader from "react-spinners/BounceLoader";
 import RiseLoader from "react-spinners/RiseLoader";
+import LoadingBar from "react-top-loading-bar";
 
 interface ILoading {
-  progressInfo?: boolean;
-  currentPercent?: number;
-  currentIndex?: number;
-  totalIndex?: number;
-  progressData?: string;
+  showProgress?: IProgressInfo;
 }
 
-const LoadingComponent: React.FC<ILoading> = ({
-  progressInfo,
-  currentIndex,
-  currentPercent,
-  totalIndex,
-  progressData,
-}) => {
+interface IProgressInfo {
+  currentIndex: number;
+  totalIndex: number;
+  InfoProgress: String;
+  currentPercent: number;
+}
+
+const LoadingComponent: React.FC<ILoading> = ({ showProgress }) => {
   return (
-    <div className="flex items-center justify-center flex-col   w-full h-[calc(100vh-150px)] ">
-      <div className="w-full   flex justify-center items-center relative">
-        <RiseLoader
-          color="#36d7b6"
-          loading={true}
-          // cssOverride={override}
-          size={12}
-          aria-label="Loading Spinner"
-          data-testid="loader"
+    <>
+      {showProgress && (
+        <LoadingBar
+          color="red"
+          progress={20}
+          // onLoaderFinished={() => alert}
         />
-        {/* <ReactLoading type="spin" color="#e5e7ef" />
+      )}
+      <div className="flex items-center justify-center flex-col   w-full h-[calc(100vh-150px)] ">
+        <div className="w-full   flex justify-center items-center relative flex-col ">
+          <RiseLoader
+            color="#36d7b6"
+            loading={true}
+            // cssOverride={override}
+            size={10}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+          {showProgress && (
+            <>
+              <h5 className="mt-4 text-[0.89em] font-normal  text-gray-500">
+                progress 1 Of 230 (50%)
+              </h5>
+              <h5 className="mt-1 text-[0.9em] font-medium  text-gray-500">
+                SCH202303017
+              </h5>
+            </>
+          )}
+          {/* <ReactLoading type="spin" color="#e5e7ef" />
         {progressInfo && (
           <h4 className="absolute text-[0.64em] italic text-gray-300">
             {currentPercent?.toFixed(2)}%
           </h4>
         )} */}
+        </div>
       </div>
-      {progressInfo && (
-        <>
-          <h4 className="text-[0.8em] text-gray-300 italic mt-3">
-            {progressData}
-          </h4>
-          <h4 className="text-[0.8em] text-gray-300 italic mt-1">
-            progress {currentIndex} of {totalIndex}
-          </h4>
-        </>
-      )}
-    </div>
+    </>
   );
 };
 
