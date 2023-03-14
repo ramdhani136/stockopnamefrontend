@@ -28,6 +28,7 @@ const FormSchedulePage: React.FC = () => {
   const [scroll, setScroll] = useState<number>(0);
   const [workflow, setWorkflow] = useState<any[]>([]);
   const [history, setHistory] = useState<any[]>([]);
+  const [isChangeData, setChangeData] = useState<boolean>(false);
   const [user, setUser] = useState<IValue>({
     valueData: "",
     valueInput: "",
@@ -208,17 +209,23 @@ const FormSchedulePage: React.FC = () => {
                   iconListDisabled
                   className={` duration-100 mr-2 px-2 `}
                 />
-                {/* <IconButton
-                  name="Actions"
-                  list={[{ name: "Request SPV", onClick: () => alert("dd") }]}
-                  callback={onSave}
-                  className={`opacity-80 hover:opacity-100 duration-100  `}
-                /> */}
-                <IconButton
-                  name={id ? "Update" : "Save"}
-                  callback={onSave}
-                  className={`opacity-80 hover:opacity-100 duration-100  `}
-                />
+
+                {isChangeData ||
+                  (!id && (
+                    <IconButton
+                      name={id ? "Update" : "Save"}
+                      callback={onSave}
+                      className={`opacity-80 hover:opacity-100 duration-100  `}
+                    />
+                  ))}
+                {!isChangeData && id && (
+                  <IconButton
+                    name="Actions"
+                    list={[{ name: "Request SPV", onClick: () => alert("dd") }]}
+                    callback={onSave}
+                    className={`opacity-80 hover:opacity-100 duration-100  `}
+                  />
+                )}
               </div>
             </div>
             <div className=" px-5 flex flex-col ">
