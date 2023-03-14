@@ -66,7 +66,7 @@ const FormSchedulePage: React.FC = () => {
       // set workflow
       if (result.workflow.length > 0) {
         const isWorkflow = result.workflow.map((item: any): IListIconButton => {
-          return { name: item.name, onClick: () => alert("dd") };
+          return { name: item.name, onClick: () => {console.log(item)} };
         });
 
         setWorkflow(isWorkflow);
