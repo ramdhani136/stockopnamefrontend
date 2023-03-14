@@ -27,7 +27,7 @@ const FormSchedulePage: React.FC = () => {
 
   const [data, setData] = useState<any>({});
   const [scroll, setScroll] = useState<number>(0);
-  const [workflow, setWorkflow] = useState<any[]>([]);
+  const [workflow, setWorkflow] = useState<IListIconButton[]>([]);
   const [history, setHistory] = useState<any[]>([]);
   const [isChangeData, setChangeData] = useState<boolean>(false);
   const [prevData, setPrevData] = useState<any>({});
@@ -62,8 +62,19 @@ const FormSchedulePage: React.FC = () => {
   const getData = async (): Promise<void> => {
     try {
       const result = await GetDataServer(DataAPI.SCHEDULE).FINDONE(`${id}`);
+
+      // set workflow
+      if (result.workflow.length > 0) {
+        const isWorkflow = result.workflow.map((item: any): IListIconButton => {
+          return { name: item.name, onClick: () => alert("dd") };
+        });
+
+        setWorkflow(isWorkflow);
+      }
+      // end
+
       setHistory(result.history);
-      setWorkflow(result.workflow);
+
       setData(result.data);
 
       setWarehouse({
@@ -203,6 +214,7 @@ const FormSchedulePage: React.FC = () => {
   }, [startDate, dueDate]);
   // End
 
+  console.log(workflow);
   return (
     <>
       {Meta(metaData)}
@@ -255,10 +267,10 @@ const FormSchedulePage: React.FC = () => {
                     className={`opacity-80 hover:opacity-100 duration-100  `}
                   />
                 )}
-                {!isChangeData && id && (
+                {!isChangeData && id && workflow.length > 0 && (
                   <IconButton
                     name="Actions"
-                    list={[{ name: "Request SPV", onClick: () => alert("dd") }]}
+                    list={workflow}
                     callback={onSave}
                     className={`opacity-80 hover:opacity-100 duration-100  `}
                   />
