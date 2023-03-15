@@ -221,7 +221,7 @@ const ScheduleItemPage = () => {
                 )}
               </div>
             </div> */}
-            <div className=" px-5 flex flex-  flex-col py-6">
+            <div className=" px-5 flex flex-  flex-col py-3">
               <div className="border w-full flex-1  bg-white rounded-md overflow-y-scroll scrollbar-none">
                 <div className="w-full h-auto  float-left rounded-md p-3 py-5">
                   <div className=" w-1/2 px-4 float-left ">
