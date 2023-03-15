@@ -7,6 +7,7 @@ import { LoadingComponent } from "../../components/moleculs";
 import { AlertModal, Meta } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import ListItemSchedule from "../Schedule/ListItemSchedule";
+import ScheduleItemPacking from "./ScheduleItemPacking";
 
 const ScheduleItemPage = () => {
   let { scheduleId, scheduleItem } = useParams();
@@ -115,7 +116,7 @@ const ScheduleItemPage = () => {
 
       setStatus({
         valueData: result.data.status,
-        valueInput: result.data.status,
+        valueInput: result.data.status>0?'Completed':'Not Completed',
       });
 
       setUom({
@@ -220,7 +221,7 @@ const ScheduleItemPage = () => {
                 )}
               </div>
             </div> */}
-            <div className=" px-5 flex flex- mt-3 ">
+            <div className=" px-5 flex flex-  flex-col py-6">
               <div className="border w-full flex-1  bg-white rounded-md overflow-y-scroll scrollbar-none">
                 <div className="w-full h-auto  float-left rounded-md p-3 py-5">
                   <div className=" w-1/2 px-4 float-left ">
@@ -320,13 +321,13 @@ const ScheduleItemPage = () => {
                   </div>
                 </div>
               </div>
-              {/* {id && (
-                <ToggleBodyComponent
-                  className="mt-5"
-                  child={<ListItemSchedule id={`${id}`} />}
-                />
-              )}
-              <TimeLineVertical data={history} /> */}
+
+              <ToggleBodyComponent
+                className="mt-5"
+                child={<ScheduleItemPacking />}
+              />
+
+              {/* <TimeLineVertical data={history} /> */}
             </div>
           </>
         ) : (
