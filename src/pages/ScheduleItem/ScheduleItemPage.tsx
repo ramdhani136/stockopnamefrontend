@@ -167,14 +167,14 @@ const ScheduleItemPage = () => {
       >
         {!loading ? (
           <>
-            <div
+            {/* <div
               className={`w-full flex  justify-between px-5 ${
                 scroll > 0
                   ? "bg-white border-b border-gray-100 drop-shadow-sm py-6"
                   : "bg-gray-100"
               } py-5 sticky top-0 z-[51] duration-500`}
             >
-              {/* <div className="flex  items-center">
+              <div className="flex  items-center">
                 <h4
                   onClick={() => navigate("/schedule")}
                   className="font-bold text-lg mr-2 cursor-pointer"
@@ -188,9 +188,9 @@ const ScheduleItemPage = () => {
                     name={data.workflowState ?? "Not Save"}
                   />
                 </div>
-              </div> */}
+              </div>
               <div className="flex">
-                {/* {listMoreAction.length > 0 && (
+                {listMoreAction.length > 0 && (
                   <IconButton
                     classModal="top-[29px]"
                     primary
@@ -217,10 +217,10 @@ const ScheduleItemPage = () => {
                     callback={onSave}
                     className={`opacity-80 hover:opacity-100 duration-100  `}
                   />
-                )} */}
+                )}
               </div>
-            </div>
-            <div className=" px-5 flex flex-col ">
+            </div> */}
+            <div className=" px-5 flex flex- mt-3 ">
               <div className="border w-full flex-1  bg-white rounded-md overflow-y-scroll scrollbar-none">
                 <div className="w-full h-auto  float-left rounded-md p-3 py-5">
                   <div className=" w-1/2 px-4 float-left ">
