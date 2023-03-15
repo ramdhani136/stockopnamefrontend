@@ -248,7 +248,7 @@ const FormSchedulePage: React.FC = () => {
               <div className="flex">
                 {listMoreAction.length > 0 && (
                   <IconButton
-                    classModal="top-[28px]"
+                    classModal="top-[29px]"
                     primary
                     Icon={MoreHorizIcon}
                     iconSize={15}
