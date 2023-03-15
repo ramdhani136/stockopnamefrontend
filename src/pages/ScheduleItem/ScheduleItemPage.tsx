@@ -116,7 +116,7 @@ const ScheduleItemPage = () => {
 
       setStatus({
         valueData: result.data.status,
-        valueInput: result.data.status>0?'Completed':'Not Completed',
+        valueInput: result.data.status > 0 ? "Completed" : "Not Completed",
       });
 
       setUom({
@@ -252,14 +252,6 @@ const ScheduleItemPage = () => {
                     />
 
                     <InputComponent
-                      label="Stocker"
-                      value={stocker}
-                      className="h-[38px]   text-[0.93em] mb-3"
-                      modalStyle="top-9 max-h-[160px]"
-                      disabled
-                      closeIconClass="top-[13.5px]"
-                    />
-                    <InputComponent
                       label="Category"
                       value={category}
                       className="h-[38px]   text-[0.93em] mb-3"
@@ -267,6 +259,16 @@ const ScheduleItemPage = () => {
                       disabled
                       closeIconClass="top-[13.5px]"
                     />
+                    
+                    <InputComponent
+                      label="Stocker"
+                      value={stocker}
+                      className="h-[38px]   text-[0.93em] mb-3"
+                      modalStyle="top-9 max-h-[160px]"
+                      disabled
+                      closeIconClass="top-[13.5px]"
+                    />
+
                     <InputComponent
                       label="Warehouse"
                       value={warehouse}
