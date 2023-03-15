@@ -6,6 +6,7 @@ import {
   SchedulePage,
   NotFoundPage,
   FormSchedulePage,
+  ScheduleItemPage,
 } from "./pages";
 
 const App: React.FC = () => {
@@ -24,7 +25,7 @@ const App: React.FC = () => {
         />
         <Route
           path={`/schedule/:scheduleId/:scheduleItem`}
-          element={<LayoutComponent Child={FormSchedulePage} />}
+          element={<LayoutComponent Child={ScheduleItemPage} />}
         />
         <Route
           path="/schedule/new"

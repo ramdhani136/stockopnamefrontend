@@ -4,6 +4,7 @@ import HomePage from "./HomePage";
 import NotFoundPage from "./NotFoundPage";
 import FormSchedulePage from "./Schedule/FormSchedulePage";
 import ListItemSchedule from "./Schedule/ListItemSchedule";
+import ScheduleItemPage from "./ScheduleItem/ScheduleItemPage";
 
 export {
   LoginPage,
@@ -12,4 +13,5 @@ export {
   NotFoundPage,
   FormSchedulePage,
   ListItemSchedule,
+  ScheduleItemPage
 };
