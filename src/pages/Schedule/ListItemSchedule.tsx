@@ -87,7 +87,7 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
               <div className="inline text-gray-600 text-[0.93em]">
                 <h5 className="mr-2 inline">-</h5>
                 <h5 className="inline">
-                  {moment(`${item.updatedAt}`).endOf("day").fromNow()}
+                  {moment(`${item.updatedAt}`).fromNow()}
                 </h5>
               </div>
             ),
