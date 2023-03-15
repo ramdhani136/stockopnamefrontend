@@ -7,6 +7,7 @@ import TableComponent, {
   IColumns,
   IDataTables,
 } from "../../components/organisme/TableComponent";
+import { FilterKata } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 
 interface IProps {
@@ -56,9 +57,19 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
           return {
             id: item._id,
             checked: false,
-            item_code: <div>{item.item_code}</div>,
+            item_code: (
+              <div
+                onClick={() => {
+                  console.log(
+                    FilterKata({ filter: [".", "/"], kata: item.item_code })
+                  );
+                }}
+              >
+                {item.item_code}
+              </div>
+            ),
             item_name: (
-              <a href={`/schedule/${item.item_name}`}>{item.item_name}</a>
+              <a href={`/schedule/${id}/${item.item_code}`}>{item.item_name}</a>
             ),
             stocker: <div className="text-center">{item.stocker}</div>,
             uom: <div className="text-center">{item.stock_uom}</div>,

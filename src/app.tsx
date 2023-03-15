@@ -23,6 +23,10 @@ const App: React.FC = () => {
           element={<LayoutComponent Child={FormSchedulePage} />}
         />
         <Route
+          path={`/schedule/:scheduleId/:scheduleItem`}
+          element={<LayoutComponent Child={FormSchedulePage} />}
+        />
+        <Route
           path="/schedule/new"
           element={<LayoutComponent Child={FormSchedulePage} />}
         />
