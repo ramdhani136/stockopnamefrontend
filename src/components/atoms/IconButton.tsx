@@ -95,7 +95,7 @@ const IconButton: React.FC<IProps> = ({
       {list && open && (
         <div ref={modalRef}>
           <ul
-            className={`  bg-white border-[1.5px] border-gray-200 w-[230px] rounded-md  max-h-72 overflow-y-auto  scrollbar-thin scrollbar-none absolute top-8 right-0 drop-shadow-md p-1  ${classModal}`}
+            className={`  bg-white border-[1.5px] border-gray-200 w-[230px] rounded-md   max-h-72 overflow-y-auto  scrollbar-thin scrollbar-none absolute top-8 right-0 drop-shadow-md p-1  ${classModal}`}
           >
             {list.map((item, index) => (
               <li

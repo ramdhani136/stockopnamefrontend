@@ -66,7 +66,15 @@ const FormSchedulePage: React.FC = () => {
       // set workflow
       if (result.workflow.length > 0) {
         const isWorkflow = result.workflow.map((item: any): IListIconButton => {
-          return { name: item.name, onClick: () => {console.log(item)} };
+          return {
+            name: item.name,
+            onClick: () => {
+              onSave({
+                id_workflow: item.id_workflow,
+                id_state: item.nextstate.id,
+              });
+            },
+          };
         });
 
         setWorkflow(isWorkflow);
@@ -148,7 +156,7 @@ const FormSchedulePage: React.FC = () => {
     }
   };
 
-  const onSave = async (): Promise<any> => {
+  const onSave = async (data: {}): Promise<any> => {
     const progress = async (): Promise<void> => {
       try {
         setLoading(true);
@@ -167,10 +175,12 @@ const FormSchedulePage: React.FC = () => {
         } else {
           result = await GetDataServer(DataAPI.SCHEDULE).UPDATE({
             id: id,
-            data: {
-              startDate: startDate.valueData,
-              dueDate: dueDate.valueData,
-            },
+            data: !data
+              ? {
+                  startDate: startDate.valueData,
+                  dueDate: dueDate.valueData,
+                }
+              : data,
           });
           getData();
         }
@@ -334,7 +344,7 @@ const FormSchedulePage: React.FC = () => {
                   </div>
                   <div className=" w-1/2 px-4 float-left  mb-3">
                     <InputComponent
-                      disabled={data.status != 0}
+                      disabled={id!==undefined &&data.status != 0}
                       label="startDate"
                       value={startDate}
                       className="h-[38px]  text-[0.93em] mb-3"
@@ -361,7 +371,7 @@ const FormSchedulePage: React.FC = () => {
                     />
                     {startDate.valueData && (
                       <InputComponent
-                        disabled={data.status != 0}
+                      disabled={id!==undefined &&data.status != 0}
                         label="dueDate"
                         value={dueDate}
                         className="h-[38px]  text-[0.93em] mb-3"
