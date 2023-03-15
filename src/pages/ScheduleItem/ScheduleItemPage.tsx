@@ -6,7 +6,6 @@ import InputComponent, { IValue } from "../../components/atoms/InputComponent";
 import { LoadingComponent } from "../../components/moleculs";
 import { AlertModal, Meta } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
-import ListItemSchedule from "../Schedule/ListItemSchedule";
 import ScheduleItemPacking from "./ScheduleItemPacking";
 
 const ScheduleItemPage = () => {
