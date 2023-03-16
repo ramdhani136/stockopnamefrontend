@@ -186,16 +186,13 @@ const ScheduleItemPage = () => {
               } py-5 sticky top-0 z-[51] duration-500`}
             >
               <div className="flex  items-center">
-                <h4
-                  onClick={() => navigate("/schedule")}
-                  className="font-normal text-gray-900   text-sm mr-2 cursor-pointer"
-                >
-                  <b>Schedule</b>{" "}
+                <div className="font-normal text-gray-900   text-sm mr-2 ">
+                  <b className="cursor-pointer" onClick={() => navigate("/schedule")}>Schedule</b>{" "}
                   <ArrowForwardIosIcon className="" style={{ fontSize: 10 }} />{" "}
-                  {scheduleId}{" "}
+                  <h4 className="inline cursor-pointer" onClick={() => navigate(`/schedule/${scheduleId}`)}>{scheduleId}</h4>{" "}
                   <ArrowForwardIosIcon className="" style={{ fontSize: 10 }} />{" "}
                   {data.item_code}
-                </h4>
+                </div>
                 <div className="text-[0.9em]">
                   {/* <ButtonStatusComponent
                     // className="text-[0.7em]"
