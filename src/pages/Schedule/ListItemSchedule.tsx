@@ -70,9 +70,6 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
               status={item.status}
               name= {item.status==0?"Progress":"Done"}
             />
-              // <div className="text-center font-normal text-[0.96em]">
-              //   {item.status==0?"Progress":"Checked"}
-              // </div>
             ),
             real_qty: (
               <div className="text-center font-medium text-[0.96em]">
