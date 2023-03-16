@@ -318,7 +318,7 @@ const ScheduleItemPage = () => {
                       remark={`*Last update ${moment(
                         `${data.updatedAt}`
                       ).fromNow()}`}
-                      remarkStyle="text-red-400 text-[0.76em]"
+                      remarkStyle="text-red-400 text-[0.77em]"
                     />
                     <InputComponent
                       disabled
