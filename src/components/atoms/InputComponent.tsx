@@ -18,6 +18,7 @@ interface IProps {
   className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
   inputStyle?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
   modalStyle?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
+  remarkStyle?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
   itemModalStyle?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
   closeIconClass?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
   mandatoy?: boolean;
@@ -33,6 +34,7 @@ interface IProps {
   type?: React.HTMLInputTypeAttribute | undefined;
   min?: any;
   loading?: boolean;
+  remark?: String;
 }
 
 const InputComponent: React.FC<IProps> = ({
@@ -54,6 +56,8 @@ const InputComponent: React.FC<IProps> = ({
   closeIconClass,
   min,
   loading,
+  remark,
+  remarkStyle
 }) => {
   const modalRef = useRef<any>();
   const inputRef = useRef<any>();
@@ -161,6 +165,11 @@ const InputComponent: React.FC<IProps> = ({
           </div>
         )}
       </div>
+      {remark && (
+        <h4 className={`mb-1 font-normal -mt-2 italic ${remarkStyle}`}>
+          {remark}
+        </h4>
+      )}
     </>
   );
 };

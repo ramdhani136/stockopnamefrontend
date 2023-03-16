@@ -2,6 +2,7 @@ import moment from "moment";
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
+import { ButtonStatusComponent } from "../../components/atoms";
 import { IDataFilter } from "../../components/moleculs/FilterTableComponent";
 import TableComponent, {
   IColumns,
@@ -32,13 +33,14 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
 
   const columns: IColumns[] = useMemo(
     (): IColumns[] => [
-      { header: "Item Code", accessor: "item_code", className: "w-[20%]" },
-      { header: "Item Name", accessor: "item_name", className: "w-[32.5%]" },
+      { header: "Item Code", accessor: "item_code", className: "w-[14%]" },
+      { header: "Item Name", accessor: "item_name", className: "w-[29%]" },
       { header: "Stocker", accessor: "stocker", className: "w-[10%]" },
-      { header: "stock", accessor: "actual_qty", className: "w-[7.5%]" },
-      { header: "Actual", accessor: "real_qty", className: "w-[7.5%]" },
-      { header: "Uom", accessor: "uom", className: "w-[7.5%]" },
-      { header: "", accessor: "updatedAt", className: "w-[10%]" },
+      { header: "Status", accessor: "status", className: "w-[10%]" },
+      { header: "Stock", accessor: "actual_qty", className: "w-[6.5%]" },
+      { header: "Checked", accessor: "real_qty", className: "w-[6.5%]" },
+      { header: "Uom", accessor: "uom", className: "w-[6.5%]" },
+      { header: "", accessor: "updatedAt", className: "w-[13%]" },
     ],
     []
   );
@@ -57,20 +59,29 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
           return {
             id: item._id,
             checked: false,
-            item_code: <div>{item.item_code}</div>,
+            item_code:  <a href={`/schedule/${id}/${item._id}`}>{item.item_code}</a>,
             item_name: (
               <a href={`/schedule/${id}/${item._id}`}>{item.item_name}</a>
             ),
-            stocker: <div className="text-center">{item.stocker}</div>,
+            stocker: <div className="text-left">{item.stocker}</div>,
             uom: <div className="text-center">{item.stock_uom}</div>,
-            actual_qty: (
-              <div className="text-center font-medium text-[0.96em]">
-                {item.actual_qty.toLocaleString()}
-              </div>
+            status: (
+              <ButtonStatusComponent
+              status={item.status}
+              name= {item.status==0?"Progress":"Done"}
+            />
+              // <div className="text-center font-normal text-[0.96em]">
+              //   {item.status==0?"Progress":"Checked"}
+              // </div>
             ),
             real_qty: (
               <div className="text-center font-medium text-[0.96em]">
                 {item.real_qty.toLocaleString()}
+              </div>
+            ),
+            actual_qty: (
+              <div className="text-center font-medium text-[0.96em]">
+                {item.actual_qty.toLocaleString()}
               </div>
             ),
             updatedAt: (

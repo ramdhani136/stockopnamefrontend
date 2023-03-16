@@ -96,7 +96,7 @@ const ScheduleItemPage = () => {
 
       setAqtualQty({
         valueData: result.data.actual_qty,
-        valueInput: result.data.actual_qty,
+        valueInput: `${result.data.actual_qty}`,
       });
 
       setBin({
@@ -187,9 +187,19 @@ const ScheduleItemPage = () => {
             >
               <div className="flex  items-center">
                 <div className="font-normal text-gray-900   text-sm mr-2 ">
-                  <b className="cursor-pointer" onClick={() => navigate("/schedule")}>Schedule</b>{" "}
+                  <b
+                    className="cursor-pointer"
+                    onClick={() => navigate("/schedule")}
+                  >
+                    Schedule
+                  </b>{" "}
                   <ArrowForwardIosIcon className="" style={{ fontSize: 10 }} />{" "}
-                  <h4 className="inline cursor-pointer" onClick={() => navigate(`/schedule/${scheduleId}`)}>{scheduleId}</h4>{" "}
+                  <h4
+                    className="inline cursor-pointer"
+                    onClick={() => navigate(`/schedule/${scheduleId}`)}
+                  >
+                    {scheduleId}
+                  </h4>{" "}
                   <ArrowForwardIosIcon className="" style={{ fontSize: 10 }} />{" "}
                   {data.item_code}
                 </div>
@@ -312,6 +322,10 @@ const ScheduleItemPage = () => {
                       label="Actual Qty"
                       value={actualQty}
                       className="h-[38px]  text-[0.93em] mb-3"
+                      remark={`Last update ${moment(
+                        `${data.updatedAt}`
+                      ).fromNow()}`}
+                      remarkStyle="text-gray-400 text-[0.76em]"
                     />
                     <InputComponent
                       disabled
