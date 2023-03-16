@@ -208,13 +208,6 @@ const ScheduleItemPage = () => {
                   <ArrowForwardIosIcon className="" style={{ fontSize: 10 }} />{" "}
                   {data.item_code}
                 </div>
-                <div className="text-[0.9em]">
-                  {/* <ButtonStatusComponent
-                    // className="text-[0.7em]"
-                    status={data.status ?? "0"}
-                    name={data.workflowState ?? "Not Save"}
-                  /> */}
-                </div>
               </div>
               <div className="flex">
                 {listMoreAction.length > 0 && (
@@ -230,23 +223,18 @@ const ScheduleItemPage = () => {
                   />
                 )}
 
-                {/*
-
-                {isChangeData && (
+                {data.status == 0 && data.schedule.status == 1 && (
                   <IconButton
-                    name={id ? "Update" : "Save"}
-                    callback={onSave}
+                    name="Actions"
+                    list={[
+                      {
+                        name: "Submit",
+                        onClick: () => alert("submit"),
+                      },
+                    ]}
                     className={`opacity-80 hover:opacity-100 duration-100  `}
                   />
                 )}
-                {!isChangeData && id && workflow.length > 0 && (
-                  <IconButton
-                    name="Actions"
-                    list={workflow}
-                    callback={onSave}
-                    className={`opacity-80 hover:opacity-100 duration-100  `}
-                  />
-                )} */}
               </div>
             </div>
             <div className=" px-5 flex flex-  flex-col pb-3">
