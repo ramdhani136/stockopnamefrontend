@@ -187,18 +187,21 @@ const ScheduleItemPage = () => {
             >
               <div className="flex  items-center">
                 <div className="font-normal text-gray-900   text-sm mr-2 ">
-                  <b className="cursor-pointer" onClick={() => navigate("/schedule")}>Schedule</b>{" "}
+                  <b
+                    className="cursor-pointer"
+                    onClick={() => navigate("/schedule")}
+                  >
+                    Schedule
+                  </b>{" "}
                   <ArrowForwardIosIcon className="" style={{ fontSize: 10 }} />{" "}
-                  <h4 className="inline cursor-pointer" onClick={() => navigate(`/schedule/${scheduleId}`)}>{scheduleId}</h4>{" "}
+                  <h4
+                    className="inline cursor-pointer"
+                    onClick={() => navigate(`/schedule/${scheduleId}`)}
+                  >
+                    {scheduleId}
+                  </h4>{" "}
                   <ArrowForwardIosIcon className="" style={{ fontSize: 10 }} />{" "}
                   {data.item_code}
-                </div>
-                <div className="text-[0.9em]">
-                  {/* <ButtonStatusComponent
-                    // className="text-[0.7em]"
-                    status={data.status ?? "0"}
-                    name={data.workflowState ?? "Not Save"}
-                  /> */}
                 </div>
               </div>
               <div className="flex">
@@ -214,24 +217,6 @@ const ScheduleItemPage = () => {
                     className={` duration-100 mr-2 px-2 `}
                   />
                 )}
-
-                {/*
-
-                {isChangeData && (
-                  <IconButton
-                    name={id ? "Update" : "Save"}
-                    callback={onSave}
-                    className={`opacity-80 hover:opacity-100 duration-100  `}
-                  />
-                )}
-                {!isChangeData && id && workflow.length > 0 && (
-                  <IconButton
-                    name="Actions"
-                    list={workflow}
-                    callback={onSave}
-                    className={`opacity-80 hover:opacity-100 duration-100  `}
-                  />
-                )} */}
               </div>
             </div>
             <div className=" px-5 flex flex-  flex-col pb-3">

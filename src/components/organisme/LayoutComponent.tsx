@@ -27,7 +27,7 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
       {<SidebarComponent user={user} />}
       <div className="bg-gray-100 flex-1">
         <HeaderComponent />
-        <section className=" w-full h-[88vh]">
+        <section className=" w-full h-[86vh]">
           <Child/>
         </section>
       </div>
