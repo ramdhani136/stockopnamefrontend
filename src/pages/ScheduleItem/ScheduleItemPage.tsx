@@ -1,12 +1,19 @@
 import moment from "moment";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { TimeLineVertical, ToggleBodyComponent } from "../../components/atoms";
+import {
+  IconButton,
+  TimeLineVertical,
+  ToggleBodyComponent,
+} from "../../components/atoms";
 import InputComponent, { IValue } from "../../components/atoms/InputComponent";
 import { LoadingComponent } from "../../components/moleculs";
 import { AlertModal, Meta } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import ScheduleItemPacking from "./ScheduleItemPacking";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { IListIconButton } from "../../components/atoms/IconButton";
 
 const ScheduleItemPage = () => {
   let { scheduleId, scheduleItem } = useParams();
@@ -74,6 +81,10 @@ const ScheduleItemPage = () => {
     title: "Schedule Item - Stock App Ekatunggal",
     description: "Halaman schedule item stock opname web system",
   };
+
+  const [listMoreAction, setListMoreAction] = useState<IListIconButton[]>([
+    { name: "Refresh Stock", onClick: () => alert("print") },
+  ]);
 
   const getData = async (): Promise<void> => {
     try {
@@ -167,7 +178,7 @@ const ScheduleItemPage = () => {
       >
         {!loading ? (
           <>
-            {/* <div
+            <div
               className={`w-full flex  justify-between px-5 ${
                 scroll > 0
                   ? "bg-white border-b border-gray-100 drop-shadow-sm py-6"
@@ -177,16 +188,20 @@ const ScheduleItemPage = () => {
               <div className="flex  items-center">
                 <h4
                   onClick={() => navigate("/schedule")}
-                  className="font-bold text-lg mr-2 cursor-pointer"
+                  className="font-normal text-gray-900   text-sm mr-2 cursor-pointer"
                 >
-                  {!id ? "New Schedule" : data.name}
+                  <b>Schedule</b>{" "}
+                  <ArrowForwardIosIcon className="" style={{ fontSize: 10 }} />{" "}
+                  {scheduleId}{" "}
+                  <ArrowForwardIosIcon className="" style={{ fontSize: 10 }} />{" "}
+                  {data.item_code}
                 </h4>
                 <div className="text-[0.9em]">
-                  <ButtonStatusComponent
+                  {/* <ButtonStatusComponent
                     // className="text-[0.7em]"
                     status={data.status ?? "0"}
                     name={data.workflowState ?? "Not Save"}
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="flex">
@@ -203,6 +218,8 @@ const ScheduleItemPage = () => {
                   />
                 )}
 
+                {/*
+
                 {isChangeData && (
                   <IconButton
                     name={id ? "Update" : "Save"}
@@ -217,10 +234,10 @@ const ScheduleItemPage = () => {
                     callback={onSave}
                     className={`opacity-80 hover:opacity-100 duration-100  `}
                   />
-                )}
+                )} */}
               </div>
-            </div> */}
-            <div className=" px-5 flex flex-  flex-col py-3">
+            </div>
+            <div className=" px-5 flex flex-  flex-col pb-3">
               <div className="border w-full flex-1  bg-white rounded-md overflow-y-scroll scrollbar-none">
                 <div className="w-full h-auto  float-left rounded-md p-3 py-5">
                   <div className=" w-1/2 px-4 float-left ">
@@ -258,7 +275,7 @@ const ScheduleItemPage = () => {
                       disabled
                       closeIconClass="top-[13.5px]"
                     />
-                    
+
                     <InputComponent
                       label="Stocker"
                       value={stocker}
