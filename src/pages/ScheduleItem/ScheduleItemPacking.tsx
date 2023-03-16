@@ -33,9 +33,10 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
   const columns: IColumns[] = useMemo(
     (): IColumns[] => [
       { header: "Item Packing", accessor: "id_packing", className: "w-[20%]" },
-      { header: "Item Code", accessor: "item", className: "w-[20%]" },
+      { header: "Item Code", accessor: "item", className: "w-[15%]" },
       { header: "Item Name", accessor: "item_name", className: "w-[25%]" },
-      { header: "Qty", accessor: "conversion", className: "w-[5%]" },
+      { header: "Packing Qty", accessor: "conversion", className: "w-[10%]" },
+      { header: "Real Qty", accessor: "actual_qty", className: "w-[10%]" },
       { header: "UOM", accessor: "stock_uom", className: "w-[5%]" },
       { header: "", accessor: "updatedAt",className: "w-[15%]" },
     ],
@@ -71,6 +72,11 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
             conversion: (
               <div className="text-center font-medium text-[0.96em]">
                 {item.conversion.toLocaleString()}
+              </div>
+            ),
+            actual_qty: (
+              <div className="text-center font-medium text-[0.96em]">
+                {item.actual_qty.toLocaleString()}
               </div>
             ),
             updatedAt: (
