@@ -20,7 +20,7 @@ const TimeLineVertical: React.FC<IProps> = ({ data }) => {
             </div>
             <h6 className="-mt-[10px] ml-3">
               <b className="font-medium">{item.user.name}</b> {item.message} -{" "}
-              {moment(item.createdAt, "YYYYMMDD").fromNow()}
+              {moment(item.createdAt).fromNow()}
             </h6>
           </li>
         ))}
