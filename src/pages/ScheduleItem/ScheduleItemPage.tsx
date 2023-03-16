@@ -206,7 +206,8 @@ const ScheduleItemPage = () => {
                     {scheduleId}
                   </h4>{" "}
                   <ArrowForwardIosIcon className="" style={{ fontSize: 10 }} />{" "}
-                  {data.item_code}
+                  ({data.item_code}) {' '}
+                  {data.item_name}
                 </div>
               </div>
               <div className="flex">

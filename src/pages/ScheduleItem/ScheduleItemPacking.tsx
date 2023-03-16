@@ -32,13 +32,12 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
 
   const columns: IColumns[] = useMemo(
     (): IColumns[] => [
-      { header: "Item Packing", accessor: "id_packing", className: "w-[20%]" },
-      { header: "Item Code", accessor: "item", className: "w-[15%]" },
-      { header: "Item Name", accessor: "item_name", className: "w-[25%]" },
+      { header: "Item Packing", accessor: "id_packing", className: "w-[30%]" },
+      { header: "Status", accessor: "status", className: "w-[15%]" },
       { header: "Packing Qty", accessor: "conversion", className: "w-[10%]" },
       { header: "Real Qty", accessor: "actual_qty", className: "w-[10%]" },
-      { header: "UOM", accessor: "stock_uom", className: "w-[5%]" },
-      { header: "", accessor: "updatedAt",className: "w-[15%]" },
+      { header: "UOM", accessor: "stock_uom", className: "w-[10%]" },
+      { header: "", accessor: "updatedAt", className: "w-[15%]" },
     ],
     []
   );
@@ -52,22 +51,21 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
         orderBy: { sort: isOrderBy, state: isSort },
         search: search,
       });
+      console.log(result);
       if (result.data.length > 0) {
         const generateData = result.data.map((item: any): IDataTables => {
           return {
             id: item._id,
             checked: false,
-            id_packing:  <a href={`/schedule/${id}/${item._id}`}>{item.id_packing}</a>,
-            item:  <a href={`/schedule/${id}/${item._id}`}>{item.item}</a>,
-            item_name: (
-              <a href={`/schedule/${id}/${item._id}`}>{item.item_name}</a>
+            id_packing: (
+              <a href={`/schedule/${id}/${item._id}`}>{item.id_packing}</a>
             ),
             stock_uom: <div className="text-center">{item.stock_uom}</div>,
             status: (
               <ButtonStatusComponent
-              status={item.status}
-              name= {item.status==0?"Progress": item.status==1?"Completed":"Not Match"}
-            />
+                status={item.status}
+                name={item.status == 0 ? "Not Match" : "Match"}
+              />
             ),
             conversion: (
               <div className="text-center font-medium text-[0.96em]">
