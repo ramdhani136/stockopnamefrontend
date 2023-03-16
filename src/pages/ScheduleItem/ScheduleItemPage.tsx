@@ -96,7 +96,7 @@ const ScheduleItemPage = () => {
 
       setAqtualQty({
         valueData: result.data.actual_qty,
-        valueInput: `${result.data.actual_qty}`,
+        valueInput: `${result.data.actual_qty.toLocaleString()}`,
       });
 
       setBin({
@@ -121,7 +121,7 @@ const ScheduleItemPage = () => {
 
       setRealQty({
         valueData: result.data.real_qty,
-        valueInput: `${result.data.real_qty}`,
+        valueInput: `${result.data.real_qty.toLocaleString()}`,
       });
 
       setStatus({
