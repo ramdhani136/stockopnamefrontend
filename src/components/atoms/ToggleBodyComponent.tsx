@@ -5,9 +5,10 @@ import React, { ReactElement, useState } from "react";
 interface IProps {
   className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
   child?: ReactElement<any, any>;
+  name:String
 }
 
-const ToggleBodyComponent: React.FC<IProps> = ({ className, child }) => {
+const ToggleBodyComponent: React.FC<IProps> = ({ className, child ,name}) => {
   const [open, setOpen] = useState<boolean>(true);
 
   return (
@@ -16,7 +17,7 @@ const ToggleBodyComponent: React.FC<IProps> = ({ className, child }) => {
         className="flex items-center cursor-pointer"
         onClick={() => setOpen(!open)}
       >
-        <h4 className="font-semibold">Item List</h4>
+        <h4 className="font-semibold">{name}</h4>
         {open ? (
           <ExpandLessIcon style={{ fontSize: 20 }} className={`ml-2 mt-1`} />
         ) : (

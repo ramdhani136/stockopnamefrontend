@@ -344,7 +344,7 @@ const FormSchedulePage: React.FC = () => {
                   </div>
                   <div className=" w-1/2 px-4 float-left  mb-3">
                     <InputComponent
-                      disabled={id!==undefined &&data.status != 0}
+                      disabled={id !== undefined && data.status != 0}
                       label="startDate"
                       value={startDate}
                       className="h-[38px]  text-[0.93em] mb-3"
@@ -371,7 +371,7 @@ const FormSchedulePage: React.FC = () => {
                     />
                     {startDate.valueData && (
                       <InputComponent
-                      disabled={id!==undefined &&data.status != 0}
+                        disabled={id !== undefined && data.status != 0}
                         label="dueDate"
                         value={dueDate}
                         className="h-[38px]  text-[0.93em] mb-3"
@@ -391,6 +391,7 @@ const FormSchedulePage: React.FC = () => {
               </div>
               {id && (
                 <ToggleBodyComponent
+                  name="Item List"
                   className="mt-5"
                   child={<ListItemSchedule id={`${id}`} />}
                 />

@@ -345,6 +345,7 @@ const ScheduleItemPage = () => {
               </div>
 
               <ToggleBodyComponent
+              name="Packing List"
                 className="mt-5"
                 child={<ScheduleItemPacking id={data._id}/>}
               />
