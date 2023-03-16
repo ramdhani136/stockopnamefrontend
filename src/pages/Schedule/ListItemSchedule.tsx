@@ -67,7 +67,7 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
             status: (
               <ButtonStatusComponent
               status={item.status}
-              name= {item.status==0?"Progress":"Done"}
+              name= {item.status==0?"Progress":"Completed"}
             />
             ),
             real_qty: (
