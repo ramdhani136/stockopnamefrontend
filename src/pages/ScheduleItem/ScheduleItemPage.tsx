@@ -346,7 +346,7 @@ const ScheduleItemPage = () => {
 
               <ToggleBodyComponent
                 className="mt-5"
-                child={<ScheduleItemPacking />}
+                child={<ScheduleItemPacking id=""/>}
               />
 
               {/* <TimeLineVertical data={history} /> */}
