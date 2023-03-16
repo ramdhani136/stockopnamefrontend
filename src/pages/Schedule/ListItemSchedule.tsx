@@ -8,7 +8,6 @@ import TableComponent, {
   IColumns,
   IDataTables,
 } from "../../components/organisme/TableComponent";
-import { FilterKata } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 
 interface IProps {
