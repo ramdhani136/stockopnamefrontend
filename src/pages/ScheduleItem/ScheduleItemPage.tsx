@@ -126,7 +126,12 @@ const ScheduleItemPage = () => {
 
       setStatus({
         valueData: result.data.status,
-        valueInput: result.data.status > 0 ? "Completed" : "Not Completed",
+        valueInput:
+          result.data.status == 0
+            ? "Progress"
+            : result.data.status == 1
+            ? "Completed"
+            : "Not Match",
       });
 
       setUom({
