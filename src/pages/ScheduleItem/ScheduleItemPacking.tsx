@@ -34,10 +34,10 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
     (): IColumns[] => [
       { header: "Item Packing", accessor: "id_packing", className: "w-[20%]" },
       { header: "Item Code", accessor: "item", className: "w-[20%]" },
-      { header: "Item Name", accessor: "item_name", className: "w-[30%]" },
-      { header: "Qty", accessor: "conversion", className: "w-[10%]" },
-      { header: "UOM", accessor: "stock_uom", className: "w-[10%]" },
-      { header: "", accessor: "updatedAt",className: "w-[10%]" },
+      { header: "Item Name", accessor: "item_name", className: "w-[25%]" },
+      { header: "Qty", accessor: "conversion", className: "w-[5%]" },
+      { header: "UOM", accessor: "stock_uom", className: "w-[5%]" },
+      { header: "", accessor: "updatedAt",className: "w-[15%]" },
     ],
     []
   );
@@ -52,7 +52,6 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
         search: search,
       });
       if (result.data.length > 0) {
-        console.log(result.data)
         const generateData = result.data.map((item: any): IDataTables => {
           return {
             id: item._id,
