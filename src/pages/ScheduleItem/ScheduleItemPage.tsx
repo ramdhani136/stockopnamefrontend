@@ -314,8 +314,8 @@ const ScheduleItemPage = () => {
                       disabled
                       label="Actual Qty"
                       value={actualQty}
-                      className="h-[38px]  text-[0.93em] mb-3"
-                      remark={`Last update ${moment(
+                      className="h-[38px]  text-[0.95em] mb-3"
+                      remark={`*Last update ${moment(
                         `${data.updatedAt}`
                       ).fromNow()}`}
                       remarkStyle="text-gray-400 text-[0.76em]"
