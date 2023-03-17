@@ -33,7 +33,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
   const columns: IColumns[] = useMemo(
     (): IColumns[] => [
       { header: "Item Packing", accessor: "id_packing", className: "w-[20%]" },
-      { header: "Status", accessor: "status", className: "w-[15%]" },
+      { header: "Status", accessor: "status", className: "w-[10%]" },
       { header: "Packing Qty", accessor: "conversion", className: "w-[10%]" },
       { header: "Real Qty", accessor: "actual_qty", className: "w-[10%]" },
       { header: "UOM", accessor: "stock_uom", className: "w-[10%]" },
