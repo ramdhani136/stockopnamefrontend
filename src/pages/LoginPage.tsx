@@ -75,7 +75,7 @@ const LoginPage: React.FC = () => {
     <>
       {Meta(metaData)}
       <div className="flex bg-red-500 w-full h-screen justify-around flex-col items-center">
-        <div className="md:w-[600px] w-[95%] md:h-[550px] h-auto pb-3 lg:w-[380px] lg:h-[410px] border border-red-700 bg-white flex flex-col rounded-lg items-center">
+        <div className="md:w-[600px] w-[95%] md:h-[550px] h-auto pb-3 lg:w-[380px] lg:h-[410px] border border-red-700 bg-white flex flex-col rounded-lg items-center mt-10">
           {isLoading ? (
             <LoadingComponent />
           ) : (

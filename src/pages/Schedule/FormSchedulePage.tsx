@@ -60,9 +60,9 @@ const FormSchedulePage: React.FC = () => {
   const [listMoreAction, setListMoreAction] = useState<IListIconButton[]>([]);
 
   const getData = async (): Promise<void> => {
+    setWorkflow([]);
     try {
       const result = await GetDataServer(DataAPI.SCHEDULE).FINDONE(`${id}`);
-
       // set workflow
       if (result.workflow.length > 0) {
         const isWorkflow = result.workflow.map((item: any): IListIconButton => {
