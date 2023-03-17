@@ -24,7 +24,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
     const [open, setOpen] = useState<boolean>(false);
     return (
       <div
-        className="inline text-gray-600 text-[0.93em] relative"
+        className="inline text-gray-600 text-[0.93em] relative -z-10"
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
       >

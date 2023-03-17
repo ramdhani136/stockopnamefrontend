@@ -140,8 +140,6 @@ const TableComponent: React.FC<Iprops> = ({
             <IconButton
               callback={getAllData}
               name="All Data"
-              // list={list}
-              // iconListDisabled
               className="py-1 px-2 mr-[7px] hover:bg-gray-100 duration-100"
               iconSize={17}
               primary
@@ -183,7 +181,6 @@ const TableComponent: React.FC<Iprops> = ({
               <SyncLoader
                 color="#36d7b6"
                 loading={true}
-                // cssOverride={override}
                 size={8}
                 aria-label="Loading Spinner"
                 data-testid="loader"
@@ -191,13 +188,8 @@ const TableComponent: React.FC<Iprops> = ({
             </div>
           }
           scrollableTarget="scrollableDiv"
-          // endMessage={
-          //   <div className="w-auto z-20  left-1/2 inline py-1 px-2 text-center relative bottom-2  text-sm text-gray-300 r">
-          //     No more data
-          //   </div>
-          // }
         >
-          <section className="w-95% p-4 h-auto overflow-x-auto">
+          <section className="w-95% p-4 h-auto overflow-x-auto z-0">
             {data.length > 0 ? (
               <table className="w-full">
                 <thead>
