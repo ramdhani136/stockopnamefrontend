@@ -24,7 +24,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
     const [open, setOpen] = useState<boolean>(false);
     return (
       <div
-        className="inline text-gray-600 text-[0.93em] relative -z-10"
+        className={`inline text-gray-600 text-[0.93em]  `}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
       >
@@ -33,7 +33,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
         <h6
           className={`${
             !open && "hidden"
-          } duration-300 absolute -top-8 -left-6 text-white border text-center w-[175px] rounded-md py-1 px-2 bg-gray-900`}
+          } duration-300 absolute -ml-3 -mt-12 text-white border text-center w-[175px] rounded-md py-1 px-2 bg-gray-900`}
         >
           {moment(`${date}`).format("lll")}
         </h6>

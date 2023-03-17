@@ -189,7 +189,7 @@ const TableComponent: React.FC<Iprops> = ({
           }
           scrollableTarget="scrollableDiv"
         >
-          <section className="w-95% p-4 h-auto overflow-x-auto z-0">
+          <section className="w-95% p-4 h-auto overflow-x-auto ">
             {data.length > 0 ? (
               <table className="w-full">
                 <thead>
