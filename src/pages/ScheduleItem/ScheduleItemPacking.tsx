@@ -33,7 +33,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
         <h6
           className={`${
             !open && "hidden"
-          } duration-300 absolute -ml-3 -mt-12 text-white border text-center w-[175px] rounded-md py-1 px-2 bg-gray-900`}
+          } duration-300 absolute -ml-3 -mt-12 text-white border text-center w-[150px] rounded-md py-1 px-2 bg-gray-900`}
         >
           {moment(`${date}`).format("lll")}
         </h6>
