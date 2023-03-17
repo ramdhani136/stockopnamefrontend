@@ -35,6 +35,7 @@ interface IProps {
   min?: any;
   loading?: boolean;
   remark?: String;
+  infoRemark?: String;
 }
 
 const InputComponent: React.FC<IProps> = ({
@@ -57,11 +58,13 @@ const InputComponent: React.FC<IProps> = ({
   min,
   loading,
   remark,
-  remarkStyle
+  remarkStyle,
+  infoRemark,
 }) => {
   const modalRef = useRef<any>();
   const inputRef = useRef<any>();
   const [open, setOpen] = useState<boolean>(false);
+  const [openRemark, setOpenRemark] = useState<boolean>(false);
 
   useEffect(() => {
     let handler = (e: any) => {
@@ -166,9 +169,26 @@ const InputComponent: React.FC<IProps> = ({
         )}
       </div>
       {remark && (
-        <h4 className={`mb-1 font-normal -mt-2 italic ${remarkStyle}`}>
-          {remark}
-        </h4>
+        <div
+          className={`mb-1 font-normal -mt-2  ${remarkStyle} relative ${
+            infoRemark && "cursor-pointer"
+          }`}
+          onMouseEnter={() => {
+            if (infoRemark) {
+              setOpenRemark(true);
+            }
+          }}
+          onMouseLeave={() => setOpenRemark(false)}
+        >
+          <h6 className="italic">{remark}</h6>
+          <h6
+            className={` ${
+              !openRemark && "hidden"
+            } duration-300 bg-gray-900 text-white w-[150px] text-center rounded-md absolute p-1  -top-7`}
+          >
+            {infoRemark}
+          </h6>
+        </div>
       )}
     </>
   );

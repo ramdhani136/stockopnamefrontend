@@ -320,6 +320,7 @@ const ScheduleItemPage = () => {
                         `${data.updatedAt}`
                       ).fromNow()}`}
                       remarkStyle="text-red-400 text-[0.77em]"
+                      infoRemark= {moment(`${data.updatedAt}`).format("lll")}
                     />
                     <InputComponent
                       disabled
