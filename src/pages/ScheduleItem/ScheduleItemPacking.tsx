@@ -14,7 +14,35 @@ interface IProps {
   id: string;
 }
 
+interface IDateProps {
+  date: String;
+}
+
 const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
+  // Info Date COmponent
+  const InfoDateComponent: React.FC<IDateProps> = ({ date }) => {
+    const [open, setOpen] = useState<boolean>(false);
+    return (
+      <div
+        className="inline text-gray-600 text-[0.93em] relative"
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+      >
+        <h5 className="mr-2 inline">-</h5>
+        <h5 className="inline ">{moment(`${date}`).fromNow()}</h5>
+        <h6
+          className={`${
+            !open && "hidden"
+          } duration-300 absolute -top-8 -left-6 text-white border text-center w-[175px] rounded-md py-1 px-2 bg-gray-900`}
+        >
+          {moment(`${date}`).format("lll")}
+        </h6>
+      </div>
+    );
+  };
+
+  // End
+
   const [data, setData] = useState<IDataTables[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(false);
@@ -83,12 +111,9 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
               </div>
             ),
             updatedAt: (
-              <div className="inline text-gray-600 text-[0.93em]">
-                <h5 className="mr-2 inline">-</h5>
-                <h5 className="inline">
-                  {moment(`${item.updatedAt}`).fromNow()}
-                </h5>
-              </div>
+              <>
+                <InfoDateComponent date={item.createdAt} />
+              </>
             ),
           };
         });
