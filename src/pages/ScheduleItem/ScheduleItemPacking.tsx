@@ -32,11 +32,12 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
 
   const columns: IColumns[] = useMemo(
     (): IColumns[] => [
-      { header: "Item Packing", accessor: "id_packing", className: "w-[30%]" },
+      { header: "Item Packing", accessor: "id_packing", className: "w-[20%]" },
       { header: "Status", accessor: "status", className: "w-[15%]" },
       { header: "Packing Qty", accessor: "conversion", className: "w-[10%]" },
       { header: "Real Qty", accessor: "actual_qty", className: "w-[10%]" },
       { header: "UOM", accessor: "stock_uom", className: "w-[10%]" },
+      { header: "Checked By", accessor: "checkedBy", className: "w-[15%]" },
       { header: "", accessor: "updatedAt", className: "w-[15%]" },
     ],
     []
@@ -51,7 +52,6 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
         orderBy: { sort: isOrderBy, state: isSort },
         search: search,
       });
-      console.log(result);
       if (result.data.length > 0) {
         const generateData = result.data.map((item: any): IDataTables => {
           return {
@@ -75,6 +75,11 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
             actual_qty: (
               <div className="text-center font-medium text-[0.96em]">
                 {item.actual_qty.toLocaleString()}
+              </div>
+            ),
+            checkedBy: (
+              <div className=" font-medium text-[0.96em]">
+                {item.checkedBy.name}
               </div>
             ),
             updatedAt: (
