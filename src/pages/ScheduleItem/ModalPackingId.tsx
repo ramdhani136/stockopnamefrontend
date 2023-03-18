@@ -51,27 +51,31 @@ const ModalPackingId: React.FC = () => {
               valueInput: e.value.id_packing,
             });
         }}
-        className="mb-2"
+        className="mb-2 text-sm"
+        onReset={() => {
+          setPackingId({ valueData: null, valueInput: "" });
+          setData({});
+        }}
       />
       {data.item && (
         <InputComponent
           value={{ valueData: data.item, valueInput: data.item }}
           label="Item Code"
-          className="mb-2"
+          className="mb-2 text-sm"
         />
       )}
       {data.item_name && (
         <InputComponent
           value={{ valueData: data.item_name, valueInput: data.item_name }}
           label="Item Name"
-          className="mb-2"
+          className="mb-2 text-sm"
         />
       )}
       {data.conversion && (
         <InputComponent
           value={{ valueData: data.conversion, valueInput: data.conversion }}
           label="Qty"
-          className="mb-2"
+          className="mb-2 text-sm"
         />
       )}
       {data.conversion && (
@@ -79,14 +83,14 @@ const ModalPackingId: React.FC = () => {
           value={{ valueData: null, valueInput: "" }}
           mandatoy
           label="Actual Stock"
-          className="mb-2"
+          className="mb-2 text-sm"
         />
       )}
       {data.stock_uom && (
         <InputComponent
           value={{ valueData: data.stock_uom, valueInput: data.stock_uom }}
           label="Uom"
-          className="mb-2"
+          className="mb-2 text-sm"
         />
       )}
     </div>
