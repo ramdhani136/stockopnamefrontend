@@ -29,6 +29,7 @@ export enum DataAPI {
   SCHEDULEITEM = "scheduleitem",
   WAREHOUSE = "warehouse",
   PACKING = "schedulepacking",
+  PACKINGID = "packingid",
 }
 
 class RequestData implements IData {

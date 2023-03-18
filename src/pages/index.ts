@@ -6,6 +6,7 @@ import FormSchedulePage from "./Schedule/FormSchedulePage";
 import ListItemSchedule from "./Schedule/ListItemSchedule";
 import ScheduleItemPage from "./ScheduleItem/ScheduleItemPage";
 import ScheduleItemPacking from "./ScheduleItem/ScheduleItemPacking";
+import ModalPackingId from "./ScheduleItem/ModalPackingId";
 
 export {
   LoginPage,
@@ -15,5 +16,6 @@ export {
   FormSchedulePage,
   ListItemSchedule,
   ScheduleItemPage,
-  ScheduleItemPacking
+  ScheduleItemPacking,
+  ModalPackingId
 };

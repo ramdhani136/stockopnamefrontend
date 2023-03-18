@@ -11,6 +11,7 @@ import TableComponent, {
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import { useDispatch, useSelector } from "react-redux";
 import { modalSet } from "../../redux/slices/ModalSlice";
+import ModalPackingId from "./ModalPackingId";
 
 interface IProps {
   id: string;
@@ -165,16 +166,10 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
   };
 
   const ShowModalPackingId = () => {
-    const ChildModal: React.FC = () => {
-      return <div className=" w-[450px] h-auto max-h-[400px] overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-200">
-        <InputComponent value={{valueData:'d',valueInput:'d' }} label="Packing ID" />
-      </div>;
-    };
-
     dispatch(
       modalSet({
         active: true,
-        Children: ChildModal,
+        Children: ModalPackingId,
         title: "",
       })
     );
