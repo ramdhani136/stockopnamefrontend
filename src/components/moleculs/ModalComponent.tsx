@@ -3,7 +3,7 @@ import React from "react";
 interface IProps {
   isVisible?: boolean;
   onClose?: (e?: any) => Promise<any> | void;
-  child: React.FC<any>;
+  child?: React.FC|null;
 }
 
 const ModalComponent: React.FC<IProps> = ({ isVisible, onClose, child }) => {
@@ -15,7 +15,7 @@ const ModalComponent: React.FC<IProps> = ({ isVisible, onClose, child }) => {
     }
   };
 
-  const Child = React.memo(child);
+  const Child = child ? React.memo(child) : null;
 
   return (
     <div
@@ -24,7 +24,7 @@ const ModalComponent: React.FC<IProps> = ({ isVisible, onClose, child }) => {
       onClick={handleClose}
     >
       <div className="w-[500px] h-[400px] bg-white rounded p-2 border border-gray-500">
-        <Child/>
+        {Child && <Child />}
       </div>
     </div>
   );

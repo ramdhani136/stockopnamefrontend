@@ -5,6 +5,12 @@ import { useNavigate } from "react-router-dom";
 import SidebarComponent from "./SidebarComponent";
 import HeaderComponent from "./HeaderComponent";
 import { ModalComponent } from "../moleculs";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ISliceModal,
+  modalSet,
+  selectModal,
+} from "../../redux/slices/ModalSlice";
 
 interface IProps {
   Child: React.FC;
@@ -12,7 +18,7 @@ interface IProps {
 
 const LayoutComponent: React.FC<IProps> = ({ Child }) => {
   const [user, setUser] = useState<any>({});
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const dataModal: ISliceModal = useSelector(selectModal);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -25,19 +31,30 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
     }
   }, []);
 
-  const Childnya: React.FC = () => {
-    return <>Halo</>;
+  const ChildModal: React.FC | null = dataModal.Children ?? null;
+  const dispatch = useDispatch();
+
+  const onCLose = () => {
+    dispatch(
+      modalSet({
+        active: false,
+        data: {},
+        Children: null,
+        title: "",
+      })
+    );
   };
+
+
+
 
   return (
     <>
       <div className="flex h-screen">
         <ModalComponent
-          isVisible={showModal}
-          onClose={() => {
-            setShowModal(false);
-          }}
-          child={Childnya}
+          isVisible={dataModal.active}
+          onClose={onCLose}
+          child={ChildModal}
         />
         {<SidebarComponent user={user} />}
         <div className="bg-gray-100 flex-1">

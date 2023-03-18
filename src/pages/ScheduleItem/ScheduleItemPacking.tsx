@@ -9,6 +9,8 @@ import TableComponent, {
   IDataTables,
 } from "../../components/organisme/TableComponent";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
+import { useDispatch, useSelector } from "react-redux";
+import { modalSet } from "../../redux/slices/ModalSlice";
 
 interface IProps {
   id: string;
@@ -57,6 +59,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
   const [search, setSeacrh] = useState<String>("");
   const [filter, setFilter] = useState<any[]>([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const columns: IColumns[] = useMemo(
     (): IColumns[] => [
@@ -161,6 +164,21 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
     setRefresh(true);
   };
 
+  const ChildModal: React.FC = () => {
+    return <div>halo</div>;
+  };
+
+  const ShowModalPackingId = () => {
+    dispatch(
+      modalSet({
+        active: true,
+        data: {},
+        Children: ChildModal,
+        title: "",
+      })
+    );
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -219,7 +237,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
             setLoading(true);
             setRefresh(true);
           }}
-          onNewData={()=>alert('dd')}
+          onNewData={ShowModalPackingId}
           titleNewData="Insert Packing ID"
         />
       )}

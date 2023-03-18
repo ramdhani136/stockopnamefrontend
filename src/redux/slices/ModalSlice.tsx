@@ -3,7 +3,7 @@ import React from "react";
 
 export interface ISliceModal {
   active: boolean;
-  Children: React.FC | null;
+  Children: React.FC|null;
   data: any;
   title: string;
 }
