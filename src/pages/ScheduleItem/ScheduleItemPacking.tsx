@@ -2,7 +2,7 @@ import moment from "moment";
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
-import { ButtonStatusComponent } from "../../components/atoms";
+import { ButtonStatusComponent, InputComponent } from "../../components/atoms";
 import { IDataFilter } from "../../components/moleculs/FilterTableComponent";
 import TableComponent, {
   IColumns,
@@ -166,7 +166,9 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
 
   const ShowModalPackingId = () => {
     const ChildModal: React.FC = () => {
-      return <div className=" w-[450px] h-[200px]">halo</div>;
+      return <div className=" w-[450px] h-auto max-h-[400px] overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-200">
+        <InputComponent value={{valueData:'d',valueInput:'d' }} label="Packing ID" />
+      </div>;
     };
 
     dispatch(
