@@ -164,11 +164,11 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
     setRefresh(true);
   };
 
-  const ChildModal: React.FC = () => {
-    return <div>halo</div>;
-  };
-
   const ShowModalPackingId = () => {
+    const ChildModal: React.FC = () => {
+      return <div className=" w-[450px] h-[200px]">halo</div>;
+    };
+
     dispatch(
       modalSet({
         active: true,
