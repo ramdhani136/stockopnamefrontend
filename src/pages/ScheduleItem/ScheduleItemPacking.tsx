@@ -219,6 +219,8 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
             setLoading(true);
             setRefresh(true);
           }}
+          onNewData={()=>alert('dd')}
+          titleNewData="Insert Packing ID"
         />
       )}
     </div>

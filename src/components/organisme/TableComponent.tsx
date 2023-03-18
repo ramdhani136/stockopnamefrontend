@@ -34,6 +34,8 @@ interface Iprops {
   setOrderBy(): void | Promise<void>;
   getAllData(): void | Promise<void>;
   onRefresh(): void | Promise<void>;
+  onNewData?(): void | Promise<void>;
+  titleNewData?: string;
   listFilter: IDataFilter[];
   filter: any[];
   setFilter: any;
@@ -60,7 +62,9 @@ const TableComponent: React.FC<Iprops> = ({
   setData,
   setSearch,
   className,
+  onNewData,
   onRefresh,
+  titleNewData,
 }) => {
   const [value, setValue] = useState<any>("");
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -137,6 +141,14 @@ const TableComponent: React.FC<Iprops> = ({
             )}
           </div>
           <div className="flex">
+            {onNewData && (
+              <IconButton
+                callback={onNewData}
+                name={titleNewData ?? "New Data"}
+                className="py-1 px-2 mr-[7px] opacity-70 bg-green-800 border-green-900 hover:opacity-100 duration-300"
+                iconSize={17}
+              />
+            )}
             <IconButton
               callback={getAllData}
               name="All Data"
