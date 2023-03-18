@@ -23,7 +23,7 @@ const ModalComponent: React.FC<IProps> = ({ isVisible, onClose, child }) => {
       id="wrapper"
       onClick={handleClose}
     >
-      <div className="w-auto h-auto bg-white rounded  border border-gray-500">
+      <div className="w-auto h-auto bg-white rounded-md  border border-gray-500">
         {Child && <Child />}
       </div>
     </div>
