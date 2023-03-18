@@ -1,3 +1,4 @@
+import { Provider } from "react-redux";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { LayoutComponent } from "./components/organisme";
 import {
@@ -8,9 +9,11 @@ import {
   FormSchedulePage,
   ScheduleItemPage,
 } from "./pages";
+import { store } from "./redux/Store";
 
 const App: React.FC = () => {
   return (
+    <Provider store={store}>
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
@@ -34,6 +37,7 @@ const App: React.FC = () => {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
+    </Provider>
   );
 };
 
