@@ -6,9 +6,11 @@ import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 const ModalPackingId: React.FC = () => {
   const [allData, setAllData] = useState<IListInput[]>([]);
   const [data, setData] = useState<any>({});
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getData = async (): Promise<void> => {
     try {
+      setLoading(true);
       const result: any = await GetDataServer(DataAPI.PACKINGID).FIND({});
       if (result.data.length > 0) {
         const genData: IListInput[] = result.data.map(
@@ -20,9 +22,11 @@ const ModalPackingId: React.FC = () => {
           }
         );
         setAllData(genData);
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -41,6 +45,7 @@ const ModalPackingId: React.FC = () => {
         value={packingId}
         list={allData}
         label="Packing ID"
+        loading={loading}
         onChange={(e) => {
           setPackingId({ ...packingId, valueInput: e });
         }}
@@ -62,6 +67,7 @@ const ModalPackingId: React.FC = () => {
           value={{ valueData: data.item, valueInput: data.item }}
           label="Item Code"
           className="mb-2 text-sm"
+          disabled
         />
       )}
       {data.item_name && (
@@ -69,6 +75,7 @@ const ModalPackingId: React.FC = () => {
           value={{ valueData: data.item_name, valueInput: data.item_name }}
           label="Item Name"
           className="mb-2 text-sm"
+          disabled
         />
       )}
       {data.conversion && (
@@ -76,6 +83,7 @@ const ModalPackingId: React.FC = () => {
           value={{ valueData: data.conversion, valueInput: data.conversion }}
           label="Qty"
           className="mb-2 text-sm"
+          disabled
         />
       )}
       {data.conversion && (
@@ -84,12 +92,14 @@ const ModalPackingId: React.FC = () => {
           mandatoy
           label="Actual Stock"
           className="mb-2 text-sm"
+          type="number"
         />
       )}
       {data.stock_uom && (
         <InputComponent
           value={{ valueData: data.stock_uom, valueInput: data.stock_uom }}
           label="Uom"
+          disabled
           className="mb-2 text-sm"
         />
       )}
