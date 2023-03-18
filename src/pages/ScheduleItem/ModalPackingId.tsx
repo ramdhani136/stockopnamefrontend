@@ -14,7 +14,7 @@ const ModalPackingId: React.FC = () => {
           (item: any): IListInput => {
             return {
               name: item.id_packing,
-              value: item.id_packing,
+              value: item,
             };
           }
         );
