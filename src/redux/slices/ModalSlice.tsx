@@ -3,14 +3,12 @@ import React from "react";
 
 export interface ISliceModal {
   active: boolean;
-  Children: React.FC|null;
-  data: any;
+  Children: React.FC<any>|null;
   title: string;
 }
 
 const data: ISliceModal = {
   active: false,
-  data: {},
   Children: null,
   title: "",
 };

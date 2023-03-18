@@ -31,14 +31,13 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
     }
   }, []);
 
-  const ChildModal: React.FC | null = dataModal.Children ?? null;
+  const ChildModal: React.FC<any> | null = dataModal.Children ?? null;
   const dispatch = useDispatch();
 
   const onCLose = () => {
     dispatch(
       modalSet({
         active: false,
-        data: {},
         Children: null,
         title: "",
       })

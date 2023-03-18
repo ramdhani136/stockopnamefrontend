@@ -172,7 +172,6 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
     dispatch(
       modalSet({
         active: true,
-        data: {},
         Children: ChildModal,
         title: "",
       })

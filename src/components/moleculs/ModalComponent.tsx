@@ -3,7 +3,7 @@ import React from "react";
 interface IProps {
   isVisible?: boolean;
   onClose?: (e?: any) => Promise<any> | void;
-  child?: React.FC|null;
+  child?: React.FC<any>|null;
 }
 
 const ModalComponent: React.FC<IProps> = ({ isVisible, onClose, child }) => {
