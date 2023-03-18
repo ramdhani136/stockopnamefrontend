@@ -12,7 +12,7 @@ interface IProps {
 
 const LayoutComponent: React.FC<IProps> = ({ Child }) => {
   const [user, setUser] = useState<any>({});
-  const [showModal, setShowModal] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -24,6 +24,11 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
       navigate("/login");
     }
   }, []);
+
+  const Childnya: React.FC = () => {
+    return <>Halo</>;
+  };
+
   return (
     <>
       <div className="flex h-screen">
@@ -32,6 +37,7 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
           onClose={() => {
             setShowModal(false);
           }}
+          child={Childnya}
         />
         {<SidebarComponent user={user} />}
         <div className="bg-gray-100 flex-1">
