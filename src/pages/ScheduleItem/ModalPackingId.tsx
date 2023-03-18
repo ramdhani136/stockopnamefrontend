@@ -35,7 +35,7 @@ const ModalPackingId: React.FC = () => {
   }, []);
 
   return (
-    <div className=" w-[450px] h-[400px] max-h-[400px] overflow-y-auto scrollbar-thin scrollbar-track-gray-100 p-5 scrollbar-thumb-gray-200">
+    <div className=" w-[450px] h-[auto] max-h-[400px]scrollbar-thin scrollbar-track-gray-100 p-5 scrollbar-thumb-gray-200">
       <InputComponent
         value={packingId}
         list={data}
