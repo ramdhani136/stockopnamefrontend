@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import SidebarComponent from "./SidebarComponent";
 import HeaderComponent from "./HeaderComponent";
+import { ModalComponent } from "../moleculs";
 
 interface IProps {
   Child: React.FC;
@@ -11,6 +12,7 @@ interface IProps {
 
 const LayoutComponent: React.FC<IProps> = ({ Child }) => {
   const [user, setUser] = useState<any>({});
+  const [showModal, setShowModal] = useState<boolean>(true);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -23,15 +25,23 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
     }
   }, []);
   return (
-    <div className="flex h-screen">
-      {<SidebarComponent user={user} />}
-      <div className="bg-gray-100 flex-1">
-        <HeaderComponent />
-        <section className=" w-full h-[86vh]">
-          <Child/>
-        </section>
+    <>
+      <div className="flex h-screen">
+        <ModalComponent
+          isVisible={showModal}
+          onClose={() => {
+            setShowModal(false);
+          }}
+        />
+        {<SidebarComponent user={user} />}
+        <div className="bg-gray-100 flex-1">
+          <HeaderComponent />
+          <section className=" w-full h-[86vh]">
+            <Child />
+          </section>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
