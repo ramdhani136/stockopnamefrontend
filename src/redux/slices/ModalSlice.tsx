@@ -3,20 +3,16 @@ import React from "react";
 
 export interface ISliceModal {
   active: boolean;
-  Component: React.FC | null;
+  Children: React.FC | null;
   data: any;
-  title:string;
-  width:string|null;
-  left:string|null;
+  title: string;
 }
 
 const data: ISliceModal = {
   active: false,
   data: {},
-  Component: null,
-  title:"",
-  width:"",
-  left:"",
+  Children: null,
+  title: "",
 };
 
 export const modalSlice = createSlice({
@@ -29,7 +25,6 @@ export const modalSlice = createSlice({
       state.data = action.payload;
     },
   },
-  
 });
 
 export const { modalSet } = modalSlice.actions;
