@@ -30,6 +30,7 @@ export const SchedulePage: React.FC = (): any => {
   const [totalIndex, setTotalIndex] = useState<number>(0);
   const [onDeleteProgress, setOnDeleteProgress] = useState<String>("");
   const [currentPercent, setCurrentPercent] = useState<number>(0);
+  const [activeProgress, setActiveProgress] = useState<boolean>(false);
 
   const metaData = {
     title: "Schedule -  Stock Opname App Ekatunggal",
@@ -168,6 +169,7 @@ export const SchedulePage: React.FC = (): any => {
         const data: any[] = getSelected();
         setLoading(true);
         try {
+          setActiveProgress(true);
           for (const item of data) {
             await GetDataServer(DataAPI.SCHEDULE).DELETE(item.doc);
             const index = data.indexOf(item);
@@ -185,6 +187,7 @@ export const SchedulePage: React.FC = (): any => {
             text: error.response.data.msg ?? "Error Network",
           });
           setLoading(false);
+          setActiveProgress(false);
         }
       },
     });
@@ -249,7 +252,7 @@ export const SchedulePage: React.FC = (): any => {
         ) : (
           <LoadingComponent
             showProgress={{
-              active:true,
+              active: activeProgress,
               currentIndex: currentIndex,
               currentPercent: currentPercent,
               onProgress: onDeleteProgress,
