@@ -14,6 +14,12 @@ export interface IValue {
   valueInput: String;
 }
 
+interface IInfiniteScroll {
+  next: (e?: any) => Promise<any> | void;
+  hasMore: boolean;
+  onSearch: (e?: any) => Promise<any> | void;
+}
+
 interface IProps {
   className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
   inputStyle?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
@@ -37,7 +43,7 @@ interface IProps {
   loading?: boolean;
   remark?: String;
   infoRemark?: String;
-  infiniteScroll?: any;
+  infiniteScroll?: IInfiniteScroll;
 }
 
 const InputComponent: React.FC<IProps> = ({
@@ -64,12 +70,10 @@ const InputComponent: React.FC<IProps> = ({
   infoRemark,
   max,
   infiniteScroll,
-  
 }) => {
   const modalRef = useRef<any>();
   const inputRef = useRef<any>();
   const [open, setOpen] = useState<boolean>(false);
-  const [search, setSearch] = useState<String>("");
   const [openRemark, setOpenRemark] = useState<boolean>(false);
 
   useEffect(() => {
@@ -97,18 +101,16 @@ const InputComponent: React.FC<IProps> = ({
     });
   };
 
+  infiniteScroll &&
+    useEffect(() => {
+      const timeoutId = setTimeout(() => {
+        infiniteScroll.onSearch(value.valueInput);
+      }, 500);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setSearch(value.valueInput);
-    }, 500);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [value]);
-
-  console.log(search)
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }, [value]);
 
   return (
     <>
@@ -151,9 +153,9 @@ const InputComponent: React.FC<IProps> = ({
         )}
         {open && list && (
           <InfiniteScroll
-            dataLength={100}
-            next={() => console.log("dd")}
-            hasMore={true}
+            dataLength={list.length}
+            next={infiniteScroll ? infiniteScroll.next : () => {}}
+            hasMore={infiniteScroll?.hasMore ? true : false}
             loader={
               <div className="w-auto  left-1/2 inline py-1 px-2 text-center relative bottom-14  text-sm text-gray-400">
                 <SyncLoader
