@@ -149,7 +149,7 @@ const ModalPackingId: React.FC = () => {
             <InputComponent
               value={actualQty}
               onChange={(e) => {
-                if (e <= data.conversion) {
+                if (e <= data.conversion && e >= 0) {
                   setActualQty({ valueData: e, valueInput: e });
                 } else {
                   setActualQty({
