@@ -96,11 +96,6 @@ const ModalPackingId: React.FC = () => {
       ) : (
         <>
           <InputComponent
-            infiniteScroll={{
-              hasMore: true,
-              next: (e) => console.log("refresh"),
-              onSearch: (e) => console.log(e),
-            }}
             onCLick={getData}
             value={packingId}
             list={allData}
