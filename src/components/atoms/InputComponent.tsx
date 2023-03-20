@@ -37,6 +37,7 @@ interface IProps {
   loading?: boolean;
   remark?: String;
   infoRemark?: String;
+  scrollData?: Boolean;
 }
 
 const InputComponent: React.FC<IProps> = ({
@@ -62,10 +63,12 @@ const InputComponent: React.FC<IProps> = ({
   remarkStyle,
   infoRemark,
   max,
+  scrollData,
 }) => {
   const modalRef = useRef<any>();
   const inputRef = useRef<any>();
   const [open, setOpen] = useState<boolean>(false);
+  const [search, setSearch] = useState<String>("");
   const [openRemark, setOpenRemark] = useState<boolean>(false);
 
   useEffect(() => {
@@ -92,6 +95,19 @@ const InputComponent: React.FC<IProps> = ({
       return name;
     });
   };
+
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setSearch(value.valueInput);
+    }, 500);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [value]);
+
+  console.log(search)
 
   return (
     <>
