@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { InputComponent } from "../../components/atoms";
 import { IListInput, IValue } from "../../components/atoms/InputComponent";
 import { ISliceModal, selectModal } from "../../redux/slices/ModalSlice";
@@ -10,6 +11,8 @@ const ModalPackingId: React.FC = () => {
   const [data, setData] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(false);
   const dataModal: ISliceModal = useSelector(selectModal);
+
+  const navigate = useNavigate();
 
   const getData = async (): Promise<void> => {
     try {
@@ -58,7 +61,8 @@ const ModalPackingId: React.FC = () => {
 
       const result = await GetDataServer(DataAPI.PACKING).CREATE(insertData);
       console.log(result);
-      dataModal.props.onRefresh();
+      navigate(0);
+      // dataModal.props.onRefresh();
     } catch (error) {
       console.log(error);
     }
@@ -138,12 +142,14 @@ const ModalPackingId: React.FC = () => {
           className="mb-2 text-sm"
         />
       )}
-      <button
-        onClick={onSave}
-        className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-1 bg-green-600  text-sm text-white opacity-90 hover:opacity-100"
-      >
-        Save
-      </button>
+      {actualQty.valueInput  && (
+        <button
+          onClick={onSave}
+          className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-1 bg-green-600  text-sm text-white opacity-90 hover:opacity-100"
+        >
+          Save
+        </button>
+      )}
     </div>
   );
 };
