@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { InputComponent } from "../../components/atoms";
 import { IListInput, IValue } from "../../components/atoms/InputComponent";
+import { LoadingComponent } from "../../components/moleculs";
 import { ISliceModal, selectModal } from "../../redux/slices/ModalSlice";
 import { AlertModal } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
@@ -11,6 +12,7 @@ const ModalPackingId: React.FC = () => {
   const [allData, setAllData] = useState<IListInput[]>([]);
   const [data, setData] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingModal, setLoadingModal] = useState<boolean>(false);
   const dataModal: ISliceModal = useSelector(selectModal);
 
   const navigate = useNavigate();
@@ -55,14 +57,14 @@ const ModalPackingId: React.FC = () => {
   const onSave = async (): Promise<void> => {
     const onProgress = async (): Promise<void> => {
       try {
+        setLoadingModal(true);
         const insertData = {
           scheduleItemId: dataModal.props._id,
           actual_qty: actualQty.valueData,
           id_packing: packingId.valueData,
         };
 
-        const result = await GetDataServer(DataAPI.PACKING).CREATE(insertData);
-        console.log(result);
+        await GetDataServer(DataAPI.PACKING).CREATE(insertData);
         AlertModal.Default({
           icon: "success",
           text: "Successfully added data",
@@ -71,6 +73,7 @@ const ModalPackingId: React.FC = () => {
         navigate(0);
         // dataModal.props.onRefresh();
       } catch (error: any) {
+        setLoadingModal(false);
         AlertModal.Default({
           icon: "error",
           title: "Error",
@@ -87,89 +90,98 @@ const ModalPackingId: React.FC = () => {
 
   return (
     <div className=" w-[450px] h-[auto] max-h-[400px]scrollbar-thin scrollbar-track-gray-100 p-7 scrollbar-thumb-gray-200">
-      <InputComponent
-        onCLick={getData}
-        value={packingId}
-        list={allData}
-        label="Packing ID"
-        loading={loading}
-        onChange={(e) => {
-          setPackingId({ ...packingId, valueInput: e });
-        }}
-        onSelected={(e) => {
-          setData(e.value),
-            setPackingId({
-              valueData: e.value.id_packing,
-              valueInput: e.value.id_packing,
-            });
-        }}
-        className="mb-2 text-sm"
-        onReset={() => {
-          setPackingId({ valueData: null, valueInput: "" });
-          setData({});
-          setActualQty({ valueData: 0, valueInput: "" });
-        }}
-      />
-      {data.item && (
-        <InputComponent
-          value={{ valueData: data.item, valueInput: data.item }}
-          label="Item Code"
-          className="mb-2 text-sm"
-          disabled
-        />
-      )}
-      {data.item_name && (
-        <InputComponent
-          value={{ valueData: data.item_name, valueInput: data.item_name }}
-          label="Item Name"
-          className="mb-2 text-sm"
-          disabled
-        />
-      )}
-      {data.conversion && (
-        <InputComponent
-          value={{ valueData: data.conversion, valueInput: data.conversion }}
-          label="Qty"
-          className="mb-2 text-sm"
-          disabled
-        />
-      )}
-      {data.conversion && (
-        <InputComponent
-          value={actualQty}
-          onChange={(e) => {
-            if (e <= data.conversion) {
-              setActualQty({ valueData: e, valueInput: e });
-            } else {
-              setActualQty({
+      {loadingModal ? (
+        <LoadingComponent />
+      ) : (
+        <>
+          <InputComponent
+            onCLick={getData}
+            value={packingId}
+            list={allData}
+            label="Packing ID"
+            loading={loading}
+            onChange={(e) => {
+              setPackingId({ ...packingId, valueInput: e });
+            }}
+            onSelected={(e) => {
+              setData(e.value),
+                setPackingId({
+                  valueData: e.value.id_packing,
+                  valueInput: e.value.id_packing,
+                });
+            }}
+            className="mb-2 text-sm"
+            onReset={() => {
+              setPackingId({ valueData: null, valueInput: "" });
+              setData({});
+              setActualQty({ valueData: 0, valueInput: "" });
+            }}
+          />
+          {data.item && (
+            <InputComponent
+              value={{ valueData: data.item, valueInput: data.item }}
+              label="Item Code"
+              className="mb-2 text-sm"
+              disabled
+            />
+          )}
+          {data.item_name && (
+            <InputComponent
+              value={{ valueData: data.item_name, valueInput: data.item_name }}
+              label="Item Name"
+              className="mb-2 text-sm"
+              disabled
+            />
+          )}
+          {data.conversion && (
+            <InputComponent
+              value={{
                 valueData: data.conversion,
                 valueInput: data.conversion,
-              });
-            }
-          }}
-          onReset={() => setActualQty({ valueData: 0, valueInput: "" })}
-          mandatoy
-          label="Actual Stock"
-          className="mb-2 text-sm"
-          type="number"
-          max={data.conversion}
-        />
-      )}
-      {data.stock_uom && (
-        <InputComponent
-          value={{ valueData: data.stock_uom, valueInput: data.stock_uom }}
-          label="Uom"
-          disabled
-          className="mb-2 text-sm"
-        />
-      )}
-      {actualQty.valueInput && (
-        <button
-          onClick={onSave}
-          className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-1 bg-green-600  text-sm text-white opacity-90 hover:opacity-100"
-        >
-          Save
-        </button>
+              }}
+              label="Qty"
+              className="mb-2 text-sm"
+              disabled
+            />
+          )}
+          {data.conversion && (
+            <InputComponent
+              value={actualQty}
+              onChange={(e) => {
+                if (e <= data.conversion) {
+                  setActualQty({ valueData: e, valueInput: e });
+                } else {
+                  setActualQty({
+                    valueData: data.conversion,
+                    valueInput: data.conversion,
+                  });
+                }
+              }}
+              onReset={() => setActualQty({ valueData: 0, valueInput: "" })}
+              mandatoy
+              label="Actual Stock"
+              className="mb-2 text-sm"
+              type="number"
+              max={data.conversion}
+            />
+          )}
+          {data.stock_uom && (
+            <InputComponent
+              value={{ valueData: data.stock_uom, valueInput: data.stock_uom }}
+              label="Uom"
+              disabled
+              className="mb-2 text-sm"
+            />
+          )}
+          {actualQty.valueInput && (
+            <button
+              onClick={onSave}
+              className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-1 bg-green-600  text-sm text-white opacity-90 hover:opacity-100"
+            >
+              Save
+            </button>
+          )}
+        </>
       )}
     </div>
   );
