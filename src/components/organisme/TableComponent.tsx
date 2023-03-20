@@ -10,6 +10,7 @@ import { FilterTableComponent } from "../moleculs";
 import { IDataFilter } from "../moleculs/FilterTableComponent";
 import { LocalStorageType } from "../../utils";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 export interface IDataTables {
   [key: string]: JSX.Element | String | number | boolean;
@@ -42,6 +43,7 @@ interface Iprops {
   localStorage?: LocalStorageType;
   setSearch: any;
   className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
+  moreSelected?(e:any[]): void | Promise<void>;
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -64,6 +66,7 @@ const TableComponent: React.FC<Iprops> = ({
   className,
   onNewData,
   onRefresh,
+  moreSelected,
   titleNewData,
 }) => {
   const [value, setValue] = useState<any>("");
@@ -156,6 +159,20 @@ const TableComponent: React.FC<Iprops> = ({
               iconSize={17}
               primary
             />
+
+            {getSelected().length > 0 && moreSelected && (
+              <IconButton
+                classModal="top-[29px]"
+                primary
+                Icon={MoreHorizIcon}
+                iconSize={15}
+                classIcon="mt-1"
+                list={[{ name: "Delete", onClick: (e) => alert("d") }]}
+                iconListDisabled
+                className={` duration-100 mr-2 px-2`}
+              />
+            )}
+
             <IconButton
               Icon={RefreshIcon}
               callback={onRefresh}

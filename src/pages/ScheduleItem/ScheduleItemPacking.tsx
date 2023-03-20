@@ -178,6 +178,10 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
     );
   };
 
+  const deletePacking =async (e:any[]):Promise<void>=>{
+
+  }
+
   useEffect(() => {
     getData();
   }, []);
@@ -191,6 +195,8 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
   useEffect(() => {
     onRefresh();
   }, [filter, search]);
+
+
 
   return (
     <div className="min-h-[300px] max-h-[400px] flex">
@@ -207,6 +213,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
         </div>
       ) : (
         <TableComponent
+          moreSelected={deletePacking}
           setSearch={setSeacrh}
           setData={setData}
           listFilter={listFilter}
