@@ -107,6 +107,7 @@ const ModalPackingId: React.FC = () => {
         onReset={() => {
           setPackingId({ valueData: null, valueInput: "" });
           setData({});
+          setActualQty({ valueData: 0, valueInput: "" });
         }}
       />
       {data.item && (
