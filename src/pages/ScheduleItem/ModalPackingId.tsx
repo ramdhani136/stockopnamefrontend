@@ -24,6 +24,7 @@ const ModalPackingId: React.FC = () => {
         filters: [
           ["item", "=", dataModal.props.item_code],
           ["is_out", "", 0],
+          ["is_in", "", 1],
         ],
       });
       if (result.data.length > 0) {
