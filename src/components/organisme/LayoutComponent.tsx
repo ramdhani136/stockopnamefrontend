@@ -40,6 +40,7 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
         active: false,
         Children: null,
         title: "",
+        props:null
       })
     );
   };

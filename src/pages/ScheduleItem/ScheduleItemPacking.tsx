@@ -14,14 +14,14 @@ import { modalSet } from "../../redux/slices/ModalSlice";
 import ModalPackingId from "./ModalPackingId";
 
 interface IProps {
-  id: string;
+  props: any;
 }
 
 interface IDateProps {
   date: String;
 }
 
-const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
+const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
   // Info Date COmponent
   const InfoDateComponent: React.FC<IDateProps> = ({ date }) => {
     const [open, setOpen] = useState<boolean>(false);
@@ -78,7 +78,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
   const getData = async (): Promise<any> => {
     try {
       const result: any = await GetDataServer(DataAPI.PACKING).FIND({
-        filters: [...filter, ["schedule.scheduleItem", "=", `${id}`]],
+        filters: [...filter, ["schedule.scheduleItem", "=", `${props._id}`]],
         limit: limit,
         page: page,
         orderBy: { sort: isOrderBy, state: isSort },
@@ -90,7 +90,9 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
             id: item._id,
             checked: false,
             id_packing: (
-              <a href={`/schedule/${id}/${item._id}`}>{item.id_packing}</a>
+              <a href={`/schedule/${props._id}/${item._id}`}>
+                {item.id_packing}
+              </a>
             ),
             stock_uom: <div className="text-center">{item.stock_uom}</div>,
             status: (
@@ -171,6 +173,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ id }) => {
         active: true,
         Children: ModalPackingId,
         title: "",
+        props: props,
       })
     );
   };

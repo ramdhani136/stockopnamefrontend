@@ -174,6 +174,8 @@ const ScheduleItemPage = () => {
     getData();
   }, []);
 
+
+
   return (
     <>
       {Meta(metaData)}
@@ -349,9 +351,11 @@ const ScheduleItemPage = () => {
               <ToggleBodyComponent
               name="Registration Packing ID"
                 className="mt-5"
-                child={<ScheduleItemPacking id={data._id}/>}
+                child={<ScheduleItemPacking props={data}/>}
               />
+      
 
+    
               {/* <TimeLineVertical data={history} /> */}
             </div>
           </>

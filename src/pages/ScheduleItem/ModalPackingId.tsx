@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { InputComponent } from "../../components/atoms";
 import { IListInput, IValue } from "../../components/atoms/InputComponent";
+import { ISliceModal, selectModal } from "../../redux/slices/ModalSlice";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 
 const ModalPackingId: React.FC = () => {
   const [allData, setAllData] = useState<IListInput[]>([]);
   const [data, setData] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(false);
+  const dataModal: ISliceModal = useSelector(selectModal);
 
   const getData = async (): Promise<void> => {
     try {
       setLoading(true);
-      const result: any = await GetDataServer(DataAPI.PACKINGID).FIND({});
+      const result: any = await GetDataServer(DataAPI.PACKINGID).FIND({
+        filters: [["item", "=", dataModal.props.item_code]],
+      });
       if (result.data.length > 0) {
         const genData: IListInput[] = result.data.map(
           (item: any): IListInput => {
@@ -35,13 +40,12 @@ const ModalPackingId: React.FC = () => {
     valueInput: "",
   });
 
-  useEffect(() => {
-    getData();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className=" w-[450px] h-[auto] max-h-[400px]scrollbar-thin scrollbar-track-gray-100 p-7 scrollbar-thumb-gray-200">
       <InputComponent
+        onCLick={getData}
         value={packingId}
         list={allData}
         label="Packing ID"
