@@ -53,31 +53,34 @@ const ModalPackingId: React.FC = () => {
   });
 
   const onSave = async (): Promise<void> => {
-    try {
-      const insertData = {
-        scheduleItemId: dataModal.props._id,
-        actual_qty: actualQty.valueData,
-        id_packing: packingId.valueData,
-      };
+    const onProgress = async (): Promise<void> => {
+      try {
+        const insertData = {
+          scheduleItemId: dataModal.props._id,
+          actual_qty: actualQty.valueData,
+          id_packing: packingId.valueData,
+        };
 
-      const result = await GetDataServer(DataAPI.PACKING).CREATE(insertData);
-      console.log(result);
-      AlertModal.Default({
-        icon: "success",
-        text: "Successfully added data",
-        title: "Success",
-      });
-      navigate(0);
-      // dataModal.props.onRefresh();
-    } catch (error: any) {
-      AlertModal.Default({
-        icon: "error",
-        title: "Error",
-        text: error.response.data.msg.code
-          ? "Data already exists"
-          : error.response.data.msg ?? "Network Error!",
-      });
-    }
+        const result = await GetDataServer(DataAPI.PACKING).CREATE(insertData);
+        console.log(result);
+        AlertModal.Default({
+          icon: "success",
+          text: "Successfully added data",
+          title: "Success",
+        });
+        navigate(0);
+        // dataModal.props.onRefresh();
+      } catch (error: any) {
+        AlertModal.Default({
+          icon: "error",
+          title: "Error",
+          text: error.response.data.msg.code
+            ? "Data already exists"
+            : error.response.data.msg ?? "Network Error!",
+        });
+      }
+    };
+    AlertModal.confirmation({ onConfirm: onProgress });
   };
 
   useEffect(() => {}, []);
