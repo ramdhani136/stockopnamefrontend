@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { InputComponent } from "../../components/atoms";
 import { IListInput, IValue } from "../../components/atoms/InputComponent";
 import { ISliceModal, selectModal } from "../../redux/slices/ModalSlice";
+import { AlertModal } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 
 const ModalPackingId: React.FC = () => {
@@ -61,10 +62,21 @@ const ModalPackingId: React.FC = () => {
 
       const result = await GetDataServer(DataAPI.PACKING).CREATE(insertData);
       console.log(result);
+      AlertModal.Default({
+        icon: "success",
+        text: "Successfully added data",
+        title: "Success",
+      });
       navigate(0);
       // dataModal.props.onRefresh();
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      AlertModal.Default({
+        icon: "error",
+        title: "Error",
+        text: error.response.data.msg.code
+          ? "Data already exists"
+          : error.response.data.msg ?? "Network Error!",
+      });
     }
   };
 
@@ -124,8 +136,11 @@ const ModalPackingId: React.FC = () => {
           onChange={(e) => {
             if (e <= data.conversion) {
               setActualQty({ valueData: e, valueInput: e });
-            }else{
-              setActualQty({ valueData: data.conversion, valueInput: data.conversion });
+            } else {
+              setActualQty({
+                valueData: data.conversion,
+                valueInput: data.conversion,
+              });
             }
           }}
           onReset={() => setActualQty({ valueData: 0, valueInput: "" })}
@@ -144,7 +159,7 @@ const ModalPackingId: React.FC = () => {
           className="mb-2 text-sm"
         />
       )}
-      {actualQty.valueInput  && (
+      {actualQty.valueInput && (
         <button
           onClick={onSave}
           className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-1 bg-green-600  text-sm text-white opacity-90 hover:opacity-100"
