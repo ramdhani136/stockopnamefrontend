@@ -37,7 +37,7 @@ interface IProps {
   loading?: boolean;
   remark?: String;
   infoRemark?: String;
-  scrollData?: Boolean;
+  infiniteScroll?: any;
 }
 
 const InputComponent: React.FC<IProps> = ({
@@ -63,7 +63,8 @@ const InputComponent: React.FC<IProps> = ({
   remarkStyle,
   infoRemark,
   max,
-  scrollData,
+  infiniteScroll,
+  
 }) => {
   const modalRef = useRef<any>();
   const inputRef = useRef<any>();
