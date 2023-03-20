@@ -249,6 +249,7 @@ export const SchedulePage: React.FC = (): any => {
         ) : (
           <LoadingComponent
             showProgress={{
+              active:true,
               currentIndex: currentIndex,
               currentPercent: currentPercent,
               onProgress: onDeleteProgress,

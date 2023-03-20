@@ -12,6 +12,8 @@ import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import { useDispatch, useSelector } from "react-redux";
 import { modalSet } from "../../redux/slices/ModalSlice";
 import ModalPackingId from "./ModalPackingId";
+import { AlertModal } from "../../utils";
+import { LoadingComponent } from "../../components/moleculs";
 
 interface IProps {
   props: any;
@@ -52,6 +54,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
   const [totalData, setTotalData] = useState<number>(0);
   const [page, setPage] = useState<number>(1);
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [activeProgress, setActiveProgress] = useState<boolean>(false);
   const [sort, setSort] = useState<any[]>([]);
   const [isSort, setIsort] = useState<string>("createdAt");
   const [isOrderBy, setOrderBy] = useState<number>(-1);
@@ -61,6 +64,10 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
   const [filter, setFilter] = useState<any[]>([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [totalIndex, setTotalIndex] = useState<number>(0);
+  const [onDeleteProgress, setOnDeleteProgress] = useState<String>("");
+  const [currentPercent, setCurrentPercent] = useState<number>(0);
 
   const columns: IColumns[] = useMemo(
     (): IColumns[] => [
@@ -89,6 +96,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
           return {
             id: item._id,
             checked: false,
+            packing:item.id_packing,
             id_packing: (
               <a href={`/schedule/${props._id}/${item._id}`}>
                 {item.id_packing}
@@ -178,9 +186,39 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
     );
   };
 
-  const deletePacking =async (e:any[]):Promise<void>=>{
+  const getSelected = () => {
+    const isSelect = data.filter((item) => item.checked === true);
+    return isSelect;
+  };
 
-  }
+  const deletePacking = async (e: any[]): Promise<void> =>
+    AlertModal.confirmation({
+      onConfirm: async (): Promise<void> => {
+        const data: any[] = getSelected();
+        setLoading(true);
+        try {
+          setActiveProgress(true);
+          for (const item of data) {
+            await GetDataServer(DataAPI.PACKING).DELETE(item.id);
+            const index = data.indexOf(item);
+            let percent = (100 / data.length) * (index + 1);
+            setCurrentIndex(index);
+            setOnDeleteProgress(item.packing);
+            setCurrentPercent(percent);
+            setTotalIndex(data.length);
+          }
+          navigate(0);
+        } catch (error: any) {
+          AlertModal.Default({
+            icon: "error",
+            title: "Error",
+            text: error.response.data.msg ?? "Error Network",
+          });
+          setLoading(false);
+          setActiveProgress(false);
+        }
+      },
+    });
 
   useEffect(() => {
     getData();
@@ -196,24 +234,24 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
     onRefresh();
   }, [filter, search]);
 
-
-
   return (
     <div className="min-h-[300px] max-h-[400px] flex">
       {loading ? (
         <div className="w-full  flex items-center justify-center">
-          <HashLoader
-            color="#36d7b6"
-            loading={true}
-            // cssOverride={override}
-            size={40}
-            aria-label="Loading Spinner"
-            data-testid="loader"
+          <LoadingComponent
+            animate={{ icon: HashLoader, color: "#36d7b6", size: 40 }}
+            showProgress={{
+              active: activeProgress,
+              currentIndex: currentIndex,
+              currentPercent: currentPercent,
+              onProgress: onDeleteProgress,
+              totalIndex: totalIndex,
+            }}
           />
         </div>
       ) : (
         <TableComponent
-          moreSelected={deletePacking}
+          moreSelected={[{ name: "Delete", onClick: deletePacking }]}
           setSearch={setSeacrh}
           setData={setData}
           listFilter={listFilter}

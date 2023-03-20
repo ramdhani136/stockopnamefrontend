@@ -4,6 +4,7 @@ import LoadingBar from "react-top-loading-bar";
 
 interface ILoading {
   showProgress?: IProgressInfo;
+  animate?: Animate;
 }
 
 interface IProgressInfo {
@@ -11,9 +12,17 @@ interface IProgressInfo {
   totalIndex: number;
   onProgress: String;
   currentPercent: number;
+  active: boolean;
 }
 
-const LoadingComponent: React.FC<ILoading> = ({ showProgress }) => {
+interface Animate {
+  icon: any;
+  size?: number;
+  color?: String;
+}
+
+const LoadingComponent: React.FC<ILoading> = ({ showProgress, animate }) => {
+  const Animated = animate?.icon;
   return (
     <>
       {showProgress && (
@@ -25,15 +34,26 @@ const LoadingComponent: React.FC<ILoading> = ({ showProgress }) => {
       )}
       <div className="flex items-center justify-center flex-col   w-full h-[calc(100vh-150px)] ">
         <div className="w-full   flex justify-center items-center relative flex-col ">
-          <RiseLoader
-            color="#36d7b6"
-            loading={true}
-            // cssOverride={override}
-            size={10}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
-          {showProgress && (
+          {Animated ? (
+            <Animated
+              color={animate.color ?? "#36d7b6"}
+              loading={true}
+              size={animate.size ?? 10}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          ) : (
+            <RiseLoader
+              color="#36d7b6"
+              loading={true}
+              // cssOverride={override}
+              size={10}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          )}
+
+          {showProgress?.active && (
             <>
               <h5 className="mt-4 text-[0.89em] font-normal  text-gray-500">
                 progress {showProgress.currentIndex} Of{" "}

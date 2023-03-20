@@ -43,7 +43,7 @@ interface Iprops {
   localStorage?: LocalStorageType;
   setSearch: any;
   className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
-  moreSelected?(e:any[]): void | Promise<void>;
+  moreSelected?:IListIconButton[];
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -167,7 +167,7 @@ const TableComponent: React.FC<Iprops> = ({
                 Icon={MoreHorizIcon}
                 iconSize={15}
                 classIcon="mt-1"
-                list={[{ name: "Delete", onClick: (e) => alert("d") }]}
+                list={moreSelected}
                 iconListDisabled
                 className={` duration-100 mr-2 px-2`}
               />
