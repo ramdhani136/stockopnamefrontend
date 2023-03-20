@@ -33,6 +33,7 @@ interface IProps {
   placeholder?: any;
   type?: React.HTMLInputTypeAttribute | undefined;
   min?: any;
+  max?: any;
   loading?: boolean;
   remark?: String;
   infoRemark?: String;
@@ -60,6 +61,7 @@ const InputComponent: React.FC<IProps> = ({
   remark,
   remarkStyle,
   infoRemark,
+  max
 }) => {
   const modalRef = useRef<any>();
   const inputRef = useRef<any>();
@@ -102,6 +104,7 @@ const InputComponent: React.FC<IProps> = ({
       >
         <input
           min={min}
+          max={max}
           ref={inputRef}
           type={type ?? "text"}
           placeholder={placeholder}

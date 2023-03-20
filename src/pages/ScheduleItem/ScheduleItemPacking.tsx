@@ -173,7 +173,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
         active: true,
         Children: ModalPackingId,
         title: "",
-        props: props,
+        props: { ...props, onRefresh },
       })
     );
   };

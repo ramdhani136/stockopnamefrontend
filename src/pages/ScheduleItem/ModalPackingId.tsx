@@ -15,7 +15,10 @@ const ModalPackingId: React.FC = () => {
     try {
       setLoading(true);
       const result: any = await GetDataServer(DataAPI.PACKINGID).FIND({
-        filters: [["item", "=", dataModal.props.item_code]],
+        filters: [
+          ["item", "=", dataModal.props.item_code],
+          ["is_out", "", 0],
+        ],
       });
       if (result.data.length > 0) {
         const genData: IListInput[] = result.data.map(
@@ -39,6 +42,27 @@ const ModalPackingId: React.FC = () => {
     valueData: null,
     valueInput: "",
   });
+
+  const [actualQty, setActualQty] = useState<IValue>({
+    valueData: 0,
+    valueInput: "",
+  });
+
+  const onSave = async (): Promise<void> => {
+    try {
+      const insertData = {
+        scheduleItemId: dataModal.props._id,
+        actual_qty: actualQty.valueData,
+        id_packing: packingId.valueData,
+      };
+
+      const result = await GetDataServer(DataAPI.PACKING).CREATE(insertData);
+      console.log(result);
+      dataModal.props.onRefresh();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {}, []);
 
@@ -92,11 +116,18 @@ const ModalPackingId: React.FC = () => {
       )}
       {data.conversion && (
         <InputComponent
-          value={{ valueData: null, valueInput: "" }}
+          value={actualQty}
+          onChange={(e) => {
+            if (e <= data.conversion) {
+              setActualQty({ valueData: e, valueInput: e });
+            }
+          }}
+          onReset={() => setActualQty({ valueData: 0, valueInput: "" })}
           mandatoy
           label="Actual Stock"
           className="mb-2 text-sm"
           type="number"
+          max={data.conversion}
         />
       )}
       {data.stock_uom && (
@@ -107,6 +138,12 @@ const ModalPackingId: React.FC = () => {
           className="mb-2 text-sm"
         />
       )}
+      <button
+        onClick={onSave}
+        className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-1 bg-green-600  text-sm text-white opacity-90 hover:opacity-100"
+      >
+        Save
+      </button>
     </div>
   );
 };
