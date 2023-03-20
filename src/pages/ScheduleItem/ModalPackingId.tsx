@@ -124,6 +124,8 @@ const ModalPackingId: React.FC = () => {
           onChange={(e) => {
             if (e <= data.conversion) {
               setActualQty({ valueData: e, valueInput: e });
+            }else{
+              setActualQty({ valueData: data.conversion, valueInput: data.conversion });
             }
           }}
           onReset={() => setActualQty({ valueData: 0, valueInput: "" })}
