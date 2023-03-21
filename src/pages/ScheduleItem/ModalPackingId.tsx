@@ -14,6 +14,10 @@ const ModalPackingId: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingModal, setLoadingModal] = useState<boolean>(false);
   const dataModal: ISliceModal = useSelector(selectModal);
+  const [limit, setLimit] = useState<number>(20);
+  const [page, setPage] = useState<number>(1);
+  const [search, setSeacrh] = useState<String>("");
+  const [hasMore, setHasmore] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -26,7 +30,11 @@ const ModalPackingId: React.FC = () => {
           ["is_out", "", 0],
           ["is_in", "", 1],
         ],
+        limit: limit,
+        page: page,
+        search: search,
       });
+
       if (result.data.length > 0) {
         const genData: IListInput[] = result.data.map(
           (item: any): IListInput => {
@@ -36,11 +44,20 @@ const ModalPackingId: React.FC = () => {
             };
           }
         );
-        setAllData(genData);
+
+        if (result.data.length < limit) {
+          setHasmore(false);
+        } else {
+          setHasmore(result.hasMore);
+        }
+
+        setPage(result.nextPage);
+        setAllData([...allData, ...genData]);
         setLoading(false);
       }
     } catch (error) {
       console.log(error);
+      setHasmore(false);
       setLoading(false);
     }
   };
@@ -96,11 +113,19 @@ const ModalPackingId: React.FC = () => {
       ) : (
         <>
           <InputComponent
+            infiniteScroll={{
+              hasMore: hasMore,
+              next: getData,
+              onSearch: (e) => {
+                setSeacrh(e);
+              },
+              loading: loading,
+            }}
             onCLick={getData}
             value={packingId}
             list={allData}
             label="Packing ID"
-            loading={loading}
+            loading={false}
             onChange={(e) => {
               setPackingId({ ...packingId, valueInput: e });
             }}

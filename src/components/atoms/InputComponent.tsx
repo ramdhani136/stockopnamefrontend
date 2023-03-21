@@ -18,6 +18,7 @@ interface IInfiniteScroll {
   next: (e?: any) => Promise<any> | void;
   hasMore: boolean;
   onSearch: (e?: any) => Promise<any> | void;
+  loading:Boolean
 }
 
 interface IProps {
@@ -189,7 +190,18 @@ const InputComponent: React.FC<IProps> = ({
                     {item.name}
                   </h4>
                 ))}
-              {!loading && filterData(list).length < 1 && (
+              {infiniteScroll && infiniteScroll.loading && (
+                <h4 className="w-full text-center py-2">
+                  <SyncLoader
+                    color="#36d7b6"
+                    loading={true}
+                    size={8}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                </h4>
+              )}
+              {!loading && !infiniteScroll?.loading && filterData(list).length < 1 && (
                 <h6 className="text-gray-300 text-center text-sm py-3">
                   No result
                 </h6>
