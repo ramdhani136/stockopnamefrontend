@@ -27,8 +27,8 @@ const ModalPackingId: React.FC = () => {
       const result: any = await GetDataServer(DataAPI.PACKINGID).FIND({
         filters: [
           ["item", "=", dataModal.props.item_code],
-          ["is_out", "", 0],
-          ["is_in", "", 1],
+          ["is_out", "=", 0],
+          ["is_in", "=", 1],
         ],
         limit: limit,
         page: page,
@@ -103,7 +103,9 @@ const ModalPackingId: React.FC = () => {
     AlertModal.confirmation({ onConfirm: onProgress });
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getData();
+  }, [search]);
 
   return (
     <div className=" w-[450px] h-[auto] max-h-[400px]scrollbar-thin scrollbar-track-gray-100 p-7 scrollbar-thumb-gray-200">
@@ -116,11 +118,10 @@ const ModalPackingId: React.FC = () => {
               hasMore: hasMore,
               next: getData,
               onSearch: (e) => {
-                setAllData([])
-                setSearch(e);
+                setAllData([]);
                 setHasmore(false);
                 setPage(1);
-                getData();
+                setSearch(e);
               },
               loading: loading,
             }}
