@@ -5,7 +5,7 @@ import { InputComponent } from "../../components/atoms";
 import { IListInput, IValue } from "../../components/atoms/InputComponent";
 import { LoadingComponent } from "../../components/moleculs";
 import { ISliceModal, selectModal } from "../../redux/slices/ModalSlice";
-import { AlertModal } from "../../utils";
+import { AlertModal, FilterKata } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 
 const ModalPackingId: React.FC = () => {
@@ -121,7 +121,7 @@ const ModalPackingId: React.FC = () => {
                 setAllData([]);
                 setHasmore(false);
                 setPage(1);
-                setSearch(e);
+                setSearch(FilterKata({ kata: e, filter: ["R", "P", "I"] }));
               },
               loading: loading,
             }}
