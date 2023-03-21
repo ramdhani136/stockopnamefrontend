@@ -18,7 +18,7 @@ interface IInfiniteScroll {
   next: (e?: any) => Promise<any> | void;
   hasMore: boolean;
   onSearch: (e?: any) => Promise<any> | void;
-  loading:Boolean
+  loading: Boolean;
 }
 
 interface IProps {
@@ -93,13 +93,16 @@ const InputComponent: React.FC<IProps> = ({
   }, []);
 
   const filterData = (a: any[]) => {
-    return _.filter(a, function (query) {
-      var name = value
-        ? query.name.toLowerCase().includes(value.valueInput.toLowerCase())
-        : true;
+    if (!infiniteScroll) {
+      return _.filter(a, function (query) {
+        var name = value
+          ? query.name.toLowerCase().includes(value.valueInput.toLowerCase())
+          : true;
 
-      return name;
-    });
+        return name;
+      });
+    }
+    return a;
   };
 
   infiniteScroll &&
@@ -201,11 +204,13 @@ const InputComponent: React.FC<IProps> = ({
                   />
                 </h4>
               )}
-              {!loading && !infiniteScroll?.loading && filterData(list).length < 1 && (
-                <h6 className="text-gray-300 text-center text-sm py-3">
-                  No result
-                </h6>
-              )}
+              {!loading &&
+                !infiniteScroll?.loading &&
+                filterData(list).length < 1 && (
+                  <h6 className="text-gray-300 text-center text-sm py-3">
+                    No result
+                  </h6>
+                )}
               {loading && (
                 <div className="flex items-center justify-center h-14">
                   <HashLoader

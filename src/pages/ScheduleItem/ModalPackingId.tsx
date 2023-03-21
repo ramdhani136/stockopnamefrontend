@@ -16,7 +16,7 @@ const ModalPackingId: React.FC = () => {
   const dataModal: ISliceModal = useSelector(selectModal);
   const [limit, setLimit] = useState<number>(20);
   const [page, setPage] = useState<number>(1);
-  const [search, setSeacrh] = useState<String>("");
+  const [search, setSearch] = useState<String>("");
   const [hasMore, setHasmore] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -89,7 +89,6 @@ const ModalPackingId: React.FC = () => {
           title: "Success",
         });
         navigate(0);
-        // dataModal.props.onRefresh();
       } catch (error: any) {
         setLoadingModal(false);
         AlertModal.Default({
@@ -117,7 +116,11 @@ const ModalPackingId: React.FC = () => {
               hasMore: hasMore,
               next: getData,
               onSearch: (e) => {
-                setSeacrh(e);
+                setAllData([])
+                setSearch(e);
+                setHasmore(false);
+                setPage(1);
+                getData();
               },
               loading: loading,
             }}
