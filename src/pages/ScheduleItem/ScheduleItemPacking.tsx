@@ -98,9 +98,9 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
             checked: false,
             packing: item.id_packing,
             id_packing: (
-              <a href={`/schedule/${props._id}/${item._id}`}>
+              <button onClick={() => ShowModalPackingId(item)}>
                 {item.id_packing}
-              </a>
+              </button>
             ),
             stock_uom: <div className="text-center">{item.stock_uom}</div>,
             status: (
@@ -175,7 +175,10 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
     setRefresh(true);
   };
 
-  const ShowModalPackingId = () => {
+  const ShowModalPackingId = (data?: {}) => {
+    if (data) {
+      props = { ...props, data };
+    }
     dispatch(
       modalSet({
         active: true,

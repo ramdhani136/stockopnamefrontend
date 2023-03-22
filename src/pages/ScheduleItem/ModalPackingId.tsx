@@ -18,6 +18,7 @@ const ModalPackingId: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<String>("");
   const [hasMore, setHasmore] = useState<boolean>(false);
+  const [modalData, setModalData] = useState<any>({});
 
   const navigate = useNavigate();
 
@@ -107,6 +108,26 @@ const ModalPackingId: React.FC = () => {
     getData();
   }, [search]);
 
+  useEffect(() => {
+    if (dataModal.props.data) {
+      setModalData(dataModal.props.data);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (modalData.id_packing) {
+      setPackingId({
+        valueData: modalData.id_packing,
+        valueInput: modalData.id_packing,
+      });
+      setActualQty({
+        valueData: modalData.actual_qty,
+        valueInput: modalData.actual_qty,
+      });
+      setData(modalData);
+    }
+  }, [modalData]);
+
   return (
     <div className=" w-[450px] h-[auto] max-h-[400px]scrollbar-thin scrollbar-track-gray-100 p-7 scrollbar-thumb-gray-200">
       {loadingModal ? (
@@ -145,6 +166,7 @@ const ModalPackingId: React.FC = () => {
               setPackingId({ valueData: null, valueInput: "" });
               setData({});
               setActualQty({ valueData: 0, valueInput: "" });
+              setModalData({});
             }}
           />
           {data.item && (
@@ -208,7 +230,7 @@ const ModalPackingId: React.FC = () => {
               onClick={onSave}
               className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-1 bg-green-600  text-sm text-white opacity-90 hover:opacity-100"
             >
-              Save
+              {modalData.id_packing ? "Update" : "Save"}
             </button>
           )}
         </>
