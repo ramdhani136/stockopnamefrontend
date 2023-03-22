@@ -83,7 +83,15 @@ const ModalPackingId: React.FC = () => {
           id_packing: packingId.valueData,
         };
 
-        await GetDataServer(DataAPI.PACKING).CREATE(insertData);
+        if (modalData._id) {
+          console.log(modalData);
+          await GetDataServer(DataAPI.PACKING).UPDATE({
+            data: { actual_qty: actualQty.valueData },
+            id: modalData._id,
+          });
+        } else {
+          await GetDataServer(DataAPI.PACKING).CREATE(insertData);
+        }
         AlertModal.Default({
           icon: "success",
           text: "Successfully added data",
