@@ -209,7 +209,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
           disabled={props.status != 1 && props.status != 0}
           buttonInsert={{
             onCLick: () => alert("dd"),
-            status: true,
+            status: props.status == 1 || props.status == 0,
             title: "Update Data",
             icon: { icon: SyncAltIcon,className:'mr-1 mt-1' ,size:13},
           }}
