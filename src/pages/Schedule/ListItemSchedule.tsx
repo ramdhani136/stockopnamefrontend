@@ -166,6 +166,11 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
           await FetchApi.get(uri);
           onRefresh();
         } catch (error) {
+          AlertModal.Default({
+            icon: "error",
+            title: "Error",
+            text: "Error Network",
+          });
           setLoading(false);
         }
       },
