@@ -211,7 +211,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
             onCLick: () => alert("dd"),
             status: props.status == 1 || props.status == 0,
             title: "Update Data",
-            icon: { icon: SyncAltIcon,className:'mr-1 mt-1' ,size:13},
+            icon: { icon: SyncAltIcon,className:'mr-1 mt-1' ,size:14},
           }}
         />
       )}
