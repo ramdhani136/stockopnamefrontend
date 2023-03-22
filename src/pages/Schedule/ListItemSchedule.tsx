@@ -175,6 +175,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
         </div>
       ) : (
         <TableComponent
+          moreSelected={[{ name: "Delete", onClick: () => alert("d") }]}
           setSearch={setSeacrh}
           setData={setData}
           listFilter={listFilter}
