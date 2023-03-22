@@ -77,25 +77,29 @@ const ScheduleItemPage = () => {
     valueInput: moment(Number(new Date())).format("YYYY-MM-DD"),
   });
 
+  const [listMoreAction, setListMoreAction] = useState<IListIconButton[]>([]);
+
   const metaData = {
     title: "Schedule Item - Stock App Ekatunggal",
     description: "Halaman schedule item stock opname web system",
   };
 
-  const [listMoreAction, setListMoreAction] = useState<IListIconButton[]>([
-    { name: "Refresh Stock", onClick: () => alert("print") },
-  ]);
-
-
   const getData = async (): Promise<void> => {
     try {
-
       const result = await GetDataServer(DataAPI.SCHEDULEITEM).FINDONE(
         `${scheduleItem}`
       );
 
       setData(result.data);
 
+      setListMoreAction([
+        {
+          name: "Delete",
+          onClick: () => {
+            onDelete(result.data);
+          },
+        },
+      ]);
       setAqtualQty({
         valueData: result.data.actual_qty,
         valueInput: `${result.data.actual_qty.toLocaleString()}`,
@@ -172,13 +176,28 @@ const ScheduleItemPage = () => {
     }
   };
 
-
-
   useEffect(() => {
     getData();
   }, []);
 
-
+  const onDelete = (data: any): void => {
+    AlertModal.confirmation({
+      onConfirm: async (): Promise<void> => {
+        try {
+          setLoading(true);
+          await GetDataServer(DataAPI.SCHEDULEITEM).DELETE(data._id);
+          navigate(`/schedule/${data.schedule.name}`);
+        } catch (error) {
+          AlertModal.Default({
+            icon: "error",
+            title: "Error",
+            text: "Error Network",
+          });
+          setLoading(false);
+        }
+      },
+    });
+  };
 
   return (
     <>
@@ -212,8 +231,7 @@ const ScheduleItemPage = () => {
                     {scheduleId}
                   </h4>{" "}
                   <ArrowForwardIosIcon className="" style={{ fontSize: 10 }} />{" "}
-                  ({data.item_code}) {' '}
-                  {data.item_name}
+                  ({data.item_code}) {data.item_name}
                 </div>
               </div>
               <div className="flex">
@@ -326,7 +344,7 @@ const ScheduleItemPage = () => {
                         `${data.updatedAt}`
                       ).fromNow()}`}
                       remarkStyle="text-red-400 text-[0.77em]"
-                      infoRemark= {moment(`${data.updatedAt}`).format("lll")}
+                      infoRemark={moment(`${data.updatedAt}`).format("lll")}
                     />
                     <InputComponent
                       disabled
@@ -353,13 +371,11 @@ const ScheduleItemPage = () => {
               </div>
 
               <ToggleBodyComponent
-              name="Registration Packing ID"
+                name="Registration Packing ID"
                 className="mt-5"
-                child={<ScheduleItemPacking props={data}/>}
+                child={<ScheduleItemPacking props={data} />}
               />
-      
 
-    
               {/* <TimeLineVertical data={history} /> */}
             </div>
           </>
