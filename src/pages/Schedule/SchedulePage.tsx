@@ -247,6 +247,7 @@ export const SchedulePage: React.FC = (): any => {
               setFilter={setFilter}
               localStorage={LocalStorageType.FILTERSCHEDULE}
               onRefresh={onRefresh}
+
             />
           </>
         ) : (
