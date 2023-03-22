@@ -196,7 +196,7 @@ const ModalPackingId: React.FC = () => {
             <InputComponent
               value={{
                 valueData: data.conversion,
-                valueInput: data.conversion,
+                valueInput: data.conversion.toLocaleString(),
               }}
               label="Qty"
               className="mb-2 text-sm"
@@ -213,7 +213,7 @@ const ModalPackingId: React.FC = () => {
                 } else {
                   setActualQty({
                     valueData: data.conversion,
-                    valueInput: data.conversion,
+                    valueInput: data.conversion.toLocaleString(),
                   });
                 }
               }}
