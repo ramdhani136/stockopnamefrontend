@@ -25,6 +25,13 @@ export interface IColumns {
 interface IButtonInsert {
   onCLick(): void | Promise<void>;
   status: Boolean;
+  title?: string;
+  className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
+  icon?: {
+    icon: any;
+    className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
+    size?: number;
+  };
 }
 
 interface Iprops {
@@ -42,7 +49,6 @@ interface Iprops {
   getAllData(): void | Promise<void>;
   onRefresh(): void | Promise<void>;
   buttonInsert?: IButtonInsert;
-  titleNewData?: string;
   listFilter: IDataFilter[];
   filter: any[];
   setFilter: any;
@@ -73,7 +79,6 @@ const TableComponent: React.FC<Iprops> = ({
   buttonInsert,
   onRefresh,
   moreSelected,
-  titleNewData,
   disabled,
 }) => {
   const [value, setValue] = useState<any>("");
@@ -153,10 +158,12 @@ const TableComponent: React.FC<Iprops> = ({
           <div className="flex">
             {buttonInsert && buttonInsert.status && (
               <IconButton
+                Icon={buttonInsert.icon?.icon}
                 callback={buttonInsert.onCLick}
-                name={titleNewData ?? "New Data"}
-                className="py-1 px-2 mr-[7px] opacity-70 bg-green-800 border-green-900 hover:opacity-100 duration-300"
-                iconSize={17}
+                name={buttonInsert.title ?? "New Data"}
+                className={`py-1 px-2 mr-[7px] opacity-70 bg-green-800 border-green-900 hover:opacity-100 duration-300  ${buttonInsert.className}`}
+                iconSize={buttonInsert.icon?.size ?? 17}
+                classIcon={buttonInsert.icon?.className}
               />
             )}
             <IconButton

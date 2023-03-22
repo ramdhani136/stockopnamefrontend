@@ -293,8 +293,8 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
           buttonInsert={{
             status: props.schedule.status == 1,
             onCLick: ShowModalPackingId,
+            title: "Insert Packing ID",
           }}
-          titleNewData="Insert Packing ID"
           disabled={props.schedule.status != 1}
         />
       )}

@@ -9,6 +9,7 @@ import TableComponent, {
   IDataTables,
 } from "../../components/organisme/TableComponent";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
 
 interface IProps {
   props: any;
@@ -206,6 +207,12 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
             setRefresh(true);
           }}
           disabled={props.status != 1 && props.status != 0}
+          buttonInsert={{
+            onCLick: () => alert("dd"),
+            status: true,
+            title: "Update Data",
+            icon: { icon: SyncAltIcon,className:'mr-1 mt-1' ,size:13},
+          }}
         />
       )}
     </div>
