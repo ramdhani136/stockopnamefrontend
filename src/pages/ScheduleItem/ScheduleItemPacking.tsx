@@ -49,6 +49,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
   // End
 
   const [data, setData] = useState<IDataTables[]>([]);
+  const [defaultData, setDefaultData] = useState<IDataTables[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(false);
   const [totalData, setTotalData] = useState<number>(0);
@@ -92,6 +93,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
         search: search,
       });
       if (result.data.length > 0) {
+        setDefaultData(result.data);
         const generateData = result.data.map((item: any): IDataTables => {
           return {
             id: item._id,
@@ -179,16 +181,16 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
     setRefresh(true);
   };
 
-  const ShowModalPackingId = (data?: {}) => {
-    if (data) {
-      props = { ...props, data };
+  const ShowModalPackingId = (params?: {}) => {
+    if (params) {
+      props = { ...props, params };
     }
     dispatch(
       modalSet({
         active: true,
         Children: ModalPackingId,
         title: "",
-        props: { ...props, onRefresh },
+        props: { ...props, onRefresh, data: defaultData },
       })
     );
   };

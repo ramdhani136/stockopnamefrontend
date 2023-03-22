@@ -115,8 +115,8 @@ const ModalPackingId: React.FC = () => {
   }, [search]);
 
   useEffect(() => {
-    if (dataModal.props.data) {
-      setModalData(dataModal.props.data);
+    if (dataModal.props.params) {
+      setModalData(dataModal.props.params);
     }
   }, []);
 
@@ -133,6 +133,18 @@ const ModalPackingId: React.FC = () => {
       setData(modalData);
     }
   }, [modalData]);
+
+  const checkDupl = (packingId: string): void => {
+    const dupl = dataModal.props.data.find((item: any) => {
+      return item.id_packing == packingId;
+    });
+
+    if (dupl) {
+      setModalData(dupl);
+    } else {
+      setModalData({});
+    }
+  };
 
   return (
     <div className=" w-[450px] h-[auto] max-h-[400px]scrollbar-thin scrollbar-track-gray-100 p-7 scrollbar-thumb-gray-200">
@@ -162,6 +174,7 @@ const ModalPackingId: React.FC = () => {
               setPackingId({ ...packingId, valueInput: e });
             }}
             onSelected={(e) => {
+              checkDupl(e.value.id_packing);
               setData(e.value),
                 setPackingId({
                   valueData: e.value.id_packing,
