@@ -11,10 +11,10 @@ import TableComponent, {
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 
 interface IProps {
-  id: string;
+  props: any;
 }
 
-const ListItemSchedule: React.FC<IProps> = ({ id }) => {
+const ListItemSchedule: React.FC<IProps> = ({ props }) => {
   const [data, setData] = useState<IDataTables[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(false);
@@ -44,11 +44,10 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
     []
   );
 
-
   const getData = async (): Promise<any> => {
     try {
       const result: any = await GetDataServer(DataAPI.SCHEDULEITEM).FIND({
-        filters: [...filter, ["schedule.name", "=", `${id}`]],
+        filters: [...filter, ["schedule.name", "=", `${props.name}`]],
         limit: limit,
         page: page,
         orderBy: { sort: isOrderBy, state: isSort },
@@ -59,17 +58,29 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
           return {
             id: item._id,
             checked: false,
-            item_code:  <a href={`/schedule/${id}/${item._id}`}>{item.item_code}</a>,
+            item_code: (
+              <a href={`/schedule/${props.name}/${item._id}`}>
+                {item.item_code}
+              </a>
+            ),
             item_name: (
-              <a href={`/schedule/${id}/${item._id}`}>{item.item_name}</a>
+              <a href={`/schedule/${props.name}/${item._id}`}>
+                {item.item_name}
+              </a>
             ),
             stocker: <div className="text-left">{item.stocker}</div>,
             uom: <div className="text-center">{item.stock_uom}</div>,
             status: (
               <ButtonStatusComponent
-              status={item.status}
-              name= {item.status==0?"Progress": item.status==1?"Completed":"Not Match"}
-            />
+                status={item.status}
+                name={
+                  item.status == 0
+                    ? "Progress"
+                    : item.status == 1
+                    ? "Completed"
+                    : "Not Match"
+                }
+              />
             ),
             real_qty: (
               <div className="text-center font-medium text-[0.96em]">
@@ -149,8 +160,6 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
     onRefresh();
   }, [filter, search]);
 
-
-
   return (
     <div className="min-h-[300px] max-h-[400px] flex">
       {loading ? (
@@ -195,6 +204,7 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
             setLoading(true);
             setRefresh(true);
           }}
+          disabled={props.status != 1}
         />
       )}
     </div>

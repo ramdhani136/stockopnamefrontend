@@ -225,6 +225,8 @@ const FormSchedulePage: React.FC = () => {
   }, [startDate, dueDate]);
   // End
 
+
+
   return (
     <>
       {Meta(metaData)}
@@ -394,7 +396,7 @@ const FormSchedulePage: React.FC = () => {
                 <ToggleBodyComponent
                   name="Item List"
                   className="mt-5"
-                  child={<ListItemSchedule id={`${id}`} />}
+                  child={<ListItemSchedule props={data} />}
                 />
               )}
               <TimeLineVertical data={history} />
