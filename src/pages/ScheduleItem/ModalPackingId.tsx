@@ -226,7 +226,7 @@ const ModalPackingId: React.FC = () => {
                 } else {
                   setActualQty({
                     valueData: data.conversion,
-                    valueInput: data.conversion.toLocaleString(),
+                    valueInput: data.conversion,
                   });
                 }
               }}
