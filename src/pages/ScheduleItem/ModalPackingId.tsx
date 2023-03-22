@@ -249,7 +249,7 @@ const ModalPackingId: React.FC = () => {
           {actualQty.valueInput && dataModal.props.schedule.status == 1 && (
             <button
               onClick={onSave}
-              className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-1 bg-green-600  text-sm text-white opacity-90 hover:opacity-100"
+              className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-2 bg-green-600   text-sm text-white opacity-90 hover:opacity-100"
             >
               {modalData.id_packing ? "Update" : "Save"}
             </button>
