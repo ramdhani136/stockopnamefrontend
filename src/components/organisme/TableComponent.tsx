@@ -130,7 +130,7 @@ const TableComponent: React.FC<Iprops> = ({
         <div className="w-full p-3 sticky top-0 flex items-center justify-between py-5 border-b bg-white">
           <div className="text-[0.9em] ml-4 text-gray-600 font-semibold flex items-center">
             ({data.length} Of {total})
-            <div className="w-64 border h-9 rounded-sm  ml-4 bg-gray-50 flex items-center relative">
+            <div className="w-60 border h-9 rounded-sm  ml-4 bg-gray-50 flex items-center relative">
               <input
                 className=" flex-1  px-3 pr-8 h-full bg-gray-50 placeholder:text-gray-300 placeholder:font-normal"
                 placeholder="Search"
