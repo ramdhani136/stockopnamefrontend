@@ -9,7 +9,9 @@ import TableComponent, {
   IDataTables,
 } from "../../components/organisme/TableComponent";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
-import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import { AlertModal } from "../../utils";
+import { LoadingComponent } from "../../components/moleculs";
 
 interface IProps {
   props: any;
@@ -30,6 +32,11 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
   const [search, setSeacrh] = useState<String>("");
   const [filter, setFilter] = useState<any[]>([]);
   const navigate = useNavigate();
+  const [activeProgress, setActiveProgress] = useState<boolean>(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [totalIndex, setTotalIndex] = useState<number>(0);
+  const [onDeleteProgress, setOnDeleteProgress] = useState<String>("");
+  const [currentPercent, setCurrentPercent] = useState<number>(0);
 
   const columns: IColumns[] = useMemo(
     (): IColumns[] => [
@@ -64,6 +71,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
                 {item.item_code}
               </a>
             ),
+            code: `${item.item_code} - ${item.item_name}`,
             item_name: (
               <a href={`/schedule/${props.name}/${item._id}`}>
                 {item.item_name}
@@ -147,6 +155,40 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
     setRefresh(true);
   };
 
+  const getSelected = () => {
+    const isSelect = data.filter((item) => item.checked === true);
+    return isSelect;
+  };
+
+  const onDelete = async (e: any[]): Promise<void> =>
+    AlertModal.confirmation({
+      onConfirm: async (): Promise<void> => {
+        const data: any[] = getSelected();
+        setLoading(true);
+        try {
+          setActiveProgress(true);
+          for (const item of data) {
+            await GetDataServer(DataAPI.SCHEDULEITEM).DELETE(item.id);
+            const index = data.indexOf(item);
+            let percent = (100 / data.length) * (index + 1);
+            setCurrentIndex(index);
+            setOnDeleteProgress(item.code);
+            setCurrentPercent(percent);
+            setTotalIndex(data.length);
+          }
+          onRefresh();
+        } catch (error: any) {
+          AlertModal.Default({
+            icon: "error",
+            title: "Error",
+            text: error.response.data.msg ?? "Error Network",
+          });
+          setLoading(false);
+          setActiveProgress(false);
+        }
+      },
+    });
+
   useEffect(() => {
     getData();
   }, []);
@@ -165,18 +207,20 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
     <div className="min-h-[300px] max-h-[400px] flex">
       {loading ? (
         <div className="w-full  flex items-center justify-center">
-          <HashLoader
-            color="#36d7b6"
-            loading={true}
-            // cssOverride={override}
-            size={40}
-            aria-label="Loading Spinner"
-            data-testid="loader"
+          <LoadingComponent
+            animate={{ icon: HashLoader, color: "#36d7b6", size: 40 }}
+            showProgress={{
+              active: activeProgress,
+              currentIndex: currentIndex,
+              currentPercent: currentPercent,
+              onProgress: onDeleteProgress,
+              totalIndex: totalIndex,
+            }}
           />
         </div>
       ) : (
         <TableComponent
-          moreSelected={[{ name: "Delete", onClick: () => alert("d") }]}
+          moreSelected={[{ name: "Delete", onClick: onDelete }]}
           setSearch={setSeacrh}
           setData={setData}
           listFilter={listFilter}
@@ -211,7 +255,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
             onCLick: () => alert("dd"),
             status: props.status == 1 || props.status == 0,
             title: "Update Data",
-            icon: { icon: SyncAltIcon,className:'mr-1 mt-1' ,size:13},
+            icon: { icon: SyncAltIcon, className: "mr-1 mt-1", size: 13 },
           }}
         />
       )}
