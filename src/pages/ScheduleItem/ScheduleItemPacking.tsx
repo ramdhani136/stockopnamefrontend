@@ -98,7 +98,11 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
             checked: false,
             packing: item.id_packing,
             id_packing: (
-              <button onClick={() => ShowModalPackingId(item)}>
+              <button
+                onClick={() => {
+                  ShowModalPackingId(item);
+                }}
+              >
                 {item.id_packing}
               </button>
             ),

@@ -57,7 +57,6 @@ const ModalPackingId: React.FC = () => {
         setLoading(false);
       }
     } catch (error) {
-      console.log(error);
       setHasmore(false);
       setLoading(false);
     }
@@ -84,7 +83,6 @@ const ModalPackingId: React.FC = () => {
         };
 
         if (modalData._id) {
-          console.log(modalData);
           await GetDataServer(DataAPI.PACKING).UPDATE({
             data: { actual_qty: actualQty.valueData },
             id: modalData._id,
@@ -143,6 +141,7 @@ const ModalPackingId: React.FC = () => {
       ) : (
         <>
           <InputComponent
+            disabled={dataModal.props.schedule.status != 1}
             infiniteScroll={{
               hasMore: hasMore,
               next: getData,
@@ -206,6 +205,7 @@ const ModalPackingId: React.FC = () => {
           )}
           {data.conversion && (
             <InputComponent
+              disabled={dataModal.props.schedule.status != 1}
               value={actualQty}
               onChange={(e) => {
                 if (e <= data.conversion && e >= 0) {
@@ -233,7 +233,7 @@ const ModalPackingId: React.FC = () => {
               className="mb-2 text-sm"
             />
           )}
-          {actualQty.valueInput && (
+          {actualQty.valueInput && dataModal.props.schedule.status == 1 && (
             <button
               onClick={onSave}
               className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-1 bg-green-600  text-sm text-white opacity-90 hover:opacity-100"
