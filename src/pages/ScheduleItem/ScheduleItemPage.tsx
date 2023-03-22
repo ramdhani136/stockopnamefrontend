@@ -134,7 +134,7 @@ const ScheduleItemPage = () => {
         valueData: result.data.status,
         valueInput:
           result.data.status == 0
-            ? "Progress"
+            ? "Open"
             : result.data.status == 1
             ? "Completed"
             : "Not Match",

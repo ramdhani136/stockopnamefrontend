@@ -2,7 +2,10 @@ import moment from "moment";
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
-import { ButtonStatusComponent, InfoDateComponent } from "../../components/atoms";
+import {
+  ButtonStatusComponent,
+  InfoDateComponent,
+} from "../../components/atoms";
 import { IDataFilter } from "../../components/moleculs/FilterTableComponent";
 import TableComponent, {
   IColumns,
@@ -84,7 +87,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
                 status={item.status}
                 name={
                   item.status == 0
-                    ? "Progress"
+                    ? "Open"
                     : item.status == 1
                     ? "Completed"
                     : "Not Match"
@@ -103,7 +106,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
             ),
             updatedAt: (
               <div className="inline text-gray-600 text-[0.93em]">
-                <InfoDateComponent date={item.updatedAt} className='-ml-9' />
+                <InfoDateComponent date={item.updatedAt} className="-ml-9" />
               </div>
             ),
           };
