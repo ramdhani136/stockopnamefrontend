@@ -2,7 +2,7 @@ import moment from "moment";
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
-import { ButtonStatusComponent } from "../../components/atoms";
+import { ButtonStatusComponent, InfoDateComponent } from "../../components/atoms";
 import { IDataFilter } from "../../components/moleculs/FilterTableComponent";
 import TableComponent, {
   IColumns,
@@ -103,10 +103,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
             ),
             updatedAt: (
               <div className="inline text-gray-600 text-[0.93em]">
-                <h5 className="mr-2 inline">-</h5>
-                <h5 className="inline">
-                  {moment(`${item.updatedAt}`).fromNow()}
-                </h5>
+                <InfoDateComponent date={item.updatedAt} className='-ml-12' />
               </div>
             ),
           };
