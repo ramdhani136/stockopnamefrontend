@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { ButtonStatusComponent, IconButton } from "../../components/atoms";
+import { ButtonStatusComponent, IconButton, InfoDateComponent } from "../../components/atoms";
 import { AlertModal, LocalStorageType, Meta, useKey } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import AddIcon from "@mui/icons-material/Add";
@@ -89,10 +89,7 @@ export const SchedulePage: React.FC = (): any => {
             warehouse: item.warehouse,
             updatedAt: (
               <div className="inline text-gray-600 text-[0.93em]">
-                <h5 className="mr-2 inline">-</h5>
-                <h5 className="inline">
-                  {moment(`${item.updatedAt}`).fromNow()}
-                </h5>
+                <InfoDateComponent date={item.updatedAt} className='-ml-14' />
               </div>
             ),
           };
