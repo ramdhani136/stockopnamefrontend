@@ -195,6 +195,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
             setCurrentPercent(percent);
             setTotalIndex(data.length);
           }
+          setActiveProgress(false);
           onRefresh();
         } catch (error: any) {
           AlertModal.Default({
@@ -273,7 +274,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
           buttonInsert={{
             onCLick: getERPItem,
             status: props.status == 1 || props.status == 0,
-            title: "Update Data",
+            title: "Update List",
             icon: { icon: SyncAltIcon, className: "mr-1 mt-1", size: 13 },
           }}
         />
