@@ -204,7 +204,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
             setLoading(true);
             setRefresh(true);
           }}
-          disabled={props.status != 1}
+          disabled={props.status != 1 && props.status != 0}
         />
       )}
     </div>
