@@ -22,7 +22,13 @@ export interface IColumns {
   className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
 }
 
+interface IButtonInsert {
+  onCLick(): void | Promise<void>;
+  status: Boolean;
+}
+
 interface Iprops {
+  disabled?: Boolean;
   columns: IColumns[];
   data: IDataTables[];
   setData: any;
@@ -35,7 +41,7 @@ interface Iprops {
   setOrderBy(): void | Promise<void>;
   getAllData(): void | Promise<void>;
   onRefresh(): void | Promise<void>;
-  onNewData?(): void | Promise<void>;
+  buttonInsert?: IButtonInsert;
   titleNewData?: string;
   listFilter: IDataFilter[];
   filter: any[];
@@ -43,7 +49,7 @@ interface Iprops {
   localStorage?: LocalStorageType;
   setSearch: any;
   className?: React.HTMLAttributes<HTMLDivElement> | string | undefined;
-  moreSelected?:IListIconButton[];
+  moreSelected?: IListIconButton[];
 }
 
 const TableComponent: React.FC<Iprops> = ({
@@ -64,10 +70,11 @@ const TableComponent: React.FC<Iprops> = ({
   setData,
   setSearch,
   className,
-  onNewData,
+  buttonInsert,
   onRefresh,
   moreSelected,
   titleNewData,
+  disabled,
 }) => {
   const [value, setValue] = useState<any>("");
   const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -144,9 +151,9 @@ const TableComponent: React.FC<Iprops> = ({
             )}
           </div>
           <div className="flex">
-            {onNewData && (
+            {buttonInsert && buttonInsert.status && (
               <IconButton
-                callback={onNewData}
+                callback={buttonInsert.onCLick}
                 name={titleNewData ?? "New Data"}
                 className="py-1 px-2 mr-[7px] opacity-70 bg-green-800 border-green-900 hover:opacity-100 duration-300"
                 iconSize={17}
@@ -229,6 +236,7 @@ const TableComponent: React.FC<Iprops> = ({
                         type="checkbox"
                         onChange={(e) => handleAllChecked(e)}
                         checked={selectAll}
+                        disabled={disabled ? true : false}
                       />
                     </th>
                     {columns.map((col, index) => (
@@ -255,6 +263,7 @@ const TableComponent: React.FC<Iprops> = ({
                           type="checkbox"
                           checked={item.checked}
                           onChange={() => handleChange(item.id)}
+                          disabled={disabled ? true : false}
                         />
                       </td>
                       {columns.map((col: IColumns, id) => (

@@ -86,8 +86,10 @@ const ScheduleItemPage = () => {
     { name: "Refresh Stock", onClick: () => alert("print") },
   ]);
 
+
   const getData = async (): Promise<void> => {
     try {
+
       const result = await GetDataServer(DataAPI.SCHEDULEITEM).FINDONE(
         `${scheduleItem}`
       );

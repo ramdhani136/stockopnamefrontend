@@ -200,6 +200,7 @@ const FormSchedulePage: React.FC = () => {
     });
   };
 
+
   useEffect(() => {
     if (id) {
       getData();

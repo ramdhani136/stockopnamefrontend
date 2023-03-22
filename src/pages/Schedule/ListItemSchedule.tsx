@@ -44,6 +44,7 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
     []
   );
 
+
   const getData = async (): Promise<any> => {
     try {
       const result: any = await GetDataServer(DataAPI.SCHEDULEITEM).FIND({
@@ -147,6 +148,8 @@ const ListItemSchedule: React.FC<IProps> = ({ id }) => {
   useEffect(() => {
     onRefresh();
   }, [filter, search]);
+
+
 
   return (
     <div className="min-h-[300px] max-h-[400px] flex">

@@ -96,7 +96,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
           return {
             id: item._id,
             checked: false,
-            packing:item.id_packing,
+            packing: item.id_packing,
             id_packing: (
               <a href={`/schedule/${props._id}/${item._id}`}>
                 {item.id_packing}
@@ -281,8 +281,12 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
             setLoading(true);
             setRefresh(true);
           }}
-          onNewData={ShowModalPackingId}
+          buttonInsert={{
+            status: props.schedule.status == 1,
+            onCLick: ShowModalPackingId,
+          }}
           titleNewData="Insert Packing ID"
+          disabled={props.schedule.status != 1}
         />
       )}
     </div>
