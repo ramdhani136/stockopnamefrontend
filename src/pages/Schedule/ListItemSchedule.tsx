@@ -10,7 +10,7 @@ import TableComponent, {
 } from "../../components/organisme/TableComponent";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
-import { AlertModal } from "../../utils";
+import { AlertModal, FetchApi } from "../../utils";
 import { LoadingComponent } from "../../components/moleculs";
 
 interface IProps {
@@ -155,6 +155,25 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
     setRefresh(true);
   };
 
+  const getERPItem = (): void => {
+    AlertModal.confirmation({
+      onConfirm: async (): Promise<void> => {
+        try {
+          setLoading(true);
+          const uri = `${import.meta.env.VITE_PUBLIC_URI}/schedule/refresh/${
+            props.name
+          }`;
+          await FetchApi.get(uri);
+          onRefresh();
+        } catch (error) {
+          setLoading(false);
+        }
+      },
+      confirmButtonText: "Yes, do it!",
+      text: "This will take a lot of time",
+    });
+  };
+
   const getSelected = () => {
     const isSelect = data.filter((item) => item.checked === true);
     return isSelect;
@@ -252,7 +271,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
           }}
           disabled={props.status != 1 && props.status != 0}
           buttonInsert={{
-            onCLick: () => alert("dd"),
+            onCLick: getERPItem,
             status: props.status == 1 || props.status == 0,
             title: "Update Data",
             icon: { icon: SyncAltIcon, className: "mr-1 mt-1", size: 13 },

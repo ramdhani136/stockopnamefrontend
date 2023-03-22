@@ -97,6 +97,7 @@ class RequestData implements IData {
     }
   };
 
+
   DELETE = async (id: String | number): Promise<any> => {
     try {
       const uri = `${import.meta.env.VITE_PUBLIC_URI}/${this.data}/${id}`;
