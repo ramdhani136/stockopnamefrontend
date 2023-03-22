@@ -103,7 +103,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
             ),
             updatedAt: (
               <div className="inline text-gray-600 text-[0.93em]">
-                <InfoDateComponent date={item.updatedAt} className='-ml-12' />
+                <InfoDateComponent date={item.updatedAt} className='-ml-9' />
               </div>
             ),
           };
