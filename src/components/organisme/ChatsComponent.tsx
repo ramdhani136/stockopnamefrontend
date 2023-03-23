@@ -57,7 +57,7 @@ const ChatsComponent: React.FC = () => {
   return (
     <div
       ref={modalRef}
-      className={`border w-[300px] h-[410px] absolute bg-white z-[300] right-[30px]  duration-300 rounded-t-lg shadow-md flex flex-col ${
+      className={`border w-[300px] h-[410px] absolute bg-white z-[300] right-[30px]  duration-500 rounded-t-lg shadow-md flex flex-col ${
         open ? "bottom-0" : "-bottom-[370px]"
       }`}
     >
@@ -85,7 +85,7 @@ const ChatsComponent: React.FC = () => {
           </div>
           <div className="flex flex-col ml-2">
             {/* <b className="text-[0.75em] font-medium">Chat Messager</b> */}
-            <b className="text-[0.75em] font-medium">Ryan Hadi Dermawan</b>
+            <b className="text-[0.78em] font-medium">Ryan Hadi Dermawan</b>
             <h4
               className={`${
                 open ? "text-[0.65em]" : "text-[0px]"
@@ -114,8 +114,8 @@ const ChatsComponent: React.FC = () => {
       </div>
       <div className="h-auto  flex items-center px-2 py-2">
         <CharIconButtonComponent />
-        <div className="h-auto border w-full bg-[#f1f2f6]  rounded-lg ml-2 flex py-2 items-end">
-          <textarea className="w-full h-auto max-h-[100px]  block outline-none overflow-hidden resize-none bg-[#f1f2f6] rounded-lg px-4 text-gray-800 text-sm" />
+        <div className="h-auto border w-full bg-[#f1f2f6]  rounded-lg ml-2 flex py-2 items-center">
+          <textarea className="w-full h-auto max-h-[100px]  block outline-none overflow-hidden resize-none bg-[#f1f2f6] rounded-lg px-2 text-gray-800 text-sm" />
           <InsertEmoticonRoundedIcon className="mr-1 cursor-pointer text-blue-500" />
         </div>
       </div>
