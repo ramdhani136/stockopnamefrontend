@@ -57,11 +57,15 @@ const ChatsComponent: React.FC = () => {
   return (
     <div
       ref={modalRef}
-      className={`border w-[300px] h-[410px] absolute bg-white z-[300] right-[30px]  duration-500 rounded-t-lg shadow-md flex flex-col ${
-        open ? "bottom-0" : "-bottom-[370px]"
+      className={`border  h-[410px] absolute bg-white z-[300] right-[20px]  duration-500 rounded-t-lg shadow-md flex flex-col ${
+        open ? "bottom-0 w-[300px]" : "-bottom-[374px] w-[230px]"
       }`}
     >
-      <div className="h-10 border-b  shadow-sm flex justify-evenly  items-center">
+      <div
+        className={`${
+          open ? "h-10" : "h-9"
+        } border-b  shadow-sm flex justify-evenly  items-center duration-500`}
+      >
         <div className="flex flex-1 items-center">
           {open && (
             <div className="ml-2 relative">
@@ -75,12 +79,12 @@ const ChatsComponent: React.FC = () => {
             <Avatar
               alt="Ryan Hadi Dermawan"
               src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
-              sx={{ width: 30, height: 30 }}
+              sx={{ width: open ? 30 : 25, height: open ? 30 : 25 }}
               className={` cursor-pointer`}
             />
             <CircleIcon
               className={`absolute bottom-0 right-4 text-green-600 border border-white rounded-full bg-white`}
-              style={{ fontSize: 10 }}
+              style={{ fontSize: open ? 10 : 8 }}
             />
           </div>
           <div className="flex flex-col ml-2">
