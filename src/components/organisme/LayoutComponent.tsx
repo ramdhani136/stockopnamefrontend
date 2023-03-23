@@ -11,6 +11,7 @@ import {
   modalSet,
   selectModal,
 } from "../../redux/slices/ModalSlice";
+import ChatsComponent from "./ChatsComponent";
 
 interface IProps {
   Child: React.FC;
@@ -50,7 +51,7 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
 
   return (
     <>
-      <div className="flex h-screen">
+      <div className="flex h-screen relative overflow-hidden">
         <ModalComponent
           isVisible={dataModal.active}
           onClose={onCLose}
@@ -63,6 +64,7 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
             <Child />
           </section>
         </div>
+        <ChatsComponent/>
       </div>
     </>
   );
