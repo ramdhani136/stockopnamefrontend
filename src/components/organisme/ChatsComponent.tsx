@@ -6,6 +6,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import MinimizeIcon from "@mui/icons-material/Minimize";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded";
+import gambar from "../../assets/images/nomessage.svg";
 
 interface IPropsChatButton {
   onCLick?(e?: any): void | Promise<void>;
@@ -58,7 +59,9 @@ const ChatsComponent: React.FC = () => {
     <div
       ref={modalRef}
       className={`border  h-[410px] absolute bg-white z-[300]   duration-500 rounded-t-lg shadow-md flex flex-col ${
-        open ? "bottom-0 w-[300px] right-[20px]" : "-bottom-[375px] w-[230px] right-[5px]"
+        open
+          ? "bottom-0 w-[300px] right-[20px]"
+          : "-bottom-[375px] w-[230px] right-[5px]"
       }`}
     >
       <div
@@ -111,8 +114,9 @@ const ChatsComponent: React.FC = () => {
         </div>
       </div>
       <div className="flex-1 bg-white overflow-y-auto scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
-        <div className="w-full h-full flex justify-center items-center">
-          <h4 className="text-sm text-gray-400 italic">No Chat</h4>
+        <div className="w-full h-full flex flex-col justify-center items-center">
+          <img src={gambar} alt="nomessage" className="w-[160px]" />
+          <h4 className="text-[0.8em] text-gray-400  mt-4">No Message</h4>
         </div>
         {/* <div className="h-[10000px] border"></div> */}
       </div>
@@ -120,7 +124,7 @@ const ChatsComponent: React.FC = () => {
         <CharIconButtonComponent />
         <div className="h-auto border w-full bg-[#f1f2f6]  rounded-lg ml-2 flex py-2 items-center">
           <textarea className="w-full h-auto max-h-[100px]  block outline-none overflow-hidden resize-none bg-[#f1f2f6] rounded-lg px-2 text-gray-800 text-sm" />
-          <InsertEmoticonRoundedIcon className="mr-1 cursor-pointer text-blue-500" />
+          <InsertEmoticonRoundedIcon className="mr-1 cursor-pointer text-[#2491f0]" />
         </div>
       </div>
     </div>
