@@ -51,7 +51,7 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
 
   return (
     <>
-      <div className="flex h-screen relative overflow-hidden">
+      <div className="flex h-screen relative overflow-y-hidden">
         <ModalComponent
           isVisible={dataModal.active}
           onClose={onCLose}
