@@ -58,7 +58,7 @@ const ChatsComponent: React.FC = () => {
   return (
     <div
       ref={modalRef}
-      className={`border  h-[410px] absolute bg-white z-[300]   duration-500 rounded-t-lg shadow-md flex flex-col ${
+      className={`border  h-[410px] absolute bg-white z-[300]   duration-300 rounded-t-lg shadow-md flex flex-col ${
         open
           ? "bottom-0 w-[300px] right-[20px]"
           : "-bottom-[375px] w-[230px] right-[5px]"
