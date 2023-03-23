@@ -5,6 +5,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 // import CloseIcon from "@mui/icons-material/Close";
 import MinimizeIcon from "@mui/icons-material/Minimize";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded";
 
 interface IPropsChatButton {
   onCLick?(e?: any): void | Promise<void>;
@@ -37,7 +38,7 @@ const CharIconButtonComponent = React.memo(ChatIconButton);
 export { CharIconButtonComponent };
 
 const ChatsComponent: React.FC = () => {
-  const [open, setOpen] = useState<Boolean>(true);
+  const [open, setOpen] = useState<Boolean>(false);
   const modalRef = useRef<any>();
 
   useEffect(() => {
@@ -56,11 +57,11 @@ const ChatsComponent: React.FC = () => {
   return (
     <div
       ref={modalRef}
-      className={`border w-[300px] h-[400px] absolute bg-white z-[300] right-[30px]  duration-300 rounded-t-lg shadow-md flex flex-col ${
-        open ? "bottom-0" : "-bottom-[360px]"
+      className={`border w-[300px] h-[410px] absolute bg-white z-[300] right-[30px]  duration-300 rounded-t-lg shadow-md flex flex-col ${
+        open ? "bottom-0" : "-bottom-[370px]"
       }`}
     >
-      <div className="h-10 border-bottom shadow-sm flex justify-evenly  items-center">
+      <div className="h-10 border-b  shadow-sm flex justify-evenly  items-center">
         <div className="flex flex-1 items-center">
           {open && (
             <div className="ml-2 relative">
@@ -72,9 +73,9 @@ const ChatsComponent: React.FC = () => {
           )}
           <div className={`relative ${!open && "ml-2"}`}>
             <Avatar
-              alt="Ilham Ramdhani"
-              src="https://img.freepik.com/premium-photo/profile-side-photo-positive-cheerful-programmer-guy-use-computer_274222-19547.jpg"
-              sx={{ width: 31, height: 31 }}
+              alt="Ryan Hadi Dermawan"
+              src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
+              sx={{ width: 30, height: 30 }}
               className={` cursor-pointer`}
             />
             <CircleIcon
@@ -83,11 +84,12 @@ const ChatsComponent: React.FC = () => {
             />
           </div>
           <div className="flex flex-col ml-2">
-            <b className="text-[0.8em] font-medium">Ilham Ramdhani</b>
+            {/* <b className="text-[0.75em] font-medium">Chat Messager</b> */}
+            <b className="text-[0.75em] font-medium">Ryan Hadi Dermawan</b>
             <h4
               className={`${
                 open ? "text-[0.65em]" : "text-[0px]"
-              } text-gray-500 -mt-1 font-normal duration-500`}
+              } text-gray-500 -mt-[2px] font-normal duration-500`}
             >
               Sedang Aktif
             </h4>
@@ -104,13 +106,18 @@ const ChatsComponent: React.FC = () => {
           /> */}
         </div>
       </div>
-      <div className="flex-1 border overflow-y-auto scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
+      <div className="flex-1 bg-white overflow-y-auto scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
         <div className="w-full h-full flex justify-center items-center">
-          <h4 className="text-sm text-gray-400">No Chat</h4>
+          <h4 className="text-sm text-gray-400 italic">No Chat</h4>
         </div>
+        {/* <div className="h-[10000px] border"></div> */}
       </div>
-      <div className="h-10 border flex items-center px-2">
+      <div className="h-auto  flex items-center px-2 py-2">
         <CharIconButtonComponent />
+        <div className="h-auto border w-full bg-[#f1f2f6]  rounded-lg ml-2 flex py-2 items-end">
+          <textarea className="w-full h-auto max-h-[100px]  block outline-none overflow-hidden resize-none bg-[#f1f2f6] rounded-lg px-4 text-gray-800 text-sm" />
+          <InsertEmoticonRoundedIcon className="mr-1 cursor-pointer text-blue-500" />
+        </div>
       </div>
     </div>
   );
