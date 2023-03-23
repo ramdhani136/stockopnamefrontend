@@ -27,7 +27,7 @@ const ChatIconButton: React.FC<IPropsChatButton> = ({ onCLick }) => {
         }}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        className="text-gray-400 cursor-pointer"
+        className="text-[#2491f0] cursor-pointer"
         style={{ fontSize: 20 }}
       />
     </div>

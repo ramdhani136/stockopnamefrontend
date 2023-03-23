@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LocalStorage, LocalStorageType } from "../../utils";
+import { LocalStorage, LocalStorageType, SocketIO } from "../../utils";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import SidebarComponent from "./SidebarComponent";
@@ -21,8 +21,15 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
   const [user, setUser] = useState<any>({});
   const dataModal: ISliceModal = useSelector(selectModal);
 
+  const GetSocket = (): void => {
+    SocketIO.on("message", (data) => {
+      console.log("tesf");
+    });
+  };
+
   const navigate = useNavigate();
   useEffect(() => {
+    GetSocket();
     const token = LocalStorage.loadData(LocalStorageType.TOKEN);
     if (token) {
       const decoded: any = jwt_decode(token);
@@ -41,13 +48,10 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
         active: false,
         Children: null,
         title: "",
-        props:null
+        props: null,
       })
     );
   };
-
-
-
 
   return (
     <>
@@ -64,7 +68,7 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
             <Child />
           </section>
         </div>
-        <ChatsComponent/>
+        <ChatsComponent />
       </div>
     </>
   );

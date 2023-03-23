@@ -5,6 +5,7 @@ import { FetchApi } from "./FetchApi";
 import useKey from "./UseKey";
 import AlertModal from "./AlertModal";
 import FilterKata from "./FilterKata";
+import SocketIO from "./SocketIO";
 
 export {
   Meta,
@@ -14,4 +15,5 @@ export {
   useKey,
   AlertModal,
   FilterKata,
+  SocketIO,
 };
