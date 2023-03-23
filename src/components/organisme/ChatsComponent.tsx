@@ -57,8 +57,8 @@ const ChatsComponent: React.FC = () => {
   return (
     <div
       ref={modalRef}
-      className={`border  h-[410px] absolute bg-white z-[300] right-[20px]  duration-500 rounded-t-lg shadow-md flex flex-col ${
-        open ? "bottom-0 w-[300px]" : "-bottom-[374px] w-[230px]"
+      className={`border  h-[410px] absolute bg-white z-[300]   duration-500 rounded-t-lg shadow-md flex flex-col ${
+        open ? "bottom-0 w-[300px] right-[20px]" : "-bottom-[374px] w-[230px] right-[10px]"
       }`}
     >
       <div
@@ -92,8 +92,8 @@ const ChatsComponent: React.FC = () => {
             <b className="text-[0.78em] font-medium">Ryan Hadi Dermawan</b>
             <h4
               className={`${
-                open ? "text-[0.65em]" : "text-[0px]"
-              } text-gray-500 -mt-[2px] font-normal duration-500`}
+                open ? "text-[0.68em]" : "text-[0px]"
+              } text-gray-500 -mt-[3px] font-normal duration-500`}
             >
               Sedang Aktif
             </h4>
