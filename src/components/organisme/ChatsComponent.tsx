@@ -7,7 +7,9 @@ import MinimizeIcon from "@mui/icons-material/Minimize";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded";
 import gambar from "../../assets/images/nomessage.svg";
-import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
+import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
+import { InputComponent } from "../atoms";
+import { IValue } from "../atoms/InputComponent";
 
 interface IPropsChatButton {
   onCLick?(e?: any): void | Promise<void>;
@@ -42,6 +44,10 @@ export { CharIconButtonComponent };
 const ChatsComponent: React.FC = () => {
   const [open, setOpen] = useState<Boolean>(false);
   const modalRef = useRef<any>();
+  const [search, setSearch] = useState<IValue>({
+    valueData: null,
+    valueInput: "",
+  });
 
   useEffect(() => {
     let handler = (e: any) => {
@@ -94,9 +100,9 @@ const ChatsComponent: React.FC = () => {
 
           <div className="flex flex-col ml-2">
             <div className="flex items-center">
-              <TextsmsOutlinedIcon
+              <QuestionAnswerOutlinedIcon
                 style={{ fontSize: 13 }}
-                className="mr-2 mt-[2px] "
+                className="mr-1 mt-[2px] "
               />
               <b className="text-[0.75em] font-medium">Chat Messager</b>
             </div>
@@ -121,12 +127,26 @@ const ChatsComponent: React.FC = () => {
       </div>
       <div className="flex-1 bg-white overflow-y-auto scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
         <>
-          <div className="w-full h-full flex flex-col justify-center items-center">
+          {/* <div className="w-full h-full flex flex-col justify-center items-center">
             <img src={gambar} alt="nomessage" className="w-[160px]" />
             <h4 className="text-[0.8em] text-gray-400  mt-4">No Message</h4>
-          </div>
+          </div> */}
           {/* <div className="h-[10000px] border"></div> */}
         </>
+        <div className="w-full h-full  flex flex-col">
+          <div className="mx-2 mt-2 ">
+            <InputComponent
+              value={search}
+              onChange={(e) => setSearch({ ...search, valueInput: e })}
+              placeholder="Search Name"
+              inputStyle="placeholder:text-[0.9em] text-sm"
+              onReset={() => setSearch({ valueData: null, valueInput: "" })}
+            />
+          </div>
+          <div className="flex-1  scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
+            <div className="h-[1000px]"></div>
+          </div>
+        </div>
       </div>
       <div className="h-auto  flex items-center px-2 py-2">
         <CharIconButtonComponent />
