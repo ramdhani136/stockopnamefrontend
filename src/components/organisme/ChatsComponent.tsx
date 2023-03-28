@@ -4,42 +4,11 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CircleIcon from "@mui/icons-material/Circle";
 // import CloseIcon from "@mui/icons-material/Close";
 import MinimizeIcon from "@mui/icons-material/Minimize";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded";
-import gambar from "../../assets/images/nomessage.svg";
+
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
 import ChatsConversions from "./ChatsConversions";
 import { LoadingComponent } from "../moleculs";
-
-interface IPropsChatButton {
-  onCLick?(e?: any): void | Promise<void>;
-}
-
-const ChatIconButton: React.FC<IPropsChatButton> = ({ onCLick }) => {
-  const [hover, setHover] = useState<Boolean>(false);
-  return (
-    <div>
-      {hover && (
-        <h4 className="absolute border bg-gray-700 text-white text-[0.75em]  text-center rounded-lg p-[4px] px-2 -mt-6 shadow-md">
-          File Attachment
-        </h4>
-      )}
-      <AddPhotoAlternateIcon
-        onClick={() => {
-          onCLick && onCLick();
-        }}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        className="text-[#2491f0] cursor-pointer"
-        style={{ fontSize: 20 }}
-      />
-    </div>
-  );
-};
-
-const CharIconButtonComponent = React.memo(ChatIconButton);
-
-export { CharIconButtonComponent };
+import ChatMessageComponent from "./ChatMessageComponent";
 
 const ChatsComponent: React.FC = () => {
   const [open, setOpen] = useState<Boolean>(false);
@@ -110,7 +79,9 @@ const ChatsComponent: React.FC = () => {
               </div>
             ) : (
               <>
-                <b className="text-[0.75em] font-medium">{userConversation.name}</b>
+                <b className="text-[0.75em] font-medium">
+                  {userConversation.name}
+                </b>
                 <h4
                   className={`${
                     open ? "text-[0.68em]" : "text-[0px]"
@@ -133,12 +104,7 @@ const ChatsComponent: React.FC = () => {
         {loading ? (
           <LoadingComponent />
         ) : userConversation._id ? (
-          <>
-            <div className="w-full h-full flex flex-col justify-center items-center">
-              <img src={gambar} alt="nomessage" className="w-[160px]" />
-              <h4 className="text-[0.8em] text-gray-400  mt-4">No Message</h4>
-            </div>
-          </>
+          <ChatMessageComponent userConversation={userConversation} />
         ) : (
           <ChatsConversions
             setLoading={setLoading}
@@ -146,7 +112,7 @@ const ChatsComponent: React.FC = () => {
           />
         )}
       </div>
-      {userConversation._id && (
+      {/* {userConversation._id && (
         <div className="h-auto  flex items-center px-2 py-2">
           <CharIconButtonComponent />
           <div className="h-auto border w-full bg-[#f1f2f6]  rounded-lg ml-2 flex py-2 items-center">
@@ -154,7 +120,7 @@ const ChatsComponent: React.FC = () => {
             <InsertEmoticonRoundedIcon className="mr-1 cursor-pointer text-[#2491f0]" />
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

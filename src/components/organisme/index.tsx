@@ -4,6 +4,7 @@ import SidebarComponent from "./SidebarComponent";
 import TableComponent from "./TableComponent";
 import ChatsComponent from "./ChatsComponent";
 import ChatsConversions from "./ChatsConversions";
+import ChatMessageComponent from "./ChatMessageComponent";
 
 export {
   LayoutComponent,
@@ -12,4 +13,5 @@ export {
   TableComponent,
   ChatsComponent,
   ChatsConversions,
+  ChatMessageComponent
 };
