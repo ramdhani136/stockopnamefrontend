@@ -57,7 +57,6 @@ const ChatsComponent: React.FC = () => {
 
   const getUsers = async (): Promise<void> => {
     try {
-      console.log(search.valueData);
       const result: any = await GetDataServer(DataAPI.USERS).FIND({
         filters: [
           // ["_id", "=", dataModal.props.item_code],
