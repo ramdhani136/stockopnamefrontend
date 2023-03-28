@@ -108,6 +108,12 @@ const ChatsComponent: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (open) {
+      console.log("dd");
+    }
+  }, [open]);
+
   return (
     <div
       ref={modalRef}
@@ -221,7 +227,7 @@ const ChatsComponent: React.FC = () => {
               </div>
               <div className="ml-2 flex flex-col justify-center">
                 <b className="text-[0.85em]">Ryan Hadi Dermawan</b>
-                <h5 className="text-[0.78em] text-gray-500 -mt-[3px]">
+                <h5 className="text-[0.8em] text-gray-500 -mt-[3px]">
                   Halo Apa kabar? ...
                 </h5>
               </div>
@@ -241,7 +247,7 @@ const ChatsComponent: React.FC = () => {
               </div>
               <div className="ml-2 flex flex-col justify-center">
                 <b className="text-[0.85em]">Jamiludin</b>
-                <h5 className="text-[0.78em] text-gray-500  -mt-[3px]">
+                <h5 className="text-[0.8em] text-gray-500  -mt-[3px]">
                   Coba cari di warung jambu ...
                 </h5>
               </div>
