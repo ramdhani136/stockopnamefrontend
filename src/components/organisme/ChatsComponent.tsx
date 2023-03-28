@@ -9,6 +9,7 @@ import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded
 import gambar from "../../assets/images/nomessage.svg";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
 import ChatsConversions from "./ChatsConversions";
+import { LoadingComponent } from "../moleculs";
 
 interface IPropsChatButton {
   onCLick?(e?: any): void | Promise<void>;
@@ -43,6 +44,7 @@ export { CharIconButtonComponent };
 const ChatsComponent: React.FC = () => {
   const [open, setOpen] = useState<Boolean>(false);
   const modalRef = useRef<any>();
+  const [loading, setLoading] = useState<Boolean>(false);
 
   useEffect(() => {
     let handler = (e: any) => {
@@ -128,7 +130,12 @@ const ChatsComponent: React.FC = () => {
           </div> */}
           {/* <div className="h-[10000px] border"></div> */}
         </>
-        <ChatsConversions open={open} />
+
+        {loading ? (
+          <LoadingComponent />
+        ) : (
+          <ChatsConversions  setLoading={setLoading} />
+        )}
       </div>
       {/* <div className="h-auto  flex items-center px-2 py-2">
         <CharIconButtonComponent />

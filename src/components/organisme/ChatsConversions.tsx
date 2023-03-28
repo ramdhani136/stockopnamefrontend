@@ -6,10 +6,10 @@ import { IListInput, IValue } from "../atoms/InputComponent";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 
 interface IProps {
-  open: Boolean;
+  setLoading: any;
 }
 
-const ChatsConversions: React.FC<IProps> = ({ open }) => {
+const ChatsConversions: React.FC<IProps> = ({ setLoading }) => {
   const [listUser, setListUser] = useState<IListInput[]>([]);
   const [conversions, setConversions] = useState<any[]>([]);
   const [loadingUser, setLoadingUser] = useState<Boolean>(false);
@@ -57,15 +57,26 @@ const ChatsConversions: React.FC<IProps> = ({ open }) => {
     }
   };
 
+  const getConversion = async (): Promise<void> => {
+    try {
+      const result: any = await GetDataServer(DataAPI.CHAT).FIND({});
+      if (result.data.length > 0) {
+        console.log(result.data);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getUsers();
   }, [search.valueData]);
 
   useEffect(() => {
-    if (open) {
-      console.log("refresh");
-    }
-  }, [open]);
+    getConversion();
+  }, []);
 
   return (
     <div className="w-full h-full  flex flex-col">
