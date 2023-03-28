@@ -114,7 +114,7 @@ const InputComponent: React.FC<IProps> = ({
       return () => {
         clearTimeout(timeoutId);
       };
-    }, [value]);
+    }, [value.valueInput]);
 
   return (
     <>

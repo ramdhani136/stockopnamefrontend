@@ -57,6 +57,7 @@ const ChatsComponent: React.FC = () => {
 
   const getUsers = async (): Promise<void> => {
     try {
+      console.log(search.valueData);
       const result: any = await GetDataServer(DataAPI.USERS).FIND({
         filters: [
           // ["_id", "=", dataModal.props.item_code],
@@ -83,6 +84,10 @@ const ChatsComponent: React.FC = () => {
       setLoadingUser(false);
     }
   };
+
+  useEffect(() => {
+    getUsers();
+  }, [search.valueData]);
 
   useEffect(() => {
     let handler = (e: any) => {
@@ -185,7 +190,7 @@ const ChatsComponent: React.FC = () => {
                 hasMore: hasMore,
                 next: getUsers,
                 onSearch: (e) => {
-                  // setSearch({ ...search, valueData: e });
+                  setSearch({ ...search, valueData: e });
                   setListUser([]);
                   setHasmore(false);
                   setPage(1);
