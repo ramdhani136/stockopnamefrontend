@@ -76,7 +76,14 @@ const ChatsComponent: React.FC = () => {
             };
           }
         );
-        setListUser(listInput);
+        if (result.data.length < limit) {
+          setHasmore(false);
+        } else {
+          setHasmore(result.hasMore);
+        }
+
+        setPage(result.nextPage);
+        setListUser([...listUser, ...listInput]);
       }
       setLoadingUser(false);
     } catch (error) {
