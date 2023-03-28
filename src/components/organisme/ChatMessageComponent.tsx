@@ -61,14 +61,16 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
             sx={{ width: 25, height: 25 }}
             className={` cursor-pointer`}
           />
-          <h4 className="rounded-md mx-2 flex-1 p-2 bg-[#e5e6eb] cursor-pointer">
-            Iya kenapa pak?
-          </h4>
+          <div className="rounded-md mx-2 flex-1 p-2 bg-[#e5e6eb] cursor-pointer relative">
+            <h4> Iya kenapa pak?</h4>
+            <h4 className="absolute z-20 bg-gray-700 text-white rounded-md px-2 py-1 right-0 top-8 opacity-90 text-[0.85em]">12 Maret 2022 | 10:28 WIB</h4>
+          </div>
         </li>
-        <li className=" w-[80%] flex rounded-md mx-3 float-right mb-3">
-          <h4 className="rounded-md mx-2 flex-1  p-2 bg-[#0084ff] text-white">
-            Tolong carikan barang kain quilting dengan motif dora
-          </h4>
+        <li className=" w-[80%] flex rounded-md mx-3 float-right mb-3 relative">
+          <div className="rounded-md mx-2 flex-1  p-2 bg-[#0084ff] text-white">
+           <h4> Tolong carikan barang kain quilting dengan motif dora</h4>
+           <h4 className="absolute z-20 bg-gray-700 text-white rounded-md px-2 py-1 right-0 opacity-90 text-[0.85em]">12 Maret 2022 | 10:28 WIB</h4>
+          </div>
           <Avatar
             alt={`ILham Ramdhani`}
             src="0"
