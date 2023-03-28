@@ -139,6 +139,7 @@ const ChatsComponent: React.FC = () => {
               value={search}
               onChange={(e) => setSearch({ ...search, valueInput: e })}
               placeholder="Search Name"
+              className="h-9"
               inputStyle="placeholder:text-[0.9em] text-sm"
               onReset={() => setSearch({ valueData: null, valueInput: "" })}
             />
@@ -148,13 +149,13 @@ const ChatsComponent: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="h-auto  flex items-center px-2 py-2">
+      {/* <div className="h-auto  flex items-center px-2 py-2">
         <CharIconButtonComponent />
         <div className="h-auto border w-full bg-[#f1f2f6]  rounded-lg ml-2 flex py-2 items-center">
           <textarea className="w-full h-auto max-h-[100px]  block outline-none overflow-hidden resize-none bg-[#f1f2f6] rounded-lg px-2 text-gray-800 text-sm" />
           <InsertEmoticonRoundedIcon className="mr-1 cursor-pointer text-[#2491f0]" />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
