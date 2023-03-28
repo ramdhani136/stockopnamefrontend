@@ -63,13 +63,17 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
           />
           <div className="rounded-md mx-2 flex-1 p-2 bg-[#e5e6eb] cursor-pointer relative">
             <h4> Iya kenapa pak?</h4>
-            <h4 className="absolute z-20 bg-gray-700 text-white rounded-md px-2 py-1 right-0 top-8 opacity-90 text-[0.85em]">12 Maret 2022 | 10:28 WIB</h4>
+            <h4 className="absolute z-20 bg-gray-700 text-white rounded-md px-2 py-1 right-0 top-8 opacity-90 text-[0.85em]">
+              12 Maret 2022 | 10:28 WIB
+            </h4>
           </div>
         </li>
         <li className=" w-[80%] flex rounded-md mx-3 float-right mb-3 relative">
           <div className="rounded-md mx-2 flex-1  p-2 bg-[#0084ff] text-white">
-           <h4> Tolong carikan barang kain quilting dengan motif dora</h4>
-           <h4 className="absolute z-20 bg-gray-700 text-white rounded-md px-2 py-1 right-0 opacity-90 text-[0.85em]">12 Maret 2022 | 10:28 WIB</h4>
+            <h4> Tolong carikan barang kain quilting dengan motif dora</h4>
+            <h4 className="absolute z-20 bg-gray-700 text-white rounded-md px-2 py-1 right-0 opacity-90 text-[0.85em]">
+              12 Maret 2022 | 10:28 WIB
+            </h4>
           </div>
           <Avatar
             alt={`ILham Ramdhani`}
@@ -89,16 +93,6 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
             className={` cursor-pointer`}
           /> */}
         </li>
-        {/* <li className="border w-[70%] rounded-md mx-3 float-right -mt-[10px] mb-3 p-2 bg-[#0084ff] text-white">
-          Maaf Kepencet
-        </li>
-        <li className="border w-[70%] rounded-md mx-3 float-left mb-3 p-2 bg-[#e5e6eb]">
-          Coba sebentar saya carikan dulu.. tadi kalau tidak salah ada barang
-          masuk lagi untuk barang tersebut
-        </li>
-        <li className="border w-[70%] rounded-md mx-3 float-right mb-3 p-2 bg-[#0084ff] text-white">
-          Ok, Makasih
-        </li> */}
       </ul>
       {/* <div className=" flex flex-col justify-center items-center flex-1 border">
         <img src={gambar} alt="nomessage" className="w-[160px]" />
