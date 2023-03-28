@@ -4,17 +4,25 @@ import { InputComponent } from "../atoms";
 import CircleIcon from "@mui/icons-material/Circle";
 import { IListInput, IValue } from "../atoms/InputComponent";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
+import { LocalStorage, LocalStorageType } from "../../utils";
+import jwt_decode from "jwt-decode";
 
 interface IProps {
   setLoading: any;
 }
 
+interface IConversion {
+  user: { id: String; name: String };
+  latestMessage: any;
+}
+
 const ChatsConversions: React.FC<IProps> = ({ setLoading }) => {
   const [listUser, setListUser] = useState<IListInput[]>([]);
-  const [conversions, setConversions] = useState<any[]>([]);
+  const [conversions, setConversions] = useState<IConversion[]>([]);
   const [loadingUser, setLoadingUser] = useState<Boolean>(false);
   const [limit, setLimit] = useState<number>(20);
   const [page, setPage] = useState<number>(1);
+  const [user, setUser] = useState<any>({});
   const [hasMore, setHasmore] = useState<boolean>(false);
   const [search, setSearch] = useState<IValue>({
     valueData: null,
@@ -24,11 +32,7 @@ const ChatsConversions: React.FC<IProps> = ({ setLoading }) => {
   const getUsers = async (): Promise<void> => {
     try {
       const result: any = await GetDataServer(DataAPI.USERS).FIND({
-        filters: [
-          // ["_id", "=", dataModal.props.item_code],
-          // ["is_out", "=", 0],
-          // ["is_in", "=", 1],
-        ],
+        filters: [["_id", "!=", `${user._id}`]],
         limit: 10,
         page: page,
         search: search.valueData,
@@ -59,9 +63,23 @@ const ChatsConversions: React.FC<IProps> = ({ setLoading }) => {
 
   const getConversion = async (): Promise<void> => {
     try {
+      const token = LocalStorage.loadData(LocalStorageType.TOKEN);
+      let decoded: any;
+      if (token) {
+        decoded = jwt_decode(token);
+      }
       const result: any = await GetDataServer(DataAPI.CHAT).FIND({});
       if (result.data.length > 0) {
-        console.log(result.data);
+        const genData = result.data.map((item: any) => {
+          const isUser = item.users.filter((i: any) => {
+            return i._id !== decoded._id;
+          });
+          return {
+            latestMessage: item.latestMessage,
+            user: isUser[0],
+          };
+        });
+        setConversions(genData);
       }
 
       setLoading(false);
@@ -75,6 +93,11 @@ const ChatsConversions: React.FC<IProps> = ({ setLoading }) => {
   }, [search.valueData]);
 
   useEffect(() => {
+    const token = LocalStorage.loadData(LocalStorageType.TOKEN);
+    if (token) {
+      const decoded: any = jwt_decode(token);
+      setUser(decoded);
+    }
     getConversion();
   }, []);
 
@@ -106,46 +129,29 @@ const ChatsConversions: React.FC<IProps> = ({ setLoading }) => {
         />
       </div>
       <ul className="flex-1 mx-2 mt-2 scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
-        <li className="border-b border-[#f2f1f1] rounded-md px-2 py-3 text-sm flex items-center cursor-pointer hover:bg-gray-50 duration-200">
-          <div className="relative">
-            <Avatar
-              alt="Ryan Hadi Dermawan"
-              src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
-              sx={{ width: 30, height: 30 }}
-              className={` cursor-pointer`}
-            />
-            <CircleIcon
-              className={`absolute bottom-0 right-4 text-green-600 border border-white rounded-full bg-white`}
-              style={{ fontSize: 10 }}
-            />
-          </div>
-          <div className="ml-2 flex flex-col justify-center">
-            <b className="text-[0.9em]">Ryan Hadi Dermawan</b>
-            <h5 className="text-[0.8em] text-gray-500 -mt-[3px]">
-              Halo Apa kabar? ...
-            </h5>
-          </div>
-        </li>
-        <li className="border-b border-[#f2f1f1] rounded-md px-2 py-3 text-sm flex items-center cursor-pointer hover:bg-gray-50 duration-200">
-          <div className="relative">
-            <Avatar
-              alt="Ryan Hadi Dermawan"
-              src=""
-              sx={{ width: 30, height: 30 }}
-              className={` cursor-pointer`}
-            />
-            <CircleIcon
-              className={`absolute bottom-0 right-4 text-green-600 border border-white rounded-full bg-white`}
-              style={{ fontSize: 10 }}
-            />
-          </div>
-          <div className="ml-2 flex flex-col justify-center">
-            <b className="text-[0.9em]">Jamiludin</b>
-            <h5 className="text-[0.8em] text-gray-500  -mt-[3px]">
-              Coba cari di warung jambu ...
-            </h5>
-          </div>
-        </li>
+        {conversions.length > 0 &&
+          conversions.map((item) => (
+            <li className="border-b border-[#f2f1f1] rounded-md px-2 py-3 text-sm flex items-center cursor-pointer hover:bg-gray-50 duration-200">
+              <div className="relative">
+                <Avatar
+                  alt={`${item.user.name}`}
+                  src="0"
+                  sx={{ width: 30, height: 30 }}
+                  className={` cursor-pointer`}
+                />
+                <CircleIcon
+                  className={`absolute bottom-0 right-4 text-green-600 border border-white rounded-full bg-white`}
+                  style={{ fontSize: 10 }}
+                />
+              </div>
+              <div className="ml-2 flex flex-col justify-center">
+                <b className="text-[0.9em]">{item.user.name}</b>
+                <h5 className="text-[0.8em] text-gray-500 -mt-[3px]">
+                  {item.latestMessage.content}
+                </h5>
+              </div>
+            </li>
+          ))}
       </ul>
     </div>
   );
