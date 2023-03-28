@@ -14,7 +14,7 @@ const ChatsComponent: React.FC = () => {
   const [open, setOpen] = useState<Boolean>(false);
   const modalRef = useRef<any>();
   const [loading, setLoading] = useState<Boolean>(false);
-  const [userConversation, setUserConversation] = useState<any>({});
+  const [conversation, setConversation] = useState<any>({});
 
   useEffect(() => {
     let handler = (e: any) => {
@@ -44,19 +44,19 @@ const ChatsComponent: React.FC = () => {
         } border-b  shadow-sm flex justify-evenly  items-center duration-500`}
       >
         <div className="flex flex-1 items-center">
-          {open && userConversation._id && (
+          {open && conversation.chatId && (
             <div className="ml-2 relative">
               <ArrowBackIosIcon
-                onClick={() => setUserConversation({})}
+                onClick={() => setConversation({})}
                 className=" text-gray-600 opacity-60 hover:opacity-100 duration-500 cursor-pointer"
                 style={{ fontSize: 15 }}
               />
             </div>
           )}
-          {userConversation._id && (
+          {conversation.chatId && (
             <div className={`relative ${!open && "ml-2"}`}>
               <Avatar
-                alt={`${userConversation.name}`}
+                alt={`${conversation.user.name}`}
                 src="d"
                 sx={{ width: open ? 30 : 25, height: open ? 30 : 25 }}
                 className={` cursor-pointer`}
@@ -69,7 +69,7 @@ const ChatsComponent: React.FC = () => {
           )}
 
           <div className="flex flex-col ml-2">
-            {!userConversation._id ? (
+            {!conversation.chatId ? (
               <div className="flex items-center">
                 <QuestionAnswerOutlinedIcon
                   style={{ fontSize: 13 }}
@@ -80,7 +80,7 @@ const ChatsComponent: React.FC = () => {
             ) : (
               <>
                 <b className="text-[0.75em] font-medium">
-                  {userConversation.name}
+                  {conversation.user.name}
                 </b>
                 <h4
                   className={`${
@@ -103,12 +103,12 @@ const ChatsComponent: React.FC = () => {
       <div className="flex-1 bg-white overflow-y-auto scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
         {loading ? (
           <LoadingComponent />
-        ) : userConversation._id ? (
-          <ChatMessageComponent userConversation={userConversation} />
+        ) : conversation.chatId ? (
+          <ChatMessageComponent userConversation={conversation} />
         ) : (
           <ChatsConversions
             setLoading={setLoading}
-            setUserConversation={setUserConversation}
+            setUserConversation={setConversation}
           />
         )}
       </div>

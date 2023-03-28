@@ -37,7 +37,7 @@ const CharIconButtonComponent = React.memo(ChatIconButton);
 
 const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
   useEffect(() => {
-    console.log(userConversation);
+    console.log(userConversation.chatId);
   }, []);
 
   return (

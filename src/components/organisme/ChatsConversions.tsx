@@ -15,6 +15,7 @@ interface IProps {
 interface IConversion {
   user: { id: String; name: String };
   latestMessage: any;
+  chatId: String;
 }
 
 const ChatsConversions: React.FC<IProps> = ({
@@ -81,6 +82,7 @@ const ChatsConversions: React.FC<IProps> = ({
           return {
             latestMessage: item.latestMessage,
             user: isUser[0],
+            chatId: item._id,
           };
         });
         setConversions(genData);
@@ -138,7 +140,10 @@ const ChatsConversions: React.FC<IProps> = ({
             <li
               key={key}
               onClick={() => {
-                setUserConversation(item.user);
+                setUserConversation({
+                  user: item.user,
+                  chatId: item.chatId,
+                });
               }}
               className="border-b border-[#f2f1f1] rounded-md px-2 py-3 text-sm flex items-center cursor-pointer hover:bg-gray-50 duration-200"
             >
