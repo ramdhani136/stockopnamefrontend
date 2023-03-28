@@ -7,6 +7,7 @@ import MinimizeIcon from "@mui/icons-material/Minimize";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded";
 import gambar from "../../assets/images/nomessage.svg";
+import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 
 interface IPropsChatButton {
   onCLick?(e?: any): void | Promise<void>;
@@ -78,7 +79,7 @@ const ChatsComponent: React.FC = () => {
               />
             </div>
           )}
-          <div className={`relative ${!open && "ml-2"}`}>
+          {/* <div className={`relative ${!open && "ml-2"}`}>
             <Avatar
               alt="Ryan Hadi Dermawan"
               src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
@@ -89,17 +90,26 @@ const ChatsComponent: React.FC = () => {
               className={`absolute bottom-0 right-4 text-green-600 border border-white rounded-full bg-white`}
               style={{ fontSize: open ? 10 : 8 }}
             />
-          </div>
+          </div> */}
+
           <div className="flex flex-col ml-2">
-            {/* <b className="text-[0.75em] font-medium">Chat Messager</b> */}
-            <b className="text-[0.78em] font-medium">Ryan Hadi Dermawan</b>
-            <h4
-              className={`${
-                open ? "text-[0.68em]" : "text-[0px]"
-              } text-gray-500 -mt-[3px] font-normal duration-500`}
-            >
-              Sedang Aktif
-            </h4>
+            <div className="flex items-center">
+              <TextsmsOutlinedIcon
+                style={{ fontSize: 13 }}
+                className="mr-2 mt-[2px] "
+              />
+              <b className="text-[0.75em] font-medium">Chat Messager</b>
+            </div>
+            {/* <>
+              <b className="text-[0.78em] font-medium">Ryan Hadi Dermawan</b>
+              <h4
+                className={`${
+                  open ? "text-[0.68em]" : "text-[0px]"
+                } text-gray-500 -mt-[3px] font-normal duration-500`}
+              >
+                Sedang Aktif
+              </h4>
+            </> */}
           </div>
         </div>
         <div className="flex items-center  mr-1 justify-center text-gray-500 ">
@@ -107,18 +117,16 @@ const ChatsComponent: React.FC = () => {
             onClick={() => setOpen(!open)}
             className="-mt-4 cursor-pointer opacity-60 hover:opacity-100 duration-300"
           />
-          {/* <CloseIcon
-            className=" cursor-pointer opacity-60 hover:opacity-100 duration-300"
-            style={{ fontSize: 22 }}
-          /> */}
         </div>
       </div>
       <div className="flex-1 bg-white overflow-y-auto scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
-        <div className="w-full h-full flex flex-col justify-center items-center">
-          <img src={gambar} alt="nomessage" className="w-[160px]" />
-          <h4 className="text-[0.8em] text-gray-400  mt-4">No Message</h4>
-        </div>
-        {/* <div className="h-[10000px] border"></div> */}
+        <>
+          <div className="w-full h-full flex flex-col justify-center items-center">
+            <img src={gambar} alt="nomessage" className="w-[160px]" />
+            <h4 className="text-[0.8em] text-gray-400  mt-4">No Message</h4>
+          </div>
+          {/* <div className="h-[10000px] border"></div> */}
+        </>
       </div>
       <div className="h-auto  flex items-center px-2 py-2">
         <CharIconButtonComponent />
