@@ -45,6 +45,7 @@ const ChatsComponent: React.FC = () => {
   const [open, setOpen] = useState<Boolean>(false);
   const modalRef = useRef<any>();
   const [loading, setLoading] = useState<Boolean>(false);
+  const [userConversation, setUserConversation] = useState<any>({});
 
   useEffect(() => {
     let handler = (e: any) => {
@@ -74,45 +75,51 @@ const ChatsComponent: React.FC = () => {
         } border-b  shadow-sm flex justify-evenly  items-center duration-500`}
       >
         <div className="flex flex-1 items-center">
-          {open && (
+          {open && userConversation._id && (
             <div className="ml-2 relative">
-              {/* <ArrowBackIosIcon
+              <ArrowBackIosIcon
+                onClick={() => setUserConversation({})}
                 className=" text-gray-600 opacity-60 hover:opacity-100 duration-500 cursor-pointer"
                 style={{ fontSize: 15 }}
-              /> */}
+              />
             </div>
           )}
-          {/* <div className={`relative ${!open && "ml-2"}`}>
-            <Avatar
-              alt="Ryan Hadi Dermawan"
-              src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
-              sx={{ width: open ? 30 : 25, height: open ? 30 : 25 }}
-              className={` cursor-pointer`}
-            />
-            <CircleIcon
-              className={`absolute bottom-0 right-4 text-green-600 border border-white rounded-full bg-white`}
-              style={{ fontSize: open ? 10 : 8 }}
-            />
-          </div> */}
+          {userConversation._id && (
+            <div className={`relative ${!open && "ml-2"}`}>
+              <Avatar
+                alt={`${userConversation.name}`}
+                src="d"
+                sx={{ width: open ? 30 : 25, height: open ? 30 : 25 }}
+                className={` cursor-pointer`}
+              />
+              <CircleIcon
+                className={`absolute bottom-0 right-4 text-green-600 border border-white rounded-full bg-white`}
+                style={{ fontSize: open ? 10 : 8 }}
+              />
+            </div>
+          )}
 
           <div className="flex flex-col ml-2">
-            <div className="flex items-center">
-              <QuestionAnswerOutlinedIcon
-                style={{ fontSize: 13 }}
-                className="mr-1 mt-[2px] "
-              />
-              <b className="text-[0.75em] font-medium">Chat Messager</b>
-            </div>
-            {/* <>
-              <b className="text-[0.78em] font-medium">Ryan Hadi Dermawan</b>
-              <h4
-                className={`${
-                  open ? "text-[0.68em]" : "text-[0px]"
-                } text-gray-500 -mt-[3px] font-normal duration-500`}
-              >
-                Sedang Aktif
-              </h4>
-            </> */}
+            {!userConversation._id ? (
+              <div className="flex items-center">
+                <QuestionAnswerOutlinedIcon
+                  style={{ fontSize: 13 }}
+                  className="mr-1 mt-[2px] "
+                />
+                <b className="text-[0.75em] font-medium">Chat Messager</b>
+              </div>
+            ) : (
+              <>
+                <b className="text-[0.75em] font-medium">{userConversation.name}</b>
+                <h4
+                  className={`${
+                    open ? "text-[0.68em]" : "text-[0px]"
+                  } text-gray-500 -mt-[3px] font-normal duration-500`}
+                >
+                  Sedang Aktif
+                </h4>
+              </>
+            )}
           </div>
         </div>
         <div className="flex items-center  mr-1 justify-center text-gray-500 ">
@@ -123,27 +130,31 @@ const ChatsComponent: React.FC = () => {
         </div>
       </div>
       <div className="flex-1 bg-white overflow-y-auto scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
-        <>
-          {/* <div className="w-full h-full flex flex-col justify-center items-center">
-            <img src={gambar} alt="nomessage" className="w-[160px]" />
-            <h4 className="text-[0.8em] text-gray-400  mt-4">No Message</h4>
-          </div> */}
-          {/* <div className="h-[10000px] border"></div> */}
-        </>
-
         {loading ? (
           <LoadingComponent />
+        ) : userConversation._id ? (
+          <>
+            <div className="w-full h-full flex flex-col justify-center items-center">
+              <img src={gambar} alt="nomessage" className="w-[160px]" />
+              <h4 className="text-[0.8em] text-gray-400  mt-4">No Message</h4>
+            </div>
+          </>
         ) : (
-          <ChatsConversions  setLoading={setLoading} />
+          <ChatsConversions
+            setLoading={setLoading}
+            setUserConversation={setUserConversation}
+          />
         )}
       </div>
-      {/* <div className="h-auto  flex items-center px-2 py-2">
-        <CharIconButtonComponent />
-        <div className="h-auto border w-full bg-[#f1f2f6]  rounded-lg ml-2 flex py-2 items-center">
-          <textarea className="w-full h-auto max-h-[100px]  block outline-none overflow-hidden resize-none bg-[#f1f2f6] rounded-lg px-2 text-gray-800 text-sm" />
-          <InsertEmoticonRoundedIcon className="mr-1 cursor-pointer text-[#2491f0]" />
+      {userConversation._id && (
+        <div className="h-auto  flex items-center px-2 py-2">
+          <CharIconButtonComponent />
+          <div className="h-auto border w-full bg-[#f1f2f6]  rounded-lg ml-2 flex py-2 items-center">
+            <textarea className="w-full h-auto max-h-[100px]  block outline-none overflow-hidden resize-none bg-[#f1f2f6] rounded-lg px-2 text-gray-800 text-sm" />
+            <InsertEmoticonRoundedIcon className="mr-1 cursor-pointer text-[#2491f0]" />
+          </div>
         </div>
-      </div> */}
+      )}
     </div>
   );
 };

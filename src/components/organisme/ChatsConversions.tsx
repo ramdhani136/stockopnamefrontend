@@ -9,6 +9,7 @@ import jwt_decode from "jwt-decode";
 
 interface IProps {
   setLoading: any;
+  setUserConversation: any;
 }
 
 interface IConversion {
@@ -16,7 +17,10 @@ interface IConversion {
   latestMessage: any;
 }
 
-const ChatsConversions: React.FC<IProps> = ({ setLoading }) => {
+const ChatsConversions: React.FC<IProps> = ({
+  setLoading,
+  setUserConversation,
+}) => {
   const [listUser, setListUser] = useState<IListInput[]>([]);
   const [conversions, setConversions] = useState<IConversion[]>([]);
   const [loadingUser, setLoadingUser] = useState<Boolean>(false);
@@ -130,8 +134,14 @@ const ChatsConversions: React.FC<IProps> = ({ setLoading }) => {
       </div>
       <ul className="flex-1 mx-2 mt-2 scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
         {conversions.length > 0 &&
-          conversions.map((item) => (
-            <li className="border-b border-[#f2f1f1] rounded-md px-2 py-3 text-sm flex items-center cursor-pointer hover:bg-gray-50 duration-200">
+          conversions.map((item, key) => (
+            <li
+              key={key}
+              onClick={() => {
+                setUserConversation(item.user);
+              }}
+              className="border-b border-[#f2f1f1] rounded-md px-2 py-3 text-sm flex items-center cursor-pointer hover:bg-gray-50 duration-200"
+            >
               <div className="relative">
                 <Avatar
                   alt={`${item.user.name}`}
