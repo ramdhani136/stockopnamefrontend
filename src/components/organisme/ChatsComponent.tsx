@@ -118,10 +118,10 @@ const ChatsComponent: React.FC = () => {
         <div className="flex flex-1 items-center">
           {open && (
             <div className="ml-2 relative">
-              <ArrowBackIosIcon
+              {/* <ArrowBackIosIcon
                 className=" text-gray-600 opacity-60 hover:opacity-100 duration-500 cursor-pointer"
                 style={{ fontSize: 15 }}
-              />
+              /> */}
             </div>
           )}
           {/* <div className={`relative ${!open && "ml-2"}`}>
@@ -198,9 +198,48 @@ const ChatsComponent: React.FC = () => {
               }}
             />
           </div>
-          <div className="flex-1  scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
-            <div className="h-[1000px]"></div>
-          </div>
+          <ul className="flex-1 mx-2 mt-2 scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
+            <li className="border-b border-[#f2f1f1] rounded-md px-2 py-3 text-sm flex items-center cursor-pointer hover:bg-gray-50 duration-200">
+              <div className="relative">
+                <Avatar
+                  alt="Ryan Hadi Dermawan"
+                  src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
+                  sx={{ width: open ? 30 : 25, height: open ? 30 : 25 }}
+                  className={` cursor-pointer`}
+                />
+                <CircleIcon
+                  className={`absolute bottom-0 right-4 text-green-600 border border-white rounded-full bg-white`}
+                  style={{ fontSize: open ? 10 : 8 }}
+                />
+              </div>
+              <div className="ml-2 flex flex-col justify-center">
+                <b className="text-[0.85em]">Ryan Hadi Dermawan</b>
+                <h5 className="text-[0.78em] text-gray-600 -mt-[3px]">
+                  Halo Apa kabar? ...
+                </h5>
+              </div>
+            </li>
+            <li className="border-b border-[#f2f1f1] rounded-md px-2 py-3 text-sm flex items-center cursor-pointer hover:bg-gray-50 duration-200">
+              <div className="relative">
+                <Avatar
+                  alt="Ryan Hadi Dermawan"
+                  src=""
+                  sx={{ width: open ? 30 : 25, height: open ? 30 : 25 }}
+                  className={` cursor-pointer`}
+                />
+                <CircleIcon
+                  className={`absolute bottom-0 right-4 text-green-600 border border-white rounded-full bg-white`}
+                  style={{ fontSize: open ? 10 : 8 }}
+                />
+              </div>
+              <div className="ml-2 flex flex-col justify-center">
+                <b className="text-[0.85em]">Jamiludin</b>
+                <h5 className="text-[0.78em] text-gray-600  -mt-[3px]">
+                  Coba cari di warung jambu ...
+                </h5>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
       {/* <div className="h-auto  flex items-center px-2 py-2">
