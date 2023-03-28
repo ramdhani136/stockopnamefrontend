@@ -9,7 +9,8 @@ import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded
 import gambar from "../../assets/images/nomessage.svg";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
 import { InputComponent } from "../atoms";
-import { IValue } from "../atoms/InputComponent";
+import { IListInput, IValue } from "../atoms/InputComponent";
+import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 
 interface IPropsChatButton {
   onCLick?(e?: any): void | Promise<void>;
@@ -48,6 +49,40 @@ const ChatsComponent: React.FC = () => {
     valueData: null,
     valueInput: "",
   });
+  const [listUser, setListUser] = useState<IListInput[]>([]);
+  const [loadingUser, setLoadingUser] = useState<Boolean>(false);
+  const [limit, setLimit] = useState<number>(20);
+  const [page, setPage] = useState<number>(1);
+  const [hasMore, setHasmore] = useState<boolean>(false);
+
+  const getUsers = async (): Promise<void> => {
+    try {
+      const result: any = await GetDataServer(DataAPI.USERS).FIND({
+        filters: [
+          // ["_id", "=", dataModal.props.item_code],
+          // ["is_out", "=", 0],
+          // ["is_in", "=", 1],
+        ],
+        limit: 10,
+        page: page,
+        search: search.valueData,
+      });
+      if (result.data.length > 0) {
+        let listInput: IListInput[] = result.data.map(
+          (item: IListInput | any) => {
+            return {
+              name: item.name,
+              value: item._id,
+            };
+          }
+        );
+        setListUser(listInput);
+      }
+      setLoadingUser(false);
+    } catch (error) {
+      setLoadingUser(false);
+    }
+  };
 
   useEffect(() => {
     let handler = (e: any) => {
@@ -142,6 +177,21 @@ const ChatsComponent: React.FC = () => {
               className="h-9"
               inputStyle="placeholder:text-[0.9em] text-sm"
               onReset={() => setSearch({ valueData: null, valueInput: "" })}
+              onCLick={getUsers}
+              list={listUser}
+              itemModalStyle="text-[0.9em]"
+              onSelected={(e) => alert("tes")}
+              infiniteScroll={{
+                hasMore: hasMore,
+                next: getUsers,
+                onSearch: (e) => {
+                  // setSearch({ ...search, valueData: e });
+                  setListUser([]);
+                  setHasmore(false);
+                  setPage(1);
+                },
+                loading: loadingUser,
+              }}
             />
           </div>
           <div className="flex-1  scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
