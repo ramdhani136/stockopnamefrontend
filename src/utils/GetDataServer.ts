@@ -1,6 +1,5 @@
 import { FetchApi } from "./FetchApi";
 
-
 interface IPut {
   data: object;
   id: string | number;
@@ -32,6 +31,7 @@ export enum DataAPI {
   PACKINGID = "packingid",
   USERS = "users",
   CHAT = "chat",
+  MESSAGE = "message",
 }
 
 class RequestData implements IData {
@@ -54,14 +54,15 @@ class RequestData implements IData {
         filters = `&&filters=${JSON.stringify(options.filters)}`;
       }
       if (options.search) {
-       
         search = `&&search=${options.search}`;
       }
 
       if (options.orderBy) {
         orderBy = `&&order_by={"${options.orderBy.state}":${options.orderBy.sort}}`;
       }
-      const uri = `${import.meta.env.VITE_PUBLIC_URI}/${this.data}?limit=${options.limit??'0'}&page=${options.page??'0'}${fields}${filters}${orderBy}${search}`;
+      const uri = `${import.meta.env.VITE_PUBLIC_URI}/${this.data}?limit=${
+        options.limit ?? "0"
+      }&page=${options.page ?? "0"}${fields}${filters}${orderBy}${search}`;
       const result: any = await FetchApi.get(uri);
       return result.data;
     } catch (error: any) {
@@ -98,7 +99,6 @@ class RequestData implements IData {
       return Promise.reject(error);
     }
   };
-
 
   DELETE = async (id: String | number): Promise<any> => {
     try {

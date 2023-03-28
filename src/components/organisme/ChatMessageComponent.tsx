@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded";
 import gambar from "../../assets/images/nomessage.svg";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
+import Avatar from "@mui/material/Avatar";
 
 interface IProps {
   userConversation: any;
@@ -36,19 +38,70 @@ const ChatIconButton: React.FC<IPropsChatButton> = ({ onCLick }) => {
 const CharIconButtonComponent = React.memo(ChatIconButton);
 
 const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
+  const getMesssage = async (): Promise<void> => {
+    try {
+      const result = await GetDataServer(DataAPI.MESSAGE).FINDONE(
+        userConversation.chatId
+      );
+      console.log(result);
+    } catch (error) {}
+  };
+
   useEffect(() => {
-    console.log(userConversation.chatId);
+    getMesssage();
   }, []);
 
   return (
     <div className="flex flex-col  flex-1 w-full h-full">
-      {/* <ul className="flex-1 border scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin">
-        <li className="h-[1000px]"></li>
-      </ul> */}
-      <div className=" flex flex-col justify-center items-center flex-1 border">
+      <ul className="flex-1 border scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]">
+        <li className=" w-[80%] flex float-left mb-3 mx-2">
+          <Avatar
+            alt={`Jamiludin`}
+            src="0"
+            sx={{ width: 25, height: 25 }}
+            className={` cursor-pointer`}
+          />
+          <h4 className="rounded-md mx-2 flex-1 p-2 bg-[#e5e6eb] cursor-pointer">
+            Iya kenapa pak?
+          </h4>
+        </li>
+        <li className=" w-[80%] flex rounded-md mx-3 float-right mb-3">
+          <h4 className="rounded-md mx-2 flex-1  p-2 bg-[#0084ff] text-white">
+            Tolong carikan barang kain quilting dengan motif dora
+          </h4>
+          <Avatar
+            alt={`ILham Ramdhani`}
+            src="0"
+            sx={{ width: 25, height: 25 }}
+            className={` cursor-pointer`}
+          />
+        </li>
+        <li className=" w-[80%] flex rounded-md mx-3 float-right mb-3 -mt-2">
+          <h4 className="rounded-md mx-2 flex-1  p-2 bg-[#0084ff] text-white cursor-pointer">
+            Tolong carikan barang kain quilting dengan motif dora
+          </h4>
+          {/* <Avatar
+            alt={`ILham Ramdhani`}
+            src="0"
+            sx={{ width: 25, height: 25 }}
+            className={` cursor-pointer`}
+          /> */}
+        </li>
+        {/* <li className="border w-[70%] rounded-md mx-3 float-right -mt-[10px] mb-3 p-2 bg-[#0084ff] text-white">
+          Maaf Kepencet
+        </li>
+        <li className="border w-[70%] rounded-md mx-3 float-left mb-3 p-2 bg-[#e5e6eb]">
+          Coba sebentar saya carikan dulu.. tadi kalau tidak salah ada barang
+          masuk lagi untuk barang tersebut
+        </li>
+        <li className="border w-[70%] rounded-md mx-3 float-right mb-3 p-2 bg-[#0084ff] text-white">
+          Ok, Makasih
+        </li> */}
+      </ul>
+      {/* <div className=" flex flex-col justify-center items-center flex-1 border">
         <img src={gambar} alt="nomessage" className="w-[160px]" />
         <h4 className="text-[0.8em] text-gray-400  mt-4">No Message</h4>
-      </div>
+      </div> */}
       <div className="h-auto  flex items-center px-2 py-2">
         <CharIconButtonComponent />
         <div className="h-auto border w-full bg-[#f1f2f6]  rounded-lg ml-2 flex py-2 items-center">
