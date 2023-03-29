@@ -6,7 +6,7 @@ interface IPut {
 }
 
 interface IData {
-  data: string;
+  // data: string;
   FIND: (options: IFindOption) => Promise<object>;
   FINDONE: (id: String) => Promise<any>;
   CREATE: (data: object) => Promise<any>;

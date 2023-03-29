@@ -6,6 +6,8 @@ import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import Avatar from "@mui/material/Avatar";
 import ChatBubleComponent from "./ChatBubleComponent";
 import { LoadingComponent } from "../moleculs";
+import { SocketIO } from "../../utils";
+import { useToast } from "@chakra-ui/react";
 
 interface IProps {
   userConversation: any;
@@ -43,6 +45,9 @@ const CharIconButtonComponent = React.memo(ChatIconButton);
 const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
+  const [newMessage, setNewMessage] = useState<String>("");
+  const toast = useToast();
+
   const getMesssage = async (): Promise<void> => {
     try {
       const result = await GetDataServer(DataAPI.MESSAGE).FINDONE(
@@ -55,9 +60,29 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
     }
   };
 
+  const sendMessage = async (event: any) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (newMessage) {
+        SocketIO.emit("stop typing", userConversation.chatId);
+        try {
+          setNewMessage("");
+          const result = await GetDataServer(DataAPI.MESSAGE).CREATE({
+            content: newMessage,
+            chatId: userConversation.chatId,
+          });
+          SocketIO.emit("new message", result.data.data);
+          setData([...data, result.data.data]);
+        } catch (error) {}
+      }
+    }
+  };
+
   useEffect(() => {
     getMesssage();
   }, []);
+
+  
 
   return (
     <div className="flex flex-col  flex-1 w-full h-full">
@@ -95,10 +120,17 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
 
       <div className="h-auto  flex items-center px-2 py-2">
         <CharIconButtonComponent />
-        <div className="h-auto border w-full bg-[#f1f2f6]  rounded-lg ml-2 flex py-2 items-center">
-          <textarea className="w-full h-auto max-h-[100px]  block outline-none overflow-hidden resize-none bg-[#f1f2f6] rounded-lg px-2 text-gray-800 text-sm" />
+        <form
+          onKeyDown={sendMessage}
+          className="h-auto border w-full bg-[#f1f2f6]  rounded-lg ml-2 flex py-2 items-center"
+        >
+          <input
+            value={`${newMessage}`}
+            onChange={(e) => setNewMessage(e.target.value)}
+            className="w-full h-auto max-h-[100px]  block outline-none overflow-hidden resize-none bg-[#f1f2f6] rounded-lg px-2 text-gray-800 text-sm"
+          />
           <InsertEmoticonRoundedIcon className="mr-1 cursor-pointer text-[#2491f0]" />
-        </div>
+        </form>
       </div>
     </div>
   );

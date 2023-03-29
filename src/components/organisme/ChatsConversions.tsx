@@ -4,9 +4,8 @@ import { InputComponent } from "../atoms";
 import CircleIcon from "@mui/icons-material/Circle";
 import { IListInput, IValue } from "../atoms/InputComponent";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
-import { LocalStorage, LocalStorageType } from "../../utils";
-import jwt_decode from "jwt-decode";
-
+import { LocalStorage } from "../../utils";
+import { it } from "node:test";
 interface IProps {
   setLoading: any;
   setUserConversation: any;
@@ -151,9 +150,13 @@ const ChatsConversions: React.FC<IProps> = ({
               <div className="ml-2 flex flex-col justify-center">
                 <b className="text-[0.9em]">{item.user.name}</b>
                 <h5 className="text-[0.8em] text-gray-500 -mt-[3px]">
-                  {item.latestMessage.content.length > 20
-                    ? `${item.latestMessage.content.substring(0, 20)} ...`
-                    : item.latestMessage.content}
+                  {item.latestMessage && (
+                    <>
+                      {item.latestMessage.content.length > 20
+                        ? `${item.latestMessage.content.substring(0, 20)} ...`
+                        : item.latestMessage.content}
+                    </>
+                  )}
                 </h5>
               </div>
             </li>
