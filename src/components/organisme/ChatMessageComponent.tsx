@@ -60,66 +60,30 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
 
   return (
     <div className="flex flex-col  flex-1 w-full h-full">
-      <ul className="flex-1 border scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]">
-        {data.map((item, index) => (
-          <ChatBubleComponent
-            key={index}
-            data={{
-              ...item,
-              isSameUser:
-                data.length > 1 && index > 0
-                  ? data[index - 1].sender._id === item.sender._id
-                    ? true
-                    : false
-                  : false,
-            }}
-          />
-        ))}
-        {/* <ChatBubleComponent /> */}
-        {/* <li className=" w-[80%] flex float-left mb-3 mx-2">
-          <Avatar
-            alt={`Jamiludin`}
-            src="0"
-            sx={{ width: 25, height: 25 }}
-            className={` cursor-pointer`}
-          />
-          <div className="rounded-md mx-2 flex-1 p-2 bg-[#e5e6eb] cursor-pointer relative">
-            <h4> Iya kenapa pak?</h4>
-            <h4 className="absolute z-20 bg-gray-700 text-white rounded-md px-2 py-1 right-0 top-8 opacity-90 text-[0.85em]">
-              12 Maret 2022 | 10:28 WIB
-            </h4>
-          </div>
-        </li>
-        <li className=" w-[80%] flex rounded-md mx-3 float-right mb-3 relative">
-          <div className="rounded-md mx-2 flex-1  p-2 bg-[#0084ff] text-white">
-            <h4> Tolong carikan barang kain quilting dengan motif dora</h4>
-            <h4 className="absolute z-20 bg-gray-700 text-white rounded-md px-2 py-1 right-0 opacity-90 text-[0.85em]">
-              12 Maret 2022 | 10:28 WIB
-            </h4>
-          </div>
-          <Avatar
-            alt={`ILham Ramdhani`}
-            src="0"
-            sx={{ width: 25, height: 25 }}
-            className={` cursor-pointer`}
-          />
-        </li>
-        <li className=" w-[80%] flex rounded-md mx-3 float-right mb-3 -mt-2">
-          <h4 className="rounded-md mx-2 flex-1  p-2 bg-[#0084ff] text-white cursor-pointer">
-            Tolong carikan barang kain quilting dengan motif dora
-          </h4>
-          <Avatar
-            alt={`ILham Ramdhani`}
-            src="0"
-            sx={{ width: 25, height: 25 }}
-            className={` cursor-pointer`}
-          />
-        </li> */}
-      </ul>
-      {/* <div className=" flex flex-col justify-center items-center flex-1 border">
-        <img src={gambar} alt="nomessage" className="w-[160px]" />
-        <h4 className="text-[0.8em] text-gray-400  mt-4">No Message</h4>
-      </div> */}
+      {data.length > 0 ? (
+        <ul className="flex-1 border scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]">
+          {data.map((item, index) => (
+            <ChatBubleComponent
+              key={index}
+              data={{
+                ...item,
+                isSameUser:
+                  data.length > 1 && index > 0
+                    ? data[index - 1].sender._id === item.sender._id
+                      ? true
+                      : false
+                    : false,
+              }}
+            />
+          ))}
+        </ul>
+      ) : (
+        <div className=" flex flex-col justify-center items-center flex-1 border">
+          <img src={gambar} alt="nomessage" className="w-[160px]" />
+          <h4 className="text-[0.8em] text-gray-400  mt-4">No Message</h4>
+        </div>
+      )}
+
       <div className="h-auto  flex items-center px-2 py-2">
         <CharIconButtonComponent />
         <div className="h-auto border w-full bg-[#f1f2f6]  rounded-lg ml-2 flex py-2 items-center">

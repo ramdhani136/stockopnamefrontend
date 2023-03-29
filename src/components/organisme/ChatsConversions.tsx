@@ -162,8 +162,8 @@ const ChatsConversions: React.FC<IProps> = ({
               <div className="ml-2 flex flex-col justify-center">
                 <b className="text-[0.9em]">{item.user.name}</b>
                 <h5 className="text-[0.8em] text-gray-500 -mt-[3px]">
-                  {item.latestMessage.content.length > 10
-                    ? `${item.latestMessage.content.substring(0, 10)} ...`
+                  {item.latestMessage.content.length > 20
+                    ? `${item.latestMessage.content.substring(0, 20)} ...`
                     : item.latestMessage.content}
                 </h5>
               </div>
