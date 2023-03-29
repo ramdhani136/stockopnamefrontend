@@ -22,9 +22,8 @@ const LayoutComponent: React.FC<IProps> = ({ Child }) => {
   const dataModal: ISliceModal = useSelector(selectModal);
 
   const GetSocket = (): void => {
-    SocketIO.on("message", (data) => {
-      console.log("tesf");
-    });
+    SocketIO.emit("activeUsers", LocalStorage.getUser()._id);
+    SocketIO.on('getUserActive',(data)=>console.log(data))
   };
 
   const navigate = useNavigate();
