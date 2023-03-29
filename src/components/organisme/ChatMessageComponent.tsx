@@ -5,6 +5,7 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import Avatar from "@mui/material/Avatar";
 import ChatBubleComponent from "./ChatBubleComponent";
+import { LoadingComponent } from "../moleculs";
 
 interface IProps {
   userConversation: any;
@@ -41,14 +42,16 @@ const CharIconButtonComponent = React.memo(ChatIconButton);
 
 const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
   const [data, setData] = useState<any[]>([]);
+  const [loading, setLoading] = useState<Boolean>(true);
   const getMesssage = async (): Promise<void> => {
     try {
       const result = await GetDataServer(DataAPI.MESSAGE).FINDONE(
         userConversation.chatId
       );
       setData(result.data);
+      setLoading(false);
     } catch (error: any) {
-      console.log(error);
+      setLoading(false);
     }
   };
 
@@ -60,27 +63,35 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
 
   return (
     <div className="flex flex-col  flex-1 w-full h-full">
-      {data.length > 0 ? (
-        <ul className="flex-1 border scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]">
-          {data.map((item, index) => (
-            <ChatBubleComponent
-              key={index}
-              data={{
-                ...item,
-                isSameUser:
-                  data.length > 1 && index > 0
-                    ? data[index - 1].sender._id === item.sender._id
-                      ? true
-                      : false
-                    : false,
-              }}
-            />
-          ))}
-        </ul>
+      {!loading ? (
+        <>
+          {data.length > 0 ? (
+            <ul className="flex-1 border scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]">
+              {data.map((item, index) => (
+                <ChatBubleComponent
+                  key={index}
+                  data={{
+                    ...item,
+                    isSameUser:
+                      data.length > 1 && index > 0
+                        ? data[index - 1].sender._id === item.sender._id
+                          ? true
+                          : false
+                        : false,
+                  }}
+                />
+              ))}
+            </ul>
+          ) : (
+            <div className=" flex flex-col justify-center items-center flex-1 border">
+              <img src={gambar} alt="nomessage" className="w-[160px]" />
+              <h4 className="text-[0.8em] text-gray-400  mt-4">No Message</h4>
+            </div>
+          )}
+        </>
       ) : (
-        <div className=" flex flex-col justify-center items-center flex-1 border">
-          <img src={gambar} alt="nomessage" className="w-[160px]" />
-          <h4 className="text-[0.8em] text-gray-400  mt-4">No Message</h4>
+        <div className="flex-1">
+          <LoadingComponent />
         </div>
       )}
 
