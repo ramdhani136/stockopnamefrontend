@@ -4,6 +4,7 @@ import gambar from "../../assets/images/nomessage.svg";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import Avatar from "@mui/material/Avatar";
+import ChatBubleComponent from "./ChatBubleComponent";
 
 interface IProps {
   userConversation: any;
@@ -15,6 +16,7 @@ interface IPropsChatButton {
 
 const ChatIconButton: React.FC<IPropsChatButton> = ({ onCLick }) => {
   const [hover, setHover] = useState<Boolean>(false);
+
   return (
     <div>
       {hover && (
@@ -38,23 +40,43 @@ const ChatIconButton: React.FC<IPropsChatButton> = ({ onCLick }) => {
 const CharIconButtonComponent = React.memo(ChatIconButton);
 
 const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
+  const [data, setData] = useState<any[]>([]);
   const getMesssage = async (): Promise<void> => {
     try {
       const result = await GetDataServer(DataAPI.MESSAGE).FINDONE(
         userConversation.chatId
       );
-      console.log(result);
-    } catch (error) {}
+      setData(result.data);
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     getMesssage();
   }, []);
 
+  console.log(data);
+
   return (
     <div className="flex flex-col  flex-1 w-full h-full">
       <ul className="flex-1 border scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]">
-        <li className=" w-[80%] flex float-left mb-3 mx-2">
+        {data.map((item, index) => (
+          <ChatBubleComponent
+            key={index}
+            data={{
+              ...item,
+              isSameUser:
+                data.length > 1 && index > 0
+                  ? data[index - 1].sender._id === item.sender._id
+                    ? true
+                    : false
+                  : false,
+            }}
+          />
+        ))}
+        {/* <ChatBubleComponent /> */}
+        {/* <li className=" w-[80%] flex float-left mb-3 mx-2">
           <Avatar
             alt={`Jamiludin`}
             src="0"
@@ -86,13 +108,13 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
           <h4 className="rounded-md mx-2 flex-1  p-2 bg-[#0084ff] text-white cursor-pointer">
             Tolong carikan barang kain quilting dengan motif dora
           </h4>
-          {/* <Avatar
+          <Avatar
             alt={`ILham Ramdhani`}
             src="0"
             sx={{ width: 25, height: 25 }}
             className={` cursor-pointer`}
-          /> */}
-        </li>
+          />
+        </li> */}
       </ul>
       {/* <div className=" flex flex-col justify-center items-center flex-1 border">
         <img src={gambar} alt="nomessage" className="w-[160px]" />
