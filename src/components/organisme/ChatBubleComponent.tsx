@@ -65,7 +65,7 @@ const ChatBubleComponent: React.FC<IProps> = ({ data }) => {
         <h4
           className={`${
             !open && "hidden"
-          }  duration-100 absolute z-20 bg-gray-700 px-2 py-1 text-white rounded-md right-0 top-8 opacity-90 text-[0.85em]`}
+          }  duration-100 absolute z-20 bg-gray-700 px-2 py-1 text-white rounded-md right-0 top-0 opacity-90 text-[0.85em]`}
         >
           {moment(`${data.createdAt}`).format("lll")}
         </h4>

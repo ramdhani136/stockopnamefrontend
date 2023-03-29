@@ -8,6 +8,7 @@ import ChatBubleComponent from "./ChatBubleComponent";
 import { LoadingComponent } from "../moleculs";
 import { SocketIO } from "../../utils";
 import { useToast } from "@chakra-ui/react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 interface IProps {
   userConversation: any;
@@ -46,7 +47,6 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
   const [newMessage, setNewMessage] = useState<String>("");
-  const toast = useToast();
 
   const getMesssage = async (): Promise<void> => {
     try {
@@ -82,29 +82,39 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
     getMesssage();
   }, []);
 
-  
-
   return (
     <div className="flex flex-col  flex-1 w-full h-full">
       {!loading ? (
         <>
           {data.length > 0 ? (
-            <ul className="flex-1 border scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]">
-              {data.map((item, index) => (
-                <ChatBubleComponent
-                  key={index}
-                  data={{
-                    ...item,
-                    isSameUser:
-                      data.length > 1 && index > 0
-                        ? data[index - 1].sender._id === item.sender._id
-                          ? true
-                          : false
-                        : false,
-                  }}
-                />
-              ))}
-            </ul>
+            <div
+              id="scrollChat"
+              className="flex flex-col-reverse flex-1 border  scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]"
+            >
+              <InfiniteScroll
+                dataLength={data.length}
+                next={() => alert('ddd')}
+                hasMore={true}
+                inverse={true}
+                loader={<></>}
+                scrollableTarget="scrollChat"
+              >
+                {data.map((item, index) => (
+                  <ChatBubleComponent
+                    key={index}
+                    data={{
+                      ...item,
+                      isSameUser:
+                        data.length > 1 && index > 0
+                          ? data[index - 1].sender._id === item.sender._id
+                            ? true
+                            : false
+                          : false,
+                    }}
+                  />
+                ))}
+              </InfiniteScroll>
+            </div>
           ) : (
             <div className=" flex flex-col justify-center items-center flex-1 border">
               <img src={gambar} alt="nomessage" className="w-[160px]" />
