@@ -59,8 +59,6 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
     getMesssage();
   }, []);
 
-  console.log(data);
-
   return (
     <div className="flex flex-col  flex-1 w-full h-full">
       {!loading ? (

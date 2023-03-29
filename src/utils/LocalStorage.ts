@@ -1,3 +1,4 @@
+import jwt_decode from "jwt-decode";
 
 
 export enum LocalStorageType {
@@ -28,6 +29,16 @@ class LocalStorage {
 
   public static removeData = (type: LocalStorageType): void => {
     localStorage.removeItem(`${type}`);
+  };
+
+  public static  getUser = (): any => {
+    const token = LocalStorage.loadData(LocalStorageType.TOKEN);
+    if (token) {
+      const decoded: any = jwt_decode(token);
+      return decoded;
+    }
+
+    return {};
   };
 
 }

@@ -27,7 +27,6 @@ const ChatsConversions: React.FC<IProps> = ({
   const [loadingUser, setLoadingUser] = useState<Boolean>(false);
   const [limit, setLimit] = useState<number>(20);
   const [page, setPage] = useState<number>(1);
-  const [user, setUser] = useState<any>({});
   const [hasMore, setHasmore] = useState<boolean>(false);
   const [search, setSearch] = useState<IValue>({
     valueData: null,
@@ -37,7 +36,7 @@ const ChatsConversions: React.FC<IProps> = ({
   const getUsers = async (): Promise<void> => {
     try {
       const result: any = await GetDataServer(DataAPI.USERS).FIND({
-        filters: [["_id", "!=", `${user._id}`]],
+        filters: [["_id", "!=", `${LocalStorage.getUser()._id}`]],
         limit: 10,
         page: page,
         search: search.valueData,
@@ -68,16 +67,11 @@ const ChatsConversions: React.FC<IProps> = ({
 
   const getConversion = async (): Promise<void> => {
     try {
-      const token = LocalStorage.loadData(LocalStorageType.TOKEN);
-      let decoded: any;
-      if (token) {
-        decoded = jwt_decode(token);
-      }
       const result: any = await GetDataServer(DataAPI.CHAT).FIND({});
       if (result.data.length > 0) {
         const genData = result.data.map((item: any) => {
           const isUser = item.users.filter((i: any) => {
-            return i._id !== decoded._id;
+            return i._id !== LocalStorage.getUser()._id;
           });
           return {
             latestMessage: item.latestMessage,
@@ -99,11 +93,6 @@ const ChatsConversions: React.FC<IProps> = ({
   }, [search.valueData]);
 
   useEffect(() => {
-    const token = LocalStorage.loadData(LocalStorageType.TOKEN);
-    if (token) {
-      const decoded: any = jwt_decode(token);
-      setUser(decoded);
-    }
     getConversion();
   }, []);
 
