@@ -3,11 +3,10 @@ import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded
 import gambar from "../../assets/images/nomessage.svg";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
-import Avatar from "@mui/material/Avatar";
 import ChatBubleComponent from "./ChatBubleComponent";
 import { LoadingComponent } from "../moleculs";
 import { SocketIO } from "../../utils";
-import { useToast } from "@chakra-ui/react";
+import ScaleLoader from "react-spinners/ScaleLoader";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 interface IProps {
@@ -47,6 +46,7 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
   const [newMessage, setNewMessage] = useState<String>("");
+  const [moreLoading, setMoreLoading] = useState<Boolean>(false);
 
   const getMesssage = async (): Promise<void> => {
     try {
@@ -83,17 +83,23 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
   }, []);
 
   return (
-    <div className="flex flex-col  flex-1 w-full h-full">
+    <div className="flex flex-col  flex-1 w-full h-full relative">
+      {moreLoading && (
+        <div className="absolute w-full text-center bg-white z-20 opacity-95 text-[0.8em]  py-1 flex items-center justify-center">
+          <h4 className="text-gray-400">Loading</h4>
+          <ScaleLoader className="ml-2" height={10} color="#36d7b7" width={3} />
+        </div>
+      )}
       {!loading ? (
         <>
           {data.length > 0 ? (
-            <div
+            <ul
               id="scrollChat"
               className="flex flex-col-reverse flex-1 border  scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]"
             >
               <InfiniteScroll
                 dataLength={data.length}
-                next={() => alert('ddd')}
+                next={() => setMoreLoading(true)}
                 hasMore={true}
                 inverse={true}
                 loader={<></>}
@@ -114,7 +120,7 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
                   />
                 ))}
               </InfiniteScroll>
-            </div>
+            </ul>
           ) : (
             <div className=" flex flex-col justify-center items-center flex-1 border">
               <img src={gambar} alt="nomessage" className="w-[160px]" />
