@@ -141,7 +141,7 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
                 inverse={true}
                 loader={<></>}
                 scrollableTarget="scrollChat"
-                // style={{ overflowX: "hidden" }}
+                style={{ overflowX: "hidden" }}
               >
                 {data.map((item, index) => (
                   <ChatBubleComponent

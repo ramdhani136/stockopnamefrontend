@@ -39,7 +39,7 @@ const ChatBubleComponent: React.FC<IProps> = ({ data }) => {
 
   return (
     <li
-      className={`w-[80%] flex justify-center  mb-3 mx-2 ${
+      className={`w-[75%] flex justify-center  mb-3 mx-2 ${
         data.isSameUser && `-mt-2`
       }  ${data.sender._id === getUser()._id ? "float-right" : " float-left"} `}
     >
@@ -75,7 +75,7 @@ const ChatBubleComponent: React.FC<IProps> = ({ data }) => {
           alt={`${data.sender.name}`}
           src="0"
           sx={{ width: 25, height: 25 }}
-          className={`cursor-pointer `}
+          className={`cursor-pointer mr-2`}
         />
       )}
     </li>
