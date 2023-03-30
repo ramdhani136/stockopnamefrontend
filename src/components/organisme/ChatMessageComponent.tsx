@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import InsertEmoticonRoundedIcon from "@mui/icons-material/InsertEmoticonRounded";
 import gambar from "../../assets/images/nomessage.svg";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
@@ -52,6 +52,7 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
   const [openEmoji, setOpenEmoji] = useState<Boolean>(false);
+  const modalRef = useRef<any>();
 
   const getMesssage = async (): Promise<void> => {
     try {
@@ -111,6 +112,18 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
 
   useEffect(() => {
     getMesssage();
+    let handler = (e: any) => {
+      if (!modalRef.current?.contains(e.target)) {
+        if (openEmoji) {
+          setOpenEmoji(false);
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
   }, []);
 
   useEffect(() => {
@@ -201,14 +214,16 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
             />
             {openEmoji && (
               <div
-                className={`border bg-white   rounded-md w-[290px] h-[319.5px] -right-1 duration-500 absolute bottom-6 shadow-md overflow-hidden z-20  `}
+                ref={modalRef}
+                className={`border bg-white   rounded-md w-[300px] h-[332px] right-0 duration-500 absolute bottom-6 shadow-md overflow-hidden z-20  `}
               >
                 <Picker
                   data={data}
                   onEmojiSelect={(e: any) =>
                     setNewMessage(newMessage + e.native)
                   }
-                  emojiSize={16}
+                  emojiSize={18}
+                  perLine={7}
                 />
               </div>
             )}

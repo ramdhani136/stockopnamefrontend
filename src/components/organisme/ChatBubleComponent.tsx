@@ -39,7 +39,7 @@ const ChatBubleComponent: React.FC<IProps> = ({ data }) => {
 
   return (
     <li
-      className={`w-[75%] flex justify-center  mb-3 mx-2 ${
+      className={`w-[70%] flex justify-center  mb-3 mx-2 ${
         data.isSameUser && `-mt-2`
       }  ${data.sender._id === getUser()._id ? "float-right" : " float-left"} `}
     >
