@@ -213,7 +213,7 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
             {openEmoji && (
               <div
                 ref={modalRef}
-                className={`border bg-white   rounded-md w-[300px] h-[332px] right-0 duration-500 absolute bottom-6 shadow-md overflow-hidden z-20  `}
+                className={`border  bg-white   rounded-md w-[300px] h-[332px] right-0 duration-500 absolute bottom-6 shadow-md overflow-hidden z-20  `}
               >
                 <Picker
                   data={data}
