@@ -9,7 +9,9 @@ import { LocalStorage, SocketIO } from "../../utils";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import PulseLoader from "react-spinners/PulseLoader";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import EmojiPicker from "emoji-picker-react";
+import Picker from "@emoji-mart/react";
+import data from "@emoji-mart/data";
 interface IProps {
   userConversation: any;
 }
@@ -44,12 +46,13 @@ const ChatIconButton: React.FC<IPropsChatButton> = ({ onCLick }) => {
 const CharIconButtonComponent = React.memo(ChatIconButton);
 
 const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
-  const [data, setData] = useState<any[]>([]);
+  const [isData, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState<Boolean>(true);
   const [newMessage, setNewMessage] = useState<String>("");
   const [moreLoading, setMoreLoading] = useState<Boolean>(false);
   const [socketConnected, setSocketConnected] = useState(false);
   const [typing, setTyping] = useState(false);
+  const [openEmoji, setOpenEmoji] = useState<Boolean>(false);
 
   const getMesssage = async (): Promise<void> => {
     try {
@@ -67,6 +70,9 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
   const sendMessage = async (event: any) => {
     if (event.key === "Enter") {
       event.preventDefault();
+      if (openEmoji) {
+        setOpenEmoji(false);
+      }
       if (newMessage) {
         SocketIO.emit("stop typing", userConversation.chatId);
         try {
@@ -76,7 +82,7 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
             chatId: userConversation.chatId,
           });
           SocketIO.emit("new message", result.data.data);
-          setData([...data, result.data.data]);
+          setData([...isData, result.data.data]);
         } catch (error) {}
       }
     }
@@ -108,8 +114,6 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
     getMesssage();
   }, []);
 
-  
-
   useEffect(() => {
     SocketIO.emit("setup", LocalStorage.getUser()._id);
     SocketIO.on("connected", () => setSocketConnected(true));
@@ -117,7 +121,7 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
     SocketIO.on("typing", () => setTyping(true));
     SocketIO.on("stop typing", () => setTyping(false));
     SocketIO.on("message recieved", (newMessageRecieved) => {
-      setData([...data, newMessageRecieved]);
+      setData([...isData, newMessageRecieved]);
     });
   });
 
@@ -131,13 +135,13 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
       )}
       {!loading ? (
         <>
-          {data.length > 0 ? (
+          {isData.length > 0 ? (
             <ul
               id="scrollChat"
               className="flex flex-col-reverse border  flex-1 scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]"
             >
               <InfiniteScroll
-                dataLength={data.length}
+                dataLength={isData.length}
                 next={() => setMoreLoading(true)}
                 hasMore={true}
                 inverse={true}
@@ -145,14 +149,14 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
                 scrollableTarget="scrollChat"
                 style={{ overflowX: "hidden" }}
               >
-                {data.map((item, index) => (
+                {isData.map((item, index) => (
                   <ChatBubleComponent
                     key={index}
                     data={{
                       ...item,
                       isSameUser:
-                        data.length > 1 && index > 0
-                          ? data[index - 1].sender._id === item.sender._id
+                        isData.length > 1 && index > 0
+                          ? isData[index - 1].sender._id === item.sender._id
                             ? true
                             : false
                           : false,
@@ -189,13 +193,31 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
             onChange={typingHandler}
             className="w-full h-auto  block outline-none overflow-hidden resize-none bg-[#f1f2f6] rounded-lg px-2 text-gray-800 text-sm"
           />
-          <InsertEmoticonRoundedIcon
-            onClick={() => {
-              SocketIO.emit("stop typing", userConversation.chatId);
-              setTyping(false);
-            }}
-            className="mr-1 cursor-pointer text-[#2491f0]"
-          />
+          <div className="relative">
+            <InsertEmoticonRoundedIcon
+              onClick={() => {
+                setOpenEmoji(!openEmoji);
+              }}
+              className="mr-1 cursor-pointer text-[#2491f0]"
+            />
+            {openEmoji && (
+              <div
+                className={`border bg-white   rounded-md w-[290px] h-[319.5px] -right-1 duration-500 absolute bottom-6 shadow-md overflow-hidden z-20  `}
+              >
+                {/* <EmojiPicker
+                  width={290}
+                  onEmojiClick={(e) => setNewMessage(newMessage + e.emoji)}
+                /> */}
+                <Picker
+                  data={data}
+                  onEmojiSelect={(e: any) =>
+                    setNewMessage(newMessage + e.native)
+                  }
+                  emojiSize={16}
+                />
+              </div>
+            )}
+          </div>
         </form>
       </div>
     </div>
