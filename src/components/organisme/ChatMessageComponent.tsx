@@ -9,7 +9,6 @@ import { LocalStorage, SocketIO } from "../../utils";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import PulseLoader from "react-spinners/PulseLoader";
 import InfiniteScroll from "react-infinite-scroll-component";
-import EmojiPicker from "emoji-picker-react";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 interface IProps {
@@ -204,10 +203,6 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
               <div
                 className={`border bg-white   rounded-md w-[290px] h-[319.5px] -right-1 duration-500 absolute bottom-6 shadow-md overflow-hidden z-20  `}
               >
-                {/* <EmojiPicker
-                  width={290}
-                  onEmojiClick={(e) => setNewMessage(newMessage + e.emoji)}
-                /> */}
                 <Picker
                   data={data}
                   onEmojiSelect={(e: any) =>
