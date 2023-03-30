@@ -132,7 +132,7 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
           {data.length > 0 ? (
             <ul
               id="scrollChat"
-              className="flex flex-col-reverse flex-1 border  scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]"
+              className="flex flex-col-reverse border  flex-1 scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]"
             >
               <InfiniteScroll
                 dataLength={data.length}
@@ -141,6 +141,7 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
                 inverse={true}
                 loader={<></>}
                 scrollableTarget="scrollChat"
+                // style={{ overflowX: "hidden" }}
               >
                 {data.map((item, index) => (
                   <ChatBubleComponent

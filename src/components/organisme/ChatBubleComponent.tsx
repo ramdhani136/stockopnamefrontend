@@ -39,9 +39,9 @@ const ChatBubleComponent: React.FC<IProps> = ({ data }) => {
 
   return (
     <li
-      className={`w-[80%] flex  mb-3 mx-2 ${data.isSameUser && `-mt-2`}  ${
-        data.sender._id === getUser()._id ? "float-right" : " float-left"
-      }`}
+      className={`w-[80%] flex justify-center  mb-3 mx-2 ${
+        data.isSameUser && `-mt-2`
+      }  ${data.sender._id === getUser()._id ? "float-right" : " float-left"} `}
     >
       {data.sender._id !== getUser()._id && !data.isSameUser && (
         <Avatar
@@ -53,7 +53,7 @@ const ChatBubleComponent: React.FC<IProps> = ({ data }) => {
       )}
 
       <div
-        className={`rounded-md mx-2 flex-1 p-2 cursor-pointer relative ${
+        className={`border rounded-md mx-2 flex-1 p-2 cursor-pointer relative  ${
           data.sender._id === getUser()._id
             ? "bg-[#0084ff] text-white"
             : " bg-[#e5e6eb]"
@@ -75,7 +75,7 @@ const ChatBubleComponent: React.FC<IProps> = ({ data }) => {
           alt={`${data.sender.name}`}
           src="0"
           sx={{ width: 25, height: 25 }}
-          className={`cursor-pointer`}
+          className={`cursor-pointer `}
         />
       )}
     </li>
