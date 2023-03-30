@@ -114,9 +114,7 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
     getMesssage();
     let handler = (e: any) => {
       if (!modalRef.current?.contains(e.target)) {
-        if (openEmoji) {
-          setOpenEmoji(false);
-        }
+        setOpenEmoji(false);
       }
     };
 
