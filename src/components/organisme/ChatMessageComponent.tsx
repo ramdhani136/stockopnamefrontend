@@ -108,6 +108,8 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
     getMesssage();
   }, []);
 
+  
+
   useEffect(() => {
     SocketIO.emit("setup", LocalStorage.getUser()._id);
     SocketIO.on("connected", () => setSocketConnected(true));

@@ -5,27 +5,30 @@ import CircleIcon from "@mui/icons-material/Circle";
 import { IListInput, IValue } from "../atoms/InputComponent";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import { LocalStorage } from "../../utils";
-import { it } from "node:test";
 interface IProps {
   setLoading: any;
   setUserConversation: any;
+  IsActiveUser:any
 }
 
 interface IConversion {
-  user: { id: String; name: String };
+  user: { _id: String; name: String };
   latestMessage: any;
   chatId: String;
+ 
 }
 
 const ChatsConversions: React.FC<IProps> = ({
   setLoading,
   setUserConversation,
+  IsActiveUser
 }) => {
   const [listUser, setListUser] = useState<IListInput[]>([]);
   const [conversions, setConversions] = useState<IConversion[]>([]);
   const [loadingUser, setLoadingUser] = useState<Boolean>(false);
   const [limit, setLimit] = useState<number>(20);
   const [page, setPage] = useState<number>(1);
+  const [userActive, setUserActive] = useState<any[]>([]);
   const [hasMore, setHasmore] = useState<boolean>(false);
   const [search, setSearch] = useState<IValue>({
     valueData: null,
@@ -87,6 +90,8 @@ const ChatsConversions: React.FC<IProps> = ({
     }
   };
 
+
+
   useEffect(() => {
     getUsers();
   }, [search.valueData]);
@@ -142,10 +147,11 @@ const ChatsConversions: React.FC<IProps> = ({
                   sx={{ width: 30, height: 30 }}
                   className={` cursor-pointer`}
                 />
-                <CircleIcon
-                  className={`absolute bottom-0 right-4 text-green-600 border border-white rounded-full bg-white`}
+                { IsActiveUser(item.user._id)&& <CircleIcon
+                  className={`absolute bottom-0 right-4border border-white rounded-full bg-white text-[#30a24b]`}
                   style={{ fontSize: 10 }}
-                />
+                />}
+               
               </div>
               <div className="ml-2 flex flex-col justify-center">
                 <b className="text-[0.9em]">{item.user.name}</b>

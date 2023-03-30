@@ -9,12 +9,25 @@ import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlin
 import ChatsConversions from "./ChatsConversions";
 import { LoadingComponent } from "../moleculs";
 import ChatMessageComponent from "./ChatMessageComponent";
+import { SocketIO } from "../../utils";
 
 const ChatsComponent: React.FC = () => {
   const [open, setOpen] = useState<Boolean>(false);
   const modalRef = useRef<any>();
   const [loading, setLoading] = useState<Boolean>(false);
   const [conversation, setConversation] = useState<any>({});
+  const [userActive, setUserActive] = useState<any[]>([]);
+
+  const IsActiveUser = (userId: String): Boolean => {
+    const result = userActive.filter((item) => {
+      return item.user._id === userId;
+    });
+    if (result.length > 0) {
+      return true;
+    }
+
+    return false;
+  };
 
   useEffect(() => {
     let handler = (e: any) => {
@@ -24,6 +37,7 @@ const ChatsComponent: React.FC = () => {
     };
 
     document.addEventListener("mousedown", handler);
+    SocketIO.on("activeUsers", (data) => setUserActive(data));
     return () => {
       document.removeEventListener("mousedown", handler);
     };
@@ -61,10 +75,12 @@ const ChatsComponent: React.FC = () => {
                 sx={{ width: open ? 30 : 25, height: open ? 30 : 25 }}
                 className={` cursor-pointer`}
               />
-              <CircleIcon
-                className={`absolute bottom-0 right-4 text-green-600 border border-white rounded-full bg-white`}
-                style={{ fontSize: open ? 10 : 8 }}
-              />
+              {IsActiveUser(conversation.user._id) && (
+                <CircleIcon
+                  className={`absolute bottom-0 right-4 text-green-600 border border-white rounded-full bg-white`}
+                  style={{ fontSize: open ? 10 : 8 }}
+                />
+              )}
             </div>
           )}
 
@@ -87,7 +103,7 @@ const ChatsComponent: React.FC = () => {
                     open ? "text-[0.68em]" : "text-[0px]"
                   } text-gray-500 -mt-[3px] font-normal duration-500`}
                 >
-                  Sedang Aktif
+                  {IsActiveUser(conversation.user._id) ? `Online` : "Offline"}
                 </h4>
               </>
             )}
@@ -107,6 +123,7 @@ const ChatsComponent: React.FC = () => {
           <ChatMessageComponent userConversation={conversation} />
         ) : (
           <ChatsConversions
+            IsActiveUser={IsActiveUser}
             setLoading={setLoading}
             setUserConversation={setConversation}
           />
