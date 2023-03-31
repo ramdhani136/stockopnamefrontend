@@ -56,9 +56,9 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
 
   const getMesssage = async (): Promise<void> => {
     try {
-      const result = await GetDataServer(DataAPI.MESSAGE).FINDONE(
-        userConversation.chatId
-      );
+      const result: any = await GetDataServer(DataAPI.MESSAGE).FIND({
+        params: `/${userConversation.chatId}`,
+      });
       setData(result.data);
       setLoading(false);
       SocketIO.emit("join chat", userConversation.chatId);
