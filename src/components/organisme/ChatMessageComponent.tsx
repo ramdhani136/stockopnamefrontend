@@ -53,17 +53,35 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
   const [typing, setTyping] = useState(false);
   const [openEmoji, setOpenEmoji] = useState<Boolean>(false);
   const modalRef = useRef<any>();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [limit, setLimit] = useState<number>(10);
+  const [hasMore, setHasMore] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [search, setSearch] = useState<String>("");
+  const [lastScroll, setLastScroll] = useState<number>(0);
 
   const getMesssage = async (): Promise<void> => {
     try {
       const result: any = await GetDataServer(DataAPI.MESSAGE).FIND({
         params: `/${userConversation.chatId}`,
+        limit: limit,
+        page: page,
+        search: search,
       });
-      setData(result.data);
+      setData([...result.data, ...isData]);
+      setHasMore(result.hasMore);
+      setPage(result.nextPage);
       setLoading(false);
       SocketIO.emit("join chat", userConversation.chatId);
+      setMoreLoading(false);
+      scrollRef.current?.scrollTo({
+        top: lastScroll,
+        // behavior: "smooth",
+      });
     } catch (error: any) {
       setLoading(false);
+
+      setMoreLoading(false);
     }
   };
 
@@ -83,6 +101,10 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
           });
           SocketIO.emit("new message", result.data.data);
           setData([...isData, result.data.data]);
+          scrollRef.current?.scrollTo({
+            top: 0,
+            // behavior: "smooth",
+          });
         } catch (error) {}
       }
     }
@@ -146,14 +168,19 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
       {!loading ? (
         <>
           {isData.length > 0 ? (
-            <ul
+            <div
+              ref={scrollRef}
               id="scrollChat"
               className="flex flex-col-reverse border  flex-1 scrollbar-track-gray-50 scrollbar-thumb-gray-100 scrollbar-thin py-2 text-[0.8em]"
             >
               <InfiniteScroll
                 dataLength={isData.length}
-                next={() => setMoreLoading(true)}
-                hasMore={true}
+                next={() => {
+                  setMoreLoading(true);
+                  setLastScroll(scrollRef.current?.scrollTop ?? 0);
+                  getMesssage();
+                }}
+                hasMore={hasMore}
                 inverse={true}
                 loader={<></>}
                 scrollableTarget="scrollChat"
@@ -174,7 +201,7 @@ const ChatMessageComponent: React.FC<IProps> = ({ userConversation }) => {
                   />
                 ))}
               </InfiniteScroll>
-            </ul>
+            </div>
           ) : (
             <div className=" flex flex-col justify-center items-center flex-1 border">
               <img src={gambar} alt="nomessage" className="w-[160px]" />

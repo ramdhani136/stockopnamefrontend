@@ -28,7 +28,6 @@ const ChatsConversions: React.FC<IProps> = ({
   const [loadingUser, setLoadingUser] = useState<Boolean>(false);
   const [limit, setLimit] = useState<number>(20);
   const [page, setPage] = useState<number>(1);
-  const [userActive, setUserActive] = useState<any[]>([]);
   const [hasMore, setHasmore] = useState<boolean>(false);
   const [search, setSearch] = useState<IValue>({
     valueData: null,
