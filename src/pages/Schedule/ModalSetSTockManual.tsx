@@ -22,7 +22,7 @@ const ModalSetSTockManual: React.FC = () => {
   };
 
   return (
-    <div className=" w-[430px] h-[auto] max-h-[400px]scrollbar-thin scrollbar-track-gray-100 p-7 scrollbar-thumb-gray-200">
+    <div className=" w-[450px] h-[auto] max-h-[400px]scrollbar-thin scrollbar-track-gray-100 p-7 scrollbar-thumb-gray-200">
       {loadingModal ? (
         <LoadingComponent />
       ) : (
