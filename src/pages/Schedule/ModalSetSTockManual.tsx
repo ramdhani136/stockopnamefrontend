@@ -67,7 +67,7 @@ const ModalSetSTockManual: React.FC = () => {
                 });
               }
             }}
-            
+            min={0}
             type="number"
           />
           <InputComponent
