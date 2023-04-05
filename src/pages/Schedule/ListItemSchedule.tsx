@@ -55,6 +55,15 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
     []
   );
 
+  const getItem = async (data: any): Promise<void> => {
+    if (props.allow.barcode) {
+    } else {
+      if (props.status == 1) {
+        console.log(data);
+      }
+    }
+  };
+
   const getData = async (): Promise<any> => {
     try {
       const result: any = await GetDataServer(DataAPI.SCHEDULEITEM).FIND({
@@ -69,13 +78,17 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
           return {
             id: item._id,
             checked: false,
-            item_code: (
+            item_code: props.allow.manual ? (
+              <h4 onClick={() => getItem(item)}>{item.item_code}</h4>
+            ) : (
               <a href={`/schedule/${props.name}/${item._id}`}>
                 {item.item_code}
               </a>
             ),
             code: `${item.item_code} - ${item.item_name}`,
-            item_name: (
+            item_name: props.allow.manual ? (
+              <h4 onClick={() => getItem(item)}>{item.item_name}</h4>
+            ) : (
               <a href={`/schedule/${props.name}/${item._id}`}>
                 {item.item_name}
               </a>

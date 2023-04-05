@@ -134,6 +134,8 @@ const FormSchedulePage: React.FC = () => {
     }
   };
 
+  
+
   const getWarehouse = async (): Promise<void> => {
     try {
       const result: any = await GetDataServer(DataAPI.WAREHOUSE).FIND({});
