@@ -63,9 +63,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
     if (props.allow.barcode) {
     } else {
       if (props.status == 1) {
-        console.log(data);
         ShowModalPackingId(data);
-        getData();
       }
     }
   };
@@ -76,7 +74,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
         active: true,
         Children: ModalSetSTockManual,
         title: "",
-        props: { params, getData },
+        props: { params, onRefresh },
       })
     );
   };
@@ -184,6 +182,8 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
     setPage(1), setHasMore(false);
     setRefresh(true);
   };
+
+
 
   const getERPItem = (): void => {
     AlertModal.confirmation({

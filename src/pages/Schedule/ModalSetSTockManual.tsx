@@ -18,6 +18,10 @@ const ModalSetSTockManual: React.FC = () => {
     valueInput: `${data.real_qty}`,
   });
 
+  const onSave = async (): Promise<void> => {
+    console.log(dataModal.props.onRefresh());
+  };
+
   return (
     <div className=" w-[430px] h-[auto] max-h-[400px]scrollbar-thin scrollbar-track-gray-100 p-7 scrollbar-thumb-gray-200">
       {loadingModal ? (
@@ -86,7 +90,7 @@ const ModalSetSTockManual: React.FC = () => {
             disabled
           />
           <button
-            // onClick={onSave}
+            onClick={onSave}
             className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-2 bg-green-600   text-sm text-white opacity-90 hover:opacity-100"
           >
             {data.real_qty == qty.valueData ? `Submit` : "Update"}
