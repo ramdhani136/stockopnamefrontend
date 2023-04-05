@@ -15,6 +15,9 @@ import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import { AlertModal, FetchApi } from "../../utils";
 import { LoadingComponent } from "../../components/moleculs";
+import { useDispatch } from "react-redux";
+import { modalSet } from "../../redux/slices/ModalSlice";
+import ModalSetSTockManual from "./ModalSetSTockManual";
 
 interface IProps {
   props: any;
@@ -35,6 +38,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
   const [search, setSeacrh] = useState<String>("");
   const [filter, setFilter] = useState<any[]>([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [activeProgress, setActiveProgress] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [totalIndex, setTotalIndex] = useState<number>(0);
@@ -60,8 +64,21 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
     } else {
       if (props.status == 1) {
         console.log(data);
+        ShowModalPackingId(data);
+        getData();
       }
     }
+  };
+
+  const ShowModalPackingId = (params?: {}) => {
+    dispatch(
+      modalSet({
+        active: true,
+        Children: ModalSetSTockManual,
+        title: "",
+        props: { params, getData },
+      })
+    );
   };
 
   const getData = async (): Promise<any> => {
