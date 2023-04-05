@@ -15,6 +15,12 @@ import moment from "moment";
 import { AlertModal, Meta } from "../../utils";
 import ListItemSchedule from "./ListItemSchedule";
 import { IListIconButton } from "../../components/atoms/IconButton";
+import { all } from "axios";
+
+interface IAllow {
+  barcode: boolean;
+  manual: boolean;
+}
 
 const FormSchedulePage: React.FC = () => {
   const metaData = {
@@ -53,6 +59,8 @@ const FormSchedulePage: React.FC = () => {
     valueInput: moment(Number(new Date())).format("YYYY-MM-DD"),
   });
 
+  const [allow, setAllow] = useState<IAllow>({ barcode: true, manual: false });
+
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingWarehouse, setLoadingWarehouse] = useState<boolean>(true);
 
@@ -63,6 +71,7 @@ const FormSchedulePage: React.FC = () => {
     setWorkflow([]);
     try {
       const result = await GetDataServer(DataAPI.SCHEDULE).FINDONE(`${id}`);
+
       // set workflow
       if (result.workflow.length > 0) {
         const isWorkflow = result.workflow.map((item: any): IListIconButton => {
@@ -84,6 +93,8 @@ const FormSchedulePage: React.FC = () => {
       setHistory(result.history);
 
       setData(result.data);
+
+      setAllow(result.data.allow);
 
       setWarehouse({
         valueData: result.data.warehouse,
@@ -108,6 +119,7 @@ const FormSchedulePage: React.FC = () => {
       setPrevData({
         startDate: moment(result.data.startDate).format("YYYY-MM-DD"),
         dueDate: moment(result.data.dueDate).format("YYYY-MM-DD"),
+        allow: result.data.allow,
       });
       setLoading(false);
     } catch (error: any) {
@@ -169,6 +181,7 @@ const FormSchedulePage: React.FC = () => {
             workflowState: "Draft",
             status: "0",
             warehouse: warehouse.valueData,
+            allow: allow,
           });
           navigate(`/schedule/${result.data.data.name}`);
           navigate(0);
@@ -179,6 +192,7 @@ const FormSchedulePage: React.FC = () => {
               ? {
                   startDate: startDate.valueData,
                   dueDate: dueDate.valueData,
+                  allow: allow,
                 }
               : data,
           });
@@ -200,7 +214,6 @@ const FormSchedulePage: React.FC = () => {
     });
   };
 
-
   useEffect(() => {
     if (id) {
       getData();
@@ -216,16 +229,15 @@ const FormSchedulePage: React.FC = () => {
     const actualData = {
       startDate: startDate.valueData,
       dueDate: dueDate.valueData,
+      allow: allow,
     };
     if (JSON.stringify(actualData) !== JSON.stringify(prevData)) {
       setChangeData(true);
     } else {
       setChangeData(false);
     }
-  }, [startDate, dueDate]);
+  }, [startDate, dueDate, allow]);
   // End
-
-
 
   return (
     <>
@@ -389,6 +401,59 @@ const FormSchedulePage: React.FC = () => {
                         min={startDate.valueData}
                       />
                     )}
+                    <div>
+                      <h4 className="text-sm text-gray-800">Allow</h4>
+                      <ul className="flex justify-between w-1/3">
+                        <li className="flex items-center">
+                          <label className="text-sm">Barcode</label>
+                          <div className="ml-1 mt-1">
+                            <input
+                              type="checkbox"
+                              id="barcode"
+                              name="Allow"
+                              checked={allow.barcode}
+                              className="accent-red-500"
+                              onChange={(e) => {
+                                if (
+                                  data.status != 1 &&
+                                  data.status != 2 &&
+                                  data.status != 3
+                                ) {
+                                  setAllow({
+                                    ...allow,
+                                    barcode: e.target.checked,
+                                  });
+                                }
+                              }}
+                            />
+                          </div>
+                        </li>
+                        <li className="flex items-center">
+                          <label className="text-sm">Manual</label>
+                          <div className="ml-1 mt-1">
+                            <input
+                              type="checkbox"
+                              id="manual"
+                              name="Allow"
+                              checked={allow.manual}
+                              className="accent-red-500"
+                              onChange={(e) => {
+                                if (
+                                  data.status != 1 &&
+                                  data.status != 2 &&
+                                  data.status != 3
+                                ) {
+                                  setAllow({
+                                    ...allow,
+                                    manual: e.target.checked,
+                                  });
+                                }
+                              }}
+                            />
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
