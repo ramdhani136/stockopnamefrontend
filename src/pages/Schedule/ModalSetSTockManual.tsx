@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { InputComponent } from "../../components/atoms";
-import { IListInput, IValue } from "../../components/atoms/InputComponent";
+import { IValue } from "../../components/atoms/InputComponent";
 import { LoadingComponent } from "../../components/moleculs";
 import { ISliceModal, selectModal } from "../../redux/slices/ModalSlice";
 import { AlertModal, FilterKata } from "../../utils";
