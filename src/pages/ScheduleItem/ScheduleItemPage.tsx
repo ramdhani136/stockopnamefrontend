@@ -373,7 +373,7 @@ const ScheduleItemPage = () => {
               <ToggleBodyComponent
                 name="Registration Packing ID"
                 className="mt-5"
-                child={<ScheduleItemPacking props={data} />}
+                child={<ScheduleItemPacking props={data} scheduleRefresh={getData} />}
               />
 
               {/* <TimeLineVertical data={history} /> */}

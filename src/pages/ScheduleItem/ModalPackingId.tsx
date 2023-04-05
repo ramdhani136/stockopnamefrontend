@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { InputComponent } from "../../components/atoms";
 import { IListInput, IValue } from "../../components/atoms/InputComponent";
 import { LoadingComponent } from "../../components/moleculs";
-import { ISliceModal, selectModal } from "../../redux/slices/ModalSlice";
+import { ISliceModal, modalSet, selectModal } from "../../redux/slices/ModalSlice";
 import { AlertModal, FilterKata } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 
@@ -20,7 +19,7 @@ const ModalPackingId: React.FC = () => {
   const [hasMore, setHasmore] = useState<boolean>(false);
   const [modalData, setModalData] = useState<any>({});
 
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const getData = async (): Promise<void> => {
     try {
@@ -95,7 +94,15 @@ const ModalPackingId: React.FC = () => {
           text: "Successfully added data",
           title: "Success",
         });
-        navigate(0);
+        dataModal.props.onRefresh()
+        dispatch(
+          modalSet({
+            active: false,
+            Children: null,
+            title: "",
+            props: null,
+          })
+        );
       } catch (error: any) {
         setLoadingModal(false);
         AlertModal.Default({

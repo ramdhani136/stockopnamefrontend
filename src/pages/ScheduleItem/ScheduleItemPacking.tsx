@@ -17,13 +17,14 @@ import { LoadingComponent } from "../../components/moleculs";
 
 interface IProps {
   props: any;
+  scheduleRefresh: any;
 }
 
 interface IDateProps {
   date: String;
 }
 
-const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
+const ScheduleItemPacking: React.FC<IProps> = ({ props, scheduleRefresh }) => {
   // Info Date COmponent
   const InfoDateComponent: React.FC<IDateProps> = ({ date }) => {
     const [open, setOpen] = useState<boolean>(false);
@@ -45,7 +46,6 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
       </div>
     );
   };
-  
 
   // End
 
@@ -183,6 +183,10 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
   };
 
   const ShowModalPackingId = (params?: {}) => {
+    const getRefresh = () => {
+      scheduleRefresh();
+      onRefresh();
+    };
     if (params) {
       props = { ...props, params };
     }
@@ -191,7 +195,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props }) => {
         active: true,
         Children: ModalPackingId,
         title: "",
-        props: { ...props, onRefresh, data: defaultData },
+        props: { ...props, onRefresh: getRefresh, data: defaultData },
       })
     );
   };
