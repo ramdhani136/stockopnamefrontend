@@ -15,7 +15,7 @@ const ModalSetSTockManual: React.FC = () => {
   const data = dataModal.props.params;
   const [qty, setQty] = useState<IValue>({
     valueData: data.real_qty,
-    valueInput: data.real_qty==0?'':`${data.real_qty}`,
+    valueInput: `${data.real_qty}`,
   });
 
   return (
@@ -67,6 +67,7 @@ const ModalSetSTockManual: React.FC = () => {
                 });
               }
             }}
+            
             type="number"
           />
           <InputComponent

@@ -77,6 +77,7 @@ const InputComponent: React.FC<IProps> = ({
   const [open, setOpen] = useState<boolean>(false);
   const [openRemark, setOpenRemark] = useState<boolean>(false);
 
+  
   useEffect(() => {
     let handler = (e: any) => {
       if (list) {
@@ -138,7 +139,13 @@ const InputComponent: React.FC<IProps> = ({
               onChange(e.target.value);
             }
           }}
-          value={`${value.valueInput}`}
+          value={
+            type && inputRef.current === document.activeElement
+              ? `${value.valueData}` == "0"
+                ? ""
+                : `${value.valueInput}`
+              : `${value.valueInput}`
+          }
           className={`w-full  font-normal border h-full z-10 rounded-md bg-gray-50  px-3 ${inputStyle}`}
         />
         {value.valueInput && onReset && !disabled && (
