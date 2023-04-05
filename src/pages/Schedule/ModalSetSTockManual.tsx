@@ -21,10 +21,6 @@ const ModalSetSTockManual: React.FC = () => {
     valueInput: `${data.real_qty}`,
   });
 
-  // const onSave = async (): Promise<void> => {
-  //   console.log(dataModal.props.onRefresh());
-  // };
-
   const onSave = async (): Promise<void> => {
     const onProgress = async (): Promise<void> => {
       try {
@@ -101,6 +97,7 @@ const ModalSetSTockManual: React.FC = () => {
           />
           <InputComponent
             label="Real Qty"
+            disabled={data.status == "1"}
             value={{
               valueData: qty.valueData,
               valueInput: qty.valueInput,
@@ -143,7 +140,11 @@ const ModalSetSTockManual: React.FC = () => {
             onClick={onSave}
             className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-2 bg-green-600   text-sm text-white opacity-90 hover:opacity-100"
           >
-            {data.real_qty == qty.valueData ? `Submit` : "Update"}
+            {data.status == "1"
+              ? "Reopen"
+              : data.real_qty == qty.valueData
+              ? `Submit`
+              : "Update"}
           </button>
         </>
       )}

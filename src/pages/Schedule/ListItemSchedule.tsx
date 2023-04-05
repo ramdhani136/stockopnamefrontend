@@ -31,7 +31,7 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
   const [page, setPage] = useState<number>(1);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [sort, setSort] = useState<any[]>([]);
-  const [isSort, setIsort] = useState<string>("createdAt");
+  const [isSort, setIsort] = useState<string>("updatedAt");
   const [isOrderBy, setOrderBy] = useState<number>(-1);
   const [limit, setLimit] = useState<number>(20);
   const [listFilter, setListFilter] = useState<IDataFilter[]>([]);
@@ -50,11 +50,11 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
       { header: "Item Code", accessor: "item_code", className: "w-[14%]" },
       { header: "Item Name", accessor: "item_name", className: "w-[29%]" },
       { header: "Stocker", accessor: "stocker", className: "w-[10%]" },
-      { header: "Status", accessor: "status", className: "w-[10%]" },
+      { header: "Status", accessor: "status", className: "w-[12%]" },
       { header: "Stock", accessor: "actual_qty", className: "w-[6.5%]" },
       { header: "Checked", accessor: "real_qty", className: "w-[6.5%]" },
       { header: "Uom", accessor: "uom", className: "w-[6.5%]" },
-      { header: "", accessor: "updatedAt", className: "w-[13%]" },
+      { header: "", accessor: "updatedAt", className: "w-[11%]" },
     ],
     []
   );
