@@ -170,6 +170,14 @@ const FormSchedulePage: React.FC = () => {
 
   const onSave = async (data: {}): Promise<any> => {
     const progress = async (): Promise<void> => {
+      if (allow.barcode === false && allow.manual === false) {
+        AlertModal.Default({
+          icon: "error",
+          title: "Error",
+          text: "Allow required",
+        });
+        return;
+      }
       try {
         setLoading(true);
         let result: any;
