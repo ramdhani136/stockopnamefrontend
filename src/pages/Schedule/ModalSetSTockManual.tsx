@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { InputComponent } from "../../components/atoms";
 import { IValue } from "../../components/atoms/InputComponent";
 import { LoadingComponent } from "../../components/moleculs";
-import { ISliceModal, selectModal } from "../../redux/slices/ModalSlice";
+import {
+  ISliceModal,
+  modalSet,
+  selectModal,
+} from "../../redux/slices/ModalSlice";
 import { AlertModal, FilterKata } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 
 const ModalSetSTockManual: React.FC = () => {
   const [loadingModal, setLoadingModal] = useState<boolean>(false);
-
+  const dispatch = useDispatch();
   const dataModal: ISliceModal = useSelector(selectModal);
   const data = dataModal.props.params;
   const [qty, setQty] = useState<IValue>({
@@ -17,8 +21,55 @@ const ModalSetSTockManual: React.FC = () => {
     valueInput: `${data.real_qty}`,
   });
 
+  // const onSave = async (): Promise<void> => {
+  //   console.log(dataModal.props.onRefresh());
+  // };
+
   const onSave = async (): Promise<void> => {
-    console.log(dataModal.props.onRefresh());
+    const onProgress = async (): Promise<void> => {
+      try {
+        setLoadingModal(true);
+        let insertData = {};
+        if (data.real_qty == qty.valueData) {
+          insertData = {
+            status: 1,
+          };
+        } else {
+          insertData = {
+            real_qty: qty.valueData,
+          };
+        }
+        await GetDataServer(DataAPI.SCHEDULEITEM).UPDATE({
+          data: insertData,
+          id: data._id,
+        });
+
+        AlertModal.Default({
+          icon: "success",
+          text: "Successfully",
+          title: "Success",
+        });
+        dataModal.props.onRefresh();
+        dispatch(
+          modalSet({
+            active: false,
+            Children: null,
+            title: "",
+            props: null,
+          })
+        );
+      } catch (error: any) {
+        setLoadingModal(false);
+        AlertModal.Default({
+          icon: "error",
+          title: "Error",
+          text: error.response.data.msg.code
+            ? "Data already exists"
+            : error.response.data.msg ?? "Network Error!",
+        });
+      }
+    };
+    AlertModal.confirmation({ onConfirm: onProgress });
   };
 
   return (
