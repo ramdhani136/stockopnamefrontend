@@ -79,12 +79,14 @@ const ModalSetSTockManual: React.FC = () => {
             value={{ valueData: data.item_code, valueInput: data.item_code }}
             className="mb-2"
             disabled
+            inputStyle="text-sm"
           />
           <InputComponent
             label="Item Name"
             value={{ valueData: data.item_name, valueInput: data.item_name }}
             className="mb-2"
             disabled
+            inputStyle="text-sm"
           />
           <InputComponent
             label="Stock Qty"
@@ -94,6 +96,7 @@ const ModalSetSTockManual: React.FC = () => {
             }}
             className="mb-2"
             disabled
+            inputStyle="text-sm"
           />
           <InputComponent
             label="Real Qty"
@@ -120,12 +123,14 @@ const ModalSetSTockManual: React.FC = () => {
             }}
             min={0}
             type="number"
+            inputStyle="text-sm"
           />
           <InputComponent
             label="UOM"
             value={{ valueData: data.stock_uom, valueInput: data.stock_uom }}
             className="mb-2"
             disabled
+            inputStyle="text-sm"
           />
           <InputComponent
             label="Status"
@@ -135,6 +140,7 @@ const ModalSetSTockManual: React.FC = () => {
             }}
             className="mb-3"
             disabled
+            inputStyle="text-sm"
           />
           <button
             onClick={onSave}
