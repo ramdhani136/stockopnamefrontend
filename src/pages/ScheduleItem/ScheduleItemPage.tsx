@@ -176,8 +176,6 @@ const ScheduleItemPage = () => {
     }
   };
 
-  console.log(data)
-
   useEffect(() => {
     getData();
   }, []);
@@ -375,7 +373,9 @@ const ScheduleItemPage = () => {
               <ToggleBodyComponent
                 name="Registration Packing ID"
                 className="mt-5"
-                child={<ScheduleItemPacking props={data} scheduleRefresh={getData} />}
+                child={
+                  <ScheduleItemPacking props={data} scheduleRefresh={getData} />
+                }
               />
 
               {/* <TimeLineVertical data={history} /> */}

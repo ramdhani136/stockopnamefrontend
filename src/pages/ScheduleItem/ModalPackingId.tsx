@@ -75,8 +75,8 @@ const ModalPackingId: React.FC = () => {
     valueInput: "",
   });
 
-  const [type, setType] = useState<IValue>({
-    valueData: "Barcode",
+  const [barcode, setBarcode] = useState<IValue>({
+    valueData: true,
     valueInput: "Barcode",
   });
 
@@ -88,6 +88,7 @@ const ModalPackingId: React.FC = () => {
           scheduleItemId: dataModal.props._id,
           actual_qty: actualQty.valueData,
           id_packing: packingId.valueData,
+          barcode: barcode.valueData,
         };
 
         if (modalData._id) {
@@ -114,6 +115,7 @@ const ModalPackingId: React.FC = () => {
         );
       } catch (error: any) {
         setLoadingModal(false);
+        console.log(error)
         AlertModal.Default({
           icon: "error",
           title: "Error",
@@ -123,6 +125,13 @@ const ModalPackingId: React.FC = () => {
         });
       }
     };
+    if(!barcode.valueData){
+      AlertModal.Default({
+        icon: "error",
+        title: "Error",
+        text: "barcode is required",
+      });
+    }
     AlertModal.confirmation({ onConfirm: onProgress });
   };
 
@@ -162,7 +171,6 @@ const ModalPackingId: React.FC = () => {
     }
   };
 
-  console.log(dataModal.props);
   return (
     <div className=" w-[450px] max-h-[95vh] scrollbar-thin scrollbar-track-gray-100 p-7 scrollbar-thumb-gray-200">
       {loadingModal ? (
@@ -170,29 +178,29 @@ const ModalPackingId: React.FC = () => {
       ) : (
         <>
           <InputComponent
-            value={type}
+            value={barcode}
             onChange={(e) =>
-              setType({
-                ...type,
+              setBarcode({
+                ...barcode,
                 valueInput: e,
               })
             }
             onSelected={(e) =>
-              setType({
+              setBarcode({
                 valueData: e.value,
                 valueInput: e.name,
               })
             }
-            onReset={() => setType({ valueData: null, valueInput: "" })}
+            onReset={() => setBarcode({ valueData: null, valueInput: "" })}
             label="Type"
             className="mb-2 text-sm"
             list={[
-              { name: "Barcode", value: "Barcode" },
-              { name: "Manual", value: "Manual" },
+              { name: "Barcode", value: true },
+              { name: "Manual", value: false },
             ]}
           />
 
-          {dataModal.props.schedule.allow.barcode && (
+          {dataModal.props.schedule.allow.barcode && barcode.valueData&&(
             <InputComponent
               disabled={dataModal.props.schedule.status != 1}
               infiniteScroll={{
@@ -252,7 +260,7 @@ const ModalPackingId: React.FC = () => {
             disabled
           />
 
-          {data.conversion && (
+          {dataModal.props.schedule.allow.barcode && data.conversion && (
             <InputComponent
               value={{
                 valueData: data.conversion,
@@ -263,28 +271,32 @@ const ModalPackingId: React.FC = () => {
               disabled
             />
           )}
-          {data.conversion && (
+          {/* {data.conversion && ( */}
             <InputComponent
               disabled={dataModal.props.schedule.status != 1}
               value={actualQty}
               onChange={(e) => {
-                if (e <= data.conversion && e >= 0) {
-                  setActualQty({ valueData: e, valueInput: e });
-                } else {
-                  setActualQty({
-                    valueData: data.conversion,
-                    valueInput: data.conversion,
-                  });
-                }
+                setActualQty({
+                  valueData: e,
+                  valueInput: e,
+                });
+                // if (e <= data.conversion && e >= 0) {
+                //   setActualQty({ valueData: e, valueInput: e });
+                // } else {
+                //   setActualQty({
+                //     valueData: data.conversion,
+                //     valueInput: data.conversion,
+                //   });
+                // }
               }}
               onReset={() => setActualQty({ valueData: 0, valueInput: "" })}
               mandatoy
               label="Actual Stock"
               className="mb-2 text-sm"
               type="number"
-              max={data.conversion}
+              // max={data.conversion}
             />
-          )}
+          {/* )} */}
 
           <InputComponent
             value={{
@@ -296,14 +308,14 @@ const ModalPackingId: React.FC = () => {
             className="mb-2 text-sm"
           />
 
-          {actualQty.valueInput && dataModal.props.schedule.status == 1 && (
+          {/* {actualQty.valueInput && dataModal.props.schedule.status == 1 && ( */}
             <button
               onClick={onSave}
               className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-2 bg-green-600   text-sm text-white opacity-90 hover:opacity-100"
             >
               {modalData.id_packing ? "Update" : "Save"}
             </button>
-          )}
+          {/* )} */}
         </>
       )}
     </div>
