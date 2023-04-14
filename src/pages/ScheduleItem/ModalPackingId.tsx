@@ -162,8 +162,9 @@ const ModalPackingId: React.FC = () => {
     }
   };
 
+  console.log(dataModal.props);
   return (
-    <div className=" w-[450px] h-[auto] max-h-[400px]scrollbar-thin scrollbar-track-gray-100 p-7 scrollbar-thumb-gray-200">
+    <div className=" w-[450px] max-h-[95vh] scrollbar-thin scrollbar-track-gray-100 p-7 scrollbar-thumb-gray-200">
       {loadingModal ? (
         <LoadingComponent />
       ) : (
@@ -190,59 +191,67 @@ const ModalPackingId: React.FC = () => {
               { name: "Manual", value: "Manual" },
             ]}
           />
+
+          {dataModal.props.schedule.allow.barcode && (
+            <InputComponent
+              disabled={dataModal.props.schedule.status != 1}
+              infiniteScroll={{
+                hasMore: hasMore,
+                next: getData,
+                onSearch: (e) => {
+                  setAllData([]);
+                  setHasmore(false);
+                  setPage(1);
+                  setSearch(FilterKata({ kata: e, filter: ["R", "P", "I"] }));
+                },
+                loading: loading,
+              }}
+              onCLick={getData}
+              value={packingId}
+              list={allData}
+              label="Packing ID"
+              loading={false}
+              onChange={(e) => {
+                setPackingId({ ...packingId, valueInput: e });
+              }}
+              onSelected={(e) => {
+                checkDupl(e.value.id_packing);
+                setData(e.value),
+                  setPackingId({
+                    valueData: e.value.id_packing,
+                    valueInput: e.value.id_packing,
+                  });
+              }}
+              className="mb-2 text-sm"
+              onReset={() => {
+                setPackingId({ valueData: null, valueInput: "" });
+                setData({});
+                setActualQty({ valueData: 0, valueInput: "" });
+                setModalData({});
+              }}
+            />
+          )}
+
           <InputComponent
-            disabled={dataModal.props.schedule.status != 1}
-            infiniteScroll={{
-              hasMore: hasMore,
-              next: getData,
-              onSearch: (e) => {
-                setAllData([]);
-                setHasmore(false);
-                setPage(1);
-                setSearch(FilterKata({ kata: e, filter: ["R", "P", "I"] }));
-              },
-              loading: loading,
+            value={{
+              valueData: dataModal.props.item_code,
+              valueInput: dataModal.props.item_code,
             }}
-            onCLick={getData}
-            value={packingId}
-            list={allData}
-            label="Packing ID"
-            loading={false}
-            onChange={(e) => {
-              setPackingId({ ...packingId, valueInput: e });
-            }}
-            onSelected={(e) => {
-              checkDupl(e.value.id_packing);
-              setData(e.value),
-                setPackingId({
-                  valueData: e.value.id_packing,
-                  valueInput: e.value.id_packing,
-                });
-            }}
+            label="Item Code"
             className="mb-2 text-sm"
-            onReset={() => {
-              setPackingId({ valueData: null, valueInput: "" });
-              setData({});
-              setActualQty({ valueData: 0, valueInput: "" });
-              setModalData({});
-            }}
+            disabled
           />
-          {data.item && (
-            <InputComponent
-              value={{ valueData: data.item, valueInput: data.item }}
-              label="Item Code"
-              className="mb-2 text-sm"
-              disabled
-            />
-          )}
-          {data.item_name && (
-            <InputComponent
-              value={{ valueData: data.item_name, valueInput: data.item_name }}
-              label="Item Name"
-              className="mb-2 text-sm"
-              disabled
-            />
-          )}
+
+          <InputComponent
+            value={{
+              valueData: dataModal.props.item_name,
+              valueInput: dataModal.props.item_name,
+            }}
+            label="Item Name"
+            className="mb-2 text-sm"
+            disabled
+          />
+
           {data.conversion && (
             <InputComponent
               value={{
@@ -276,14 +285,17 @@ const ModalPackingId: React.FC = () => {
               max={data.conversion}
             />
           )}
-          {data.stock_uom && (
-            <InputComponent
-              value={{ valueData: data.stock_uom, valueInput: data.stock_uom }}
-              label="Uom"
-              disabled
-              className="mb-2 text-sm"
-            />
-          )}
+
+          <InputComponent
+            value={{
+              valueData: dataModal.props.stock_uom,
+              valueInput: dataModal.props.stock_uom,
+            }}
+            label="Uom"
+            disabled
+            className="mb-2 text-sm"
+          />
+
           {actualQty.valueInput && dataModal.props.schedule.status == 1 && (
             <button
               onClick={onSave}
