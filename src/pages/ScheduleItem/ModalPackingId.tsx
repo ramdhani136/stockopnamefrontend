@@ -115,7 +115,7 @@ const ModalPackingId: React.FC = () => {
         );
       } catch (error: any) {
         setLoadingModal(false);
-        console.log(error)
+        console.log(error);
         AlertModal.Default({
           icon: "error",
           title: "Error",
@@ -125,7 +125,7 @@ const ModalPackingId: React.FC = () => {
         });
       }
     };
-    if(!barcode.valueData){
+    if (!barcode.valueData) {
       AlertModal.Default({
         icon: "error",
         title: "Error",
@@ -185,13 +185,19 @@ const ModalPackingId: React.FC = () => {
                 valueInput: e,
               })
             }
-            onSelected={(e) =>
+            onSelected={(e) => {
               setBarcode({
                 valueData: e.value,
                 valueInput: e.name,
-              })
-            }
-            onReset={() => setBarcode({ valueData: null, valueInput: "" })}
+              });
+              setPackingId({ valueData: "", valueInput: "" });
+              setData({});
+            }}
+            onReset={() => {
+              setBarcode({ valueData: null, valueInput: "" });
+              setPackingId({ valueData: "", valueInput: "" });
+              setData({});
+            }}
             label="Type"
             className="mb-2 text-sm"
             list={[
@@ -200,7 +206,7 @@ const ModalPackingId: React.FC = () => {
             ]}
           />
 
-          {dataModal.props.schedule.allow.barcode && barcode.valueData&&(
+          {dataModal.props.schedule.allow.barcode && barcode.valueData && (
             <InputComponent
               disabled={dataModal.props.schedule.status != 1}
               infiniteScroll={{
@@ -272,30 +278,33 @@ const ModalPackingId: React.FC = () => {
             />
           )}
           {/* {data.conversion && ( */}
-            <InputComponent
-              disabled={dataModal.props.schedule.status != 1}
-              value={actualQty}
-              onChange={(e) => {
+          <InputComponent
+            disabled={dataModal.props.schedule.status != 1}
+            value={actualQty}
+            onChange={(e) => {
+              if (barcode.valueData) {
+                if (e <= data.conversion && e >= 0) {
+                  setActualQty({ valueData: e, valueInput: e });
+                } else {
+                  setActualQty({
+                    valueData: data.conversion,
+                    valueInput: data.conversion,
+                  });
+                }
+              } else {
                 setActualQty({
                   valueData: e,
                   valueInput: e,
                 });
-                // if (e <= data.conversion && e >= 0) {
-                //   setActualQty({ valueData: e, valueInput: e });
-                // } else {
-                //   setActualQty({
-                //     valueData: data.conversion,
-                //     valueInput: data.conversion,
-                //   });
-                // }
-              }}
-              onReset={() => setActualQty({ valueData: 0, valueInput: "" })}
-              mandatoy
-              label="Actual Stock"
-              className="mb-2 text-sm"
-              type="number"
-              // max={data.conversion}
-            />
+              }
+            }}
+            onReset={() => setActualQty({ valueData: 0, valueInput: "" })}
+            mandatoy
+            label="Actual Stock"
+            className="mb-2 text-sm"
+            type="number"
+            max={barcode.valueData && data.conversion}
+          />
           {/* )} */}
 
           <InputComponent
@@ -309,12 +318,12 @@ const ModalPackingId: React.FC = () => {
           />
 
           {/* {actualQty.valueInput && dataModal.props.schedule.status == 1 && ( */}
-            <button
-              onClick={onSave}
-              className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-2 bg-green-600   text-sm text-white opacity-90 hover:opacity-100"
-            >
-              {modalData.id_packing ? "Update" : "Save"}
-            </button>
+          <button
+            onClick={onSave}
+            className="cursor-pointer border mt-2 border-green-700 w-full rounded-md py-2 bg-green-600   text-sm text-white opacity-90 hover:opacity-100"
+          >
+            {modalData.id_packing ? "Update" : "Save"}
+          </button>
           {/* )} */}
         </>
       )}
