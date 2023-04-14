@@ -15,7 +15,6 @@ import moment from "moment";
 import { AlertModal, Meta } from "../../utils";
 import ListItemSchedule from "./ListItemSchedule";
 import { IListIconButton } from "../../components/atoms/IconButton";
-import { all } from "axios";
 
 interface IAllow {
   barcode: boolean;

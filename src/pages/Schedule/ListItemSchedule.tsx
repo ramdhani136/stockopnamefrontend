@@ -93,21 +93,31 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
           return {
             id: item._id,
             checked: false,
-            item_code: props.allow.manual ? (
-              <h4 onClick={() => getItem(item)}>{item.item_code}</h4>
-            ) : (
+            item_code: (
               <a href={`/schedule/${props.name}/${item._id}`}>
                 {item.item_code}
               </a>
             ),
+            // item_code: props.allow.manual ? (
+            //   <h4 onClick={() => getItem(item)}>{item.item_code}</h4>
+            // ) : (
+            //   <a href={`/schedule/${props.name}/${item._id}`}>
+            //     {item.item_code}
+            //   </a>
+            // ),
             code: `${item.item_code} - ${item.item_name}`,
-            item_name: props.allow.manual ? (
-              <h4 onClick={() => getItem(item)}>{item.item_name}</h4>
-            ) : (
+            item_name: (
               <a href={`/schedule/${props.name}/${item._id}`}>
                 {item.item_name}
               </a>
             ),
+            // item_name: props.allow.manual ? (
+            //   <h4 onClick={() => getItem(item)}>{item.item_name}</h4>
+            // ) : (
+            //   <a href={`/schedule/${props.name}/${item._id}`}>
+            //     {item.item_name}
+            //   </a>
+            // ),
             stocker: <div className="text-left">{item.stocker}</div>,
             uom: <div className="text-center">{item.stock_uom}</div>,
             status: (
@@ -182,8 +192,6 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
     setPage(1), setHasMore(false);
     setRefresh(true);
   };
-
-
 
   const getERPItem = (): void => {
     AlertModal.confirmation({
