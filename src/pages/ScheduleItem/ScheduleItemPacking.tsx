@@ -248,6 +248,8 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props, scheduleRefresh }) => {
     onRefresh();
   }, [filter, search]);
 
+  console.log(props.schedule.allow);
+
   return (
     <div className="min-h-[300px] max-h-[400px] flex">
       {loading ? (
@@ -298,7 +300,12 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props, scheduleRefresh }) => {
           buttonInsert={{
             status: props.schedule.status == 1,
             onCLick: ShowModalPackingId,
-            title: "Insert Packing ID",
+            title: `${
+              props.schedule.allow.barcode === true &&
+              props.schedule.allow.manual === false
+                ? "Insert Packing ID"
+                : "Add Stock"
+            }`,
           }}
           disabled={props.schedule.status != 1}
         />
