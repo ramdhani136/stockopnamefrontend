@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { InputComponent } from "../../components/atoms";
 import { IListInput, IValue } from "../../components/atoms/InputComponent";
 import { LoadingComponent } from "../../components/moleculs";
-import { ISliceModal, modalSet, selectModal } from "../../redux/slices/ModalSlice";
+import {
+  ISliceModal,
+  modalSet,
+  selectModal,
+} from "../../redux/slices/ModalSlice";
 import { AlertModal, FilterKata } from "../../utils";
 import GetDataServer, { DataAPI } from "../../utils/GetDataServer";
 
@@ -71,6 +75,11 @@ const ModalPackingId: React.FC = () => {
     valueInput: "",
   });
 
+  const [type, setType] = useState<IValue>({
+    valueData: "Barcode",
+    valueInput: "Barcode",
+  });
+
   const onSave = async (): Promise<void> => {
     const onProgress = async (): Promise<void> => {
       try {
@@ -94,7 +103,7 @@ const ModalPackingId: React.FC = () => {
           text: "Successfully added data",
           title: "Success",
         });
-        dataModal.props.onRefresh()
+        dataModal.props.onRefresh();
         dispatch(
           modalSet({
             active: false,
@@ -159,6 +168,28 @@ const ModalPackingId: React.FC = () => {
         <LoadingComponent />
       ) : (
         <>
+          <InputComponent
+            value={type}
+            onChange={(e) =>
+              setType({
+                ...type,
+                valueInput: e,
+              })
+            }
+            onSelected={(e) =>
+              setType({
+                valueData: e.value,
+                valueInput: e.name,
+              })
+            }
+            onReset={() => setType({ valueData: null, valueInput: "" })}
+            label="Type"
+            className="mb-2 text-sm"
+            list={[
+              { name: "Barcode", value: "Barcode" },
+              { name: "Manual", value: "Manual" },
+            ]}
+          />
           <InputComponent
             disabled={dataModal.props.schedule.status != 1}
             infiniteScroll={{
