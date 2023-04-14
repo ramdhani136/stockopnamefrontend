@@ -106,7 +106,7 @@ const ScheduleItemPacking: React.FC<IProps> = ({ props, scheduleRefresh }) => {
                   ShowModalPackingId(item);
                 }}
               >
-                {item.id_packing !== "" ? item.id_packing : "No Packing ID"}
+                {item.id_packing !== "" ? item.id_packing : "(No Packing ID)"}
               </button>
             ),
             stock_uom: <div className="text-center">{item.stock_uom}</div>,
