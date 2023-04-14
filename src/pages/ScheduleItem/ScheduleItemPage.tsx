@@ -176,6 +176,8 @@ const ScheduleItemPage = () => {
     }
   };
 
+  console.log(data)
+
   useEffect(() => {
     getData();
   }, []);
