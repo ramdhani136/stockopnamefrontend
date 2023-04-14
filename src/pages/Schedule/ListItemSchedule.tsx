@@ -59,14 +59,14 @@ const ListItemSchedule: React.FC<IProps> = ({ props }) => {
     []
   );
 
-  const getItem = async (data: any): Promise<void> => {
-    if (props.allow.barcode) {
-    } else {
-      if (props.status == 1) {
-        ShowModalPackingId(data);
-      }
-    }
-  };
+  // const getItem = async (data: any): Promise<void> => {
+  //   if (props.allow.barcode) {
+  //   } else {
+  //     if (props.status == 1) {
+  //       ShowModalPackingId(data);
+  //     }
+  //   }
+  // };
 
   const ShowModalPackingId = (params?: {}) => {
     dispatch(
