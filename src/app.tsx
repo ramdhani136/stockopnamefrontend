@@ -8,6 +8,7 @@ import {
   NotFoundPage,
   FormSchedulePage,
   ScheduleItemPage,
+  UsersPage,
 } from "./pages";
 import { store } from "./redux/Store";
 
@@ -21,6 +22,10 @@ const App: React.FC = () => {
         <Route
           path="/schedule"
           element={<LayoutComponent Child={SchedulePage} />}
+        />
+        <Route
+          path="/users"
+          element={<LayoutComponent Child={UsersPage} />}
         />
         <Route
           path="/schedule/:id"

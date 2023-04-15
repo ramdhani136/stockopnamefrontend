@@ -7,6 +7,7 @@ import ListItemSchedule from "./Schedule/ListItemSchedule";
 import ScheduleItemPage from "./ScheduleItem/ScheduleItemPage";
 import ScheduleItemPacking from "./ScheduleItem/ScheduleItemPacking";
 import ModalPackingId from "./ScheduleItem/ModalPackingId";
+import { UsersPage } from "./Users/UsersPage";
 
 export {
   LoginPage,
@@ -17,5 +18,6 @@ export {
   ListItemSchedule,
   ScheduleItemPage,
   ScheduleItemPacking,
-  ModalPackingId
+  ModalPackingId,
+  UsersPage,
 };
