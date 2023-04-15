@@ -45,10 +45,11 @@ export const UsersPage: React.FC = (): any => {
 
   const columns: IColumns[] = useMemo(
     () => [
-      { header: "Name", accessor: "name" },
-      { header: "Username", accessor: "username" },
-      { header: "Status", accessor: "status" },
-      { header: "", accessor: "updatedAt" },
+      { header: "Name", accessor: "name" ,className:'w-[30%]' },
+      { header: "Username", accessor: "username",className:'w-[20%]'  },
+      { header: "Email", accessor: "email" ,className:'w-[20%]' },
+      { header: "Status", accessor: "status" ,className:'w-[10%]' },
+      { header: "", accessor: "updatedAt" ,className:'w-[15%]' },
     ],
     []
   );
@@ -58,7 +59,7 @@ export const UsersPage: React.FC = (): any => {
       const result: any = await GetDataServer(DataAPI.USERS).FIND({
         limit: limit,
         page: page,
-        fields: ["name", "username", "status", "updatedAt"],
+        fields: ["name", "username", "status", "updatedAt", "email"],
         filters: filter,
         orderBy: { sort: isOrderBy, state: isSort },
         search: search,
@@ -80,6 +81,7 @@ export const UsersPage: React.FC = (): any => {
               </b>
             ),
             username: <div>{item.username}</div>,
+            email: <div>{item.email?item.email:'-'}</div>,
             status: (
               <ButtonStatusComponent
                 status={item.status}
