@@ -11,6 +11,7 @@ import {
   UsersPage,
   RoleProfilePage,
   PackingIDPage,
+  WorkflowPage,
 } from "./pages";
 import { store } from "./redux/Store";
 
@@ -32,6 +33,10 @@ const App: React.FC = () => {
         <Route
           path="/roles"
           element={<LayoutComponent Child={RoleProfilePage} />}
+        />
+        <Route
+          path="/workflow"
+          element={<LayoutComponent Child={WorkflowPage} />}
         />
         <Route
           path="/packingid"
