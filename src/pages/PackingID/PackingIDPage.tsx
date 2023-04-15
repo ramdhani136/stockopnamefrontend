@@ -16,7 +16,7 @@ import {
 import { LoadingComponent } from "../../components/moleculs";
 import { IDataFilter } from "../../components/moleculs/FilterTableComponent";
 
-export const RoleProfilePage: React.FC = (): any => {
+export const PackingIDPage: React.FC = (): any => {
   const [data, setData] = useState<IDataTables[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [hasMore, setHasMore] = useState<boolean>(false);
@@ -37,8 +37,8 @@ export const RoleProfilePage: React.FC = (): any => {
   const [activeProgress, setActiveProgress] = useState<boolean>(false);
 
   const metaData = {
-    title: "Role Profile -  Stock Opname App Ekatunggal",
-    description: "Halaman role stock opname web system",
+    title: "Packing ID -  Stock Opname App Ekatunggal",
+    description: "Halaman packing id stock opname web system",
   };
 
   const navigate = useNavigate();
@@ -47,12 +47,12 @@ export const RoleProfilePage: React.FC = (): any => {
     () => [
       { header: "Name", accessor: "name", className: "w-[25%]" },
       {
-        header: "WorkflowState",
-        accessor: "workflowState",
+        header: "Item Code",
+        accessor: "item",
         className: "w-[30%]",
       },
-      { header: "User", accessor: "user", className: "w-[20%]" },
-      { header: "", accessor: "updatedAt", className: "w-[20%]" },
+      { header: "Item Name", accessor: "item_name", className: "w-[20%]" },
+      { header: "", accessor: "modified", className: "w-[20%]" },
     ],
     []
   );

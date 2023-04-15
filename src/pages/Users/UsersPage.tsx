@@ -37,8 +37,8 @@ export const UsersPage: React.FC = (): any => {
   const [activeProgress, setActiveProgress] = useState<boolean>(false);
 
   const metaData = {
-    title: "Schedule -  Stock Opname App Ekatunggal",
-    description: "Halaman schedule stock opname web system",
+    title: "Users List -  Stock Opname App Ekatunggal",
+    description: "Halaman users stock opname web system",
   };
 
   const navigate = useNavigate();
