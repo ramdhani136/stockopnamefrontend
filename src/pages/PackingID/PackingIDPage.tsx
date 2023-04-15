@@ -45,13 +45,14 @@ export const PackingIDPage: React.FC = (): any => {
 
   const columns: IColumns[] = useMemo(
     () => [
-      { header: "Name", accessor: "name", className: "w-[25%]" },
+      { header: "Name", accessor: "name", className: "w-[20%]" },
+      { header: "Status", accessor: "status", className: "w-[15%]" },
       {
         header: "Item Code",
         accessor: "item",
-        className: "w-[30%]",
+        className: "w-[20%]",
       },
-      { header: "Item Name", accessor: "item_name", className: "w-[20%]" },
+      { header: "Item Name", accessor: "item_name", className: "w-[30%]" },
       { header: "", accessor: "modified", className: "w-[20%]" },
     ],
     []
@@ -59,12 +60,12 @@ export const PackingIDPage: React.FC = (): any => {
 
   const getData = async (): Promise<any> => {
     try {
-      const result: any = await GetDataServer(DataAPI.ROLEPROFILE).FIND({
+      const result: any = await GetDataServer(DataAPI.PACKINGID).FIND({
         limit: limit,
         page: page,
-        fields: ["name", "user.name", "workflowState", "updatedAt", "status"],
+        fields: ["name", "item", "item_name", "modified","is_in","is_out"],
         filters: filter,
-        orderBy: { sort: isOrderBy, state: isSort },
+        // orderBy: { sort: isOrderBy, state: isSort },
         search: search,
       });
 
@@ -76,23 +77,23 @@ export const PackingIDPage: React.FC = (): any => {
             doc: item.name,
             name: (
               <b
-                onClick={() => navigate(`/role/${item._id}`)}
+                onClick={() => navigate(`/packingid/${item.name}`)}
                 className="font-medium"
               >
-                <a href={`/role/${item._id}`}>{item.name}</a>
+                <a href={`/packingid/${item.name}`}>{item.name}</a>
               </b>
             ),
-            workflowState: (
+            item: <div>{item.item}</div>,
+            item_name: <div>{item.item_name}</div>,
+            status: (
               <ButtonStatusComponent
-                status={item.status}
-                name={item.workflowState}
+                status={item.is_in==1&&item.is_out==0?'1':'0' }
+                name={item.is_in==1&&item.is_out==0?'Active':'Non Active'}
               />
             ),
-            user: <div>{item.user.name}</div>,
-
-            updatedAt: (
+            modified: (
               <div className="inline text-gray-600 text-[0.93em]">
-                <InfoDateComponent date={item.updatedAt} className="-ml-14" />
+                <InfoDateComponent date={item.modified} className="-ml-14" />
               </div>
             ),
           };
