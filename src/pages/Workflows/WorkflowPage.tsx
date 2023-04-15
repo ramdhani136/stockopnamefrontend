@@ -47,10 +47,11 @@ export const WorkflowPage: React.FC = (): any => {
     () => [
       { header: "Name", accessor: "name", className: "w-[25%]" },
       {
-        header: "WorkflowState",
-        accessor: "workflowState",
-        className: "w-[30%]",
+        header: "Status",
+        accessor: "status",
+        className: "w-[15%]",
       },
+      { header: "Doc", accessor: "doc", className: "w-[20%]" },
       { header: "User", accessor: "user", className: "w-[20%]" },
       { header: "", accessor: "updatedAt", className: "w-[20%]" },
     ],
@@ -59,7 +60,7 @@ export const WorkflowPage: React.FC = (): any => {
 
   const getData = async (): Promise<any> => {
     try {
-      const result: any = await GetDataServer(DataAPI.ROLEPROFILE).FIND({
+      const result: any = await GetDataServer(DataAPI.WORKFLOW).FIND({
         limit: limit,
         page: page,
         fields: ["name", "user.name", "workflowState", "updatedAt", "status"],
@@ -82,10 +83,10 @@ export const WorkflowPage: React.FC = (): any => {
                 <a href={`/workflow/${item._id}`}>{item.name}</a>
               </b>
             ),
-            workflowState: (
+            status: (
               <ButtonStatusComponent
                 status={item.status}
-                name={item.workflowState}
+                name={item.status==1?'Active':'Non Active'}
               />
             ),
             user: <div>{item.user.name}</div>,
