@@ -50,10 +50,10 @@ export const PackingIDPage: React.FC = (): any => {
       {
         header: "Item Code",
         accessor: "item",
-        className: "w-[20%]",
+        className: "w-[23%]",
       },
-      { header: "Item Name", accessor: "item_name", className: "w-[30%]" },
-      { header: "", accessor: "modified", className: "w-[20%]" },
+      { header: "Item Name", accessor: "item_name", className: "w-[26%]" },
+      { header: "", accessor: "modified", className: "w-[15%]" },
     ],
     []
   );
@@ -205,7 +205,7 @@ export const PackingIDPage: React.FC = (): any => {
                 Role List
               </h1>
               <div className="flex-1  flex items-center justify-end mr-4">
-                <IconButton
+                {/* <IconButton
                   Icon={AddIcon}
                   name="Add Role"
                   className={`opacity-80 hover:opacity-100 duration-100 ${
@@ -220,7 +220,7 @@ export const PackingIDPage: React.FC = (): any => {
                     getSelected().length === 0 && "hidden"
                   }`}
                   list={[{ name: "Delete", onClick: onDelete }]}
-                />
+                /> */}
               </div>
             </div>
             <TableComponent
