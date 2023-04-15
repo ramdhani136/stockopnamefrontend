@@ -72,7 +72,7 @@ export const PackingIDPage: React.FC = (): any => {
       if (result.data.length > 0) {
         const generateData = result.data.map((item: any): IDataTables => {
           return {
-            id: item._id,
+            id: item.name,
             checked: false,
             doc: item.name,
             name: (
