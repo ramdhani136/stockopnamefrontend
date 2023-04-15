@@ -45,10 +45,10 @@ export const UsersPage: React.FC = (): any => {
 
   const columns: IColumns[] = useMemo(
     () => [
-      { header: "Name", accessor: "name" ,className:'w-[30%]' },
+      { header: "Name", accessor: "name" ,className:'w-[25%]' },
       { header: "Username", accessor: "username",className:'w-[20%]'  },
       { header: "Email", accessor: "email" ,className:'w-[20%]' },
-      { header: "Status", accessor: "status" ,className:'w-[10%]' },
+      { header: "Status", accessor: "status" ,className:'w-[15%]' },
       { header: "", accessor: "updatedAt" ,className:'w-[15%]' },
     ],
     []
