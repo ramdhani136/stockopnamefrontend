@@ -8,6 +8,7 @@ import ScheduleItemPage from "./ScheduleItem/ScheduleItemPage";
 import ScheduleItemPacking from "./ScheduleItem/ScheduleItemPacking";
 import ModalPackingId from "./ScheduleItem/ModalPackingId";
 import { UsersPage } from "./Users/UsersPage";
+import { RoleProfilePage } from "./Role/RoleProfilePage";
 
 export {
   LoginPage,
@@ -20,4 +21,5 @@ export {
   ScheduleItemPacking,
   ModalPackingId,
   UsersPage,
+  RoleProfilePage,
 };

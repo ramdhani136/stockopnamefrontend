@@ -33,6 +33,7 @@ export enum DataAPI {
   USERS = "users",
   CHAT = "chat",
   MESSAGE = "message",
+  ROLEPROFILE = "roleprofile",
 }
 
 class RequestData implements IData {
